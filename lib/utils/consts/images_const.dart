@@ -1,0 +1,1 @@
+const String shiningHeartImage = 'asset/images/heart_icon.gif';
