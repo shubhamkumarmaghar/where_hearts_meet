@@ -29,7 +29,8 @@ Widget getDrawerContentWidget({required IconData icon, required String heading, 
             width: Get.width * 0.02,
           ),
           Text(heading,style: const TextStyle(
-            fontSize: 16
+            fontSize: 16,
+            fontWeight: FontWeight.w600
           ),),
           const Spacer(),
           const Icon(

@@ -37,6 +37,8 @@ dependencies:
   cupertino_icons: ^1.0.2
   get: ^4.6.5
   confetti: ^0.7.0
+  shared_preferences: ^2.2.1
+  get_it: ^7.6.0
 
 dev_dependencies:
   flutter_test:
@@ -76,20 +78,21 @@ flutter:
   # "family" key with the font family name, and a "fonts" key with a
   # list giving the asset and other descriptors for the font. For
   # example:
-     - family: PlusJakartaSans
-       fonts:
-         - asset: asset/fonts/plusjakarta/PlusJakartaSans-Light.ttf
-           weight: 400
-         - asset: asset/fonts/plusjakarta/PlusJakartaSans-Regular.ttf
-           weight: 500
-         - asset: asset/fonts/plusjakarta/PlusJakartaSans-Medium.ttf
-           weight: 600
-         - asset: asset/fonts/plusjakarta/PlusJakartaSans-SemiBold.ttf
-           weight: 700
-         - asset: asset/fonts/plusjakarta/PlusJakartaSans-Bold.ttf
-           weight: 800
-         - asset: asset/fonts/plusjakarta/PlusJakartaSans-ExtraBold.ttf
-           weight: 900
+  fonts:
+    - family: PlusJakartaSans
+      fonts:
+        - asset: asset/fonts/plusjakarta/PlusJakartaSans-Light.ttf
+          weight: 400
+        - asset: asset/fonts/plusjakarta/PlusJakartaSans-Regular.ttf
+          weight: 500
+        - asset: asset/fonts/plusjakarta/PlusJakartaSans-Medium.ttf
+          weight: 600
+        - asset: asset/fonts/plusjakarta/PlusJakartaSans-SemiBold.ttf
+          weight: 700
+        - asset: asset/fonts/plusjakarta/PlusJakartaSans-Bold.ttf
+          weight: 800
+        - asset: asset/fonts/plusjakarta/PlusJakartaSans-ExtraBold.ttf
+          weight: 900
 
   # For details regarding fonts from package dependencies,
   # see https://flutter.dev/custom-fonts/#from-packages
