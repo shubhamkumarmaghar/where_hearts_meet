@@ -28,7 +28,7 @@ class LoginScreen extends StatelessWidget {
             children: [
               getLoginBackground(),
               Positioned(
-                top: _mainWidth*0.65,
+                top: _mainWidth*0.63,
                 left: 0,
                 right: 0,
                 child: Container(
@@ -124,7 +124,7 @@ class LoginScreen extends StatelessWidget {
                 ),
               ),
               Positioned(
-                  top: _mainHeight*0.15,
+                  top: _mainHeight*0.13,
                   left: _mainWidth*0.06,
                   child: Text('Welcome  back',style: TextStyle(
                     fontSize: 45,
@@ -132,7 +132,7 @@ class LoginScreen extends StatelessWidget {
 
                   ),)),
               Positioned(
-                  top: _mainHeight*0.2,
+                  top: _mainHeight*0.18,
                   left: _mainWidth*0.06,
                   child: Row(
                     children: [

@@ -67,7 +67,22 @@ class EditProfileScreen extends StatelessWidget {
                       borderRadius: BorderRadius.circular(50),
                     ),
                     padding: EdgeInsets.only(right: _mainWidth * 0.05, left: _mainWidth * 0.03),
-                    child: Center(child: Text(controller.dateOfBirth.value)),
+                    child: Row(
+                      children: [
+                        Spacer(),
+                        Text(controller.dateOfBirth.value,style: const TextStyle(
+                          fontSize: 15,
+                          fontWeight: FontWeight.w500,
+                          color: blackColor,
+                        ),),
+                        Spacer(),
+                        Icon(
+                          Icons.arrow_drop_down_sharp,
+                          color: primaryColor,
+                          size: 25,
+                        )
+                      ],
+                    ),
                   ),
                 ),
               ),
@@ -90,7 +105,12 @@ class EditProfileScreen extends StatelessWidget {
                   ),
                   padding: EdgeInsets.only(right: _mainWidth * 0.05, left: _mainWidth * 0.03),
                   child: DropdownButton<String>(
-                    borderRadius: const BorderRadius.all(Radius.circular(50.0)),
+                    borderRadius: const BorderRadius.all(Radius.circular(20.0)),
+                    icon: Icon(
+                      Icons.arrow_drop_down_sharp,
+                      color: primaryColor,
+                      size: 25,
+                    ),
                     iconEnabledColor: primaryColor,
                     iconDisabledColor: primaryColor,
                     underline: const SizedBox.shrink(),
@@ -103,7 +123,8 @@ class EditProfileScreen extends StatelessWidget {
                               child: Text(
                                 e.title,
                                 style: const TextStyle(
-                                  fontSize: 13,
+                                  fontSize: 15,
+                                  fontWeight: FontWeight.w500,
                                   color: blackColor,
                                 ),
                                 overflow: TextOverflow.ellipsis,

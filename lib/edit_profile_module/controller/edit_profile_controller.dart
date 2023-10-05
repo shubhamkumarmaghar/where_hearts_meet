@@ -10,7 +10,7 @@ class EditProfileController extends BaseController {
   final birthDateTextController = TextEditingController();
   RxnString errorNameText = RxnString(null);
   Rx<String> relationValue = '0'.obs;
-  Rx<String> dateOfBirth = 'Select date of birth'.obs;
+  Rx<String> dateOfBirth = 'Date of birth'.obs;
 
   void onNameChanged(String name) {
     if (GetUtils.isAlphabetOnly(name)) {
