@@ -1,4 +1,4 @@
-package com.example.where_hearts_meet;
+package org.lbp.where_hearts_meet;
 
 import io.flutter.embedding.android.FlutterActivity;
 

@@ -4,18 +4,19 @@ import 'package:get/get.dart';
 import 'package:where_hearts_meet/utils/consts/color_const.dart';
 import 'package:where_hearts_meet/utils/model/event_info_model.dart';
 
-class MiniEventCard extends StatelessWidget {
+class EventCard extends StatelessWidget {
   final EventInfoModel eventInfoModel;
   final Function onCardTap;
   final Color eventColor;
   final _mainHeight = Get.height;
   final _mainWidth = Get.width;
 
-  MiniEventCard({Key? key, required this.eventInfoModel, required this.onCardTap,required this.eventColor}) : super(key: key);
+  EventCard({Key? key, required this.eventInfoModel, required this.onCardTap,required this.eventColor}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Container(
+      width: _mainWidth*0.85,
       padding: const EdgeInsets.only(left: 7, top: 0, bottom: 7, right: 0),
       decoration: BoxDecoration(
           color: eventColor,
@@ -34,7 +35,7 @@ class MiniEventCard extends StatelessWidget {
             children: [
               SizedBox(
                   height: _mainHeight * 0.2,
-                  width: _mainWidth * 0.39,
+                  width: _mainWidth * 0.75,
                   child: ClipRRect(
                       borderRadius: const BorderRadius.only(
                         topLeft: Radius.circular(20),
@@ -43,8 +44,11 @@ class MiniEventCard extends StatelessWidget {
                       ),
                       child: Image.network(
                         eventInfoModel.imageUrl ?? '',
-                        fit: BoxFit.fill,
+                        fit: BoxFit.cover,
                       ))),
+              SizedBox(
+                height: _mainHeight*0.01,
+              ),
               Text(eventInfoModel.eventName ??'')
             ],
           )),

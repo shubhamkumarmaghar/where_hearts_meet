@@ -39,6 +39,10 @@ dependencies:
   confetti: ^0.7.0
   shared_preferences: ^2.2.1
   get_it: ^7.6.0
+  flutter_neumorphic: ^3.2.0
+  firebase_core: ^2.14.0
+  cloud_firestore: ^4.8.0
+  firebase_storage: ^11.2.2
 
 dev_dependencies:
   flutter_test:

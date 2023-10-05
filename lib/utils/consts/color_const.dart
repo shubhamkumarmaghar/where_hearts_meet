@@ -6,3 +6,4 @@ const Color whiteColor = Colors.white;
 const Color transparent = Colors.transparent;
 const Color greyColor = Colors.grey;
 const Color blackColor = Colors.black;
+const Color redColorDefault = Color(0XFFFF0000);
