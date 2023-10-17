@@ -52,7 +52,6 @@ class DashboardScreen extends StatelessWidget {
                     height: _mainHeight * 0.12,
                     child: NeumorphicButton(
                       onPressed: () {
-                      Get.toNamed(RoutesConst.loginScreen);
                       },
                       style: NeumorphicStyle(
                         color: greyColor.withOpacity(0.1),

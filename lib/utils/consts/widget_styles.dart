@@ -31,7 +31,7 @@ class BorderStyles {
       Radius.circular(50.0),
     ),
     borderSide: BorderSide(
-      color: primaryColor,
+      color: greyColor,
       width: 0.0,
     ),
   );

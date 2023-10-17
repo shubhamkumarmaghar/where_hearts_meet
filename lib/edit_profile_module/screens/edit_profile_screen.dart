@@ -1,6 +1,3 @@
-import 'dart:developer';
-
-import 'package:flutter/material.dart';
 import 'package:flutter_neumorphic/flutter_neumorphic.dart';
 import 'package:get/get.dart';
 import 'package:where_hearts_meet/edit_profile_module/controller/edit_profile_controller.dart';
@@ -20,7 +17,7 @@ class EditProfileScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Edit Profile'),
+        title: const Text('Edit Profile'),
       ),
       body: GestureDetector(
         onTap: () => FocusScope.of(context).requestFocus(FocusNode()),
@@ -69,14 +66,14 @@ class EditProfileScreen extends StatelessWidget {
                     padding: EdgeInsets.only(right: _mainWidth * 0.05, left: _mainWidth * 0.03),
                     child: Row(
                       children: [
-                        Spacer(),
+                        const Spacer(),
                         Text(controller.dateOfBirth.value,style: const TextStyle(
                           fontSize: 15,
                           fontWeight: FontWeight.w500,
                           color: blackColor,
                         ),),
-                        Spacer(),
-                        Icon(
+                        const Spacer(),
+                        const Icon(
                           Icons.arrow_drop_down_sharp,
                           color: primaryColor,
                           size: 25,
@@ -106,7 +103,7 @@ class EditProfileScreen extends StatelessWidget {
                   padding: EdgeInsets.only(right: _mainWidth * 0.05, left: _mainWidth * 0.03),
                   child: DropdownButton<String>(
                     borderRadius: const BorderRadius.all(Radius.circular(20.0)),
-                    icon: Icon(
+                    icon: const Icon(
                       Icons.arrow_drop_down_sharp,
                       color: primaryColor,
                       size: 25,

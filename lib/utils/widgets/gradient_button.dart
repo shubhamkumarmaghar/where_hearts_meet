@@ -42,6 +42,7 @@ class _GradientButtonState extends State<GradientButton> {
       height: widget.height,
       width: widget.width,
       decoration:widget.enabled? BoxDecoration(
+        color: widget.buttonColor,
           borderRadius: BorderRadius.circular(50),
           border: Border.all(color:widget.borderColor ?? primaryColor,width:widget.borderWidth ?? 0)
       ):BoxDecoration(

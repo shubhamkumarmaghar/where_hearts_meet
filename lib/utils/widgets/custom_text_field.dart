@@ -73,7 +73,7 @@ class CustomTextField extends StatelessWidget {
               decoration: InputDecoration(
                 prefixIcon: prefixIcon != null ? prefixIcon : null,
                 suffixIcon: suffixIcon != null ? suffixIcon : null,
-                contentPadding: const EdgeInsets.symmetric(horizontal: 12.0, vertical: 16),
+                contentPadding: const EdgeInsets.symmetric(horizontal: 12.0,),
                 border: BorderStyles.auctionTextFieldBorderStyle,
                 enabledBorder: cornerRadius == null ? BorderStyles.auctionTextFieldBorderStyle : BorderStyles
                     .auctionTextFieldBorderStyleCustom(cornerRadius: cornerRadius!, color: borderColor),

@@ -1,0 +1,210 @@
+import 'package:flutter/material.dart';
+import 'package:flutter_neumorphic/flutter_neumorphic.dart';
+import 'package:get/get.dart';
+import 'package:where_hearts_meet/utils/routes/app_routes.dart';
+import 'package:where_hearts_meet/utils/widgets/base_container.dart';
+
+import '../../utils/consts/color_const.dart';
+import '../../utils/routes/routes_const.dart';
+import '../../utils/widgets/custom_text_field.dart';
+import '../../utils/widgets/gradient_button.dart';
+import '../../utils/widgets/gradient_text.dart';
+import '../controller/signup_controller.dart';
+
+class SignUpScreen extends StatelessWidget {
+  final _mainHeight = Get.height;
+  final _mainWidth = Get.width;
+  final controller = Get.find<SignUpController>();
+
+  SignUpScreen({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      body: GestureDetector(
+        onTap: () => FocusScope.of(context).requestFocus(FocusNode()),
+        child: BaseContainer(
+          child: Container(
+            height: _mainHeight,
+            width: _mainWidth,
+            child: SingleChildScrollView(
+              child: Column(
+                children: [
+                  Container(
+                    height: _mainHeight,
+                    child: Stack(
+                      children: [
+                        Positioned(
+                          top: _mainWidth * 0.6,
+                          left: 0,
+                          right: 0,
+                          child: Container(
+                            height: _mainHeight * 0.56,
+                            margin: EdgeInsets.only(left: _mainWidth * 0.06, right: _mainWidth * 0.06),
+                            width: _mainWidth,
+                            child: Neumorphic(
+                              style: NeumorphicStyle(
+                                color: whiteColor,
+                                lightSource: LightSource.top,
+                                boxShape: NeumorphicBoxShape.roundRect(const BorderRadius.only(
+                                  topRight: Radius.circular(30),
+                                  topLeft: Radius.circular(30),
+                                  bottomRight: Radius.circular(30),
+                                )),
+                              ),
+                              child: Container(
+                                padding: EdgeInsets.only(left: 15, right: 15, top: _mainHeight * 0.03),
+                                child: Column(
+                                  children: [
+                                    Obx(
+                                      () => CustomTextField(
+                                          title: 'Email',
+                                          error: controller.errorEmailText.value,
+                                          hint: 'Please enter email',
+                                          onChanged: controller.onEmailChanged,
+                                          controller: controller.emailTextController),
+                                    ),
+                                    SizedBox(
+                                      height: _mainHeight * 0.02,
+                                    ),
+                                    Obx(
+                                      () => CustomTextField(
+                                        title: 'Password',
+                                        error: controller.errorPasswordText.value,
+                                        hint: 'Please enter password',
+                                        obscureText: controller.obscurePassword.value,
+                                        onChanged: controller.onPasswordChanged,
+                                        controller: controller.passwordTextController,
+                                        suffix: InkWell(
+                                          onTap: () =>
+                                              controller.obscurePassword.value = !controller.obscurePassword.value,
+                                          child: Container(
+                                              padding: const EdgeInsets.only(right: 10),
+                                              child: const Icon(
+                                                Icons.remove_red_eye_outlined,
+                                                color: blackColor,
+                                                size: 15,
+                                              )),
+                                        ),
+                                      ),
+                                    ),
+                                    SizedBox(
+                                      height: _mainHeight * 0.02,
+                                    ),
+                                    Obx(
+                                      () => CustomTextField(
+                                        title: 'Confirm Password',
+                                        error: controller.errorConfirmPasswordText.value,
+                                        hint: 'Please enter confirm password',
+                                        obscureText: controller.obscurePassword.value,
+                                        onChanged: controller.onConfirmPasswordChanged,
+                                        controller: controller.confirmPasswordTextController,
+                                        suffix: InkWell(
+                                          onTap: () => controller.obscureConfirmPassword.value =
+                                              !controller.obscureConfirmPassword.value,
+                                          child: Container(
+                                              padding: const EdgeInsets.only(right: 10),
+                                              child: const Icon(
+                                                Icons.remove_red_eye_outlined,
+                                                color: blackColor,
+                                                size: 15,
+                                              )),
+                                        ),
+                                      ),
+                                    ),
+                                    SizedBox(
+                                      height: _mainHeight * 0.06,
+                                    ),
+                                    Center(
+                                      child: GradientButton(
+                                        title: 'Register',
+                                        height: _mainHeight * 0.06,
+                                        width: _mainWidth * 0.8,
+                                        onPressed: () {
+                                          Get.toNamed(RoutesConst.profileSetUpScreen);
+                                        },
+                                      ),
+                                    ),
+                                    SizedBox(
+                                      height: _mainHeight * 0.025,
+                                    ),
+                                    GestureDetector(
+                                      onTap: () {
+                                        Get.offAllNamed(RoutesConst.loginScreen);
+                                      },
+                                      child: Container(
+                                        color: whiteColor,
+                                        child: Row(
+                                          mainAxisAlignment: MainAxisAlignment.center,
+                                          children: const [
+                                            Text('Already have an account ?  ',
+                                                style: TextStyle(
+                                                  color: blackColor,
+                                                  fontWeight: FontWeight.w600,
+                                                  fontSize: 16,
+                                                )),
+                                            Text(
+                                              'Login',
+                                              style: TextStyle(
+                                                  color: primaryColor,
+                                                  fontWeight: FontWeight.w600,
+                                                  fontSize: 16,
+                                                  decoration: TextDecoration.underline),
+                                            ),
+                                          ],
+                                        ),
+                                      ),
+                                    ),
+                                    SizedBox(
+                                      height: _mainHeight * 0.02,
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            ),
+                          ),
+                        ),
+                        Positioned(
+                            top: _mainHeight * 0.12,
+                            left: _mainWidth * 0.06,
+                            child: Row(
+                              children: [
+                                const Text(
+                                  'Welcome to  ',
+                                  style: TextStyle(fontSize: 45, fontWeight: FontWeight.w700),
+                                ),
+                                GradientText(
+                                  text: 'WHM',
+                                  gradient: LinearGradient(
+                                    colors: [
+                                      Colors.red.shade400,
+                                      Colors.blue.shade400,
+                                      primaryColor,
+                                      primaryColor,
+                                      Colors.yellow.shade600,
+                                      const Color(0XFF7AB02A),
+                                    ],
+                                  ),
+                                  style: const TextStyle(fontSize: 45, fontWeight: FontWeight.w700),
+                                ),
+                              ],
+                            )),
+                        Positioned(
+                            top: _mainHeight * 0.22,
+                            left: _mainWidth * 0.06,
+                            child: const Text(
+                              'Create Account  ',
+                              style: TextStyle(fontSize: 25, fontWeight: FontWeight.w700),
+                            )),
+                      ],
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+}
