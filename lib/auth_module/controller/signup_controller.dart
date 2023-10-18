@@ -1,9 +1,16 @@
+import 'dart:developer';
+
 import 'package:flutter/cupertino.dart';
+import 'package:get/get.dart';
 import 'package:get/get_rx/src/rx_types/rx_types.dart';
 import 'package:get/get_utils/src/get_utils/get_utils.dart';
 import 'package:where_hearts_meet/utils/controller/base_controller.dart';
 
-class SignUpController extends BaseController{
+import '../../utils/dialogs/pop_up_dialogs.dart';
+import '../../utils/routes/routes_const.dart';
+import '../../utils/services/firebase_login.dart';
+
+class SignUpController extends BaseController {
   final emailTextController = TextEditingController();
   final passwordTextController = TextEditingController();
   final confirmPasswordTextController = TextEditingController();
@@ -20,6 +27,7 @@ class SignUpController extends BaseController{
       errorEmailText.value = 'Enter valid email';
     }
   }
+
   void onPasswordChanged(String password) {
     if (password.isNotEmpty) {
       errorPasswordText.value = null;
@@ -27,11 +35,23 @@ class SignUpController extends BaseController{
       errorPasswordText.value = 'Enter valid password';
     }
   }
+
   void onConfirmPasswordChanged(String confirmPassword) {
     if (confirmPassword.isNotEmpty) {
       errorConfirmPasswordText.value = null;
     } else {
       errorConfirmPasswordText.value = 'Enter valid password';
+    }
+  }
+
+  Future<void> createUserWithEmail() async {
+    showLoaderDialog(context: Get.context!);
+    final firebaseAuthController = Get.find<FirebaseAuthController>();
+    final data =
+        await firebaseAuthController.createUserWithEmail(email: emailTextController.text, password: passwordTextController.text);
+    if (data != null) {
+      log('Create User Data :: ${data.uid} -- ${data.email} ');
+      Get.offAllNamed(RoutesConst.profileSetUpScreen);
     }
   }
 

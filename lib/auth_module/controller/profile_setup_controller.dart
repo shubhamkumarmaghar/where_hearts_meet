@@ -1,9 +1,9 @@
-import 'dart:developer';
-
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:where_hearts_meet/utils/controller/base_controller.dart';
-
+import 'package:where_hearts_meet/utils/dialogs/pop_up_dialogs.dart';
+import 'package:where_hearts_meet/utils/services/firebase_login.dart';
+import '../../utils/routes/routes_const.dart';
 import '../profile_setup_const.dart';
 import '../screens/add_location_page.dart';
 import '../screens/add_name_page.dart';
@@ -20,12 +20,13 @@ class ProfileSetupController extends BaseController {
   Rx<String> dateOfBirth = 'Date of birth'.obs;
 
   void onNameChanged(String name) {
-    if (GetUtils.isAlphabetOnly(name)) {
+    if (name.length > 2 && GetUtils.isAlphabetOnly(name)) {
       errorNameText.value = null;
     } else {
       errorNameText.value = 'Enter valid name';
     }
   }
+
   void onMobileChanged(String mobile) {
     if (GetUtils.isAlphabetOnly(mobile)) {
       errorNameText.value = null;
@@ -39,10 +40,16 @@ class ProfileSetupController extends BaseController {
     update();
   }
 
-  void onNext() {
-    log(pageIndex.toString());
+  void onNext() async {
     if (pageIndex == CompleteProfilePageIndex.addProfilePicturePage) {
-      // signUp();
+      showLoaderDialog(context: Get.context!);
+      final firebaseAuthController = Get.find<FirebaseAuthController>();
+      final user =  firebaseAuthController.getCurrentUser();
+      if (user != null) {
+        await user.updateDisplayName(nameTextController.text);
+      }
+      cancelLoaderDialog();
+      Get.toNamed(RoutesConst.dashboardScreen);
     } else {
       onChangePageIndex(++pageIndex);
     }
@@ -72,5 +79,13 @@ class ProfileSetupController extends BaseController {
         );
     }
     return const SizedBox.shrink();
+  }
+
+  @override
+  void dispose() {
+    nameTextController.dispose();
+    birthDateTextController.dispose();
+    mobileTextController.dispose();
+    super.dispose();
   }
 }

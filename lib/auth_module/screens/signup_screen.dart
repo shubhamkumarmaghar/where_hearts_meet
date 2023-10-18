@@ -120,8 +120,9 @@ class SignUpScreen extends StatelessWidget {
                                         title: 'Register',
                                         height: _mainHeight * 0.06,
                                         width: _mainWidth * 0.8,
-                                        onPressed: () {
-                                          Get.toNamed(RoutesConst.profileSetUpScreen);
+                                        onPressed: ()async {
+                                           controller.createUserWithEmail();
+                                         // Get.toNamed(RoutesConst.profileSetUpScreen);
                                         },
                                       ),
                                     ),

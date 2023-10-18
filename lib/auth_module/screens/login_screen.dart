@@ -2,6 +2,7 @@
 import 'package:flutter_neumorphic/flutter_neumorphic.dart';
 import 'package:get/get.dart';
 import 'package:where_hearts_meet/auth_module/controller/login_controller.dart';
+import 'package:where_hearts_meet/utils/services/firebase_login.dart';
 import 'package:where_hearts_meet/utils/widgets/base_container.dart';
 import 'package:where_hearts_meet/utils/widgets/gradient_text.dart';
 import 'package:where_hearts_meet/utils/widgets/triangle_custom_painter.dart';
@@ -90,22 +91,27 @@ class LoginScreen extends StatelessWidget {
                                       ),
                                     ),
                                     SizedBox(height: _mainHeight*0.02,),
-                                    Container(
-                                        alignment: Alignment.centerRight,
-                                        child: const Text('Forgot Password ?',style: TextStyle(
-                                            color: primaryColor,
-                                            fontWeight: FontWeight.w600,
-                                            fontSize: 16,
-                                            decoration: TextDecoration.underline
-                                        ),)),
-                                    SizedBox(height: _mainHeight*0.06,),
+                                    InkWell(
+                                      onTap: ()async{
+                                      },
+                                      child: Container(
+                                          alignment: Alignment.centerRight,
+                                          child: const Text('Forgot Password ?',style: TextStyle(
+                                              color: primaryColor,
+                                              fontWeight: FontWeight.w600,
+                                              fontSize: 16,
+                                              decoration: TextDecoration.underline
+                                          ),)),
+                                    ),
+                                    SizedBox(height: _mainHeight*0.05,),
                                     Center(
                                       child: GradientButton(
                                         title: 'Login',
                                         height: _mainHeight*0.06,
                                         width: _mainWidth*0.8,
-                                        onPressed: () {
-                                          Get.toNamed(RoutesConst.dashboardScreen);
+                                        onPressed: () async{
+                                          controller.loginWithEmail();
+                                          //Get.toNamed(RoutesConst.dashboardScreen);
                                         },),
                                     ),
                                     SizedBox(height: _mainHeight*0.025,),

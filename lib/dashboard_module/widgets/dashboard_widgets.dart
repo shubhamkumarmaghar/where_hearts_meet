@@ -30,7 +30,7 @@ Widget getDrawerContentWidget({required IconData icon, required String heading, 
           ),
           Text(heading,style: const TextStyle(
             fontSize: 16,
-            fontWeight: FontWeight.w600
+            fontWeight: FontWeight.w500
           ),),
           const Spacer(),
           const Icon(
