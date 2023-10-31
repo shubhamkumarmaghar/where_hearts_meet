@@ -36,10 +36,12 @@ class FirebaseFireStoreController extends BaseController {
     return list;
   }
 
-  Future<List<UserInfoModel>> getAllUsers() async {
+  Future<List<PeopleModel>> getAllUsers() async {
     final store = fireStore.collection('Users');
+    User? user = auth.currentUser;
     final dataList = await store.get();
-    final list = dataList.docs.map((element) => UserInfoModel.fromJson(element.data())).toList();
+    final list = dataList.docs.map((element) => PeopleModel.fromJson(element.data())).toList();
+    list.removeWhere((element) => element.email == user?.email);
     return list;
   }
 
@@ -62,4 +64,15 @@ class FirebaseFireStoreController extends BaseController {
     final list = dataList.docs.map((element) => PeopleModel.fromJson(element.data())).toList();
     return list;
   }
+  Future<void> deletePeople({required String email}) async {
+    User? user = auth.currentUser;
+    final store = fireStore.collection('Users').doc(user?.uid).collection('People').doc(email);
+    await store.delete();
+  }
+  Future<void> deleteCreatedEvent({required String eventId}) async {
+    User? user = auth.currentUser;
+    final store = fireStore.collection('Users').doc(user?.uid).collection('People').doc(eventId);
+    await store.delete();
+  }
+
 }

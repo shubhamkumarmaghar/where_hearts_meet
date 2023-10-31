@@ -12,11 +12,11 @@ import 'package:where_hearts_meet/utils/services/firebase_firestore_controller.d
 import '../../utils/consts/color_const.dart';
 
 class AddPeopleController extends BaseController {
-  List<UserInfoModel> allUsersList = [];
+  List<PeopleModel> allUsersList = [];
   final _mainHeight = Get.height;
   final _mainWidth = Get.width;
   final fireStoreController = Get.find<FirebaseFireStoreController>();
-  UserInfoModel selectedUser = UserInfoModel();
+  PeopleModel selectedUser = PeopleModel();
   bool userSelected = false;
 
   @override
@@ -32,14 +32,9 @@ class AddPeopleController extends BaseController {
   }
   Future<void> addPeople()async{
     showLoaderDialog(context: Get.context!);
-    await fireStoreController.addPeople(peopleModel: PeopleModel(
-      name: selectedUser.name,
-      uid: selectedUser.uid,
-      email: selectedUser.email,
-      imageUrl: selectedUser.imageUrl,
-      dateOfBirth: selectedUser.dateOfBirth
-    ));
+    await fireStoreController.addPeople(peopleModel: selectedUser);
     cancelLoaderDialog();
+
     Get.offAndToNamed(RoutesConst.addEventScreen);
   }
 

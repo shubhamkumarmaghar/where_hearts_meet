@@ -57,31 +57,31 @@ class EventListScreen extends StatelessWidget {
                                   width: _mainWidth * 0.04,
                                 ),
                                 Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  mainAxisSize: MainAxisSize.min,
                                   children: [
                                     Text(data.eventName ?? '',
-                                        style: TextStyle(fontSize: 18, fontWeight: FontWeight.w700)),
+                                        style: const TextStyle(fontSize: 18, fontWeight: FontWeight.w700)),
                                     SizedBox(
                                       height: _mainHeight * 0.005,
                                     ),
                                     Text(data.text1 ?? '',
-                                        style: TextStyle(fontSize: 14, fontWeight: FontWeight.w500)),
+                                        style: const TextStyle(fontSize: 14, fontWeight: FontWeight.w500)),
                                     SizedBox(
                                       height: _mainHeight * 0.005,
                                     ),
                                     Container(
                                       alignment: Alignment.centerRight,
                                       child: Text('from - ${data.fromEmail}',
-                                          style: TextStyle(fontSize: 12, fontWeight: FontWeight.w500,color: greyColor)),
+                                          style: const TextStyle(fontSize: 12, fontWeight: FontWeight.w500,color: greyColor)),
                                     ),
                                   ],
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  mainAxisSize: MainAxisSize.min,
                                 ),
                               ],
                             ),
                           );
                         },
-                        separatorBuilder: (context, index) => SizedBox(
+                        separatorBuilder: (context, index) => const SizedBox(
                           height: 5,
                         ),
                         itemCount: controller.currentUserEventList.length),

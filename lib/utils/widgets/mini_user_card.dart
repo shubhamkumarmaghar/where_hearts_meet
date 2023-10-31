@@ -1,19 +1,20 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:where_hearts_meet/profile_module/model/people_model.dart';
 import 'package:where_hearts_meet/utils/consts/color_const.dart';
 import 'package:where_hearts_meet/utils/model/event_info_model.dart';
 
 import '../model/user_info_model.dart';
 
 class MiniUserCard extends StatelessWidget {
-  final UserInfoModel userInfoModel;
+  final PeopleModel peopleModel;
   final Function onCardTap;
   final Color eventColor;
   final _mainHeight = Get.height;
   final _mainWidth = Get.width;
 
-  MiniUserCard({Key? key, required this.userInfoModel, required this.onCardTap, required this.eventColor})
+  MiniUserCard({Key? key, required this.peopleModel, required this.onCardTap, required this.eventColor})
       : super(key: key);
 
   @override
@@ -46,10 +47,10 @@ class MiniUserCard extends StatelessWidget {
                         bottomRight: Radius.circular(20),
                       ),
                       child: Image.network(
-                        userInfoModel.imageUrl ?? '',
+                        peopleModel.imageUrl ?? '',
                         fit: BoxFit.fill,
                       ))),
-              Text(userInfoModel.name ?? '')
+              Text(peopleModel.name ?? '')
             ],
           )),
     );

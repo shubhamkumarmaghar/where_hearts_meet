@@ -4,6 +4,7 @@ import 'package:get/get.dart';
 import 'package:where_hearts_meet/auth_module/screens/login_screen.dart';
 import 'package:where_hearts_meet/dashboard_module/controller/dashboard_controller.dart';
 import 'package:where_hearts_meet/dashboard_module/screens/dashboard_drawer_screen.dart';
+import 'package:where_hearts_meet/profile_module/model/people_model.dart';
 import 'package:where_hearts_meet/utils/consts/color_const.dart';
 import 'package:where_hearts_meet/utils/model/event_info_model.dart';
 import 'package:where_hearts_meet/utils/routes/routes_const.dart';
@@ -51,8 +52,7 @@ class DashboardScreen extends StatelessWidget {
                     alignment: Alignment.center,
                     height: _mainHeight * 0.12,
                     child: NeumorphicButton(
-                      onPressed: () {
-                      },
+                      onPressed: () {},
                       style: NeumorphicStyle(
                         color: greyColor.withOpacity(0.1),
                         boxShape: NeumorphicBoxShape.circle(),
@@ -151,23 +151,14 @@ class DashboardScreen extends StatelessWidget {
                   SizedBox(
                     height: _mainHeight * 0.025,
                   ),
-                  SizedBox(
-                    height: _mainHeight * 0.25,
-                    child: getUsersCard(context: context, controller: controller, usersList: [
-                      UserInfoModel(
-                          imageUrl:
-                              'https://wishes.moonzori.com/wp-content/uploads/2022/06/Happy-Birthday-Wishes-Moonzori.png',
-                          uid: 101.toString(),
-                          name: 'Hannah'),
-                      UserInfoModel(
-                          imageUrl:
-                              'https://img.freepik.com/free-vector/miss-you-sticky-note-illustration_53876-8270.jpg?w=2000',
-                          uid: 103.toString(),
-                          name: 'Lessie'),
-                      UserInfoModel(
-                          imageUrl: 'https://m.media-amazon.com/images/I/8191XGqO7uL.jpg', uid: 102.toString(), name: 'Jennie'),
-                    ]),
-                  ),
+                  Obx(() {
+                    return SizedBox(
+                      height: _mainHeight * 0.25,
+                      child: controller.showPeopleView.value
+                          ? getUsersCard(context: context, controller: controller, usersList: controller.peopleList)
+                          : const Center(child: CircularProgressIndicator()),
+                    );
+                  }),
                   SizedBox(
                     height: _mainHeight * 0.025,
                   ),
@@ -212,9 +203,7 @@ class DashboardScreen extends StatelessWidget {
   }
 
   Widget getUsersCard(
-      {required BuildContext context,
-      required List<UserInfoModel> usersList,
-      required DashboardController controller}) {
+      {required BuildContext context, required List<PeopleModel> usersList, required DashboardController controller}) {
     return GridView.builder(
         //cacheExtent: 9999,
         itemCount: usersList.length,
@@ -230,7 +219,7 @@ class DashboardScreen extends StatelessWidget {
             children: [
               MiniUserCard(
                 onCardTap: () {},
-                userInfoModel: data,
+                peopleModel: data,
                 eventColor: getColorBasedOnIndex(index),
               ),
               // ConfettiView(

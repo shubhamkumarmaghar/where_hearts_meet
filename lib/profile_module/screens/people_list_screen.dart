@@ -67,6 +67,16 @@ class PeopleListScreen extends StatelessWidget {
                                               style: const TextStyle(fontSize: 14, fontWeight: FontWeight.w500)),
                                         ],
                                       ),
+                                      const Spacer(),
+                                       InkWell(
+                                        onTap: ()async{
+                                          await controller.deletePeople(email: data.email ?? '');
+
+                                        },
+                                        child: const CircleAvatar(
+                                            backgroundColor: redColorDefault,
+                                            child: Icon(Icons.delete,color: whiteColor,)),
+                                      )
                                     ],
                                   ),
                                 );

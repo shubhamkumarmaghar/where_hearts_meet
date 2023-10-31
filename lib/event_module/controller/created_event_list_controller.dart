@@ -1,5 +1,6 @@
 import 'package:get/get.dart';
 import 'package:where_hearts_meet/utils/controller/base_controller.dart';
+import 'package:where_hearts_meet/utils/dialogs/pop_up_dialogs.dart';
 import '../../utils/services/firebase_auth_controller.dart';
 import '../../utils/services/firebase_firestore_controller.dart';
 import '../model/add_event_model.dart';
@@ -12,12 +13,14 @@ class CreatedEventListController extends BaseController {
 
   @override
   void onInit() {
-    getCreatedEventList();
+    getCreatedEventList(initial: true);
     super.onInit();
   }
 
-  Future<void> getCreatedEventList() async {
-    setBusy(true);
+  Future<void> getCreatedEventList({required bool initial}) async {
+    if (initial) {
+      setBusy(true);
+    }
     final email = firebaseAuthController.getCurrentUser()?.email;
     allEventList = await fireStoreController.getEventList();
     for (var data in allEventList) {
@@ -25,19 +28,18 @@ class CreatedEventListController extends BaseController {
         currentUserEventList.add(data);
       }
     }
-    setBusy(false);
+    if (initial) {
+      setBusy(false);
+    }
     update();
   }
-  Future<void> deleteCreatedEvent() async {
-    setBusy(true);
-    final email = firebaseAuthController.getCurrentUser()?.email;
-    allEventList = await fireStoreController.getEventList();
-    for (var data in allEventList) {
-      if (data.fromEmail == email) {
-        currentUserEventList.add(data);
-      }
-    }
-    setBusy(false);
+
+  Future<void> deleteCreatedEvent({required String eventId}) async {
+    showLoaderDialog(context: Get.context!);
+    await fireStoreController.deleteCreatedEvent(eventId: eventId);
+    await getCreatedEventList(initial: false);
+    cancelLoaderDialog();
+
     update();
   }
 }
