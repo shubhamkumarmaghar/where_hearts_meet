@@ -2,7 +2,7 @@
 import 'package:flutter_neumorphic/flutter_neumorphic.dart';
 import 'package:get/get.dart';
 import 'package:where_hearts_meet/auth_module/controller/login_controller.dart';
-import 'package:where_hearts_meet/utils/services/firebase_login.dart';
+import 'package:where_hearts_meet/utils/services/firebase_auth_controller.dart';
 import 'package:where_hearts_meet/utils/widgets/base_container.dart';
 import 'package:where_hearts_meet/utils/widgets/gradient_text.dart';
 import 'package:where_hearts_meet/utils/widgets/triangle_custom_painter.dart';

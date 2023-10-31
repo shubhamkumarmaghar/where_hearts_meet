@@ -1,10 +1,11 @@
 import 'package:flutter_neumorphic/flutter_neumorphic.dart';
 import 'package:get/get.dart';
-import 'package:where_hearts_meet/edit_profile_module/controller/edit_profile_controller.dart';
 import 'package:where_hearts_meet/utils/consts/color_const.dart';
 import 'package:where_hearts_meet/utils/util_functions/app_pickers.dart';
 import 'package:where_hearts_meet/utils/widgets/custom_text_field.dart';
 import 'package:where_hearts_meet/utils/widgets/gradient_button.dart';
+
+import '../controller/edit_profile_controller.dart';
 
 class EditProfileScreen extends StatelessWidget {
   final _mainHeight = Get.height;
@@ -17,7 +18,7 @@ class EditProfileScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Edit Profile'),
+        title: const Text('Add People'),
       ),
       body: GestureDetector(
         onTap: () => FocusScope.of(context).requestFocus(FocusNode()),

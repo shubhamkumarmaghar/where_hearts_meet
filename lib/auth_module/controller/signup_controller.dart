@@ -8,7 +8,7 @@ import 'package:where_hearts_meet/utils/controller/base_controller.dart';
 
 import '../../utils/dialogs/pop_up_dialogs.dart';
 import '../../utils/routes/routes_const.dart';
-import '../../utils/services/firebase_login.dart';
+import '../../utils/services/firebase_auth_controller.dart';
 
 class SignUpController extends BaseController {
   final emailTextController = TextEditingController();
@@ -51,7 +51,7 @@ class SignUpController extends BaseController {
         await firebaseAuthController.createUserWithEmail(email: emailTextController.text, password: passwordTextController.text);
     if (data != null) {
       log('Create User Data :: ${data.uid} -- ${data.email} ');
-      Get.offAllNamed(RoutesConst.profileSetUpScreen);
+      Get.toNamed(RoutesConst.profileSetUpScreen);
     }
   }
 

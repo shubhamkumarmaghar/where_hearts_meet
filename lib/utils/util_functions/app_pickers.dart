@@ -1,8 +1,10 @@
-
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:permission_handler/permission_handler.dart';
 
 import '../consts/color_const.dart';
+import '../dialogs/pop_up_dialogs.dart';
+import '../widgets/image_dialog.dart';
 
 Future<DateTime?> dateOfBirthPicker({required BuildContext context}) async {
   final DateTime? picked = await showDatePicker(
@@ -24,8 +26,25 @@ Future<DateTime?> dateOfBirthPicker({required BuildContext context}) async {
     },
   );
 
-  if (picked != null ) {
+  if (picked != null) {
     return picked;
   }
   return null;
+}
+
+void showImagePickerDialog({required BuildContext context,required Function onCamera, required Function onGallery}) async {
+  await Permission.photos.request();
+  await Permission.camera.request();
+  await Permission.mediaLibrary.request();
+  Map<Permission, PermissionStatus> statuses =
+      await [Permission.photos, Permission.camera, Permission.mediaLibrary].request();
+
+  final permission1 = statuses[Permission.camera]?.isGranted ?? false;
+  final permission2 = statuses[Permission.mediaLibrary]?.isGranted ?? false;
+
+  if (permission1 && permission2) {
+    await Get.dialog(ImageDialog(onGalleryClicked: onGallery, onCameraClicked: onCamera));
+  } else {
+    showAlertDialogWithOK(context: context);
+  }
 }

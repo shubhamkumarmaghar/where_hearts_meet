@@ -1,11 +1,10 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:where_hearts_meet/utils/dialogs/pop_up_dialogs.dart';
 import 'package:where_hearts_meet/utils/routes/routes_const.dart';
-import 'package:where_hearts_meet/utils/services/firebase_login.dart';
-
+import 'package:where_hearts_meet/utils/services/firebase_auth_controller.dart';
 import '../../utils/consts/color_const.dart';
+import '../../utils/services/firebase_firestore_controller.dart';
 import '../widgets/dashboard_widgets.dart';
 
 class DashboardDrawerScreen extends StatelessWidget {
@@ -27,38 +26,57 @@ class DashboardDrawerScreen extends StatelessWidget {
               style: const TextStyle(fontSize: 20, fontWeight: FontWeight.w700),
             ),
             accountEmail: Text(firebaseAuthController.getCurrentUser()?.email ?? ''),
-            currentAccountPictureSize: Size(_mainHeight * 0.06, _mainWidth * 0.2),
-            currentAccountPicture: const CircleAvatar(
+            currentAccountPicture: CircleAvatar(
                 backgroundColor: whiteColor,
-                child: Icon(
-                  Icons.person,
-                  color: primaryColor,
-                )),
+                child: firebaseAuthController.getCurrentUser()?.photoURL == null
+                    ? const Icon(
+                        Icons.person,
+                        color: primaryColor,
+                      )
+                    : ClipRRect(
+                        borderRadius: BorderRadius.circular(50),
+                        child: Image.network(
+                          firebaseAuthController.getCurrentUser()?.photoURL ?? '',
+                          fit: BoxFit.fitWidth,
+                          width: _mainWidth * 0.2,
+                        ))),
           ),
           SizedBox(
             height: _mainHeight * 0.01,
           ),
-          getDrawerContentWidget(icon: Icons.list, heading: "Sender's List", onTap: () {}),
+          getDrawerContentWidget(icon: Icons.list, heading: "Created Events", onTap: () {
+            Get.toNamed(RoutesConst.createdEventListScreen);
+          }),
           SizedBox(
             height: _mainHeight * 0.01,
           ),
-          getDrawerContentWidget(icon: Icons.person, heading: "Profile", onTap: () {}),
+          getDrawerContentWidget(
+              icon: Icons.person,
+              heading: "People's List",
+              onTap: () {
+                Get.toNamed(RoutesConst.peopleListScreen);
+              }),
           SizedBox(
             height: _mainHeight * 0.01,
           ),
-          getDrawerContentWidget(icon: Icons.wallet_giftcard, heading: "Received Gifts", onTap: () {}),
+          getDrawerContentWidget(
+              icon: Icons.wallet_giftcard,
+              heading: "Received Events",
+              onTap: () {
+                Get.toNamed(RoutesConst.eventListScreen);
+              }),
           SizedBox(
             height: _mainHeight * 0.01,
           ),
-          // getDrawerContentWidget(icon: Icons.pending, heading: "Pending Approvals", onTap: () {}),
-          // SizedBox(
-          //   height: _mainHeight * 0.01,
-          // ),
           getDrawerContentWidget(icon: Icons.settings, heading: "Settings", onTap: () {}),
           SizedBox(
             height: _mainHeight * 0.01,
           ),
-          getDrawerContentWidget(icon: Icons.help_outline, heading: "Help & Support", onTap: () {}),
+          getDrawerContentWidget(
+              icon: Icons.help_outline,
+              heading: "Help & Support",
+              onTap: () async {
+              }),
           SizedBox(
             height: _mainHeight * 0.01,
           ),
@@ -66,14 +84,17 @@ class DashboardDrawerScreen extends StatelessWidget {
               icon: Icons.logout,
               heading: "Logout",
               onTap: () async {
-                showLoaderDialog(context: Get.context!);
-                final controller = Get.find<FirebaseAuthController>();
-                await controller.logOut();
-                cancelLoaderDialog();
-                Get.offAllNamed(RoutesConst.loginScreen);
+                showLogoutAlertDialog(
+                    context: Get.context!,
+                    logOutFunction: () async {
+                      showLoaderDialog(context: Get.context!);
+                      final controller = Get.find<FirebaseAuthController>();
+                      await controller.logOut();
+                      cancelLoaderDialog();
+                      Get.offAllNamed(RoutesConst.loginScreen);
+                    });
               }),
           const Spacer(),
-
           Container(
               margin: EdgeInsets.only(bottom: _mainHeight * 0.01, right: _mainWidth * 0.025),
               alignment: Alignment.centerRight,

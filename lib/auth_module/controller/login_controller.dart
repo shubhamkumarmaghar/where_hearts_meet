@@ -5,9 +5,10 @@ import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 import 'package:where_hearts_meet/utils/controller/base_controller.dart';
 import 'package:where_hearts_meet/utils/dialogs/pop_up_dialogs.dart';
+import 'package:where_hearts_meet/utils/services/firebase_firestore_controller.dart';
 
 import '../../utils/routes/routes_const.dart';
-import '../../utils/services/firebase_login.dart';
+import '../../utils/services/firebase_auth_controller.dart';
 
 class LoginController extends BaseController {
   final emailTextController = TextEditingController();

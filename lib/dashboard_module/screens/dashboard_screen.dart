@@ -79,7 +79,7 @@ class DashboardScreen extends StatelessWidget {
                     height: _mainHeight * 0.12,
                     child: NeumorphicButton(
                       onPressed: () {
-                        Get.toNamed(RoutesConst.editProfileScreen);
+                        Get.toNamed(RoutesConst.addPeopleScreen);
                       },
                       style: NeumorphicStyle(
                         color: greyColor.withOpacity(0.1),
@@ -157,15 +157,15 @@ class DashboardScreen extends StatelessWidget {
                       UserInfoModel(
                           imageUrl:
                               'https://wishes.moonzori.com/wp-content/uploads/2022/06/Happy-Birthday-Wishes-Moonzori.png',
-                          id: 101,
+                          uid: 101.toString(),
                           name: 'Hannah'),
                       UserInfoModel(
                           imageUrl:
                               'https://img.freepik.com/free-vector/miss-you-sticky-note-illustration_53876-8270.jpg?w=2000',
-                          id: 103,
+                          uid: 103.toString(),
                           name: 'Lessie'),
                       UserInfoModel(
-                          imageUrl: 'https://m.media-amazon.com/images/I/8191XGqO7uL.jpg', id: 102, name: 'Jennie'),
+                          imageUrl: 'https://m.media-amazon.com/images/I/8191XGqO7uL.jpg', uid: 102.toString(), name: 'Jennie'),
                     ]),
                   ),
                   SizedBox(

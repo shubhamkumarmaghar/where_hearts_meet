@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -39,3 +40,58 @@ void showLoaderDialog({required BuildContext context, String? loadingText, Color
 }
 
 void cancelLoaderDialog() => Get.back();
+
+void showAlertDialogWithOK({String? message, required BuildContext context, Function? onCLick}) {
+  final CupertinoAlertDialog alert = CupertinoAlertDialog(
+    title: Text(
+      message ?? 'Are you sure?',
+      style: const TextStyle(fontSize: 16),
+    ),
+    actions: <Widget>[
+      CupertinoDialogAction(
+        isDefaultAction: false,
+        child: const Text('Ok', style: TextStyle(fontSize: 16, color: primaryColor)),
+        onPressed: () {
+          onCLick != null ? onCLick() : cancelLoaderDialog();
+        },
+      ),
+    ],
+  );
+  // show the dialog
+  showDialog(
+    context: context,
+    barrierDismissible: false,
+    builder: (BuildContext context) {
+      return alert;
+    },
+  );
+}
+
+void showLogoutAlertDialog({String? message, required BuildContext context,required Function logOutFunction}) {
+  final CupertinoAlertDialog alert = CupertinoAlertDialog(
+    title: Center(child: Text(message ?? 'Are you sure to exit?', style: const TextStyle(fontSize: 16,fontWeight: FontWeight.w500))),
+    actions: <Widget>[
+      CupertinoDialogAction(
+        isDefaultAction: false,
+        child: const Text('Yes', style: TextStyle(fontSize: 16, color: primaryColor)),
+        onPressed: () async {
+          await logOutFunction();
+        },
+      ),
+      CupertinoDialogAction(
+        isDefaultAction: false,
+        child: const Text('No', style: TextStyle(fontSize: 16, color: primaryColor)),
+        onPressed: () {
+          cancelLoaderDialog();
+        },
+      ),
+    ],
+  );
+  // show the dialog
+  showDialog(
+    context: context,
+    builder: (BuildContext context) {
+      return alert;
+    },
+  );
+}

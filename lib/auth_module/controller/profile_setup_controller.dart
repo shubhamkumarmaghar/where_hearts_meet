@@ -1,9 +1,18 @@
+import 'dart:convert';
+import 'dart:developer';
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:image_picker/image_picker.dart';
+import 'package:where_hearts_meet/auth_module/controller/signup_controller.dart';
 import 'package:where_hearts_meet/utils/controller/base_controller.dart';
 import 'package:where_hearts_meet/utils/dialogs/pop_up_dialogs.dart';
-import 'package:where_hearts_meet/utils/services/firebase_login.dart';
+import 'package:where_hearts_meet/utils/model/user_info_model.dart';
+import 'package:where_hearts_meet/utils/services/firebase_auth_controller.dart';
+import 'package:where_hearts_meet/utils/services/firebase_storage_controller.dart';
 import '../../utils/routes/routes_const.dart';
+import '../../utils/services/firebase_firestore_controller.dart';
 import '../profile_setup_const.dart';
 import '../screens/add_location_page.dart';
 import '../screens/add_name_page.dart';
@@ -18,6 +27,8 @@ class ProfileSetupController extends BaseController {
   RxnString errorNameText = RxnString(null);
   RxnString errorMobileText = RxnString(null);
   Rx<String> dateOfBirth = 'Date of birth'.obs;
+  final signUpController = Get.find<SignUpController>();
+  String imageUrl = '';
 
   void onNameChanged(String name) {
     if (name.length > 2 && GetUtils.isAlphabetOnly(name)) {
@@ -44,12 +55,22 @@ class ProfileSetupController extends BaseController {
     if (pageIndex == CompleteProfilePageIndex.addProfilePicturePage) {
       showLoaderDialog(context: Get.context!);
       final firebaseAuthController = Get.find<FirebaseAuthController>();
-      final user =  firebaseAuthController.getCurrentUser();
+      final firebaseFireStoreController = Get.find<FirebaseFireStoreController>();
+      final user = firebaseAuthController.getCurrentUser();
       if (user != null) {
         await user.updateDisplayName(nameTextController.text);
+        await user.updatePhotoURL(imageUrl);
+        await firebaseFireStoreController.userSetup(
+            userInfoModel: UserInfoModel(
+                name: nameTextController.text,
+                dateOfBirth: birthDateTextController.text,
+                email: signUpController.emailTextController.text,
+                password: base64Encode(signUpController.passwordTextController.text.codeUnits),
+                uid: user.uid,
+                imageUrl: imageUrl));
       }
       cancelLoaderDialog();
-      Get.toNamed(RoutesConst.dashboardScreen);
+      Get.offAllNamed(RoutesConst.dashboardScreen);
     } else {
       onChangePageIndex(++pageIndex);
     }
@@ -79,6 +100,26 @@ class ProfileSetupController extends BaseController {
         );
     }
     return const SizedBox.shrink();
+  }
+
+  void onCaptureMediaClick({required ImageSource source}) async {
+    final ImagePicker picker = ImagePicker();
+
+    var image = await picker.pickImage(
+      source: source,
+      maxHeight: 800,
+      maxWidth: 800,
+    );
+    final imageFile = File(image?.path ?? '');
+
+    if (image != null) {
+      showLoaderDialog(context: Get.context!);
+      final firebaseStorageController = Get.find<FirebaseStorageController>();
+      final url = await firebaseStorageController.uploadPic(file: imageFile);
+      imageUrl = url;
+      cancelLoaderDialog();
+      update();
+    }
   }
 
   @override
