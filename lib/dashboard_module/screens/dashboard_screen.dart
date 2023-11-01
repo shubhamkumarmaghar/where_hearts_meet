@@ -6,6 +6,7 @@ import 'package:where_hearts_meet/dashboard_module/controller/dashboard_controll
 import 'package:where_hearts_meet/dashboard_module/screens/dashboard_drawer_screen.dart';
 import 'package:where_hearts_meet/profile_module/model/people_model.dart';
 import 'package:where_hearts_meet/utils/consts/color_const.dart';
+import 'package:where_hearts_meet/utils/consts/screen_const.dart';
 import 'package:where_hearts_meet/utils/model/event_info_model.dart';
 import 'package:where_hearts_meet/utils/routes/routes_const.dart';
 import 'package:where_hearts_meet/utils/widgets/event_card.dart';
@@ -52,10 +53,12 @@ class DashboardScreen extends StatelessWidget {
                     alignment: Alignment.center,
                     height: _mainHeight * 0.12,
                     child: NeumorphicButton(
-                      onPressed: () {},
+                      onPressed: () {
+                        Get.toNamed(RoutesConst.addEventScreen,arguments:ScreenName.fromDashboard);
+                      },
                       style: NeumorphicStyle(
                         color: greyColor.withOpacity(0.1),
-                        boxShape: NeumorphicBoxShape.circle(),
+                        boxShape: const NeumorphicBoxShape.circle(),
                       ),
                       child: Icon(
                         Icons.event,

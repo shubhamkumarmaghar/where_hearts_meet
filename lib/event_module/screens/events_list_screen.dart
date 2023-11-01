@@ -46,7 +46,7 @@ class EventListScreen extends StatelessWidget {
                                   height: _mainHeight * 0.06,
                                   width: _mainWidth * 0.14,
                                   child: ClipRRect(
-                                    borderRadius: BorderRadius.all(Radius.circular(100)),
+                                    borderRadius: const BorderRadius.all(Radius.circular(100)),
                                     child: Image.network(
                                       data.imageUrl ?? '',
                                       fit: BoxFit.fill,

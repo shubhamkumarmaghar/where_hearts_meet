@@ -1,0 +1,4 @@
+enum ScreenName{
+  fromDashboard,
+  fromAddPeople
+}

@@ -9,13 +9,16 @@ import 'package:where_hearts_meet/utils/model/user_info_model.dart';
 import 'package:where_hearts_meet/utils/routes/routes_const.dart';
 import 'package:where_hearts_meet/utils/services/firebase_firestore_controller.dart';
 
+import '../../dashboard_module/controller/dashboard_controller.dart';
 import '../../utils/consts/color_const.dart';
+import '../../utils/consts/screen_const.dart';
 
 class AddPeopleController extends BaseController {
   List<PeopleModel> allUsersList = [];
   final _mainHeight = Get.height;
   final _mainWidth = Get.width;
   final fireStoreController = Get.find<FirebaseFireStoreController>();
+  final dashboardController = Get.find<DashboardController>();
   PeopleModel selectedUser = PeopleModel();
   bool userSelected = false;
 
@@ -34,8 +37,8 @@ class AddPeopleController extends BaseController {
     showLoaderDialog(context: Get.context!);
     await fireStoreController.addPeople(peopleModel: selectedUser);
     cancelLoaderDialog();
-
-    Get.offAndToNamed(RoutesConst.addEventScreen);
+    await dashboardController.getPeopleList();
+    Get.offAndToNamed(RoutesConst.addEventScreen,arguments:ScreenName.fromAddPeople);
   }
 
   void showUsersBottomSheet() {
@@ -66,7 +69,7 @@ class AddPeopleController extends BaseController {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    Text(
+                    const Text(
                       'Users',
                       style: TextStyle(
                         fontSize: 20,
@@ -84,7 +87,7 @@ class AddPeopleController extends BaseController {
                 SizedBox(
                   height: _mainHeight*0.03,
                 ),
-                Container(
+                SizedBox(
                   height: Get.height * 0.65,
                   child: ListView.separated(
                       itemBuilder: (context, index) {

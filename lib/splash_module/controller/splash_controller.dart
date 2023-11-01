@@ -20,7 +20,7 @@ class SplashController extends GetxController {
   }
 
   void updateSplashView() async {
-    await Future.delayed(const Duration(milliseconds: 2000));
+    await Future.delayed(const Duration(milliseconds: 1800));
     splashEnum = SplashEnum.showShiningHeart;
     update();
     await Future.delayed(const Duration(milliseconds: 1500));

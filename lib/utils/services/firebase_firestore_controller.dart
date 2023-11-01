@@ -71,7 +71,7 @@ class FirebaseFireStoreController extends BaseController {
   }
   Future<void> deleteCreatedEvent({required String eventId}) async {
     User? user = auth.currentUser;
-    final store = fireStore.collection('Users').doc(user?.uid).collection('People').doc(eventId);
+    final store = fireStore.collection('Events').doc(eventId);
     await store.delete();
   }
 

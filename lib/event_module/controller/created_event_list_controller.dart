@@ -37,6 +37,7 @@ class CreatedEventListController extends BaseController {
   Future<void> deleteCreatedEvent({required String eventId}) async {
     showLoaderDialog(context: Get.context!);
     await fireStoreController.deleteCreatedEvent(eventId: eventId);
+    currentUserEventList.clear();
     await getCreatedEventList(initial: false);
     cancelLoaderDialog();
 

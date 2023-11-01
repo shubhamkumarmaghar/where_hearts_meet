@@ -35,20 +35,23 @@ class AddPeopleScreen extends StatelessWidget {
                     : Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          controller.userSelected ? Column(
-                            children: [
-                              Text('Selected User',style: TextStyle(
-                                fontWeight: FontWeight.w600,
-                                color: primaryColor,
-                                fontSize: 22
-                              ),),
-                              SizedBox(height: _mainHeight*0.02,),
-                            ],
-                          ) : Spacer(),
+                          controller.userSelected
+                              ? Column(
+                                  children: [
+                                    const Text(
+                                      'Selected User',
+                                      style: TextStyle(fontWeight: FontWeight.w600, color: primaryColor, fontSize: 22),
+                                    ),
+                                    SizedBox(
+                                      height: _mainHeight * 0.02,
+                                    ),
+                                  ],
+                                )
+                              : Spacer(),
                           controller.userSelected
                               ? selectedUserView(controller: controller)
                               : Center(
-                                child: InkWell(
+                                  child: InkWell(
                                     onTap: () {
                                       controller.showUsersBottomSheet();
                                     },
@@ -56,19 +59,19 @@ class AddPeopleScreen extends StatelessWidget {
                                       height: _mainHeight * 0.06,
                                       alignment: Alignment.center,
                                       width: _mainWidth * 0.7,
-                                      decoration: BoxDecoration(
+                                      decoration: const BoxDecoration(
                                           color: blackColor, borderRadius: BorderRadius.all(Radius.circular(20))),
-                                      child: Text(
+                                      child: const Text(
                                         'Select  User',
                                         style: TextStyle(color: whiteColor, fontWeight: FontWeight.w700, fontSize: 20),
                                       ),
                                     ),
                                   ),
-                              ),
-                          Spacer(),
+                                ),
+                          const Spacer(),
                           GradientButton(
                             title: 'Continue',
-                            enabled:controller.userSelected? true:false,
+                            enabled: controller.userSelected ? true : false,
                             height: _mainHeight * 0.06,
                             width: _mainWidth,
                             onPressed: () async {
@@ -118,24 +121,26 @@ class AddPeopleScreen extends StatelessWidget {
                   SizedBox(
                     height: _mainHeight * 0.005,
                   ),
-                  Text(controller.selectedUser.email ?? '', style: TextStyle(fontSize: 14, fontWeight: FontWeight.w500)),
+                  Text(controller.selectedUser.email ?? '',
+                      style: TextStyle(fontSize: 14, fontWeight: FontWeight.w500)),
                 ],
               ),
             ],
           ),
         ),
-        SizedBox(height: _mainHeight*0.05,),
+        SizedBox(
+          height: _mainHeight * 0.05,
+        ),
         GradientButton(
           title: 'Select Another User',
           buttonColor: blackColor,
           enabled: true,
           height: _mainHeight * 0.06,
-          width: _mainWidth*0.67,
+          width: _mainWidth * 0.67,
           onPressed: () async {
-             controller.showUsersBottomSheet();
+            controller.showUsersBottomSheet();
           },
         )
-
       ],
     );
   }

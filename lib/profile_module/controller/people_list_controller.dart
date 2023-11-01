@@ -1,10 +1,8 @@
-import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:where_hearts_meet/utils/controller/base_controller.dart';
 import 'package:where_hearts_meet/utils/dialogs/pop_up_dialogs.dart';
 import 'package:where_hearts_meet/utils/services/firebase_firestore_controller.dart';
-
-import '../../utils/consts/color_const.dart';
+import '../../dashboard_module/controller/dashboard_controller.dart';
 import '../model/people_model.dart';
 
 class PeopleListController extends BaseController {
@@ -28,9 +26,11 @@ class PeopleListController extends BaseController {
   }
 
   Future<void> deletePeople({required String email}) async {
+    final dashboardController = Get.find<DashboardController>();
     showLoaderDialog(context: Get.context!);
     await firestoreController.deletePeople(email: email);
-   getPeopleList(initial: false);
+    await getPeopleList(initial: false);
+    await dashboardController.getPeopleList();
     cancelLoaderDialog();
     update();
   }
