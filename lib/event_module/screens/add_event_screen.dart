@@ -83,54 +83,276 @@ class AddEventScreen extends StatelessWidget {
                       ),
                       controller.screenType == ScreenName.fromDashboard ? getSelectUserView() : const SizedBox.shrink(),
                       const Text(
-                        'Upload Profile Pic*',
+                        'Upload  Event  Pics*',
                         style: TextStyle(fontWeight: FontWeight.w700, fontSize: 18),
                       ),
                       SizedBox(
-                        height: _mainHeight * 0.02,
+                        height: _mainHeight * 0.03,
                       ),
-                      Container(
-                        alignment: Alignment.center,
-                        height: _mainHeight * 0.15,
-                        child: controller.imageUrl.isEmpty
-                            ? NeumorphicButton(
-                                onPressed: () async {
-                                  showImagePickerDialog(
-                                    context: Get.context!,
-                                    onCamera: () => controller.onCaptureMediaClick(source: ImageSource.camera),
-                                    onGallery: () => controller.onCaptureMediaClick(source: ImageSource.gallery),
-                                  );
-                                },
-                                style: NeumorphicStyle(
-                                  color: greyColor.withOpacity(0.1),
-                                  depth: -5,
-                                  boxShape: NeumorphicBoxShape.roundRect(BorderRadius.circular(20)),
-                                ),
-                                child: Icon(
-                                  Icons.upload_rounded,
-                                  size: _mainHeight * 0.12,
-                                  color: blackColor,
-                                ),
-                              )
-                            : InkWell(
-                                onTap: () {
-                                  showImagePickerDialog(
-                                    context: Get.context!,
-                                    onCamera: () => controller.onCaptureMediaClick(source: ImageSource.camera),
-                                    onGallery: () => controller.onCaptureMediaClick(source: ImageSource.gallery),
-                                  );
-                                },
-                                child: ClipRRect(
-                                    borderRadius: BorderRadius.all(Radius.circular(20)),
-                                    child: Image.network(
-                                      controller.imageUrl,
-                                      fit: BoxFit.fitWidth,
-                                      width: _mainWidth * 0.35,
-                                    )),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Container(
+                            alignment: Alignment.center,
+                            height: _mainHeight * 0.1,
+                            width: _mainWidth*0.27,
+                            child: controller.imageUrl1.isEmpty
+                                ? NeumorphicButton(
+                              onPressed: () async {
+                                showImagePickerDialog(
+                                  context: Get.context!,
+                                  onCamera: () => controller.onCaptureMediaClick(source: ImageSource.camera,number: 1),
+                                  onGallery: () => controller.onCaptureMediaClick(source: ImageSource.gallery,number: 1),
+                                );
+                              },
+                              style: NeumorphicStyle(
+                                color: greyColor.withOpacity(0.1),
+                                depth: -5,
+                                boxShape: NeumorphicBoxShape.roundRect(BorderRadius.circular(20)),
                               ),
+                              child: Icon(
+                                Icons.upload_rounded,
+                                size: _mainHeight * 0.06,
+                                color: blackColor,
+                              ),
+                            )
+                                : InkWell(
+                              onTap: () {
+                                showImagePickerDialog(
+                                  context: Get.context!,
+                                  onCamera: () => controller.onCaptureMediaClick(source: ImageSource.camera,number: 1),
+                                  onGallery: () => controller.onCaptureMediaClick(source: ImageSource.gallery,number: 1),
+                                );
+                              },
+                              child: ClipRRect(
+                                  borderRadius: BorderRadius.all(Radius.circular(20)),
+                                  child: Image.network(
+                                    controller.imageUrl1,
+                                    fit: BoxFit.fitWidth,
+                                    width: _mainWidth * 0.35,
+                                  )),
+                            ),
+                          ),
+                          Container(
+                            alignment: Alignment.center,
+                            height: _mainHeight * 0.1,
+                            width: _mainWidth*0.27,
+                            child: controller.imageUrl2.isEmpty
+                                ? NeumorphicButton(
+                              onPressed: () async {
+                                showImagePickerDialog(
+                                  context: Get.context!,
+                                  onCamera: () => controller.onCaptureMediaClick(source: ImageSource.camera,number: 2),
+                                  onGallery: () => controller.onCaptureMediaClick(source: ImageSource.gallery,number: 2),
+                                );
+                              },
+                              style: NeumorphicStyle(
+                                color: greyColor.withOpacity(0.1),
+                                depth: -5,
+                                boxShape: NeumorphicBoxShape.roundRect(BorderRadius.circular(20)),
+                              ),
+                              child: Icon(
+                                Icons.upload_rounded,
+                                size: _mainHeight * 0.06,
+                                color: blackColor,
+                              ),
+                            )
+                                : InkWell(
+                              onTap: () {
+                                showImagePickerDialog(
+                                  context: Get.context!,
+                                  onCamera: () => controller.onCaptureMediaClick(source: ImageSource.camera,number: 2),
+                                  onGallery: () => controller.onCaptureMediaClick(source: ImageSource.gallery,number: 2),
+                                );
+                              },
+                              child: ClipRRect(
+                                  borderRadius: BorderRadius.all(Radius.circular(20)),
+                                  child: Image.network(
+                                    controller.imageUrl2,
+                                    fit: BoxFit.fitWidth,
+                                    width: _mainWidth * 0.35,
+                                  )),
+                            ),
+                          ),
+                          Container(
+                            alignment: Alignment.center,
+                            height: _mainHeight * 0.1,
+                            width: _mainWidth*0.27,
+                            child: controller.imageUrl3.isEmpty
+                                ? NeumorphicButton(
+                              onPressed: () async {
+                                showImagePickerDialog(
+                                  context: Get.context!,
+                                  onCamera: () => controller.onCaptureMediaClick(source: ImageSource.camera,number: 3),
+                                  onGallery: () => controller.onCaptureMediaClick(source: ImageSource.gallery,number: 3),
+                                );
+                              },
+                              style: NeumorphicStyle(
+                                color: greyColor.withOpacity(0.1),
+                                depth: -5,
+                                boxShape: NeumorphicBoxShape.roundRect(BorderRadius.circular(20)),
+                              ),
+                              child: Icon(
+                                Icons.upload_rounded,
+                                size: _mainHeight * 0.06,
+                                color: blackColor,
+                              ),
+                            )
+                                : InkWell(
+                              onTap: () {
+                                showImagePickerDialog(
+                                  context: Get.context!,
+                                  onCamera: () => controller.onCaptureMediaClick(source: ImageSource.camera,number: 3),
+                                  onGallery: () => controller.onCaptureMediaClick(source: ImageSource.gallery,number: 3),
+                                );
+                              },
+                              child: ClipRRect(
+                                  borderRadius: BorderRadius.all(Radius.circular(20)),
+                                  child: Image.network(
+                                    controller.imageUrl3,
+                                    fit: BoxFit.fitWidth,
+                                    width: _mainWidth * 0.35,
+                                  )),
+                            ),
+                          ),
+
+
+                        ],
                       ),
                       SizedBox(
                         height: _mainHeight * 0.03,
+                      ),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Container(
+                            alignment: Alignment.center,
+                            height: _mainHeight * 0.1,
+                            width: _mainWidth*0.27,
+                            child: controller.imageUrl4.isEmpty
+                                ? NeumorphicButton(
+                              onPressed: () async {
+                                showImagePickerDialog(
+                                  context: Get.context!,
+                                  onCamera: () => controller.onCaptureMediaClick(source: ImageSource.camera,number: 4),
+                                  onGallery: () => controller.onCaptureMediaClick(source: ImageSource.gallery,number: 4),
+                                );
+                              },
+                              style: NeumorphicStyle(
+                                color: greyColor.withOpacity(0.1),
+                                depth: -5,
+                                boxShape: NeumorphicBoxShape.roundRect(BorderRadius.circular(20)),
+                              ),
+                              child: Icon(
+                                Icons.upload_rounded,
+                                size: _mainHeight * 0.06,
+                                color: blackColor,
+                              ),
+                            )
+                                : InkWell(
+                              onTap: () {
+                                showImagePickerDialog(
+                                  context: Get.context!,
+                                  onCamera: () => controller.onCaptureMediaClick(source: ImageSource.camera,number: 4),
+                                  onGallery: () => controller.onCaptureMediaClick(source: ImageSource.gallery,number: 4),
+                                );
+                              },
+                              child: ClipRRect(
+                                  borderRadius: BorderRadius.all(Radius.circular(20)),
+                                  child: Image.network(
+                                    controller.imageUrl4,
+                                    fit: BoxFit.fitWidth,
+                                    width: _mainWidth * 0.35,
+                                  )),
+                            ),
+                          ),
+                          Container(
+                            alignment: Alignment.center,
+                            height: _mainHeight * 0.1,
+                            width: _mainWidth*0.27,
+                            child: controller.imageUrl5.isEmpty
+                                ? NeumorphicButton(
+                              onPressed: () async {
+                                showImagePickerDialog(
+                                  context: Get.context!,
+                                  onCamera: () => controller.onCaptureMediaClick(source: ImageSource.camera,number: 5),
+                                  onGallery: () => controller.onCaptureMediaClick(source: ImageSource.gallery,number: 5),
+                                );
+                              },
+                              style: NeumorphicStyle(
+                                color: greyColor.withOpacity(0.1),
+                                depth: -5,
+                                boxShape: NeumorphicBoxShape.roundRect(BorderRadius.circular(20)),
+                              ),
+                              child: Icon(
+                                Icons.upload_rounded,
+                                size: _mainHeight * 0.06,
+                                color: blackColor,
+                              ),
+                            )
+                                : InkWell(
+                              onTap: () {
+                                showImagePickerDialog(
+                                  context: Get.context!,
+                                  onCamera: () => controller.onCaptureMediaClick(source: ImageSource.camera,number: 5),
+                                  onGallery: () => controller.onCaptureMediaClick(source: ImageSource.gallery,number: 5),
+                                );
+                              },
+                              child: ClipRRect(
+                                  borderRadius: BorderRadius.all(Radius.circular(20)),
+                                  child: Image.network(
+                                    controller.imageUrl5,
+                                    fit: BoxFit.fitWidth,
+                                    width: _mainWidth * 0.35,
+                                  )),
+                            ),
+                          ),
+                          Container(
+                            alignment: Alignment.center,
+                            height: _mainHeight * 0.1,
+                            width: _mainWidth*0.27,
+                            child: controller.imageUrl6.isEmpty
+                                ? NeumorphicButton(
+                              onPressed: () async {
+                                showImagePickerDialog(
+                                  context: Get.context!,
+                                  onCamera: () => controller.onCaptureMediaClick(source: ImageSource.camera,number: 6),
+                                  onGallery: () => controller.onCaptureMediaClick(source: ImageSource.gallery,number: 6),
+                                );
+                              },
+                              style: NeumorphicStyle(
+                                color: greyColor.withOpacity(0.1),
+                                depth: -5,
+                                boxShape: NeumorphicBoxShape.roundRect(BorderRadius.circular(20)),
+                              ),
+                              child: Icon(
+                                Icons.upload_rounded,
+                                size: _mainHeight * 0.06,
+                                color: blackColor,
+                              ),
+                            )
+                                : InkWell(
+                              onTap: () {
+                                showImagePickerDialog(
+                                  context: Get.context!,
+                                  onCamera: () => controller.onCaptureMediaClick(source: ImageSource.camera,number: 6),
+                                  onGallery: () => controller.onCaptureMediaClick(source: ImageSource.gallery,number: 6),
+                                );
+                              },
+                              child: ClipRRect(
+                                  borderRadius: BorderRadius.all(Radius.circular(20)),
+                                  child: Image.network(
+                                    controller.imageUrl6,
+                                    fit: BoxFit.fitWidth,
+                                  )),
+                            ),
+                          ),
+
+
+                        ],
+                      ),
+                      SizedBox(
+                        height: _mainHeight * 0.05,
                       ),
                       Center(
                         child: GradientButton(

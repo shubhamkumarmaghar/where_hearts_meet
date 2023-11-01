@@ -8,5 +8,6 @@ class RoutesConst{
   static String addEventScreen='/addEventScreen';
   static String eventListScreen='/eventListScreen';
   static String createdEventListScreen='/createdEventListScreen';
+  static String eventDetailsScreen='/eventDetailsScreen';
   static String peopleListScreen='/peopleListScreen';
 }

@@ -1,6 +1,7 @@
 class AddEventModel {
   String? imageUrl;
   String? name;
+  List<String>? imageList;
   String? eventId;
   String? eventName;
   String? text1;
@@ -10,7 +11,15 @@ class AddEventModel {
   String? toEmail;
 
   AddEventModel(
-      {this.imageUrl, this.eventName,this.name, this.text1, this.text2, this.text3, this.fromEmail, this.toEmail});
+      {this.imageUrl,
+      this.eventName,
+      this.name,
+      this.text1,
+      this.text2,
+      this.text3,
+      this.fromEmail,
+      this.toEmail,
+      this.imageList});
 
   AddEventModel.fromJson(Map<String, dynamic> json) {
     imageUrl = json['image_url'];
@@ -20,6 +29,10 @@ class AddEventModel {
     eventName = json['event_name'];
     eventId = json['event_id'];
     text3 = json['text3'];
+    if (json['image_list'] != null) {
+      imageList = json['image_list'].cast<String>();
+    }
+
     fromEmail = json['fromEmail'];
     toEmail = json['toEmail'];
   }
@@ -32,9 +45,10 @@ class AddEventModel {
     data['event_id'] = eventId;
     data['text1'] = text1;
     data['text2'] = text2;
+    data['image_list'] = imageList;
     data['text3'] = text3;
-    data['fromEmail']=fromEmail;
-    data['toEmail']=toEmail;
+    data['fromEmail'] = fromEmail;
+    data['toEmail'] = toEmail;
 
     return data;
   }

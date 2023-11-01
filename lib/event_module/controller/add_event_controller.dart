@@ -24,8 +24,14 @@ class AddEventController extends BaseController {
   final eventNameController = TextEditingController();
   final titleController = TextEditingController();
   final subtitleController = TextEditingController();
+  final firebaseStorageController = Get.find<FirebaseStorageController>();
   final infoController = TextEditingController();
-  String imageUrl = '';
+  String imageUrl1 = '';
+  String imageUrl2 = '';
+  String imageUrl3 = '';
+  String imageUrl4 = '';
+  String imageUrl5 = '';
+  String imageUrl6 = '';
   final fireStoreController = Get.find<FirebaseFireStoreController>();
   final firebaseAuthController = Get.find<FirebaseAuthController>();
   ScreenName? screenType;
@@ -51,7 +57,7 @@ class AddEventController extends BaseController {
     setBusy(false);
   }
 
-  void onCaptureMediaClick({required ImageSource source}) async {
+  void onCaptureMediaClick({required ImageSource source, required int number}) async {
     final ImagePicker picker = ImagePicker();
 
     var image = await picker.pickImage(
@@ -63,9 +69,26 @@ class AddEventController extends BaseController {
 
     if (image != null) {
       showLoaderDialog(context: Get.context!);
-      final firebaseStorageController = Get.find<FirebaseStorageController>();
-      final url = await firebaseStorageController.uploadEventPic(file: imageFile, eventName: eventNameController.text);
-      imageUrl = url;
+      final url = await firebaseStorageController.uploadEventPic(file: imageFile, eventName: '${image.name}_${eventNameController.text}');
+      if (number == 1) {
+        imageUrl1 = url;
+      }
+      if (number == 2) {
+        imageUrl2 = url;
+      }
+      if (number == 3) {
+        imageUrl3 = url;
+      }
+      if (number == 4) {
+        imageUrl4 = url;
+      }
+      if (number == 5) {
+        imageUrl5 = url;
+      }
+      if (number == 6) {
+        imageUrl6 = url;
+      }
+
       cancelLoaderDialog();
       update();
     }
@@ -73,33 +96,34 @@ class AddEventController extends BaseController {
 
   Future<void> addEvent() async {
     if (screenType == ScreenName.fromDashboard && (selectedUser.email == null || selectedUser.email == "")) {
-      showSnackBar(context: Get.context!,message: 'Please Select User');
+      showSnackBar(context: Get.context!, message: 'Please Select User');
       return;
     } else if (nameController.text.isEmpty) {
-      showSnackBar(context: Get.context!,message: 'Please enter name');
+      showSnackBar(context: Get.context!, message: 'Please enter name');
       return;
     } else if (eventNameController.text.isEmpty) {
-      showSnackBar(context: Get.context!,message: 'Please enter event name');
+      showSnackBar(context: Get.context!, message: 'Please enter event name');
       return;
     } else if (infoController.text.isEmpty) {
-      showSnackBar(context: Get.context!,message: 'Please enter info');
+      showSnackBar(context: Get.context!, message: 'Please enter info');
       return;
-    } else if (imageUrl == '') {
-      showSnackBar(context: Get.context!,message: 'Please upload image');
+    } else if (imageUrl1 == '') {
+      showSnackBar(context: Get.context!, message: 'Please upload image');
       return;
     }
     showLoaderDialog(context: Get.context!);
     var email;
-    if(screenType == ScreenName.fromAddPeople){
+    if (screenType == ScreenName.fromAddPeople) {
       final peopleController = Get.find<AddPeopleController>();
       email = peopleController.selectedUser.email;
-    }else if(screenType == ScreenName.fromDashboard){
+    } else if (screenType == ScreenName.fromDashboard) {
       email = selectedUser.email;
     }
 
     await fireStoreController.addEvent(
         addEventModel: AddEventModel(
-            imageUrl: imageUrl,
+            imageUrl: imageUrl1,
+            imageList: [imageUrl1,imageUrl2,imageUrl3,imageUrl4,imageUrl5,imageUrl6],
             name: nameController.text,
             eventName: eventNameController.text,
             text1: titleController.text,
@@ -108,6 +132,7 @@ class AddEventController extends BaseController {
             fromEmail: firebaseAuthController.getCurrentUser()?.email,
             toEmail: email));
     cancelLoaderDialog();
+
     Get.offAllNamed(RoutesConst.dashboardScreen);
   }
 

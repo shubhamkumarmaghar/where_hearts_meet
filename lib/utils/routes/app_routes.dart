@@ -3,9 +3,11 @@ import 'package:where_hearts_meet/auth_module/binding/profile_setup_binding.dart
 import 'package:where_hearts_meet/auth_module/screens/profile_setup_screen.dart';
 import 'package:where_hearts_meet/dashboard_module/screens/dashboard_screen.dart';
 import 'package:where_hearts_meet/event_module/binding/add_event_binding.dart';
+import 'package:where_hearts_meet/event_module/binding/event_details_binding.dart';
 import 'package:where_hearts_meet/event_module/binding/event_list_binding.dart';
 import 'package:where_hearts_meet/event_module/screens/add_event_screen.dart';
 import 'package:where_hearts_meet/event_module/screens/created_event_list_screen.dart';
+import 'package:where_hearts_meet/event_module/screens/event_details_screen.dart';
 import 'package:where_hearts_meet/event_module/screens/events_list_screen.dart';
 import 'package:where_hearts_meet/profile_module/binding/add_people_binding.dart';
 import 'package:where_hearts_meet/profile_module/binding/people_list_binding.dart';
@@ -71,6 +73,11 @@ class AppRoutes {
         name: RoutesConst.createdEventListScreen,
         binding: CreatedEventListBinding(),
         page: () => CreatedEventListScreen(),
+      ),
+      GetPage(
+        name: RoutesConst.eventDetailsScreen,
+        binding: EventDetailsBinding(),
+        page: () => EventDetailsScreen(),
       ),
     ];
   }
