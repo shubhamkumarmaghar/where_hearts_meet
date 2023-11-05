@@ -19,7 +19,7 @@ class FirebaseStorageController extends BaseController {
     final reference = _storage.ref("profilePics/").child("profile_pic_${user?.uid}");
     final uploading = await reference.putFile(file);
     final imageUrl = await reference.getDownloadURL();
-    var currentUserData = await fireStoreController.getCurrentUser();
+    var currentUserData = await fireStoreController.getCurrentUserFromFireStore();
     if (currentUserData != null) {
       currentUserData.imageUrl = imageUrl;
       await fireStoreController.userSetup(userInfoModel: currentUserData);
@@ -32,7 +32,7 @@ class FirebaseStorageController extends BaseController {
     User? user = auth.currentUser;
     final reference = _storage.ref("profilePics/").child("profile_pic_${user?.uid}");
     await reference.delete();
-    var currentUserData = await fireStoreController.getCurrentUser();
+    var currentUserData = await fireStoreController.getCurrentUserFromFireStore();
     if (currentUserData != null) {
       currentUserData.imageUrl = '';
       await fireStoreController.userSetup(userInfoModel: currentUserData);

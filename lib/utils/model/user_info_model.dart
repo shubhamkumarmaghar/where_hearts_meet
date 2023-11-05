@@ -5,8 +5,9 @@ class UserInfoModel {
   String? password;
   String? dateOfBirth;
   String? uid;
+  List<String>? peopleList;
 
-  UserInfoModel({this.imageUrl, this.name, this.dateOfBirth, this.uid,this.password,this.email});
+  UserInfoModel({this.imageUrl, this.name, this.dateOfBirth, this.uid,this.password,this.email,this.peopleList});
 
   UserInfoModel.fromJson(Map<String, dynamic> json) {
     imageUrl = json['image_url'];
@@ -15,6 +16,10 @@ class UserInfoModel {
     password = json['password'];
     dateOfBirth = json['dateOfBirth'];
     uid = json['uid'];
+    if (json['people_list'] != null) {
+      peopleList = json['people_list'].cast<String>();
+    }
+
   }
 
   Map<String, dynamic> toJson() {
@@ -25,6 +30,7 @@ class UserInfoModel {
     data['password'] = password;
     data['dateOfBirth'] = dateOfBirth ;
     data['uid'] = uid;
+    data['people_list'] = peopleList;
     return data;
   }
 }

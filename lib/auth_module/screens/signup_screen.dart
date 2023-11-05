@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_neumorphic/flutter_neumorphic.dart';
 import 'package:get/get.dart';
 import 'package:where_hearts_meet/utils/routes/app_routes.dart';
 import 'package:where_hearts_meet/utils/widgets/base_container.dart';
@@ -42,125 +41,114 @@ class SignUpScreen extends StatelessWidget {
                             height: _mainHeight * 0.56,
                             margin: EdgeInsets.only(left: _mainWidth * 0.06, right: _mainWidth * 0.06),
                             width: _mainWidth,
-                            child: Neumorphic(
-                              style: NeumorphicStyle(
-                                color: whiteColor,
-                                lightSource: LightSource.top,
-                                boxShape: NeumorphicBoxShape.roundRect(const BorderRadius.only(
-                                  topRight: Radius.circular(30),
-                                  topLeft: Radius.circular(30),
-                                  bottomRight: Radius.circular(30),
-                                )),
-                              ),
-                              child: Container(
-                                padding: EdgeInsets.only(left: 15, right: 15, top: _mainHeight * 0.03),
-                                child: Column(
-                                  children: [
-                                    Obx(
-                                      () => CustomTextField(
-                                          title: 'Email',
-                                          error: controller.errorEmailText.value,
-                                          hint: 'Please enter email',
-                                          onChanged: controller.onEmailChanged,
-                                          controller: controller.emailTextController),
-                                    ),
-                                    SizedBox(
-                                      height: _mainHeight * 0.02,
-                                    ),
-                                    Obx(
-                                      () => CustomTextField(
-                                        title: 'Password',
-                                        error: controller.errorPasswordText.value,
-                                        hint: 'Please enter password',
-                                        obscureText: controller.obscurePassword.value,
-                                        onChanged: controller.onPasswordChanged,
-                                        controller: controller.passwordTextController,
-                                        suffix: InkWell(
-                                          onTap: () =>
-                                              controller.obscurePassword.value = !controller.obscurePassword.value,
-                                          child: Container(
-                                              padding: const EdgeInsets.only(right: 10),
-                                              child: const Icon(
-                                                Icons.remove_red_eye_outlined,
-                                                color: blackColor,
-                                                size: 15,
-                                              )),
-                                        ),
+                            child: Container(
+                              padding: EdgeInsets.only(left: 15, right: 15, top: _mainHeight * 0.03),
+                              child: Column(
+                                children: [
+                                  Obx(
+                                        () => CustomTextField(
+                                        title: 'Email',
+                                        error: controller.errorEmailText.value,
+                                        hint: 'Please enter email',
+                                        onChanged: controller.onEmailChanged,
+                                        controller: controller.emailTextController),
+                                  ),
+                                  SizedBox(
+                                    height: _mainHeight * 0.02,
+                                  ),
+                                  Obx(
+                                        () => CustomTextField(
+                                      title: 'Password',
+                                      error: controller.errorPasswordText.value,
+                                      hint: 'Please enter password',
+                                      obscureText: controller.obscurePassword.value,
+                                      onChanged: controller.onPasswordChanged,
+                                      controller: controller.passwordTextController,
+                                      suffix: InkWell(
+                                        onTap: () =>
+                                        controller.obscurePassword.value = !controller.obscurePassword.value,
+                                        child: Container(
+                                            padding: const EdgeInsets.only(right: 10),
+                                            child: const Icon(
+                                              Icons.remove_red_eye_outlined,
+                                              color: blackColor,
+                                              size: 15,
+                                            )),
                                       ),
                                     ),
-                                    SizedBox(
-                                      height: _mainHeight * 0.02,
-                                    ),
-                                    Obx(
-                                      () => CustomTextField(
-                                        title: 'Confirm Password',
-                                        error: controller.errorConfirmPasswordText.value,
-                                        hint: 'Please enter confirm password',
-                                        obscureText: controller.obscurePassword.value,
-                                        onChanged: controller.onConfirmPasswordChanged,
-                                        controller: controller.confirmPasswordTextController,
-                                        suffix: InkWell(
-                                          onTap: () => controller.obscureConfirmPassword.value =
-                                              !controller.obscureConfirmPassword.value,
-                                          child: Container(
-                                              padding: const EdgeInsets.only(right: 10),
-                                              child: const Icon(
-                                                Icons.remove_red_eye_outlined,
-                                                color: blackColor,
-                                                size: 15,
-                                              )),
-                                        ),
+                                  ),
+                                  SizedBox(
+                                    height: _mainHeight * 0.02,
+                                  ),
+                                  Obx(
+                                        () => CustomTextField(
+                                      title: 'Confirm Password',
+                                      error: controller.errorConfirmPasswordText.value,
+                                      hint: 'Please enter confirm password',
+                                      obscureText: controller.obscurePassword.value,
+                                      onChanged: controller.onConfirmPasswordChanged,
+                                      controller: controller.confirmPasswordTextController,
+                                      suffix: InkWell(
+                                        onTap: () => controller.obscureConfirmPassword.value =
+                                        !controller.obscureConfirmPassword.value,
+                                        child: Container(
+                                            padding: const EdgeInsets.only(right: 10),
+                                            child: const Icon(
+                                              Icons.remove_red_eye_outlined,
+                                              color: blackColor,
+                                              size: 15,
+                                            )),
                                       ),
                                     ),
-                                    SizedBox(
+                                  ),
+                                  SizedBox(
+                                    height: _mainHeight * 0.06,
+                                  ),
+                                  Center(
+                                    child: GradientButton(
+                                      title: 'Register',
                                       height: _mainHeight * 0.06,
-                                    ),
-                                    Center(
-                                      child: GradientButton(
-                                        title: 'Register',
-                                        height: _mainHeight * 0.06,
-                                        width: _mainWidth * 0.8,
-                                        onPressed: ()async {
-                                           controller.createUserWithEmail();
-                                         // Get.toNamed(RoutesConst.profileSetUpScreen);
-                                        },
-                                      ),
-                                    ),
-                                    SizedBox(
-                                      height: _mainHeight * 0.025,
-                                    ),
-                                    GestureDetector(
-                                      onTap: () {
-                                        Get.offAllNamed(RoutesConst.loginScreen);
+                                      width: _mainWidth * 0.8,
+                                      onPressed: ()async {
+                                        controller.createUserWithEmail();
+                                        // Get.toNamed(RoutesConst.profileSetUpScreen);
                                       },
-                                      child: Container(
-                                        color: whiteColor,
-                                        child: Row(
-                                          mainAxisAlignment: MainAxisAlignment.center,
-                                          children: const [
-                                            Text('Already have an account ?  ',
-                                                style: TextStyle(
-                                                  color: blackColor,
-                                                  fontWeight: FontWeight.w600,
-                                                  fontSize: 16,
-                                                )),
-                                            Text(
-                                              'Login',
+                                    ),
+                                  ),
+                                  SizedBox(
+                                    height: _mainHeight * 0.025,
+                                  ),
+                                  GestureDetector(
+                                    onTap: () {
+                                      Get.offAllNamed(RoutesConst.loginScreen);
+                                    },
+                                    child: Container(
+                                      color: whiteColor,
+                                      child: Row(
+                                        mainAxisAlignment: MainAxisAlignment.center,
+                                        children: const [
+                                          Text('Already have an account ?  ',
                                               style: TextStyle(
-                                                  color: primaryColor,
-                                                  fontWeight: FontWeight.w600,
-                                                  fontSize: 16,
-                                                  decoration: TextDecoration.underline),
-                                            ),
-                                          ],
-                                        ),
+                                                color: blackColor,
+                                                fontWeight: FontWeight.w600,
+                                                fontSize: 16,
+                                              )),
+                                          Text(
+                                            'Login',
+                                            style: TextStyle(
+                                                color: primaryColor,
+                                                fontWeight: FontWeight.w600,
+                                                fontSize: 16,
+                                                decoration: TextDecoration.underline),
+                                          ),
+                                        ],
                                       ),
                                     ),
-                                    SizedBox(
-                                      height: _mainHeight * 0.02,
-                                    ),
-                                  ],
-                                ),
+                                  ),
+                                  SizedBox(
+                                    height: _mainHeight * 0.02,
+                                  ),
+                                ],
                               ),
                             ),
                           ),

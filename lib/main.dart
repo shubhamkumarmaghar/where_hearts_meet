@@ -11,7 +11,7 @@ import 'package:where_hearts_meet/utils/services/firebase_storage_controller.dar
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
-  runApp(const MyApp());
+  runApp(MyApp());
   setUp();
 
 }
@@ -23,7 +23,7 @@ void setUp(){
 }
 
 class MyApp extends StatelessWidget {
-  const MyApp({super.key});
+
 
   // This widget is the root of your application.
   @override

@@ -70,7 +70,7 @@ class PeopleListScreen extends StatelessWidget {
                                       const Spacer(),
                                        InkWell(
                                         onTap: ()async{
-                                          await controller.deletePeople(email: data.email ?? '');
+                                          await controller.deletePeople(uid: data.uid ?? '');
 
                                         },
                                         child: const CircleAvatar(

@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_neumorphic/flutter_neumorphic.dart';
 import 'package:get/get.dart';
 import 'package:where_hearts_meet/auth_module/screens/login_screen.dart';
 import 'package:where_hearts_meet/dashboard_module/controller/dashboard_controller.dart';
@@ -11,6 +10,7 @@ import 'package:where_hearts_meet/utils/consts/screen_const.dart';
 import 'package:where_hearts_meet/utils/model/event_info_model.dart';
 import 'package:where_hearts_meet/utils/routes/routes_const.dart';
 import 'package:where_hearts_meet/utils/widgets/event_card.dart';
+import '../../utils/buttons/buttons.dart';
 import '../../utils/model/user_info_model.dart';
 import '../../utils/util_functions/decoration_functions.dart';
 import '../../utils/widgets/mini_user_card.dart';
@@ -52,19 +52,14 @@ class DashboardScreen extends StatelessWidget {
                   ),
                   Container(
                     alignment: Alignment.center,
-                    height: _mainHeight * 0.12,
-                    child: NeumorphicButton(
+                    child: getIconButton(
                       onPressed: () {
                         Get.toNamed(RoutesConst.addEventScreen, arguments: ScreenName.fromDashboard);
                       },
-                      style: NeumorphicStyle(
-                        color: greyColor.withOpacity(0.1),
-                        boxShape: const NeumorphicBoxShape.circle(),
-                      ),
                       child: Icon(
-                        Icons.event,
-                        size: _mainHeight * 0.05,
-                        color: primaryColor,
+                        Icons.add_photo_alternate,
+                        size: _mainHeight * 0.06,
+                        color: whiteColor,
                       ),
                     ),
                   ),
@@ -80,19 +75,14 @@ class DashboardScreen extends StatelessWidget {
                   ),
                   Container(
                     alignment: Alignment.center,
-                    height: _mainHeight * 0.12,
-                    child: NeumorphicButton(
+                    child: getIconButton(
                       onPressed: () {
                         Get.toNamed(RoutesConst.addPeopleScreen);
                       },
-                      style: NeumorphicStyle(
-                        color: greyColor.withOpacity(0.1),
-                        boxShape: NeumorphicBoxShape.circle(),
-                      ),
                       child: Icon(
                         Icons.add_reaction,
-                        size: _mainHeight * 0.1,
-                        color: primaryColor,
+                        size: _mainHeight * 0.06,
+                        color: whiteColor,
                       ),
                     ),
                   ),

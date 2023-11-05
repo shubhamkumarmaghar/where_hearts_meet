@@ -1,17 +1,15 @@
-import 'dart:developer';
+
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:where_hearts_meet/profile_module/model/people_model.dart';
 import 'package:where_hearts_meet/utils/controller/base_controller.dart';
 import 'package:where_hearts_meet/utils/dialogs/pop_up_dialogs.dart';
-import 'package:where_hearts_meet/utils/model/user_info_model.dart';
-import 'package:where_hearts_meet/utils/routes/routes_const.dart';
+
 import 'package:where_hearts_meet/utils/services/firebase_firestore_controller.dart';
 
 import '../../dashboard_module/controller/dashboard_controller.dart';
 import '../../utils/consts/color_const.dart';
-import '../../utils/consts/screen_const.dart';
 
 class AddPeopleController extends BaseController {
   List<PeopleModel> allUsersList = [];
@@ -35,10 +33,13 @@ class AddPeopleController extends BaseController {
   }
   Future<void> addPeople()async{
     showLoaderDialog(context: Get.context!);
-    await fireStoreController.addPeople(peopleModel: selectedUser);
+    final response=await fireStoreController.addPeople(peopleModel: selectedUser);
     cancelLoaderDialog();
-    await dashboardController.getPeopleList();
-    Get.offAndToNamed(RoutesConst.addEventScreen,arguments:ScreenName.fromAddPeople);
+    if(response){
+      await dashboardController.getPeopleList();
+      Get.back();
+    }
+
   }
 
   void showUsersBottomSheet() {
@@ -81,7 +82,7 @@ class AddPeopleController extends BaseController {
                         onTap: (){
                           Navigator.of(context).pop();
                         },
-                        child: Icon(Icons.clear,color: blackColor,size: 20,))
+                        child: const Icon(Icons.clear,color: blackColor,size: 20,))
                   ],
                 ),
                 SizedBox(
@@ -106,19 +107,19 @@ class AddPeopleController extends BaseController {
                                 borderRadius: BorderRadius.circular(10)
                             ),
 
-                            padding: EdgeInsets.all(10),
+                            padding: const EdgeInsets.all(10),
                             child: Row(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
-                                Container(
+                                SizedBox(
                                   height: _mainHeight * 0.06,
                                   width: _mainWidth * 0.14,
                                   child: ClipRRect(
-                                    borderRadius: BorderRadius.all(Radius.circular(100)),
+                                    borderRadius: const BorderRadius.all(Radius.circular(100)),
                                     child:data.imageUrl != null && data.imageUrl != ''? Image.network(
                                       data.imageUrl ?? '',
                                       fit: BoxFit.fill,
-                                    ):Icon(Icons.person),
+                                    ):const Icon(Icons.person),
                                   ),
                                 ),
                                 SizedBox(
@@ -129,12 +130,12 @@ class AddPeopleController extends BaseController {
                                   mainAxisSize: MainAxisSize.min,
                                   children: [
                                     Text(data.name ?? '',
-                                        style: TextStyle(fontSize: 18, fontWeight: FontWeight.w700)),
+                                        style: const TextStyle(fontSize: 18, fontWeight: FontWeight.w700)),
                                     SizedBox(
                                       height: _mainHeight * 0.005,
                                     ),
                                     Text(data.email ?? '',
-                                        style: TextStyle(fontSize: 14, fontWeight: FontWeight.w500)),
+                                        style: const TextStyle(fontSize: 14, fontWeight: FontWeight.w500)),
                                   ],
                                 ),
                               ],

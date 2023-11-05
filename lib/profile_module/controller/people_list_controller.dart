@@ -25,10 +25,10 @@ class PeopleListController extends BaseController {
     }
   }
 
-  Future<void> deletePeople({required String email}) async {
+  Future<void> deletePeople({required String uid}) async {
     final dashboardController = Get.find<DashboardController>();
     showLoaderDialog(context: Get.context!);
-    await firestoreController.deletePeople(email: email);
+    await firestoreController.deletePeople(uid: uid);
     await getPeopleList(initial: false);
     await dashboardController.getPeopleList();
     cancelLoaderDialog();

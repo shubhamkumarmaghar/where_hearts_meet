@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_neumorphic/flutter_neumorphic.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:where_hearts_meet/utils/buttons/buttons.dart';
 import 'package:where_hearts_meet/utils/consts/screen_const.dart';
 import 'package:where_hearts_meet/utils/widgets/base_container.dart';
 
@@ -97,7 +97,7 @@ class AddEventScreen extends StatelessWidget {
                             height: _mainHeight * 0.1,
                             width: _mainWidth*0.27,
                             child: controller.imageUrl1.isEmpty
-                                ? NeumorphicButton(
+                                ? getElevatedButton(
                               onPressed: () async {
                                 showImagePickerDialog(
                                   context: Get.context!,
@@ -105,11 +105,7 @@ class AddEventScreen extends StatelessWidget {
                                   onGallery: () => controller.onCaptureMediaClick(source: ImageSource.gallery,number: 1),
                                 );
                               },
-                              style: NeumorphicStyle(
-                                color: greyColor.withOpacity(0.1),
-                                depth: -5,
-                                boxShape: NeumorphicBoxShape.roundRect(BorderRadius.circular(20)),
-                              ),
+
                               child: Icon(
                                 Icons.upload_rounded,
                                 size: _mainHeight * 0.06,
@@ -138,7 +134,7 @@ class AddEventScreen extends StatelessWidget {
                             height: _mainHeight * 0.1,
                             width: _mainWidth*0.27,
                             child: controller.imageUrl2.isEmpty
-                                ? NeumorphicButton(
+                                ? getElevatedButton(
                               onPressed: () async {
                                 showImagePickerDialog(
                                   context: Get.context!,
@@ -146,11 +142,6 @@ class AddEventScreen extends StatelessWidget {
                                   onGallery: () => controller.onCaptureMediaClick(source: ImageSource.gallery,number: 2),
                                 );
                               },
-                              style: NeumorphicStyle(
-                                color: greyColor.withOpacity(0.1),
-                                depth: -5,
-                                boxShape: NeumorphicBoxShape.roundRect(BorderRadius.circular(20)),
-                              ),
                               child: Icon(
                                 Icons.upload_rounded,
                                 size: _mainHeight * 0.06,
@@ -179,7 +170,7 @@ class AddEventScreen extends StatelessWidget {
                             height: _mainHeight * 0.1,
                             width: _mainWidth*0.27,
                             child: controller.imageUrl3.isEmpty
-                                ? NeumorphicButton(
+                                ? getElevatedButton(
                               onPressed: () async {
                                 showImagePickerDialog(
                                   context: Get.context!,
@@ -187,11 +178,6 @@ class AddEventScreen extends StatelessWidget {
                                   onGallery: () => controller.onCaptureMediaClick(source: ImageSource.gallery,number: 3),
                                 );
                               },
-                              style: NeumorphicStyle(
-                                color: greyColor.withOpacity(0.1),
-                                depth: -5,
-                                boxShape: NeumorphicBoxShape.roundRect(BorderRadius.circular(20)),
-                              ),
                               child: Icon(
                                 Icons.upload_rounded,
                                 size: _mainHeight * 0.06,
@@ -230,7 +216,7 @@ class AddEventScreen extends StatelessWidget {
                             height: _mainHeight * 0.1,
                             width: _mainWidth*0.27,
                             child: controller.imageUrl4.isEmpty
-                                ? NeumorphicButton(
+                                ? getElevatedButton(
                               onPressed: () async {
                                 showImagePickerDialog(
                                   context: Get.context!,
@@ -238,11 +224,6 @@ class AddEventScreen extends StatelessWidget {
                                   onGallery: () => controller.onCaptureMediaClick(source: ImageSource.gallery,number: 4),
                                 );
                               },
-                              style: NeumorphicStyle(
-                                color: greyColor.withOpacity(0.1),
-                                depth: -5,
-                                boxShape: NeumorphicBoxShape.roundRect(BorderRadius.circular(20)),
-                              ),
                               child: Icon(
                                 Icons.upload_rounded,
                                 size: _mainHeight * 0.06,
@@ -271,7 +252,7 @@ class AddEventScreen extends StatelessWidget {
                             height: _mainHeight * 0.1,
                             width: _mainWidth*0.27,
                             child: controller.imageUrl5.isEmpty
-                                ? NeumorphicButton(
+                                ? getElevatedButton(
                               onPressed: () async {
                                 showImagePickerDialog(
                                   context: Get.context!,
@@ -279,11 +260,7 @@ class AddEventScreen extends StatelessWidget {
                                   onGallery: () => controller.onCaptureMediaClick(source: ImageSource.gallery,number: 5),
                                 );
                               },
-                              style: NeumorphicStyle(
-                                color: greyColor.withOpacity(0.1),
-                                depth: -5,
-                                boxShape: NeumorphicBoxShape.roundRect(BorderRadius.circular(20)),
-                              ),
+
                               child: Icon(
                                 Icons.upload_rounded,
                                 size: _mainHeight * 0.06,
@@ -312,7 +289,7 @@ class AddEventScreen extends StatelessWidget {
                             height: _mainHeight * 0.1,
                             width: _mainWidth*0.27,
                             child: controller.imageUrl6.isEmpty
-                                ? NeumorphicButton(
+                                ? getElevatedButton(
                               onPressed: () async {
                                 showImagePickerDialog(
                                   context: Get.context!,
@@ -320,11 +297,7 @@ class AddEventScreen extends StatelessWidget {
                                   onGallery: () => controller.onCaptureMediaClick(source: ImageSource.gallery,number: 6),
                                 );
                               },
-                              style: NeumorphicStyle(
-                                color: greyColor.withOpacity(0.1),
-                                depth: -5,
-                                boxShape: NeumorphicBoxShape.roundRect(BorderRadius.circular(20)),
-                              ),
+
                               child: Icon(
                                 Icons.upload_rounded,
                                 size: _mainHeight * 0.06,

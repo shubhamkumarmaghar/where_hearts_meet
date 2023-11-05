@@ -1,9 +1,11 @@
 import 'dart:developer';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:get/get.dart';
 import 'package:where_hearts_meet/event_module/model/add_event_model.dart';
 import 'package:where_hearts_meet/profile_module/model/people_model.dart';
 import 'package:where_hearts_meet/utils/controller/base_controller.dart';
+import 'package:where_hearts_meet/utils/dialogs/pop_up_dialogs.dart';
 import '../model/user_info_model.dart';
 
 class FirebaseFireStoreController extends BaseController {
@@ -16,10 +18,37 @@ class FirebaseFireStoreController extends BaseController {
     await store.set(userInfoModel.toJson());
   }
 
-  Future<void> addPeople({required PeopleModel peopleModel}) async {
-    User? user = auth.currentUser;
-    final store = fireStore.collection('Users').doc(user?.uid).collection('People').doc(peopleModel.email);
-    await store.set(peopleModel.toJson());
+  Future<bool> addPeople({required PeopleModel peopleModel}) async {
+    final currentUser = await getCurrentUserFromFireStore();
+    if (currentUser != null) {
+      final addPeopleStore = fireStore.collection('Peoples').doc(peopleModel.uid);
+      await addPeopleStore.set(peopleModel.toJson());
+
+      final userStore = fireStore.collection('Users').doc(currentUser.uid);
+      final data = await userStore.get();
+      if (data.data() != null) {
+        final user = UserInfoModel.fromJson(data.data()!);
+        if (user.peopleList != null) {
+          bool canAdd=true;
+          for(String data in user.peopleList ??[]){
+            if(data == peopleModel.uid){
+              canAdd=false;
+              break;
+            }
+          }
+          if(canAdd){
+            user.peopleList?.add(addPeopleStore.id);
+            await userSetup(userInfoModel: user);
+            return true;
+          }else{
+            showSnackBar(context: Get.context!,message: 'User already added');
+            return false;
+          }
+
+        }
+      }
+    }
+    return false;
   }
 
   Future<void> addEvent({required AddEventModel addEventModel}) async {
@@ -57,7 +86,7 @@ class FirebaseFireStoreController extends BaseController {
     return null;
   }
 
-  Future<UserInfoModel?> getCurrentUser() async {
+  Future<UserInfoModel?> getCurrentUserFromFireStore() async {
     User? user = auth.currentUser;
     final store = fireStore.collection('Users').doc(user?.uid);
 
@@ -69,21 +98,46 @@ class FirebaseFireStoreController extends BaseController {
   }
 
   Future<List<PeopleModel>> getPeopleList() async {
-    User? user = auth.currentUser;
-    final store = fireStore.collection('Users').doc(user?.uid).collection('People');
+    final store = fireStore.collection('Peoples');
     final dataList = await store.get();
-    final list = dataList.docs.map((element) => PeopleModel.fromJson(element.data())).toList();
+    final allPeopleList = dataList.docs.map((element) => PeopleModel.fromJson(element.data())).toList();
+
+    final user = await getCurrentUserFromFireStore();
+    List<PeopleModel> list = [];
+    if (user != null) {
+      var peopleList = user.peopleList ?? [];
+
+      for (var currentPeopleId in peopleList) {
+        for (var allListUser in allPeopleList) {
+          if (currentPeopleId == allListUser.uid) {
+            list.add(allListUser);
+          }
+        }
+      }
+    }
+
     return list;
   }
 
-  Future<void> deletePeople({required String email}) async {
-    User? user = auth.currentUser;
-    final store = fireStore.collection('Users').doc(user?.uid).collection('People').doc(email);
-    await store.delete();
+  Future<List<PeopleModel>> getAllPeopleList() async {
+    final store = fireStore.collection('Peoples');
+    final dataList = await store.get();
+    final allPeopleList = dataList.docs.map((element) => PeopleModel.fromJson(element.data())).toList();
+    return allPeopleList;
+  }
+
+  Future<void> deletePeople({required String uid}) async {
+    final currentUser = await getCurrentUserFromFireStore();
+
+    if (currentUser != null) {
+      var peopleList = currentUser.peopleList ?? [];
+      peopleList.remove(uid);
+      final store = fireStore.collection('Users').doc(currentUser.uid);
+      await store.set(currentUser.toJson());
+    }
   }
 
   Future<void> deleteCreatedEvent({required String eventId}) async {
-    User? user = auth.currentUser;
     final store = fireStore.collection('Events').doc(eventId);
     await store.delete();
   }

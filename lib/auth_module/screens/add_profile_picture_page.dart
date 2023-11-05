@@ -1,7 +1,8 @@
 import 'package:flutter/cupertino.dart';
-import 'package:flutter_neumorphic/flutter_neumorphic.dart';
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:where_hearts_meet/utils/buttons/buttons.dart';
 import 'package:where_hearts_meet/utils/util_functions/app_pickers.dart';
 import '../../utils/consts/color_const.dart';
 import '../../utils/widgets/image_dialog.dart';
@@ -36,7 +37,7 @@ class AddProfilePicturePage extends StatelessWidget {
             alignment: Alignment.center,
             height: _mainHeight * 0.15,
             child: controller.imageUrl.isEmpty
-                ? NeumorphicButton(
+                ? getElevatedButton(
                     onPressed: () async {
                       showImagePickerDialog(
                         context: Get.context!,
@@ -44,11 +45,6 @@ class AddProfilePicturePage extends StatelessWidget {
                         onGallery: () => controller.onCaptureMediaClick(source: ImageSource.gallery),
                       );
                     },
-                    style: NeumorphicStyle(
-                      color: greyColor.withOpacity(0.1),
-                      depth: -5,
-                      boxShape: NeumorphicBoxShape.roundRect(BorderRadius.circular(20)),
-                    ),
                     child: Icon(
                       Icons.upload_rounded,
                       size: _mainHeight * 0.12,

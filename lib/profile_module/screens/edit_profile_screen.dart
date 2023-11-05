@@ -1,5 +1,6 @@
-import 'package:flutter_neumorphic/flutter_neumorphic.dart';
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:where_hearts_meet/utils/buttons/buttons.dart';
 import 'package:where_hearts_meet/utils/consts/color_const.dart';
 import 'package:where_hearts_meet/utils/util_functions/app_pickers.dart';
 import 'package:where_hearts_meet/utils/widgets/custom_text_field.dart';
@@ -151,13 +152,8 @@ class EditProfileScreen extends StatelessWidget {
               Container(
                 alignment: Alignment.center,
                 height: _mainHeight * 0.15,
-                child: NeumorphicButton(
+                child: getElevatedButton(
                   onPressed: () {},
-                  style: NeumorphicStyle(
-                    color: greyColor.withOpacity(0.1),
-                    depth: -5,
-                    boxShape: NeumorphicBoxShape.roundRect(BorderRadius.circular(20)),
-                  ),
                   child: Icon(
                     Icons.upload_rounded,
                     size: _mainHeight * 0.12,

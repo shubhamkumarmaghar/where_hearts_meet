@@ -13,13 +13,15 @@ import 'package:where_hearts_meet/utils/widgets/confetti_view.dart';
 import 'package:where_hearts_meet/utils/widgets/gradient_text.dart';
 
 class SplashScreen extends StatelessWidget {
-  final _mainHeight = Get.height;
-  final _mainWidth = Get.width;
+  var _mainHeight;
+  var _mainWidth ;
 
   SplashScreen({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    _mainHeight=MediaQuery.of(context).size.height;
+    _mainWidth=MediaQuery.of(context).size.width;
     return Scaffold(
       body: GetBuilder(
         init: SplashController(),
