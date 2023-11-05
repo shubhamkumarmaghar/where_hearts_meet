@@ -46,10 +46,10 @@ class MiniUserCard extends StatelessWidget {
                         topRight: Radius.circular(20),
                         bottomRight: Radius.circular(20),
                       ),
-                      child: Image.network(
+                      child:peopleModel.imageUrl != null && peopleModel.imageUrl != '' ? Image.network(
                         peopleModel.imageUrl ?? '',
                         fit: BoxFit.fill,
-                      ))),
+                      ):Icon(Icons.person))),
               Text(peopleModel.name ?? '')
             ],
           )),

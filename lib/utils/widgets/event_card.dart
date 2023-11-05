@@ -1,11 +1,12 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:where_hearts_meet/event_module/model/add_event_model.dart';
 import 'package:where_hearts_meet/utils/consts/color_const.dart';
 import 'package:where_hearts_meet/utils/model/event_info_model.dart';
 
 class EventCard extends StatelessWidget {
-  final EventInfoModel eventInfoModel;
+  final AddEventModel eventInfoModel;
   final Function onCardTap;
   final Color eventColor;
   final _mainHeight = Get.height;
@@ -44,7 +45,7 @@ class EventCard extends StatelessWidget {
                       ),
                       child: Image.network(
                         eventInfoModel.imageUrl ?? '',
-                        fit: BoxFit.cover,
+                        fit: BoxFit.fill,
                       ))),
               SizedBox(
                 height: _mainHeight*0.01,

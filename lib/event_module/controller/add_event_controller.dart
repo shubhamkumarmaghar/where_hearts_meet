@@ -171,7 +171,7 @@ class AddEventController extends BaseController {
                         onTap: () {
                           Navigator.of(context).pop();
                         },
-                        child: Icon(
+                        child: const Icon(
                           Icons.clear,
                           color: blackColor,
                           size: 20,

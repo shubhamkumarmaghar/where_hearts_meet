@@ -50,11 +50,11 @@ class EventDetailsScreen extends StatelessWidget {
                             child: Container(
                               padding: const EdgeInsets.all(5.0),
                               child: ClipRRect(
-                                borderRadius: BorderRadius.all(Radius.circular(15)),
+                                borderRadius: const BorderRadius.all(Radius.circular(15)),
                                 child: Obx(() {
                                   return Image.network(
                                     controller.selectedImageUrl.value,
-                                    fit: BoxFit.fill,
+                                    fit: BoxFit.cover,
                                   );
                                 }),
                               ),

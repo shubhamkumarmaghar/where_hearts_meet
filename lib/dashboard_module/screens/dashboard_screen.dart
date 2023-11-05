@@ -4,6 +4,7 @@ import 'package:get/get.dart';
 import 'package:where_hearts_meet/auth_module/screens/login_screen.dart';
 import 'package:where_hearts_meet/dashboard_module/controller/dashboard_controller.dart';
 import 'package:where_hearts_meet/dashboard_module/screens/dashboard_drawer_screen.dart';
+import 'package:where_hearts_meet/event_module/model/add_event_model.dart';
 import 'package:where_hearts_meet/profile_module/model/people_model.dart';
 import 'package:where_hearts_meet/utils/consts/color_const.dart';
 import 'package:where_hearts_meet/utils/consts/screen_const.dart';
@@ -32,7 +33,7 @@ class DashboardScreen extends StatelessWidget {
               Container(margin: EdgeInsets.only(right: _mainWidth * 0.04), child: const Icon(Icons.notifications))
             ],
           ),
-          drawer: DashboardDrawerScreen(),
+          drawer: DashboardDrawerScreen(dashboardController: controller),
           body: Container(
             height: _mainHeight,
             width: _mainWidth,
@@ -54,7 +55,7 @@ class DashboardScreen extends StatelessWidget {
                     height: _mainHeight * 0.12,
                     child: NeumorphicButton(
                       onPressed: () {
-                        Get.toNamed(RoutesConst.addEventScreen,arguments:ScreenName.fromDashboard);
+                        Get.toNamed(RoutesConst.addEventScreen, arguments: ScreenName.fromDashboard);
                       },
                       style: NeumorphicStyle(
                         color: greyColor.withOpacity(0.1),
@@ -115,25 +116,14 @@ class DashboardScreen extends StatelessWidget {
                   SizedBox(
                     height: _mainHeight * 0.025,
                   ),
-                  SizedBox(
-                    height: _mainHeight * 0.25,
-                    child: getEventsCard(context: context, controller: controller, eventsList: [
-                      EventInfoModel(
-                          imageUrl:
-                              'https://wishes.moonzori.com/wp-content/uploads/2022/06/Happy-Birthday-Wishes-Moonzori.png',
-                          id: 101,
-                          eventName: 'Birthday'),
-                      EventInfoModel(
-                          imageUrl:
-                              'https://img.freepik.com/free-vector/miss-you-sticky-note-illustration_53876-8270.jpg?w=2000',
-                          id: 103,
-                          eventName: 'Miss You'),
-                      EventInfoModel(
-                          imageUrl: 'https://m.media-amazon.com/images/I/8191XGqO7uL.jpg',
-                          id: 102,
-                          eventName: 'Just Surprise'),
-                    ]),
-                  ),
+                  Obx(() {
+                    return SizedBox(
+                      height: _mainHeight * 0.25,
+                      child: controller.showEventView.value
+                          ? getEventsCard(context: context, controller: controller, eventsList: controller.currentUserEventList)
+                          : const Center(child: CircularProgressIndicator()),
+                    );
+                  }),
                   SizedBox(
                     height: _mainHeight * 0.04,
                   ),
@@ -176,7 +166,7 @@ class DashboardScreen extends StatelessWidget {
 
   Widget getEventsCard(
       {required BuildContext context,
-      required List<EventInfoModel> eventsList,
+      required List<AddEventModel> eventsList,
       required DashboardController controller}) {
     return GridView.builder(
         //cacheExtent: 9999,
@@ -189,18 +179,10 @@ class DashboardScreen extends StatelessWidget {
             mainAxisSpacing: 10),
         itemBuilder: (BuildContext context, int index) {
           var data = eventsList[index];
-          return Stack(
-            children: [
-              EventCard(
-                onCardTap: () {},
-                eventInfoModel: data,
-                eventColor: getColorBasedOnIndex(index),
-              ),
-              // ConfettiView(
-              //   controller: controller.eventConfettiController,
-              //   confettiShapeEnum: ConfettiShapeEnum.drawStar,
-              // ),
-            ],
+          return EventCard(
+            onCardTap: () {},
+            eventInfoModel: data,
+            eventColor: getColorBasedOnIndex(index),
           );
         });
   }
@@ -225,10 +207,6 @@ class DashboardScreen extends StatelessWidget {
                 peopleModel: data,
                 eventColor: getColorBasedOnIndex(index),
               ),
-              // ConfettiView(
-              //   controller: controller.eventConfettiController,
-              //   confettiShapeEnum: ConfettiShapeEnum.drawStar,
-              // ),
             ],
           );
         });
