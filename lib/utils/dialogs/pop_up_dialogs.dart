@@ -69,7 +69,7 @@ void showAlertDialogWithOK({String? message, required BuildContext context, Func
 
 void showLogoutAlertDialog({String? message, required BuildContext context,required Function logOutFunction}) {
   final CupertinoAlertDialog alert = CupertinoAlertDialog(
-    title: Center(child: Text(message ?? 'Are you sure to exit?', style: const TextStyle(fontSize: 16,fontWeight: FontWeight.w500))),
+    title: Center(child: Text(message ?? 'Are you sure to exit?', style: const TextStyle(fontSize: 16,fontWeight: FontWeight.w400))),
     actions: <Widget>[
       CupertinoDialogAction(
         isDefaultAction: false,

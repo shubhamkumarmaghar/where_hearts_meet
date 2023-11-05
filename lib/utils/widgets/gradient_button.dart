@@ -11,6 +11,7 @@ class GradientButton extends StatefulWidget {
   final Color buttonColor;
   final Color splashColor;
   final double width;
+  final double? buttonCorner;
   final double height;
   final Color? borderColor;
   final double? borderWidth;
@@ -23,6 +24,7 @@ class GradientButton extends StatefulWidget {
     this.titleTextStyle,
     required this.onPressed,
     this.width = 150,
+    this.buttonCorner,
     this.borderWidth,
     this.borderColor,
     this.height = 50,
@@ -53,7 +55,7 @@ class _GradientButtonState extends State<GradientButton> {
         style: ButtonStyle(
           shape: MaterialStateProperty.all<RoundedRectangleBorder>(
             RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(50.0),
+              borderRadius: BorderRadius.circular(widget.buttonCorner?? 50.0),
             ),
           ),
           minimumSize: MaterialStateProperty.all(Size(widget.width, 50)),

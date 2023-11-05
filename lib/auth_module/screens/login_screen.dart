@@ -2,7 +2,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:where_hearts_meet/auth_module/controller/login_controller.dart';
-import 'package:where_hearts_meet/utils/services/firebase_auth_controller.dart';
 import 'package:where_hearts_meet/utils/widgets/base_container.dart';
 import 'package:where_hearts_meet/utils/widgets/gradient_text.dart';
 import 'package:where_hearts_meet/utils/widgets/triangle_custom_painter.dart';
@@ -25,13 +24,13 @@ class LoginScreen extends StatelessWidget {
       body: BaseContainer(
         child: GestureDetector(
           onTap: () => FocusScope.of(context).requestFocus(FocusNode()),
-          child: Container(
+          child: SizedBox(
             height: _mainHeight,
             width: _mainWidth,
             child: SingleChildScrollView(
               child: Column(
                 children: [
-                  Container(
+                  SizedBox(
                     height: _mainHeight,
                     child: Stack(
                       children: [
@@ -45,7 +44,7 @@ class LoginScreen extends StatelessWidget {
                             margin: EdgeInsets.only(left: _mainWidth*0.06, right: _mainWidth*0.06),
                             width: _mainWidth,
                             child: Container(
-                              padding: EdgeInsets.only(left: 15,right: 15,top: 30),
+                              padding: const EdgeInsets.only(left: 15,right: 15,top: 30),
                               child: Column(
                                 children: [
                                   Obx(
@@ -96,11 +95,13 @@ class LoginScreen extends StatelessWidget {
                                   Center(
                                     child: GradientButton(
                                       title: 'Login',
+                                      buttonColor: whiteColor,
+                                      buttonCorner: 15,
+                                      titleTextStyle: TextStyle( color: primaryColor,fontSize: 16,fontWeight: FontWeight.w700),
                                       height: _mainHeight*0.06,
                                       width: _mainWidth*0.8,
                                       onPressed: () async{
                                         controller.loginWithEmail();
-                                        //Get.toNamed(RoutesConst.dashboardScreen);
                                       },),
                                   ),
                                   SizedBox(height: _mainHeight*0.025,),
@@ -109,10 +110,10 @@ class LoginScreen extends StatelessWidget {
                                       Get.toNamed(RoutesConst.signUpScreen);
                                     },
                                     child: Container(
-                                      color: whiteColor,
-                                      child: Row(
+
+                                      child: const Row(
                                         mainAxisAlignment: MainAxisAlignment.center,
-                                        children: const [
+                                        children: [
                                           Text('Don\'t have an account ?  ',style: TextStyle(
                                             color: blackColor,
                                             fontWeight: FontWeight.w600,
