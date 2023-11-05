@@ -1,17 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:where_hearts_meet/auth_module/screens/login_screen.dart';
 import 'package:where_hearts_meet/dashboard_module/controller/dashboard_controller.dart';
 import 'package:where_hearts_meet/dashboard_module/screens/dashboard_drawer_screen.dart';
 import 'package:where_hearts_meet/event_module/model/add_event_model.dart';
 import 'package:where_hearts_meet/profile_module/model/people_model.dart';
 import 'package:where_hearts_meet/utils/consts/color_const.dart';
 import 'package:where_hearts_meet/utils/consts/screen_const.dart';
-import 'package:where_hearts_meet/utils/model/event_info_model.dart';
 import 'package:where_hearts_meet/utils/routes/routes_const.dart';
 import 'package:where_hearts_meet/utils/widgets/event_card.dart';
 import '../../utils/buttons/buttons.dart';
-import '../../utils/model/user_info_model.dart';
 import '../../utils/util_functions/decoration_functions.dart';
 import '../../utils/widgets/mini_user_card.dart';
 
@@ -89,8 +86,8 @@ class DashboardScreen extends StatelessWidget {
                   SizedBox(
                     height: _mainHeight * 0.025,
                   ),
-                  Row(
-                    children: const [
+                  const Row(
+                    children: [
                       Text(
                         'Favourite Event\'s  \u{1F970} ',
                         style: TextStyle(color: blackColor, fontWeight: FontWeight.w700, fontSize: 24),
@@ -117,8 +114,8 @@ class DashboardScreen extends StatelessWidget {
                   SizedBox(
                     height: _mainHeight * 0.04,
                   ),
-                  Row(
-                    children: const [
+                  const Row(
+                    children: [
                       Text(
                         'Favourite People\'s  \u{1F929} ',
                         style: TextStyle(color: blackColor, fontWeight: FontWeight.w700, fontSize: 24),
@@ -170,7 +167,9 @@ class DashboardScreen extends StatelessWidget {
         itemBuilder: (BuildContext context, int index) {
           var data = eventsList[index];
           return EventCard(
-            onCardTap: () {},
+            onCardTap: () {
+              Get.toNamed(RoutesConst.eventDetailsScreen, arguments: data);
+            },
             eventInfoModel: data,
             eventColor: getColorBasedOnIndex(index),
           );

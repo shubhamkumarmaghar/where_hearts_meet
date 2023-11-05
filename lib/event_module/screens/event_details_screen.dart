@@ -25,6 +25,7 @@ class EventDetailsScreen extends StatelessWidget {
       body: BaseContainer(
         child: Stack(
           children: [
+
             Container(
               height: _mainHeight,
               width: _mainWidth,
@@ -33,8 +34,21 @@ class EventDetailsScreen extends StatelessWidget {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
+
                     SizedBox(
-                      height: _mainHeight * 0.1,
+                      height: _mainHeight * 0.06,
+                    ),
+                    InkWell(
+                      onTap: (){
+                        Get.back();
+                      },
+                      child: CircleAvatar(
+                        backgroundColor: blackColor,
+                        child: Icon(Icons.arrow_back_outlined,color: whiteColor,),
+                      ),
+                    ),
+                    SizedBox(
+                      height: _mainHeight * 0.02,
                     ),
                     getEventTitle(event: '${controller.eventDetails.eventName} ${controller.eventDetails.name}'),
                     SizedBox(

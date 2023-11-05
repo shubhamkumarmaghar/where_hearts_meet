@@ -16,43 +16,48 @@ class EventCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      width: _mainWidth*0.85,
-      padding: const EdgeInsets.only(left: 7, top: 0, bottom: 7, right: 0),
-      decoration: BoxDecoration(
-          color: eventColor,
-          borderRadius: const BorderRadius.only(
-              topLeft: Radius.circular(20), topRight: Radius.circular(20), bottomRight: Radius.circular(20))),
+    return InkWell(
+      onTap: (){
+        onCardTap();
+      },
       child: Container(
-          padding: const EdgeInsets.only(left: 7, top: 7, right: 7),
-          decoration: const BoxDecoration(
-              color: whiteColor,
-              borderRadius: BorderRadius.only(
-                topLeft: Radius.circular(20),
-                topRight: Radius.circular(20),
-                bottomRight: Radius.circular(20),
-              )),
-          child: Column(
-            children: [
-              SizedBox(
-                  height: _mainHeight * 0.2,
-                  width: _mainWidth * 0.75,
-                  child: ClipRRect(
-                      borderRadius: const BorderRadius.only(
-                        topLeft: Radius.circular(20),
-                        topRight: Radius.circular(20),
-                        bottomRight: Radius.circular(20),
-                      ),
-                      child: Image.network(
-                        eventInfoModel.imageUrl ?? '',
-                        fit: BoxFit.fill,
-                      ))),
-              SizedBox(
-                height: _mainHeight*0.01,
-              ),
-              Text(eventInfoModel.eventName ??'')
-            ],
-          )),
+        width: _mainWidth*0.85,
+        padding: const EdgeInsets.only(left: 7, top: 0, bottom: 7, right: 0),
+        decoration: BoxDecoration(
+            color: eventColor,
+            borderRadius: const BorderRadius.only(
+                topLeft: Radius.circular(20), topRight: Radius.circular(20), bottomRight: Radius.circular(20))),
+        child: Container(
+            padding: const EdgeInsets.only(left: 7, top: 7, right: 7),
+            decoration: const BoxDecoration(
+                color: whiteColor,
+                borderRadius: BorderRadius.only(
+                  topLeft: Radius.circular(20),
+                  topRight: Radius.circular(20),
+                  bottomRight: Radius.circular(20),
+                )),
+            child: Column(
+              children: [
+                SizedBox(
+                    height: _mainHeight * 0.2,
+                    width: _mainWidth * 0.75,
+                    child: ClipRRect(
+                        borderRadius: const BorderRadius.only(
+                          topLeft: Radius.circular(20),
+                          topRight: Radius.circular(20),
+                          bottomRight: Radius.circular(20),
+                        ),
+                        child: Image.network(
+                          eventInfoModel.imageUrl ?? '',
+                          fit: BoxFit.fill,
+                        ))),
+                SizedBox(
+                  height: _mainHeight*0.01,
+                ),
+                Text(eventInfoModel.eventName ??'')
+              ],
+            )),
+      ),
     );
   }
 }
