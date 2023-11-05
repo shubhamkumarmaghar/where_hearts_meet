@@ -43,99 +43,98 @@ class LoginScreen extends StatelessWidget {
                             height: _mainHeight * 0.5,
                             margin: EdgeInsets.only(left: _mainWidth*0.06, right: _mainWidth*0.06),
                             width: _mainWidth,
-                            child: Container(
-                              padding: const EdgeInsets.only(left: 15,right: 15,top: 30),
-                              child: Column(
-                                children: [
-                                  Obx(
-                                        () => CustomTextField(
-                                        title: 'Email',
-                                        error: controller.errorEmailText.value,
-                                        hint: 'Please enter email',
-                                        onChanged: controller.onEmailChanged,
-                                        controller: controller.emailTextController),
-                                  ),
-                                  SizedBox(
-                                    height: _mainHeight * 0.04,
-                                  ),
-                                  Obx(
-                                        () => CustomTextField(
-                                      title: 'Password',
-                                      error: controller.errorPasswordText.value,
-                                      hint: 'Please enter password',
-                                      obscureText: controller.obscurePassword.value,
-                                      onChanged: controller.onPasswordChanged,
-                                      controller: controller.passwordTextController,
-                                      suffix: InkWell(
-                                        onTap: () => controller.obscurePassword.value = !controller.obscurePassword.value,
-                                        child: Container(
-                                            padding: const EdgeInsets.only(right: 10),
-                                            child: const Icon(
-                                              Icons.remove_red_eye_outlined,
-                                              color: blackColor,
-                                              size: 15,
-                                            )),
+                            child: Card(
+                              child: Container(
+                                padding: const EdgeInsets.only(left: 15,right: 15,top: 30),
+                                child: Column(
+                                  children: [
+                                    Obx(
+                                          () => CustomTextField(
+                                          title: 'Email',
+                                          error: controller.errorEmailText.value,
+                                          hint: 'Please enter email',
+                                          onChanged: controller.onEmailChanged,
+                                          controller: controller.emailTextController),
+                                    ),
+                                    SizedBox(
+                                      height: _mainHeight * 0.04,
+                                    ),
+                                    Obx(
+                                          () => CustomTextField(
+                                        title: 'Password',
+                                        error: controller.errorPasswordText.value,
+                                        hint: 'Please enter password',
+                                        obscureText: controller.obscurePassword.value,
+                                        onChanged: controller.onPasswordChanged,
+                                        controller: controller.passwordTextController,
+                                        suffix: InkWell(
+                                          onTap: () => controller.obscurePassword.value = !controller.obscurePassword.value,
+                                          child: Container(
+                                              padding: const EdgeInsets.only(right: 10),
+                                              child: const Icon(
+                                                Icons.remove_red_eye_outlined,
+                                                color: blackColor,
+                                                size: 15,
+                                              )),
+                                        ),
                                       ),
                                     ),
-                                  ),
-                                  SizedBox(height: _mainHeight*0.02,),
-                                  InkWell(
-                                    onTap: ()async{
-                                    },
-                                    child: Container(
-                                        alignment: Alignment.centerRight,
-                                        child: const Text('Forgot Password ?',style: TextStyle(
-                                            color: primaryColor,
-                                            fontWeight: FontWeight.w600,
-                                            fontSize: 16,
-                                            decoration: TextDecoration.underline
-                                        ),)),
-                                  ),
-                                  SizedBox(height: _mainHeight*0.05,),
-                                  Center(
-                                    child: GradientButton(
-                                      title: 'Login',
-                                      buttonColor: whiteColor,
-                                      buttonCorner: 15,
-                                      titleTextStyle: TextStyle( color: primaryColor,fontSize: 16,fontWeight: FontWeight.w700),
-                                      height: _mainHeight*0.06,
-                                      width: _mainWidth*0.8,
-                                      onPressed: () async{
-                                        controller.loginWithEmail();
-                                      },),
-                                  ),
-                                  SizedBox(height: _mainHeight*0.025,),
-                                  GestureDetector(
-                                    onTap: (){
-                                      Get.toNamed(RoutesConst.signUpScreen);
-                                    },
-                                    child: Container(
-
-                                      child: const Row(
-                                        mainAxisAlignment: MainAxisAlignment.center,
-                                        children: [
-                                          Text('Don\'t have an account ?  ',style: TextStyle(
-                                            color: blackColor,
-                                            fontWeight: FontWeight.w600,
-                                            fontSize: 16,
-
-
-                                          )),
-                                          Text('Create one',style: TextStyle(
+                                    SizedBox(height: _mainHeight*0.02,),
+                                    InkWell(
+                                      onTap: ()async{
+                                      },
+                                      child: Container(
+                                          alignment: Alignment.centerRight,
+                                          child: const Text('Forgot Password ?',style: TextStyle(
                                               color: primaryColor,
                                               fontWeight: FontWeight.w600,
                                               fontSize: 16,
                                               decoration: TextDecoration.underline
+                                          ),)),
+                                    ),
+                                    SizedBox(height: _mainHeight*0.05,),
+                                    Center(
+                                      child: GradientButton(
+                                        title: 'Login',
+                                        height: _mainHeight*0.06,
+                                        width: _mainWidth*0.8,
+                                        onPressed: () async{
+                                          controller.loginWithEmail();
+                                        },),
+                                    ),
+                                    SizedBox(height: _mainHeight*0.025,),
+                                    GestureDetector(
+                                      onTap: (){
+                                        Get.toNamed(RoutesConst.signUpScreen);
+                                      },
+                                      child: Container(
 
-                                          ),),
-                                        ],
+                                        child: const Row(
+                                          mainAxisAlignment: MainAxisAlignment.center,
+                                          children: [
+                                            Text('Don\'t have an account ?  ',style: TextStyle(
+                                              color: blackColor,
+                                              fontWeight: FontWeight.w600,
+                                              fontSize: 16,
+
+
+                                            )),
+                                            Text('Create one',style: TextStyle(
+                                                color: primaryColor,
+                                                fontWeight: FontWeight.w600,
+                                                fontSize: 16,
+                                                decoration: TextDecoration.underline
+
+                                            ),),
+                                          ],
+                                        ),
                                       ),
                                     ),
-                                  ),
-                                  SizedBox(
-                                    height: _mainHeight * 0.02,
-                                  ),
-                                ],
+                                    SizedBox(
+                                      height: _mainHeight * 0.02,
+                                    ),
+                                  ],
+                                ),
                               ),
                             ),
                           ),
