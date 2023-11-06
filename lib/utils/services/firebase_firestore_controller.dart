@@ -98,7 +98,7 @@ class FirebaseFireStoreController extends BaseController {
   }
 
   Future<List<PeopleModel>> getPeopleList() async {
-    final store = fireStore.collection('Peoples');
+    final store = fireStore.collection('Users');
     final dataList = await store.get();
     final allPeopleList = dataList.docs.map((element) => PeopleModel.fromJson(element.data())).toList();
 
