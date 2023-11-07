@@ -63,7 +63,7 @@ class CreatedEventListScreen extends StatelessWidget {
                                           SizedBox(
                                             height: _mainHeight * 0.005,
                                           ),
-                                          Text(data.text1 ?? '',
+                                          Text(data.title ?? '',
                                               style: const TextStyle(fontSize: 14, fontWeight: FontWeight.w500)),
                                           SizedBox(
                                             height: _mainHeight * 0.005,

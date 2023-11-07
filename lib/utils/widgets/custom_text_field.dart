@@ -67,7 +67,7 @@ class CustomTextField extends StatelessWidget {
               textAlign: textAlign == null ? TextAlign.start : textAlign!,
               textInputAction: inputAction,
               maxLines: maxLines == null || maxLines == 0 ? 1 : maxLines,
-              style: const TextStyle(color: Colors.black, fontSize: 14.0, fontWeight: FontWeight.w600),
+              style:  TextStyle(color:enabled? blackColor:greyColor, fontSize: 14.0, fontWeight: FontWeight.w600),
               onChanged: onChanged,
               obscureText: obscureText ?? false,
               decoration: InputDecoration(

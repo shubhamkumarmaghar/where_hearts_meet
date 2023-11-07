@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:where_hearts_meet/utils/buttons/buttons.dart';
 import 'package:where_hearts_meet/utils/consts/screen_const.dart';
+import 'package:where_hearts_meet/utils/model/event_type_model.dart';
 import 'package:where_hearts_meet/utils/widgets/base_container.dart';
 
 import '../../utils/consts/color_const.dart';
@@ -79,6 +80,57 @@ class AddEventScreen extends StatelessWidget {
                           onChanged: (text) {},
                           controller: controller.infoController),
                       SizedBox(
+                        height: _mainHeight * 0.03,
+                      ),
+                      const Text(
+                        'Select Event Type*',
+                        style: TextStyle(color: blackColor, fontSize: 18.0, fontWeight: FontWeight.w700),
+                      ),
+                      SizedBox(
+                        height: _mainHeight * 0.015,
+                      ),
+                      InkWell(
+                        onTap: () {
+                          controller.selectEventSheet();
+                        },
+                        child: Container(
+                          width: _mainWidth,
+                          decoration: BoxDecoration(
+                              color: whiteColor,
+                              borderRadius: BorderRadius.circular(30),
+                              border: Border.all(color: greyColor, width: 0.0)),
+                          height: Get.height * 0.06,
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              const Spacer(),
+                              Text(controller.selectedEventType.eventName ??''),
+                              const Spacer(),
+                              const Icon(Icons.arrow_drop_down),
+                              SizedBox(
+                                width: _mainWidth * 0.03,
+                              ),
+                            ],
+                          ),
+                        ),
+                      ),
+                      controller.selectedEventType.eventTypeId == '4'?Column(
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          SizedBox(
+                            height: _mainHeight * 0.03,
+                          ),
+                          CustomTextField(
+                              title: 'Event Type',
+                              hint: 'Enter event type',
+                              onChanged: (text) {},
+                              controller: controller.eventTypeController),
+                          SizedBox(
+                            height: _mainHeight * 0.03,
+                          ),
+                        ],
+                      ):SizedBox.shrink(),
+                      SizedBox(
                         height: _mainHeight * 0.05,
                       ),
                       controller.screenType == ScreenName.fromDashboard ? getSelectUserView() : const SizedBox.shrink(),
@@ -95,114 +147,132 @@ class AddEventScreen extends StatelessWidget {
                           Container(
                             alignment: Alignment.center,
                             height: _mainHeight * 0.1,
-                            width: _mainWidth*0.27,
+                            width: _mainWidth * 0.27,
                             child: controller.imageUrl1.isEmpty
                                 ? getElevatedButton(
-                              onPressed: () async {
-                                showImagePickerDialog(
-                                  context: Get.context!,
-                                  onCamera: () => controller.onCaptureMediaClick(source: ImageSource.camera,number: 1),
-                                  onGallery: () => controller.onCaptureMediaClick(source: ImageSource.gallery,number: 1),
-                                );
-                              },
-
-                              child: Icon(
-                                Icons.upload_rounded,
-                                size: _mainHeight * 0.06,
-                                color: blackColor,
-                              ),
-                            )
+                                    onPressed: () async {
+                                      showImagePickerDialog(
+                                        context: Get.context!,
+                                        onCamera: () =>
+                                            controller.onCaptureMediaClick(source: ImageSource.camera, number: 1),
+                                        onGallery: () =>
+                                            controller.onCaptureMediaClick(source: ImageSource.gallery, number: 1),
+                                      );
+                                    },
+                                    child: Icon(
+                                      Icons.add_photo_alternate,
+                                      size: _mainHeight * 0.06,
+                                      color: blackColor,
+                                    ),
+                                  )
                                 : InkWell(
-                              onTap: () {
-                                showImagePickerDialog(
-                                  context: Get.context!,
-                                  onCamera: () => controller.onCaptureMediaClick(source: ImageSource.camera,number: 1),
-                                  onGallery: () => controller.onCaptureMediaClick(source: ImageSource.gallery,number: 1),
-                                );
-                              },
-                              child: ClipRRect(
-                                  borderRadius: BorderRadius.all(Radius.circular(20)),
-                                  child: Image.network(
-                                    controller.imageUrl1,
-                                    fit: BoxFit.fitWidth,
-                                    width: _mainWidth * 0.35,
-                                  )),
-                            ),
+                                    onTap: () {
+                                      showImagePickerDialog(
+                                        context: Get.context!,
+                                        onCamera: () =>
+                                            controller.onCaptureMediaClick(source: ImageSource.camera, number: 1),
+                                        onGallery: () =>
+                                            controller.onCaptureMediaClick(source: ImageSource.gallery, number: 1),
+                                      );
+                                    },
+                                    child: SizedBox(
+                                      width: _mainWidth * 0.27,
+                                      height: _mainHeight * 0.1,
+                                      child: ClipRRect(
+                                          borderRadius: const BorderRadius.all(Radius.circular(20)),
+                                          child: Image.network(
+                                            controller.imageUrl1,
+                                            fit: BoxFit.cover,
+                                          )),
+                                    ),
+                                  ),
                           ),
                           Container(
                             alignment: Alignment.center,
                             height: _mainHeight * 0.1,
-                            width: _mainWidth*0.27,
+                            width: _mainWidth * 0.27,
                             child: controller.imageUrl2.isEmpty
                                 ? getElevatedButton(
-                              onPressed: () async {
-                                showImagePickerDialog(
-                                  context: Get.context!,
-                                  onCamera: () => controller.onCaptureMediaClick(source: ImageSource.camera,number: 2),
-                                  onGallery: () => controller.onCaptureMediaClick(source: ImageSource.gallery,number: 2),
-                                );
-                              },
-                              child: Icon(
-                                Icons.upload_rounded,
-                                size: _mainHeight * 0.06,
-                                color: blackColor,
-                              ),
-                            )
+                                    onPressed: () async {
+                                      showImagePickerDialog(
+                                        context: Get.context!,
+                                        onCamera: () =>
+                                            controller.onCaptureMediaClick(source: ImageSource.camera, number: 2),
+                                        onGallery: () =>
+                                            controller.onCaptureMediaClick(source: ImageSource.gallery, number: 2),
+                                      );
+                                    },
+                                    child: Icon(
+                                      Icons.add_photo_alternate,
+                                      size: _mainHeight * 0.06,
+                                      color: blackColor,
+                                    ),
+                                  )
                                 : InkWell(
-                              onTap: () {
-                                showImagePickerDialog(
-                                  context: Get.context!,
-                                  onCamera: () => controller.onCaptureMediaClick(source: ImageSource.camera,number: 2),
-                                  onGallery: () => controller.onCaptureMediaClick(source: ImageSource.gallery,number: 2),
-                                );
-                              },
-                              child: ClipRRect(
-                                  borderRadius: BorderRadius.all(Radius.circular(20)),
-                                  child: Image.network(
-                                    controller.imageUrl2,
-                                    fit: BoxFit.fitWidth,
-                                    width: _mainWidth * 0.35,
-                                  )),
-                            ),
+                                    onTap: () {
+                                      showImagePickerDialog(
+                                        context: Get.context!,
+                                        onCamera: () =>
+                                            controller.onCaptureMediaClick(source: ImageSource.camera, number: 2),
+                                        onGallery: () =>
+                                            controller.onCaptureMediaClick(source: ImageSource.gallery, number: 2),
+                                      );
+                                    },
+                                    child: SizedBox(
+                                      width: _mainWidth * 0.27,
+                                      height: _mainHeight * 0.1,
+                                      child: ClipRRect(
+                                          borderRadius: const BorderRadius.all(Radius.circular(20)),
+                                          child: Image.network(
+                                            controller.imageUrl2,
+                                            fit: BoxFit.cover,
+                                          )),
+                                    ),
+                                  ),
                           ),
                           Container(
                             alignment: Alignment.center,
                             height: _mainHeight * 0.1,
-                            width: _mainWidth*0.27,
+                            width: _mainWidth * 0.27,
                             child: controller.imageUrl3.isEmpty
                                 ? getElevatedButton(
-                              onPressed: () async {
-                                showImagePickerDialog(
-                                  context: Get.context!,
-                                  onCamera: () => controller.onCaptureMediaClick(source: ImageSource.camera,number: 3),
-                                  onGallery: () => controller.onCaptureMediaClick(source: ImageSource.gallery,number: 3),
-                                );
-                              },
-                              child: Icon(
-                                Icons.upload_rounded,
-                                size: _mainHeight * 0.06,
-                                color: blackColor,
-                              ),
-                            )
+                                    onPressed: () async {
+                                      showImagePickerDialog(
+                                        context: Get.context!,
+                                        onCamera: () =>
+                                            controller.onCaptureMediaClick(source: ImageSource.camera, number: 3),
+                                        onGallery: () =>
+                                            controller.onCaptureMediaClick(source: ImageSource.gallery, number: 3),
+                                      );
+                                    },
+                                    child: Icon(
+                                      Icons.add_photo_alternate,
+                                      size: _mainHeight * 0.06,
+                                      color: blackColor,
+                                    ),
+                                  )
                                 : InkWell(
-                              onTap: () {
-                                showImagePickerDialog(
-                                  context: Get.context!,
-                                  onCamera: () => controller.onCaptureMediaClick(source: ImageSource.camera,number: 3),
-                                  onGallery: () => controller.onCaptureMediaClick(source: ImageSource.gallery,number: 3),
-                                );
-                              },
-                              child: ClipRRect(
-                                  borderRadius: BorderRadius.all(Radius.circular(20)),
-                                  child: Image.network(
-                                    controller.imageUrl3,
-                                    fit: BoxFit.fitWidth,
-                                    width: _mainWidth * 0.35,
-                                  )),
-                            ),
+                                    onTap: () {
+                                      showImagePickerDialog(
+                                        context: Get.context!,
+                                        onCamera: () =>
+                                            controller.onCaptureMediaClick(source: ImageSource.camera, number: 3),
+                                        onGallery: () =>
+                                            controller.onCaptureMediaClick(source: ImageSource.gallery, number: 3),
+                                      );
+                                    },
+                                    child: SizedBox(
+                                      width: _mainWidth * 0.27,
+                                      height: _mainHeight * 0.1,
+                                      child: ClipRRect(
+                                          borderRadius: const BorderRadius.all(Radius.circular(20)),
+                                          child: Image.network(
+                                            controller.imageUrl3,
+                                            fit: BoxFit.cover,
+                                          )),
+                                    ),
+                                  ),
                           ),
-
-
                         ],
                       ),
                       SizedBox(
@@ -214,114 +284,132 @@ class AddEventScreen extends StatelessWidget {
                           Container(
                             alignment: Alignment.center,
                             height: _mainHeight * 0.1,
-                            width: _mainWidth*0.27,
+                            width: _mainWidth * 0.27,
                             child: controller.imageUrl4.isEmpty
                                 ? getElevatedButton(
-                              onPressed: () async {
-                                showImagePickerDialog(
-                                  context: Get.context!,
-                                  onCamera: () => controller.onCaptureMediaClick(source: ImageSource.camera,number: 4),
-                                  onGallery: () => controller.onCaptureMediaClick(source: ImageSource.gallery,number: 4),
-                                );
-                              },
-                              child: Icon(
-                                Icons.upload_rounded,
-                                size: _mainHeight * 0.06,
-                                color: blackColor,
-                              ),
-                            )
+                                    onPressed: () async {
+                                      showImagePickerDialog(
+                                        context: Get.context!,
+                                        onCamera: () =>
+                                            controller.onCaptureMediaClick(source: ImageSource.camera, number: 4),
+                                        onGallery: () =>
+                                            controller.onCaptureMediaClick(source: ImageSource.gallery, number: 4),
+                                      );
+                                    },
+                                    child: Icon(
+                                      Icons.add_photo_alternate,
+                                      size: _mainHeight * 0.06,
+                                      color: blackColor,
+                                    ),
+                                  )
                                 : InkWell(
-                              onTap: () {
-                                showImagePickerDialog(
-                                  context: Get.context!,
-                                  onCamera: () => controller.onCaptureMediaClick(source: ImageSource.camera,number: 4),
-                                  onGallery: () => controller.onCaptureMediaClick(source: ImageSource.gallery,number: 4),
-                                );
-                              },
-                              child: ClipRRect(
-                                  borderRadius: BorderRadius.all(Radius.circular(20)),
-                                  child: Image.network(
-                                    controller.imageUrl4,
-                                    fit: BoxFit.fitWidth,
-                                    width: _mainWidth * 0.35,
-                                  )),
-                            ),
+                                    onTap: () {
+                                      showImagePickerDialog(
+                                        context: Get.context!,
+                                        onCamera: () =>
+                                            controller.onCaptureMediaClick(source: ImageSource.camera, number: 4),
+                                        onGallery: () =>
+                                            controller.onCaptureMediaClick(source: ImageSource.gallery, number: 4),
+                                      );
+                                    },
+                                    child: SizedBox(
+                                      width: _mainWidth * 0.27,
+                                      height: _mainHeight * 0.1,
+                                      child: ClipRRect(
+                                          borderRadius: const BorderRadius.all(Radius.circular(20)),
+                                          child: Image.network(
+                                            controller.imageUrl4,
+                                            fit: BoxFit.cover,
+                                          )),
+                                    ),
+                                  ),
                           ),
                           Container(
                             alignment: Alignment.center,
                             height: _mainHeight * 0.1,
-                            width: _mainWidth*0.27,
+                            width: _mainWidth * 0.27,
                             child: controller.imageUrl5.isEmpty
                                 ? getElevatedButton(
-                              onPressed: () async {
-                                showImagePickerDialog(
-                                  context: Get.context!,
-                                  onCamera: () => controller.onCaptureMediaClick(source: ImageSource.camera,number: 5),
-                                  onGallery: () => controller.onCaptureMediaClick(source: ImageSource.gallery,number: 5),
-                                );
-                              },
-
-                              child: Icon(
-                                Icons.upload_rounded,
-                                size: _mainHeight * 0.06,
-                                color: blackColor,
-                              ),
-                            )
+                                    onPressed: () async {
+                                      showImagePickerDialog(
+                                        context: Get.context!,
+                                        onCamera: () =>
+                                            controller.onCaptureMediaClick(source: ImageSource.camera, number: 5),
+                                        onGallery: () =>
+                                            controller.onCaptureMediaClick(source: ImageSource.gallery, number: 5),
+                                      );
+                                    },
+                                    child: Icon(
+                                      Icons.add_photo_alternate,
+                                      size: _mainHeight * 0.06,
+                                      color: blackColor,
+                                    ),
+                                  )
                                 : InkWell(
-                              onTap: () {
-                                showImagePickerDialog(
-                                  context: Get.context!,
-                                  onCamera: () => controller.onCaptureMediaClick(source: ImageSource.camera,number: 5),
-                                  onGallery: () => controller.onCaptureMediaClick(source: ImageSource.gallery,number: 5),
-                                );
-                              },
-                              child: ClipRRect(
-                                  borderRadius: BorderRadius.all(Radius.circular(20)),
-                                  child: Image.network(
-                                    controller.imageUrl5,
-                                    fit: BoxFit.fitWidth,
-                                    width: _mainWidth * 0.35,
-                                  )),
-                            ),
+                                    onTap: () {
+                                      showImagePickerDialog(
+                                        context: Get.context!,
+                                        onCamera: () =>
+                                            controller.onCaptureMediaClick(source: ImageSource.camera, number: 5),
+                                        onGallery: () =>
+                                            controller.onCaptureMediaClick(source: ImageSource.gallery, number: 5),
+                                      );
+                                    },
+                                    child: SizedBox(
+                                      width: _mainWidth * 0.27,
+                                      height: _mainHeight * 0.1,
+                                      child: ClipRRect(
+                                          borderRadius: const BorderRadius.all(Radius.circular(20)),
+                                          child: Image.network(
+                                            controller.imageUrl5,
+                                            fit: BoxFit.cover,
+                                          )),
+                                    ),
+                                  ),
                           ),
                           Container(
                             alignment: Alignment.center,
                             height: _mainHeight * 0.1,
-                            width: _mainWidth*0.27,
+                            width: _mainWidth * 0.27,
                             child: controller.imageUrl6.isEmpty
                                 ? getElevatedButton(
-                              onPressed: () async {
-                                showImagePickerDialog(
-                                  context: Get.context!,
-                                  onCamera: () => controller.onCaptureMediaClick(source: ImageSource.camera,number: 6),
-                                  onGallery: () => controller.onCaptureMediaClick(source: ImageSource.gallery,number: 6),
-                                );
-                              },
-
-                              child: Icon(
-                                Icons.upload_rounded,
-                                size: _mainHeight * 0.06,
-                                color: blackColor,
-                              ),
-                            )
+                                    onPressed: () async {
+                                      showImagePickerDialog(
+                                        context: Get.context!,
+                                        onCamera: () =>
+                                            controller.onCaptureMediaClick(source: ImageSource.camera, number: 6),
+                                        onGallery: () =>
+                                            controller.onCaptureMediaClick(source: ImageSource.gallery, number: 6),
+                                      );
+                                    },
+                                    child: Icon(
+                                      Icons.add_photo_alternate,
+                                      size: _mainHeight * 0.06,
+                                      color: blackColor,
+                                    ),
+                                  )
                                 : InkWell(
-                              onTap: () {
-                                showImagePickerDialog(
-                                  context: Get.context!,
-                                  onCamera: () => controller.onCaptureMediaClick(source: ImageSource.camera,number: 6),
-                                  onGallery: () => controller.onCaptureMediaClick(source: ImageSource.gallery,number: 6),
-                                );
-                              },
-                              child: ClipRRect(
-                                  borderRadius: BorderRadius.all(Radius.circular(20)),
-                                  child: Image.network(
-                                    controller.imageUrl6,
-                                    fit: BoxFit.fitWidth,
-                                  )),
-                            ),
+                                    onTap: () {
+                                      showImagePickerDialog(
+                                        context: Get.context!,
+                                        onCamera: () =>
+                                            controller.onCaptureMediaClick(source: ImageSource.camera, number: 6),
+                                        onGallery: () =>
+                                            controller.onCaptureMediaClick(source: ImageSource.gallery, number: 6),
+                                      );
+                                    },
+                                    child: SizedBox(
+                                      width: _mainWidth * 0.27,
+                                      height: _mainHeight * 0.1,
+                                      child: ClipRRect(
+                                          borderRadius: const BorderRadius.all(Radius.circular(20)),
+                                          child: Image.network(
+                                            controller.imageUrl6,
+                                            fit: BoxFit.cover,
+                                          )),
+                                    ),
+                                  ),
                           ),
-
-
                         ],
                       ),
                       SizedBox(

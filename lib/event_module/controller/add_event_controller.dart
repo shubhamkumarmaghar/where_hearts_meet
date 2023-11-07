@@ -1,6 +1,6 @@
 import 'dart:developer';
 import 'dart:io';
-
+import 'dart:ui';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -9,9 +9,9 @@ import 'package:image_picker/image_picker.dart';
 import 'package:where_hearts_meet/event_module/model/add_event_model.dart';
 import 'package:where_hearts_meet/profile_module/controller/add_people_controller.dart';
 import 'package:where_hearts_meet/utils/controller/base_controller.dart';
+import 'package:where_hearts_meet/utils/model/event_type_model.dart';
 import 'package:where_hearts_meet/utils/routes/routes_const.dart';
 import 'package:where_hearts_meet/utils/services/firebase_auth_controller.dart';
-
 import '../../profile_module/model/people_model.dart';
 import '../../utils/consts/color_const.dart';
 import '../../utils/consts/screen_const.dart';
@@ -23,6 +23,7 @@ class AddEventController extends BaseController {
   final nameController = TextEditingController();
   final eventNameController = TextEditingController();
   final titleController = TextEditingController();
+  final eventTypeController = TextEditingController();
   final subtitleController = TextEditingController();
   final firebaseStorageController = Get.find<FirebaseStorageController>();
   final infoController = TextEditingController();
@@ -40,6 +41,7 @@ class AddEventController extends BaseController {
   final _mainWidth = Get.width;
   PeopleModel selectedUser = PeopleModel();
   bool userSelected = false;
+  EventTypeModel selectedEventType = EventTypeModel(eventName: 'Select Event',eventTypeId: '0',eventIcon: Icons.select_all);
 
   @override
   void onInit() {
@@ -95,10 +97,7 @@ class AddEventController extends BaseController {
   }
 
   Future<void> addEvent() async {
-    if (screenType == ScreenName.fromDashboard && (selectedUser.email == null || selectedUser.email == "")) {
-      showSnackBar(context: Get.context!, message: 'Please Select User');
-      return;
-    } else if (nameController.text.isEmpty) {
+     if (nameController.text.isEmpty) {
       showSnackBar(context: Get.context!, message: 'Please enter name');
       return;
     } else if (eventNameController.text.isEmpty) {
@@ -107,10 +106,18 @@ class AddEventController extends BaseController {
     } else if (infoController.text.isEmpty) {
       showSnackBar(context: Get.context!, message: 'Please enter info');
       return;
-    } else if (imageUrl1 == '') {
+    } else if (selectedEventType.eventTypeId == '0') {
+      showSnackBar(context: Get.context!, message: 'Please select event type');
+      return;
+    } else if (screenType == ScreenName.fromDashboard && (selectedUser.email == null || selectedUser.email == "")) {
+       showSnackBar(context: Get.context!, message: 'Please Select User');
+       return;
+     }else if (imageUrl1 == '' || imageUrl2 == ''|| imageUrl3 == ''|| imageUrl4 == ''|| imageUrl5 == ''|| imageUrl6 == '') {
       showSnackBar(context: Get.context!, message: 'Please upload image');
       return;
     }
+
+
     showLoaderDialog(context: Get.context!);
     var email;
     if (screenType == ScreenName.fromAddPeople) {
@@ -126,9 +133,10 @@ class AddEventController extends BaseController {
             imageList: [imageUrl1,imageUrl2,imageUrl3,imageUrl4,imageUrl5,imageUrl6],
             name: nameController.text,
             eventName: eventNameController.text,
-            text1: titleController.text,
-            text2: subtitleController.text,
-            text3: infoController.text,
+            eventType: eventTypeController.text,
+            title: titleController.text,
+            subtitle: subtitleController.text,
+            eventInfo: infoController.text,
             fromEmail: firebaseAuthController.getCurrentUser()?.email,
             toEmail: email));
     cancelLoaderDialog();
@@ -204,13 +212,13 @@ class AddEventController extends BaseController {
                                   height: _mainHeight * 0.06,
                                   width: _mainWidth * 0.14,
                                   child: ClipRRect(
-                                    borderRadius: BorderRadius.all(Radius.circular(100)),
+                                    borderRadius: const BorderRadius.all(Radius.circular(100)),
                                     child: data.imageUrl != null && data.imageUrl != ''
                                         ? Image.network(
                                             data.imageUrl ?? '',
                                             fit: BoxFit.fill,
                                           )
-                                        : Icon(Icons.person),
+                                        : const Icon(Icons.person),
                                   ),
                                 ),
                                 SizedBox(
@@ -243,6 +251,82 @@ class AddEventController extends BaseController {
     );
   }
 
+  void selectEventSheet()async{
+    final event = await _showEventsTypeBottomSheet();
+    if(event != null){
+      selectedEventType = event;
+      eventTypeController.text=selectedEventType.eventName ??'Others';
+      update();
+    }
+  }
+
+  Future<EventTypeModel?> _showEventsTypeBottomSheet() {
+    return showModalBottomSheet<EventTypeModel>(
+      context: Get.context!,
+      isScrollControlled: true,
+      shape: const RoundedRectangleBorder(
+        borderRadius: BorderRadius.only(
+          topLeft: Radius.circular(25),
+          topRight: Radius.circular(25),
+        ),
+      ),
+      backgroundColor: Colors.white,
+      builder: (BuildContext context) {
+        return Container(
+            decoration: const BoxDecoration(
+                color: whiteColor,
+                borderRadius: BorderRadius.only(
+                  topLeft: Radius.circular(25),
+                  topRight: Radius.circular(25),
+                )),
+            height: Get.height * 0.7,
+            padding:  EdgeInsets.only(top: _mainHeight*0.02),
+            child: Column(
+              children: [
+                const Center(
+                  child: Text(
+                    'Select Event Type',style: TextStyle(fontWeight: FontWeight.w700,fontSize: 16),
+                  ),
+                ),
+                SizedBox(
+                  height: _mainHeight*0.02,
+                ),
+                Container(
+                  padding: EdgeInsets.symmetric(horizontal: 15),
+                  height: _mainHeight*0.62,
+                  child: ListView.separated(
+                      itemBuilder: (context, index) {
+                        var data = getEventsTypeList()[index];
+                        return InkWell(
+                          onTap: (){
+                            Navigator.of(context).pop(data);
+                          },
+                          child: SizedBox(
+                            height: _mainHeight*0.04,
+                            child: Row(
+                              children: [
+                                Icon(data.eventIcon,color: primaryColor,),
+                                SizedBox(width: _mainWidth*0.03,),
+                                Text(data.eventName ??'',style: const TextStyle(
+                                  fontSize: 15,
+                                  fontWeight: FontWeight.w500,
+                                  color: primaryColor
+                                ),)
+                              ],
+                            ),
+                          ),
+                        );
+                      },
+                      separatorBuilder: (context, index) => const Divider(),
+                      itemCount: getEventsTypeList().length),
+                ),
+              ],
+            ));
+      },
+    );
+  }
+
+
   @override
   void dispose() {
     nameController.dispose();
@@ -250,6 +334,7 @@ class AddEventController extends BaseController {
     titleController.dispose();
     subtitleController.dispose();
     infoController.dispose();
+    eventTypeController.dispose();
     super.dispose();
   }
 }

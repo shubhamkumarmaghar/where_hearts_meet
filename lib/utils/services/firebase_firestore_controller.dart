@@ -17,6 +17,12 @@ class FirebaseFireStoreController extends BaseController {
     final store = fireStore.collection('Users').doc(user?.uid);
     await store.set(userInfoModel.toJson());
   }
+  Future<void> updateUserData({required UserInfoModel userInfoModel}) async {
+    User? user = auth.currentUser;
+    final store = fireStore.collection('Users').doc(user?.uid);
+    await store.update(userInfoModel.toJson());
+    await user?.updateDisplayName(userInfoModel.name);
+  }
 
   Future<bool> addPeople({required PeopleModel peopleModel}) async {
     final currentUser = await getCurrentUserFromFireStore();
@@ -112,6 +118,25 @@ class FirebaseFireStoreController extends BaseController {
           if (currentPeopleId == allListUser.uid) {
             list.add(allListUser);
           }
+        }
+      }
+    }
+
+    return list;
+  }
+  ///same as getPeopleList
+  Future<List<PeopleModel>> getPeopleListFromModel({required List<String > peopleListFromModel}) async {
+    final store = fireStore.collection('Users');
+    final dataList = await store.get();
+    final allPeopleList = dataList.docs.map((element) => PeopleModel.fromJson(element.data())).toList();
+
+    List<PeopleModel> list = [];
+    var peopleList = peopleListFromModel;
+
+    for (var currentPeopleId in peopleList) {
+      for (var allListUser in allPeopleList) {
+        if (currentPeopleId == allListUser.uid) {
+          list.add(allListUser);
         }
       }
     }

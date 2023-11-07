@@ -41,11 +41,11 @@ class EventListScreen extends StatelessWidget {
                                   child: Container(
                                     decoration: BoxDecoration(
                                         color: greyColor.withOpacity(0.2), borderRadius: BorderRadius.circular(10)),
-                                    padding: EdgeInsets.all(10),
+                                    padding: const EdgeInsets.all(10),
                                     child: Row(
                                       crossAxisAlignment: CrossAxisAlignment.start,
                                       children: [
-                                        Container(
+                                        SizedBox(
                                           height: _mainHeight * 0.06,
                                           width: _mainWidth * 0.14,
                                           child: ClipRRect(
@@ -68,7 +68,7 @@ class EventListScreen extends StatelessWidget {
                                             SizedBox(
                                               height: _mainHeight * 0.005,
                                             ),
-                                            Text(data.text1 ?? '',
+                                            Text(data.title ?? '',
                                                 style: const TextStyle(fontSize: 14, fontWeight: FontWeight.w500)),
                                             SizedBox(
                                               height: _mainHeight * 0.005,

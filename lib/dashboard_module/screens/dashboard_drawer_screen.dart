@@ -22,37 +22,7 @@ class DashboardDrawerScreen extends StatelessWidget {
       width: _mainWidth * 0.75,
       child: Column(
         children: [
-          UserAccountsDrawerHeader(
-            accountName: Text(
-              firebaseAuthController.getCurrentUser()?.displayName ?? '',
-              style: const TextStyle(fontSize: 20, fontWeight: FontWeight.w700),
-            ),
-            otherAccountsPictures: const [
-              CircleAvatar(
-                  backgroundColor: blackColor,
-                  child: Icon(Icons.edit,color: whiteColor,size: 25,))
-            ],
-            accountEmail: Text(firebaseAuthController.getCurrentUser()?.email ?? ''),
-            currentAccountPicture: InkWell(
-              onTap: (){
-                dashboardController.showLogoutAlertDialog(context: context, logOutFunction: (){});
-              },
-              child: CircleAvatar(
-                  backgroundColor: whiteColor,
-                  child: firebaseAuthController.getCurrentUser()?.photoURL == null
-                      ? const Icon(
-                          Icons.person,
-                          color: primaryColor,
-                        )
-                      : ClipRRect(
-                          borderRadius: BorderRadius.circular(50),
-                          child: Image.network(
-                            firebaseAuthController.getCurrentUser()?.photoURL ?? '',
-                            fit: BoxFit.fitWidth,
-                            width: _mainWidth * 0.2,
-                          ))),
-            ),
-          ),
+          getUserAccountHeader(context: context),
           SizedBox(
             height: _mainHeight * 0.01,
           ),
@@ -114,6 +84,45 @@ class DashboardDrawerScreen extends StatelessWidget {
                 'v1.0',
               )),
         ],
+      ),
+    );
+  }
+
+  UserAccountsDrawerHeader getUserAccountHeader({required BuildContext context}) {
+    return UserAccountsDrawerHeader(
+      accountName: Text(
+        firebaseAuthController.getCurrentUser()?.displayName ?? '',
+        style: const TextStyle(fontSize: 20, fontWeight: FontWeight.w700),
+      ),
+      otherAccountsPictures:  [
+        InkWell(
+          onTap: (){
+            Get.toNamed(RoutesConst.editProfileScreen);
+          },
+          child: const CircleAvatar(
+              backgroundColor: blackColor,
+              child: Icon(Icons.edit,color: whiteColor,size: 25,)),
+        )
+      ],
+      accountEmail: Text(firebaseAuthController.getCurrentUser()?.email ?? ''),
+      currentAccountPicture: InkWell(
+        onTap: (){
+          dashboardController.showLogoutAlertDialog(context: context, logOutFunction: (){});
+        },
+        child: CircleAvatar(
+            backgroundColor: whiteColor,
+            child: firebaseAuthController.getCurrentUser()?.photoURL == null
+                ? const Icon(
+              Icons.person,
+              color: primaryColor,
+            )
+                : ClipRRect(
+                borderRadius: BorderRadius.circular(50),
+                child: Image.network(
+                  firebaseAuthController.getCurrentUser()?.photoURL ?? '',
+                  fit: BoxFit.fitWidth,
+                  width: _mainWidth * 0.2,
+                ))),
       ),
     );
   }

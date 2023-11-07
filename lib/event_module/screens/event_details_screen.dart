@@ -38,19 +38,24 @@ class EventDetailsScreen extends StatelessWidget {
                     SizedBox(
                       height: _mainHeight * 0.06,
                     ),
-                    InkWell(
-                      onTap: (){
-                        Get.back();
-                      },
-                      child: CircleAvatar(
-                        backgroundColor: blackColor,
-                        child: Icon(Icons.arrow_back_outlined,color: whiteColor,),
-                      ),
+                    Row(
+                      children: [
+                        InkWell(
+                          onTap: (){
+                            Get.back();
+                          },
+                          child: const CircleAvatar(
+                            backgroundColor: blackColor,
+                            child: Icon(Icons.arrow_back_outlined,color: whiteColor,),
+                          ),
+                        ),
+                        const Spacer(),
+                        getEventTitle(event: '${controller.eventDetails.eventName}'),
+                        SizedBox(width: _mainHeight*0.05,),
+                        const Spacer(),
+                      ],
                     ),
-                    SizedBox(
-                      height: _mainHeight * 0.02,
-                    ),
-                    getEventTitle(event: '${controller.eventDetails.eventName} ${controller.eventDetails.name}'),
+
                     SizedBox(
                       height: _mainHeight * 0.05,
                     ),
@@ -75,7 +80,7 @@ class EventDetailsScreen extends StatelessWidget {
                             ),
                           ),
                         ),
-                        Spacer(),
+                        const Spacer(),
                         Column(
                           children: [
                             InkWell(onTap: () {
@@ -148,6 +153,16 @@ class EventDetailsScreen extends StatelessWidget {
                     SizedBox(
                       height: _mainHeight * 0.05,
                     ),
+                    Center(
+                      child: Text(controller.eventDetails.name ??'',style:  TextStyle(
+                          fontWeight: FontWeight.w600,
+                          fontSize: 25,
+                          color: primaryColor.withOpacity(1)
+                      ),),
+                    ),
+                    SizedBox(
+                      height: _mainHeight * 0.02,
+                    ),
                     Obx(() {
                       return Text(
                         controller.infoText.value,
@@ -169,22 +184,24 @@ class EventDetailsScreen extends StatelessWidget {
   }
 
   Widget getEventTitle({required String event}) {
-    return GradientText(
-      text: event,
-      gradient: LinearGradient(
-        colors: [
-          Colors.red.shade400,
-          Colors.blue.shade400,
-          Color(0XFFFF0000),
-          Color(0XFFFF0000),
-          Colors.yellow.shade600,
-          Colors.red.shade700,
-        ],
-      ),
-      style: TextStyle(
-        fontSize: _mainWidth * 0.06,
-        fontWeight: FontWeight.w600,
-        fontFeatures: [FontFeature.oldstyleFigures()],
+    return Center(
+      child: GradientText(
+        text: event,
+        gradient: LinearGradient(
+          colors: [
+            Colors.red.shade400,
+            Colors.blue.shade400,
+            const Color(0XFFFF0000),
+            const Color(0XFFFF0000),
+            Colors.yellow.shade600,
+            Colors.red.shade700,
+          ],
+        ),
+        style: TextStyle(
+          fontSize: _mainWidth * 0.06,
+          fontWeight: FontWeight.w600,
+          fontFeatures: const [FontFeature.oldstyleFigures()],
+        ),
       ),
     );
   }

@@ -39,7 +39,7 @@ class EventDetailsController extends BaseController {
   }
 
   void show() async {
-    final info = eventDetails.text3 ?? '';
+    final info = eventDetails.eventInfo ?? '';
     final List<String> list = info.split(' ');
     String showinfo = '';
     for (var data in list) {
