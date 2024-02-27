@@ -27,7 +27,7 @@ class FirebaseFireStoreController extends BaseController {
   Future<bool> addPeople({required PeopleModel peopleModel}) async {
     final currentUser = await getCurrentUserFromFireStore();
     if (currentUser != null) {
-      final addPeopleStore = fireStore.collection('Peoples').doc(peopleModel.uid);
+      final addPeopleStore = fireStore.collection('Users').doc(peopleModel.uid);
       await addPeopleStore.set(peopleModel.toJson());
 
       final userStore = fireStore.collection('Users').doc(currentUser.uid);
@@ -143,12 +143,17 @@ class FirebaseFireStoreController extends BaseController {
 
     return list;
   }
+  void getInnerCollection()async{
 
-  Future<List<PeopleModel>> getAllPeopleList() async {
-    final store = fireStore.collection('Peoples');
-    final dataList = await store.get();
-    final allPeopleList = dataList.docs.map((element) => PeopleModel.fromJson(element.data())).toList();
-    return allPeopleList;
+    final store1 = fireStore.collection('Users');
+    final ref1 = store1.doc('303igPtPwYP1QUemh9iQIzOXARK2');
+     final store2 = ref1.collection('Peoples');
+
+    final dataList = await store2.get();
+
+    final list=dataList.docs.map((e) => {'name':e}).toList();
+    log('called  ${ list.length}');
+
   }
 
   Future<void> deletePeople({required String uid}) async {

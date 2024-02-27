@@ -7,6 +7,7 @@ import 'package:where_hearts_meet/profile_module/model/people_model.dart';
 import 'package:where_hearts_meet/utils/consts/color_const.dart';
 import 'package:where_hearts_meet/utils/consts/screen_const.dart';
 import 'package:where_hearts_meet/utils/routes/routes_const.dart';
+import 'package:where_hearts_meet/utils/services/firebase_firestore_controller.dart';
 import 'package:where_hearts_meet/utils/widgets/event_card.dart';
 import '../../utils/buttons/buttons.dart';
 import '../../utils/util_functions/decoration_functions.dart';
@@ -73,8 +74,8 @@ class DashboardScreen extends StatelessWidget {
                   Container(
                     alignment: Alignment.center,
                     child: getIconButton(
-                      onPressed: () {
-                        Get.toNamed(RoutesConst.addPeopleScreen);
+                      onPressed: () async{
+                       Get.toNamed(RoutesConst.addPeopleScreen);
                       },
                       child: Icon(
                         Icons.add_reaction,
