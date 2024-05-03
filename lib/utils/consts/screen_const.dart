@@ -5,7 +5,4 @@ enum ScreenName{
 
 enum EventType{
   birthday,
-
-
-
 }

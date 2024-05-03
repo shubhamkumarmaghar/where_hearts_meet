@@ -82,7 +82,7 @@ class CreatedEventListScreen extends StatelessWidget {
                                           controller.deleteCreatedEvent(eventId: data.eventId ?? '');
                                         },
                                         child: const CircleAvatar(
-                                            backgroundColor: redColorDefault,
+                                            backgroundColor: redColorError,
                                             child: Icon(
                                               Icons.delete,
                                               color: whiteColor,

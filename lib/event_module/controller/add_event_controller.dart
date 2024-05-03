@@ -1,10 +1,7 @@
-import 'dart:developer';
+
 import 'dart:io';
-import 'dart:ui';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:get/get_core/src/get_main.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:where_hearts_meet/event_module/model/add_event_model.dart';
 import 'package:where_hearts_meet/profile_module/controller/add_people_controller.dart';
@@ -117,7 +114,6 @@ class AddEventController extends BaseController {
       return;
     }
 
-
     showLoaderDialog(context: Get.context!);
     var email;
     if (screenType == ScreenName.fromAddPeople) {
@@ -131,7 +127,7 @@ class AddEventController extends BaseController {
         addEventModel: AddEventModel(
             imageUrl: imageUrl1,
             imageList: [imageUrl1,imageUrl2,imageUrl3,imageUrl4,imageUrl5,imageUrl6],
-            name: nameController.text,
+            personName: nameController.text,
             eventName: eventNameController.text,
             eventType: eventTypeController.text,
             title: titleController.text,

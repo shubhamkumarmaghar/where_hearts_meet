@@ -1,6 +1,6 @@
 class AddEventModel {
   String? imageUrl;
-  String? name;
+  String? personName;
   List<String>? imageList;
   String? eventId;
   String? eventName;
@@ -14,8 +14,8 @@ class AddEventModel {
   AddEventModel(
       {this.imageUrl,
       this.eventName,
-        this.eventType,
-      this.name,
+      this.eventType,
+      this.personName,
       this.title,
       this.subtitle,
       this.eventInfo,
@@ -25,7 +25,7 @@ class AddEventModel {
 
   AddEventModel.fromJson(Map<String, dynamic> json) {
     imageUrl = json['image_url'];
-    name = json['name'];
+    personName = json['name'];
     title = json['title'];
     subtitle = json['subtitle'];
     eventName = json['event_name'];
@@ -43,7 +43,7 @@ class AddEventModel {
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = <String, dynamic>{};
     data['image_url'] = imageUrl;
-    data['name'] = name;
+    data['name'] = personName;
     data['event_name'] = eventName;
     data['event_type'] = eventType;
     data['event_id'] = eventId;
