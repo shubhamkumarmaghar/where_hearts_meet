@@ -2,23 +2,23 @@ import 'dart:developer';
 
 import 'package:dio/dio.dart';
 
-final DioInjector injector = DioInjector();
-
 class DioInjector {
+  late Dio _dio;
+
   DioInjector() {
     init();
   }
 
-  final _dio = Dio(BaseOptions(
-    baseUrl: 'baseUrl',
-    connectTimeout: Duration(seconds: 30),
-    receiveTimeout: Duration(seconds: 30),
-    sendTimeout: Duration(seconds: 30),
-  ));
-
   Dio get dio => _dio;
 
   void init() {
+    _dio = Dio(BaseOptions(
+      baseUrl: 'baseUrl',
+      connectTimeout: const Duration(seconds: 30),
+      receiveTimeout: const Duration(seconds: 30),
+      sendTimeout: const Duration(seconds: 30),
+    ));
+
     _dio.interceptors
       ..add(CustomInterceptor())
       ..add(
@@ -33,15 +33,9 @@ class DioInjector {
 }
 
 class CustomInterceptor extends Interceptor {
-
   @override
   void onRequest(RequestOptions options, RequestInterceptorHandler handler) {
     return handler.next(options);
-  }
-
-  @override
-  void onResponse(Response response, ResponseInterceptorHandler handler) {
-    super.onResponse(response, handler);
   }
 
   @override

@@ -176,8 +176,8 @@ class LoginScreen extends StatelessWidget {
                                 ),),
                                 const GradientText(text: '  \u2764 ', gradient: LinearGradient(
                                   colors: [
-                                    redColorDefault,
-                                    redColorDefault,
+                                    redColorError,
+                                    redColorError,
                                   ],
 
                                 ),style: TextStyle(

@@ -30,7 +30,6 @@ class FirebaseAuthController extends BaseController {
   }
 
   Future<bool> checkUserLogin() async {
-    log('vvvv${auth.currentUser}');
     return auth.currentUser != null ? true : false;
   }
 

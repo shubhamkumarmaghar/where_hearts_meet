@@ -2,9 +2,11 @@ import 'dart:ui';
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:story_view/controller/story_controller.dart';
 import 'package:where_hearts_meet/event_module/controller/event_details_controller.dart';
 import 'package:where_hearts_meet/utils/consts/color_const.dart';
 import 'package:where_hearts_meet/utils/widgets/base_container.dart';
+import 'package:where_hearts_meet/utils/widgets/image_stroy_widget.dart';
 
 import '../../utils/consts/confetti_shape_enum.dart';
 import '../../utils/widgets/confetti_view.dart';
@@ -25,7 +27,6 @@ class EventDetailsScreen extends StatelessWidget {
       body: BaseContainer(
         child: Stack(
           children: [
-
             Container(
               height: _mainHeight,
               width: _mainWidth,
@@ -34,131 +35,47 @@ class EventDetailsScreen extends StatelessWidget {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-
                     SizedBox(
                       height: _mainHeight * 0.06,
                     ),
                     Row(
                       children: [
                         InkWell(
-                          onTap: (){
+                          onTap: () {
                             Get.back();
                           },
                           child: const CircleAvatar(
-                            backgroundColor: blackColor,
-                            child: Icon(Icons.arrow_back_outlined,color: whiteColor,),
+                            backgroundColor: appColor1,
+                            child: Icon(
+                              Icons.arrow_back_outlined,
+                              color: whiteColor,
+                            ),
                           ),
                         ),
                         const Spacer(),
                         getEventTitle(event: '${controller.eventDetails.eventName}'),
-                        SizedBox(width: _mainHeight*0.05,),
+                        SizedBox(
+                          width: _mainHeight * 0.05,
+                        ),
                         const Spacer(),
                       ],
                     ),
-
                     SizedBox(
                       height: _mainHeight * 0.05,
                     ),
-                    Row(
-                      children: [
-                        SizedBox(
-                          height: _mainHeight * 0.25,
-                          width: _mainWidth * 0.7,
-                          child: Card(
-                            shape: const RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(15))),
-                            child: Container(
-                              padding: const EdgeInsets.all(5.0),
-                              child: ClipRRect(
-                                borderRadius: const BorderRadius.all(Radius.circular(15)),
-                                child: Obx(() {
-                                  return Image.network(
-                                    controller.selectedImageUrl.value,
-                                    fit: BoxFit.cover,
-                                  );
-                                }),
-                              ),
-                            ),
-                          ),
-                        ),
-                        const Spacer(),
-                        Column(
-                          children: [
-                            InkWell(onTap: () {
-                              controller.selectedImage.value = 1;
-                              controller.selectedImageUrl.value = controller.imageUrl1;
-                            }, child: Obx(() {
-                              return getImageBlock(
-                                  imageUrl: controller.imageUrl1, selected: controller.selectedImage.value == 1);
-                            })),
-                            SizedBox(
-                              height: _mainHeight * 0.01,
-                            ),
-                            InkWell(onTap: () {
-                              controller.selectedImage.value = 2;
-                              controller.selectedImageUrl.value = controller.imageUrl2;
-                            }, child: Obx(() {
-                              return getImageBlock(
-                                  imageUrl: controller.imageUrl2, selected: controller.selectedImage.value == 2);
-                            })),
-                            SizedBox(
-                              height: _mainHeight * 0.01,
-                            ),
-                            InkWell(onTap: () {
-                              controller.selectedImage.value = 3;
-                              controller.selectedImageUrl.value = controller.imageUrl3;
-                            }, child: Obx(() {
-                              return getImageBlock(
-                                  imageUrl: controller.imageUrl3, selected: controller.selectedImage.value == 3);
-                            })),
-                          ],
-                        ),
-                      ],
+                    Container(
+                      height: _mainHeight * 0.35,
+                      width: _mainWidth ,
+                      child:ImageStoryWidget(controller: StoryController(),images: controller.eventDetails.imageList ??[]),
                     ),
                     SizedBox(
                       height: _mainHeight * 0.02,
                     ),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        InkWell(onTap: () {
-                          controller.selectedImage.value = 4;
-                          controller.selectedImageUrl.value = controller.imageUrl4;
-                        }, child: Obx(() {
-                          return getImageBlock(
-                              imageUrl: controller.imageUrl4, selected: controller.selectedImage.value == 4);
-                        })),
-                        InkWell(onTap: () {
-                          controller.selectedImage.value = 5;
-                          controller.selectedImageUrl.value = controller.imageUrl5;
-                        }, child: Obx(() {
-                          return getImageBlock(
-                              imageUrl: controller.imageUrl5, selected: controller.selectedImage.value == 5);
-                        })),
-                        InkWell(onTap: () {
-                          controller.selectedImage.value = 6;
-                          controller.selectedImageUrl.value = controller.imageUrl6;
-                        }, child: Obx(() {
-                          return getImageBlock(
-                              imageUrl: controller.imageUrl6, selected: controller.selectedImage.value == 6);
-                        })),
-                        InkWell(onTap: () {
-                          controller.selectedImage.value = 6;
-                          controller.selectedImageUrl.value = controller.imageUrl6;
-                        }, child: Obx(() {
-                          return getImageBlock(
-                              imageUrl: controller.imageUrl6, selected: controller.selectedImage.value == 6);
-                        })),
-                      ],
-                    ),
-                    SizedBox(
-                      height: _mainHeight * 0.05,
-                    ),
                     Center(
-                      child: Text(controller.eventDetails.name ??'',style:  TextStyle(
-                          fontWeight: FontWeight.w600,
-                          fontSize: 25,
-                          color: primaryColor.withOpacity(1)
-                      ),),
+                      child: Text(
+                        controller.eventDetails.personName ?? '',
+                        style: TextStyle(fontWeight: FontWeight.w600, fontSize: 25, color: primaryColor.withOpacity(1)),
+                      ),
                     ),
                     SizedBox(
                       height: _mainHeight * 0.02,
@@ -230,4 +147,35 @@ class EventDetailsScreen extends StatelessWidget {
               )),
     );
   }
+/* Column(
+                          children: [
+                            InkWell(onTap: () {
+                              controller.selectedImage.value = 1;
+                              controller.selectedImageUrl.value = controller.imageUrl1;
+                            }, child: Obx(() {
+                              return getImageBlock(
+                                  imageUrl: controller.imageUrl1, selected: controller.selectedImage.value == 1);
+                            })),
+                            SizedBox(
+                              height: _mainHeight * 0.01,
+                            ),
+                            InkWell(onTap: () {
+                              controller.selectedImage.value = 2;
+                              controller.selectedImageUrl.value = controller.imageUrl2;
+                            }, child: Obx(() {
+                              return getImageBlock(
+                                  imageUrl: controller.imageUrl2, selected: controller.selectedImage.value == 2);
+                            })),
+                            SizedBox(
+                              height: _mainHeight * 0.01,
+                            ),
+                            InkWell(onTap: () {
+                              controller.selectedImage.value = 3;
+                              controller.selectedImageUrl.value = controller.imageUrl3;
+                            }, child: Obx(() {
+                              return getImageBlock(
+                                  imageUrl: controller.imageUrl3, selected: controller.selectedImage.value == 3);
+                            })),
+                          ],
+                        ),*/
 }

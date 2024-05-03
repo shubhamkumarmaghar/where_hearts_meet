@@ -4,7 +4,7 @@ import 'package:where_hearts_meet/utils/consts/color_const.dart';
 import '../consts/widget_styles.dart';
 
 class CustomTextField extends StatelessWidget {
-  CustomTextField({this.hint,
+  CustomTextField({super.key, this.hint,
     this.inputAction,
     this.onTap,
     this.inputType = TextInputType.text,
@@ -71,8 +71,8 @@ class CustomTextField extends StatelessWidget {
               onChanged: onChanged,
               obscureText: obscureText ?? false,
               decoration: InputDecoration(
-                prefixIcon: prefixIcon != null ? prefixIcon : null,
-                suffixIcon: suffixIcon != null ? suffixIcon : null,
+                prefixIcon: prefixIcon,
+                suffixIcon: suffixIcon,
                 contentPadding: const EdgeInsets.symmetric(horizontal: 12.0,),
                 border: BorderStyles.auctionTextFieldBorderStyle,
                 enabledBorder: cornerRadius == null ? BorderStyles.auctionTextFieldBorderStyle : BorderStyles
