@@ -71,6 +71,7 @@ class DashboardDrawerScreen extends StatelessWidget {
                 showLogoutAlertDialog(
                     context: Get.context!,
                     logOutFunction: () async {
+                      GetStorage().erase();
                       showLoaderDialog(context: Get.context!);
                       final controller = Get.find<FirebaseAuthController>();
                       await controller.logOut();
@@ -91,7 +92,7 @@ class DashboardDrawerScreen extends StatelessWidget {
   }
 
   UserAccountsDrawerHeader getUserAccountHeader({required BuildContext context}) {
-    return UserAccountsDrawerHeader(decoration: BoxDecoration(color: appColor2),
+    return UserAccountsDrawerHeader(decoration: BoxDecoration(color: appColor1),
       accountName: Text(
         GetStorage().read(username) ?? '',
         style: const TextStyle(fontSize: 20, fontWeight: FontWeight.w700),

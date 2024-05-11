@@ -37,7 +37,7 @@ class SplashController extends GetxController {
     //   Get.offAllNamed(RoutesConst.loginScreen);
     // }
 
-    if (await GetStorage().read(token)!= '') {
+    if (await GetStorage().read(token)!= null) {
         Get.offAllNamed(RoutesConst.dashboardScreen);
       } else {
         Get.offAllNamed(RoutesConst.loginScreen);
