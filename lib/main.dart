@@ -2,8 +2,10 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get/get_navigation/src/root/get_material_app.dart';
+import 'package:get_storage/get_storage.dart';
 import 'package:where_hearts_meet/splash_module/screens/splash_screen.dart';
 import 'package:where_hearts_meet/utils/consts/color_const.dart';
+import 'package:where_hearts_meet/utils/consts/service_const.dart';
 import 'package:where_hearts_meet/utils/routes/app_routes.dart';
 import 'package:where_hearts_meet/utils/services/dio_injector.dart';
 import 'package:where_hearts_meet/utils/services/firebase_auth_controller.dart';
@@ -12,18 +14,20 @@ import 'package:where_hearts_meet/utils/services/firebase_storage_controller.dar
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  await GetStorage.init();
   await Firebase.initializeApp();
+  await setUp();
   runApp(const MyApp());
-  setUp();
+
 
 }
 
-void setUp(){
+Future<void> setUp()async{
 
   Get.put(FirebaseAuthController());
   Get.put(FirebaseFireStoreController());
   Get.put(FirebaseStorageController());
-  Get.lazyPut(() => DioInjector());
+ locator.registerSingleton<DioInjector>(DioInjector());
 }
 
 class MyApp extends StatelessWidget {

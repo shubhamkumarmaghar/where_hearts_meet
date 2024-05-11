@@ -2,6 +2,8 @@ import 'dart:developer';
 
 import 'package:dio/dio.dart';
 
+import '../consts/api_urls.dart';
+
 class DioInjector {
   late Dio _dio;
 
@@ -13,7 +15,7 @@ class DioInjector {
 
   void init() {
     _dio = Dio(BaseOptions(
-      baseUrl: 'baseUrl',
+      baseUrl: "http://heartehomies.com/userPolls/",
       connectTimeout: const Duration(seconds: 30),
       receiveTimeout: const Duration(seconds: 30),
       sendTimeout: const Duration(seconds: 30),

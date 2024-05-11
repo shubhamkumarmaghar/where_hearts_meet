@@ -58,6 +58,22 @@ class ApiService {
     }
   }
 
+  Future<Map<String, dynamic>> patchApiCall({required String url, required Map<String, dynamic> data}) async {
+    try {
+      Response response = await apiClient.dio.patch(
+        url,
+        data: data,
+        options: Options(
+          headers: getHeaders(),
+        ),
+      );
+      return await _handleResponse(response: response, url: url);
+    } catch (e) {
+      log('Error :: ${e.toString()}');
+      return {'message': 'failure'};
+    }
+  }
+
   Future<Map<String, dynamic>> deleteApiCall({required String url}) async {
     try {
       Response response = await apiClient.dio.delete(
@@ -78,7 +94,9 @@ class ApiService {
     log('Status Code :: ${response.statusCode} -- $url    ${response.data}');
     switch (response.statusCode) {
       case 200:
-        return response.data.isNotEmpty ? json.decode(response.data) : {'message': 'failure'};
+        return response.data.isNotEmpty ? response.data : {'message': 'failure'};
+      case 201:
+        return response.data.isNotEmpty ? response.data : {'message': 'failure'};
       case 400:
         return _getErrorResponse(json.decode(response.data));
       case 401:

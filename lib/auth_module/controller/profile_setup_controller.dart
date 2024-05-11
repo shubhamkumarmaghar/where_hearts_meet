@@ -4,6 +4,7 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:get_storage/get_storage.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:where_hearts_meet/auth_module/controller/signup_controller.dart';
 import 'package:where_hearts_meet/utils/controller/base_controller.dart';
@@ -11,16 +12,20 @@ import 'package:where_hearts_meet/utils/dialogs/pop_up_dialogs.dart';
 import 'package:where_hearts_meet/utils/model/user_info_model.dart';
 import 'package:where_hearts_meet/utils/services/firebase_auth_controller.dart';
 import 'package:where_hearts_meet/utils/services/firebase_storage_controller.dart';
+import '../../utils/consts/shared_pref_const.dart';
 import '../../utils/routes/routes_const.dart';
 import '../../utils/services/firebase_firestore_controller.dart';
+import '../auth_model/login_response_api.dart';
+import '../auth_services/Auth_api_service.dart';
 import '../profile_setup_const.dart';
 import '../screens/add_location_page.dart';
 import '../screens/add_name_page.dart';
 import '../screens/add_profile_picture_page.dart';
 
 class ProfileSetupController extends BaseController {
+  AuthApiService _authApiService = AuthApiService();
   int pageIndex = 1;
-
+  LoginResponseApi loginResponseApi = LoginResponseApi();
   final nameTextController = TextEditingController();
   final birthDateTextController = TextEditingController();
   final mobileTextController = TextEditingController();
@@ -70,11 +75,51 @@ class ProfileSetupController extends BaseController {
                 imageUrl: imageUrl));
       }
       cancelLoaderDialog();
+
       Get.offAllNamed(RoutesConst.dashboardScreen);
     } else {
       onChangePageIndex(++pageIndex);
     }
   }
+
+  void completeSignUp() async {
+    if (pageIndex == CompleteProfilePageIndex.addProfilePicturePage) {
+      showLoaderDialog(context: Get.context!);
+    //  final firebaseAuthController = Get.find<FirebaseAuthController>();
+    //  final firebaseFireStoreController = Get.find<FirebaseFireStoreController>();
+      final response = await _authApiService.SignUpUser(
+          email: signUpController.emailTextController.text,
+        date_of_birth: birthDateTextController.text,
+        firstName: nameTextController.text,
+        profile_pic: imageUrl,
+        address: 'Keshavpuram',
+        city: 'Keshavpuram',
+        state: 'Delhi',
+        country: 'India',
+        lastName: '',
+        phoneNumber: mobileTextController.text,
+        maritalStatus: 'Single',
+        postalCode: '311035',
+        gender:'male',
+        username: signUpController.usernameTextController.text,
+      );
+      cancelLoaderDialog();
+      loginResponseApi = response;
+      if(loginResponseApi.message?.toLowerCase() == 'Signup Successful')
+        {
+          GetStorage().write(token, loginResponseApi.accessToken);
+          GetStorage().write(userMobile, loginResponseApi.data?.phoneNumber);
+          GetStorage().write(username, loginResponseApi.data?.username);
+          GetStorage().write(email, loginResponseApi.data?.email);
+          GetStorage().write(userId, loginResponseApi.data?.id);
+          GetStorage().write(profile_url, loginResponseApi.data?.profilePicUrl);
+          Get.offAllNamed(RoutesConst.dashboardScreen);
+        }
+    } else {
+      onChangePageIndex(++pageIndex);
+    }
+  }
+
 
   void onBack() {
     if (pageIndex > 1) {

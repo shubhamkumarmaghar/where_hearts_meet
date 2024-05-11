@@ -17,11 +17,11 @@ Widget getDrawerContentWidget({required IconData icon, required String heading, 
           Container(
             height: Get.height*0.04,
             width: Get.width*0.09,
-            decoration: BoxDecoration(color: primaryColor.withOpacity(0.1), borderRadius: BorderRadius.circular(5)),
+            decoration: BoxDecoration(color: appColor2.withOpacity(0.1), borderRadius: BorderRadius.circular(5)),
             padding: const EdgeInsets.all(2),
             child: Icon(
               icon,
-              color: primaryColor,
+              color: appColor2,
               size: 20,
             ),
           ),

@@ -5,6 +5,7 @@ import 'package:where_hearts_meet/dashboard_module/screens/dashboard_drawer_scre
 import 'package:where_hearts_meet/event_module/model/add_event_model.dart';
 import 'package:where_hearts_meet/profile_module/model/people_model.dart';
 import 'package:where_hearts_meet/utils/consts/color_const.dart';
+import 'package:where_hearts_meet/utils/consts/images_const.dart';
 import 'package:where_hearts_meet/utils/consts/screen_const.dart';
 import 'package:where_hearts_meet/utils/routes/routes_const.dart';
 import 'package:where_hearts_meet/utils/services/firebase_firestore_controller.dart';
@@ -26,7 +27,7 @@ class DashboardScreen extends StatelessWidget {
       builder: (controller) {
         return Scaffold(
           appBar: AppBar(
-            title: const Text('Home'),
+            title:  Center(child: Image.asset(logo, height: 80,width: 80,)),
             actions: [
               Container(margin: EdgeInsets.only(right: _mainWidth * 0.04), child: const Icon(Icons.notifications))
             ],

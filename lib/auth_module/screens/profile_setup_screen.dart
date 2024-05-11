@@ -82,7 +82,7 @@ class ProfileSetupScreen extends StatelessWidget {
                 height: _mainHeight * 0.06,
                 width: _mainWidth * 0.8,
                 onPressed: () {
-                  controller.onNext();
+                  controller.completeSignUp();
                 },
               )),
         );

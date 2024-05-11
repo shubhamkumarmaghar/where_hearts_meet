@@ -160,14 +160,14 @@ class LoginScreen extends StatelessWidget {
                                     fontWeight: FontWeight.w700
 
                                 ),),
-                                GradientText(text: 'WHM', gradient: LinearGradient(
+                                GradientText(text: 'HeH', gradient: LinearGradient(
                                   colors: [
-                                    Colors.red.shade400,
-                                    Colors.blue.shade400,
+                                    Colors.pink.shade400,
+                                   // Colors.blue.shade400,
                                     primaryColor,
                                     primaryColor,
-                                    Colors.yellow.shade600,
-                                    const Color(0XFF7AB02A),
+                                    Colors.pink.shade600,
+                                   // const Color(0XFF7AB02A),
                                   ],
 
                                 ),style: const TextStyle(
@@ -176,8 +176,8 @@ class LoginScreen extends StatelessWidget {
                                 ),),
                                 const GradientText(text: '  \u2764 ', gradient: LinearGradient(
                                   colors: [
-                                    redColorError,
-                                    redColorError,
+                                    Colors.pink,
+                                    Colors.pinkAccent,
                                   ],
 
                                 ),style: TextStyle(

@@ -30,10 +30,12 @@ class SplashScreen extends StatelessWidget {
           return SizedBox(
             height: _mainHeight,
             width: _mainWidth,
-            child: Column(
+            child:    Center(child: getAppLogo())
+            /*Column(
               mainAxisAlignment: MainAxisAlignment.start,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
+
                 controller.splashEnum == SplashEnum.showBrokenHeart
                     ? getBrokenHeartView()
                     : controller.splashEnum == SplashEnum.showShiningHeart
@@ -60,7 +62,7 @@ class SplashScreen extends StatelessWidget {
                   height: _mainHeight * 0.04,
                 )
               ],
-            ),
+            ),*/
           );
         },
       ),
@@ -134,6 +136,13 @@ class SplashScreen extends StatelessWidget {
       shiningHeartImage,
       height: 200,
       width: 200,
+    );
+  }
+  Widget getAppLogo() {
+    return Image.asset(
+      logo,
+      height: 250,
+      width: 250,
     );
   }
 

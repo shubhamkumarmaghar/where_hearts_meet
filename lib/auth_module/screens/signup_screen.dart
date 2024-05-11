@@ -34,7 +34,7 @@ class SignUpScreen extends StatelessWidget {
                     child: Stack(
                       children: [
                         Positioned(
-                          top: _mainWidth * 0.6,
+                          top: _mainWidth * 0.35,
                           left: 0,
                           right: 0,
                           child: Container(
@@ -52,6 +52,19 @@ class SignUpScreen extends StatelessWidget {
                                         hint: 'Please enter email',
                                         onChanged: controller.onEmailChanged,
                                         controller: controller.emailTextController),
+                                  ),
+                                  SizedBox(
+                                    height: _mainHeight * 0.02,
+                                  ),
+                                  Obx(
+                                        () => CustomTextField(
+                                      title: 'UserName',
+                                      error: controller.errorUserNameText.value,
+                                      hint: 'Please enter Username',
+                                      onChanged: controller.onUsernameChanged,
+                                      controller: controller.usernameTextController,
+
+                                    ),
                                   ),
                                   SizedBox(
                                     height: _mainHeight * 0.02,
@@ -154,7 +167,7 @@ class SignUpScreen extends StatelessWidget {
                           ),
                         ),
                         Positioned(
-                            top: _mainHeight * 0.12,
+                            top: _mainHeight * 0.08,
                             left: _mainWidth * 0.06,
                             child: Row(
                               children: [
@@ -179,7 +192,7 @@ class SignUpScreen extends StatelessWidget {
                               ],
                             )),
                         Positioned(
-                            top: _mainHeight * 0.22,
+                            top: _mainHeight * 0.15,
                             left: _mainWidth * 0.06,
                             child: const Text(
                               'Create Account  ',

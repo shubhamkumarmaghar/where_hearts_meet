@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:get_storage/get_storage.dart';
+import 'package:where_hearts_meet/utils/consts/shared_pref_const.dart';
 import 'package:where_hearts_meet/utils/dialogs/pop_up_dialogs.dart';
 import 'package:where_hearts_meet/utils/routes/routes_const.dart';
 import 'package:where_hearts_meet/utils/services/firebase_auth_controller.dart';
@@ -89,9 +91,9 @@ class DashboardDrawerScreen extends StatelessWidget {
   }
 
   UserAccountsDrawerHeader getUserAccountHeader({required BuildContext context}) {
-    return UserAccountsDrawerHeader(
+    return UserAccountsDrawerHeader(decoration: BoxDecoration(color: appColor2),
       accountName: Text(
-        firebaseAuthController.getCurrentUser()?.displayName ?? '',
+        GetStorage().read(username) ?? '',
         style: const TextStyle(fontSize: 20, fontWeight: FontWeight.w700),
       ),
       otherAccountsPictures:  [
@@ -104,14 +106,14 @@ class DashboardDrawerScreen extends StatelessWidget {
               child: Icon(Icons.edit,color: whiteColor,size: 25,)),
         )
       ],
-      accountEmail: Text(firebaseAuthController.getCurrentUser()?.email ?? ''),
+      accountEmail: Text(GetStorage().read(email)),
       currentAccountPicture: InkWell(
         onTap: (){
           dashboardController.showLogoutAlertDialog(context: context, logOutFunction: (){});
         },
         child: CircleAvatar(
             backgroundColor: whiteColor,
-            child: firebaseAuthController.getCurrentUser()?.photoURL == null
+            child: firebaseAuthController.getCurrentUser()?.photoURL == ''
                 ? const Icon(
               Icons.person,
               color: primaryColor,
@@ -119,7 +121,7 @@ class DashboardDrawerScreen extends StatelessWidget {
                 : ClipRRect(
                 borderRadius: BorderRadius.circular(50),
                 child: Image.network(
-                  firebaseAuthController.getCurrentUser()?.photoURL ?? '',
+                  GetStorage().read(profile_url) ?? '',
                   fit: BoxFit.fitWidth,
                   width: _mainWidth * 0.2,
                 ))),
