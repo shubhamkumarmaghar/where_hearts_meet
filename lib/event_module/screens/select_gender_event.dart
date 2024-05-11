@@ -2,7 +2,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
-import 'package:lottie/lottie.dart';
 import '../../utils/consts/color_const.dart';
 
 class SelectGender extends StatefulWidget {
@@ -18,7 +17,7 @@ class _SelectGenderState extends State<SelectGender> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: secondryBackgroundColor,
+      backgroundColor: Colors.white,
       body: Container(
         child:Column(
           children: [
