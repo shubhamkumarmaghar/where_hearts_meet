@@ -3,7 +3,7 @@ import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:story_view/controller/story_controller.dart';
-import 'package:where_hearts_meet/event_module/controller/event_details_controller.dart';
+import 'package:where_hearts_meet/show_event_module/controller/event_details_controller.dart';
 import 'package:where_hearts_meet/utils/consts/color_const.dart';
 import 'package:where_hearts_meet/utils/widgets/base_container.dart';
 import 'package:where_hearts_meet/utils/widgets/image_stroy_widget.dart';

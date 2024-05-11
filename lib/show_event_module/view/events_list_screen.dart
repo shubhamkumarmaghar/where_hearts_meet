@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:where_hearts_meet/event_module/controller/event_list_controller.dart';
+import 'package:where_hearts_meet/show_event_module/controller/event_list_controller.dart';
 import 'package:where_hearts_meet/utils/routes/routes_const.dart';
 
 import '../../utils/consts/color_const.dart';
