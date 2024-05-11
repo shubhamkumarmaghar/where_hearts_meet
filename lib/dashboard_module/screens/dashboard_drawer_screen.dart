@@ -106,7 +106,7 @@ class DashboardDrawerScreen extends StatelessWidget {
               child: Icon(Icons.edit,color: whiteColor,size: 25,)),
         )
       ],
-      accountEmail: Text(GetStorage().read(email)),
+      accountEmail: Text('fff'),
       currentAccountPicture: InkWell(
         onTap: (){
           dashboardController.showLogoutAlertDialog(context: context, logOutFunction: (){});
