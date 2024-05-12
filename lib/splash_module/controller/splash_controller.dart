@@ -22,20 +22,7 @@ class SplashController extends GetxController {
   }
 
   void updateSplashView() async {
-    await Future.delayed(const Duration(milliseconds: 1800));
-    splashEnum = SplashEnum.showShiningHeart;
-    update();
     await Future.delayed(const Duration(milliseconds: 1500));
-    splashEnum = SplashEnum.showSplashTitle;
-    controllerTopCenter.play();
-    update();
-    await Future.delayed(const Duration(milliseconds: 2000));
-    final firebaseAuthController = Get.find<FirebaseAuthController>();
-    // if (await firebaseAuthController.checkUserLogin()) {
-    //   Get.offAllNamed(RoutesConst.dashboardScreen);
-    // } else {
-    //   Get.offAllNamed(RoutesConst.loginScreen);
-    // }
 
     if (await GetStorage().read(token)!= '') {
         Get.offAllNamed(RoutesConst.dashboardScreen);

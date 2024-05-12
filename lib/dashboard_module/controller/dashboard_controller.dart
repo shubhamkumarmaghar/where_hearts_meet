@@ -6,11 +6,11 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:where_hearts_meet/event_module/model/add_event_model.dart';
 import 'package:where_hearts_meet/utils/controller/base_controller.dart';
 
 import '../../auth_module/controller/login_controller.dart';
 import '../../auth_module/controller/profile_setup_controller.dart';
+import '../../create_event_module/model/add_event_model.dart';
 import '../../profile_module/model/people_model.dart';
 import '../../utils/consts/color_const.dart';
 import '../../utils/dialogs/pop_up_dialogs.dart';

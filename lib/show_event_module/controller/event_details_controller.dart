@@ -2,8 +2,9 @@
 import 'package:confetti/confetti.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
-import 'package:where_hearts_meet/event_module/model/add_event_model.dart';
 import 'package:where_hearts_meet/utils/controller/base_controller.dart';
+
+import '../../create_event_module/model/add_event_model.dart';
 
 class EventDetailsController extends BaseController {
   final nameController = TextEditingController();
