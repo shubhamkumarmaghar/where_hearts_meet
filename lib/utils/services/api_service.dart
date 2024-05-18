@@ -2,8 +2,10 @@ import 'dart:convert';
 import 'dart:developer';
 
 import 'package:dio/dio.dart';
+import 'package:get_storage/get_storage.dart';
 import 'package:where_hearts_meet/utils/consts/color_const.dart';
 import 'package:where_hearts_meet/utils/consts/service_const.dart';
+import 'package:where_hearts_meet/utils/consts/shared_pref_const.dart';
 import 'package:where_hearts_meet/utils/services/dio_injector.dart';
 import 'package:where_hearts_meet/utils/widgets/util_widgets/app_widgets.dart';
 
@@ -11,7 +13,9 @@ class ApiService {
   final apiClient = locator<DioInjector>();
 
   Map<String, dynamic> getHeaders() {
-    return {};
+    return {
+      'Authorization':'Bearer '+ GetStorage().read(token)
+    };
   }
 
   Future<Map<String, dynamic>> getApiCall({required String url, Map<String, dynamic>? queryParams}) async {
@@ -35,6 +39,22 @@ class ApiService {
         data: data,
         options: Options(headers: getHeaders()),
       );
+
+      return await _handleResponse(response: response, url: url);
+    } catch (e) {
+      log('Error :: ${e.toString()}');
+      return {'message': 'failure'};
+    }
+  }
+
+  Future<Map<String, dynamic>> postApiCallforLogin({required String url, required Map<String, dynamic> data}) async {
+    try {
+      Response response = await apiClient.dio.post(
+        url,
+        data: data,
+       // options: Options(headers: getHeaders()),
+      );
+
       return await _handleResponse(response: response, url: url);
     } catch (e) {
       log('Error :: ${e.toString()}');

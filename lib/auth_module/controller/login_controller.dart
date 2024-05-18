@@ -61,18 +61,17 @@ class LoginController extends BaseController {
     if (response.message == 'Login Successful') {
       loginResponseModel = response;
       log('Login Data :: ${response.data?.username} -- ${response.data?.email}');
-      if (loginResponseModel.data?.phoneNumber == '') {
-        Get.toNamed(RoutesConst.profileSetUpScreen);
-      } else {
-        await GetStorage().write(token, loginResponseModel.accessToken);
-        await GetStorage().write(userMobile, loginResponseModel.data?.phoneNumber);
-        await GetStorage().write(username, loginResponseModel.data?.username);
-        await GetStorage().write(email, loginResponseModel.data?.email);
-        await GetStorage().write(userId, loginResponseModel.data?.id);
-        await GetStorage().write(profile_url, loginResponseModel.data?.profilePicUrl);
-
-        Get.offAllNamed(RoutesConst.dashboardScreen);
-      }
+     if(loginResponseModel.data?.phoneNumber ==''){
+       Get.toNamed(RoutesConst.profileSetUpScreen);
+     }else {
+       GetStorage().write(token, loginResponseModel.data?.accessToken);
+       GetStorage().write(userMobile, loginResponseModel.data?.phoneNumber);
+       GetStorage().write(username, loginResponseModel.data?.username);
+       GetStorage().write(email, loginResponseModel.data?.email);
+       GetStorage().write(userId, loginResponseModel.data?.id);
+       GetStorage().write(profile_url, loginResponseModel.data?.profilePicUrl);
+       Get.offAllNamed(RoutesConst.dashboardScreen);
+     }
     }
   }
 

@@ -107,15 +107,16 @@ class ProfileSetupController extends BaseController {
       );
       cancelLoaderDialog();
       loginResponseModel = response;
-      if (loginResponseModel.message?.toLowerCase() == 'Signup Successful') {
-        GetStorage().write(token, loginResponseModel.accessToken);
-        GetStorage().write(userMobile, loginResponseModel.data?.phoneNumber);
-        GetStorage().write(username, loginResponseModel.data?.username);
-        GetStorage().write(email, loginResponseModel.data?.email);
-        GetStorage().write(userId, loginResponseModel.data?.id);
-        GetStorage().write(profile_url, loginResponseModel.data?.profilePicUrl);
-        Get.offAllNamed(RoutesConst.dashboardScreen);
-      }
+      if(loginResponseModel.message?.toLowerCase() == 'Signup Successful')
+        {
+          GetStorage().write(token, loginResponseModel.data?.accessToken);
+          GetStorage().write(userMobile, loginResponseModel.data?.phoneNumber);
+          GetStorage().write(username, loginResponseModel.data?.username);
+          GetStorage().write(email, loginResponseModel.data?.email);
+          GetStorage().write(userId, loginResponseModel.data?.id);
+          GetStorage().write(profile_url, loginResponseModel.data?.profilePicUrl);
+          Get.offAllNamed(RoutesConst.dashboardScreen);
+        }
     } else {
       onChangePageIndex(++pageIndex);
     }

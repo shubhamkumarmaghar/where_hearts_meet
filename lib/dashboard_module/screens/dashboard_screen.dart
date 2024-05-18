@@ -36,7 +36,7 @@ class DashboardScreen extends StatelessWidget {
           body: Container(
             height: _mainHeight,
             width: _mainWidth,
-            color: whiteColor,
+            color: appColor5,
             padding: const EdgeInsets.symmetric(vertical: 15, horizontal: 15),
             child: SingleChildScrollView(
               child: Column(
