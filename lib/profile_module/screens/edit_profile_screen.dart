@@ -7,6 +7,7 @@ import 'package:where_hearts_meet/utils/util_functions/app_pickers.dart';
 import 'package:where_hearts_meet/utils/widgets/custom_text_field.dart';
 import 'package:where_hearts_meet/utils/widgets/gradient_button.dart';
 
+import '../../utils/widgets/app_bar_widget.dart';
 import '../controller/edit_profile_controller.dart';
 import '../model/people_model.dart';
 
@@ -20,9 +21,7 @@ class EditProfileScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('Profile'),
-      ),
+      appBar: appBarWidget(title: 'Profile'),
       body: GetBuilder<EditProfileController>(
         builder: (controller) {
           return GestureDetector(

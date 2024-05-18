@@ -1,6 +1,6 @@
 import '../../utils/consts/api_urls.dart';
 import '../../utils/services/api_service.dart';
-import '../auth_model/login_response_api.dart';
+import '../auth_model/login_response_model.dart';
 import '../auth_model/response_register_model.dart';
 
 class AuthApiService {
@@ -24,7 +24,7 @@ class AuthApiService {
     }
   }
 
-  Future<LoginResponseApi> fetchLoginUser({
+  Future<LoginResponseModel> fetchLoginUser({
     required String email,
     required String password,
   }) async {
@@ -39,13 +39,13 @@ class AuthApiService {
     final data = response;
 
     if (data['msg'].toString().toLowerCase().contains('failure')) {
-      return LoginResponseApi(message: 'failure');
+      return LoginResponseModel(message: 'failure');
     } else {
-      return LoginResponseApi.fromJson(data);
+      return LoginResponseModel.fromJson(data);
     }
   }
 
-  Future<LoginResponseApi> SignUpUser(
+  Future<LoginResponseModel> SignUpUser(
       {required String email,
       required String firstName,
       required String lastName,
@@ -84,9 +84,9 @@ class AuthApiService {
     final data = response;
 
     if (data['msg'].toString().toLowerCase().contains('failure')) {
-      return LoginResponseApi(message: 'failure');
+      return LoginResponseModel(message: 'failure');
     } else {
-      return LoginResponseApi.fromJson(data);
+      return LoginResponseModel.fromJson(data);
     }
   }
 }

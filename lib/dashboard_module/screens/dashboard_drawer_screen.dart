@@ -1,14 +1,11 @@
-import 'package:collapsible_sidebar/collapsible_sidebar.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
-import 'package:where_hearts_meet/utils/consts/app_screen_size.dart';
 import 'package:where_hearts_meet/utils/consts/shared_pref_const.dart';
-import 'package:where_hearts_meet/utils/dialogs/pop_up_dialogs.dart';
 import 'package:where_hearts_meet/utils/routes/routes_const.dart';
 import 'package:where_hearts_meet/utils/services/firebase_auth_controller.dart';
 import '../../utils/consts/color_const.dart';
-import '../../utils/services/firebase_firestore_controller.dart';
+import '../../utils/dialogs/pop_up_dialogs.dart';
 import '../controller/dashboard_controller.dart';
 import '../widgets/dashboard_widgets.dart';
 
@@ -22,147 +19,77 @@ class DashboardDrawerScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return CollapsibleSidebar(
-
-      items: _drawerItems,
-      maxWidth: screenWidth*0.75,
-     backgroundColor: appColor1,
-      body: _appDrawerBody(),
-     iconSize: 24,
-
-      title: 'Deepak' ,
-      textStyle: const TextStyle(fontSize: 20, fontWeight: FontWeight.w700),
+    return Drawer(
+      width: _mainWidth * 0.65,
+      child: Column(
+        children: [
+          getUserAccountHeader(context: context),
+          SizedBox(
+            height: _mainHeight * 0.01,
+          ),
+          getDrawerContentWidget(
+              icon: Icons.list,
+              heading: "Created Events",
+              onTap: () {
+                Get.toNamed(RoutesConst.createdEventListScreen);
+              }),
+          SizedBox(
+            height: _mainHeight * 0.01,
+          ),
+          getDrawerContentWidget(
+              icon: Icons.person,
+              heading: "People's List",
+              onTap: () {
+                Get.toNamed(RoutesConst.peopleListScreen);
+              }),
+          SizedBox(
+            height: _mainHeight * 0.01,
+          ),
+          getDrawerContentWidget(
+              icon: Icons.wallet_giftcard,
+              heading: "Received Events",
+              onTap: () {
+                Get.toNamed(RoutesConst.eventListScreen);
+              }),
+          SizedBox(
+            height: _mainHeight * 0.01,
+          ),
+          getDrawerContentWidget(icon: Icons.settings, heading: "Settings", onTap: () {}),
+          SizedBox(
+            height: _mainHeight * 0.01,
+          ),
+          getDrawerContentWidget(icon: Icons.help_outline, heading: "Help & Support", onTap: () async {}),
+          SizedBox(
+            height: _mainHeight * 0.01,
+          ),
+          getDrawerContentWidget(
+              icon: Icons.logout,
+              heading: "Logout",
+              onTap: () async {
+                showLogoutAlertDialog(
+                    context: Get.context!,
+                    logOutFunction: () async {
+                      showLoaderDialog(context: Get.context!);
+                      await GetStorage().erase();
+                      cancelLoaderDialog();
+                      Get.offAllNamed(RoutesConst.loginScreen);
+                    });
+              }),
+          const Spacer(),
+          Container(
+              margin: EdgeInsets.only(bottom: _mainHeight * 0.01, right: _mainWidth * 0.025),
+              alignment: Alignment.centerRight,
+              child: const Text(
+                'v1.0',
+              )),
+        ],
+      ),
     );
-    // return Drawer(
-    //   width: _mainWidth * 0.75,
-    //   child: Column(
-    //     children: [
-    //       getUserAccountHeader(context: context),
-    //       SizedBox(
-    //         height: _mainHeight * 0.01,
-    //       ),
-    //       getDrawerContentWidget(icon: Icons.list, heading: "Created Events", onTap: () {
-    //         Get.toNamed(RoutesConst.createdEventListScreen);
-    //       }),
-    //       SizedBox(
-    //         height: _mainHeight * 0.01,
-    //       ),
-    //       getDrawerContentWidget(
-    //           icon: Icons.person,
-    //           heading: "People's List",
-    //           onTap: () {
-    //             Get.toNamed(RoutesConst.peopleListScreen);
-    //           }),
-    //       SizedBox(
-    //         height: _mainHeight * 0.01,
-    //       ),
-    //       getDrawerContentWidget(
-    //           icon: Icons.wallet_giftcard,
-    //           heading: "Received Events",
-    //           onTap: () {
-    //             Get.toNamed(RoutesConst.eventListScreen);
-    //           }),
-    //       SizedBox(
-    //         height: _mainHeight * 0.01,
-    //       ),
-    //       getDrawerContentWidget(icon: Icons.settings, heading: "Settings", onTap: () {}),
-    //       SizedBox(
-    //         height: _mainHeight * 0.01,
-    //       ),
-    //       getDrawerContentWidget(
-    //           icon: Icons.help_outline,
-    //           heading: "Help & Support",
-    //           onTap: () async {
-    //           }),
-    //       SizedBox(
-    //         height: _mainHeight * 0.01,
-    //       ),
-    //       getDrawerContentWidget(
-    //           icon: Icons.logout,
-    //           heading: "Logout",
-    //           onTap: () async {
-    //
-    //           }),
-    //       const Spacer(),
-    //       Container(
-    //           margin: EdgeInsets.only(bottom: _mainHeight * 0.01, right: _mainWidth * 0.025),
-    //           alignment: Alignment.centerRight,
-    //           child: const Text(
-    //             'v1.0',
-    //           )),
-    //     ],
-    //   ),
-    // );
-  }
-
-  Widget _appDrawerBody() {
-    return Container(
-      height: 0,
-      width: 0,
-      color: appColor1,
-    );
-  }
-
-  List<CollapsibleItem> get _drawerItems {
-    return [
-      CollapsibleItem(
-        text: "People's List",
-        icon: Icons.person,
-        onPressed: () {
-          Get.toNamed(RoutesConst.eventListScreen);
-        },
-        isSelected: false,
-      ),
-      CollapsibleItem(
-        text: "Received Events",
-        icon: Icons.wallet_giftcard,
-        onPressed: () {
-          Get.toNamed(RoutesConst.eventListScreen);
-        },
-        isSelected: false,
-      ),
-      CollapsibleItem(
-        text: "Settings",
-        icon: Icons.settings,
-        onPressed: () {},
-        isSelected: false,
-      ),
-      CollapsibleItem(
-        text: "Created Events",
-        icon: Icons.list,
-        onPressed: () {
-          Get.toNamed(RoutesConst.createdEventListScreen);
-        },
-        isSelected: false,
-      ),
-      CollapsibleItem(
-        text: "Help & Support",
-        icon: Icons.help_outline,
-        onPressed: () {},
-        isSelected: false,
-      ),
-      CollapsibleItem(
-        text: "Logout",
-        icon: Icons.logout,
-        onPressed: () {
-          showLogoutAlertDialog(
-              context: Get.context!,
-              logOutFunction: () async {
-                showLoaderDialog(context: Get.context!);
-                final controller = Get.find<FirebaseAuthController>();
-                await controller.logOut();
-                cancelLoaderDialog();
-                Get.offAllNamed(RoutesConst.loginScreen);
-              });
-        },
-        isSelected: false,
-      ),
-    ];
   }
 
   UserAccountsDrawerHeader getUserAccountHeader({required BuildContext context}) {
     return UserAccountsDrawerHeader(
-      decoration: BoxDecoration(color: appColor2),
+      decoration: const BoxDecoration(color: appColor3),
       accountName: Text(
         GetStorage().read(username) ?? '',
         style: const TextStyle(fontSize: 20, fontWeight: FontWeight.w700),
@@ -181,7 +108,10 @@ class DashboardDrawerScreen extends StatelessWidget {
               )),
         )
       ],
-      accountEmail: Text('fff'),
+      accountEmail: Text(
+        GetStorage().read(username) ?? 'NA',
+        style: TextStyle(color: Colors.white, fontSize: 16),
+      ),
       currentAccountPicture: InkWell(
         onTap: () {
           dashboardController.showLogoutAlertDialog(context: context, logOutFunction: () {});

@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:where_hearts_meet/auth_module/auth_model/login_response_model.dart';
 import 'package:where_hearts_meet/auth_module/controller/signup_controller.dart';
 import 'package:where_hearts_meet/utils/controller/base_controller.dart';
 import 'package:where_hearts_meet/utils/dialogs/pop_up_dialogs.dart';
@@ -15,7 +16,8 @@ import 'package:where_hearts_meet/utils/services/firebase_storage_controller.dar
 import '../../utils/consts/shared_pref_const.dart';
 import '../../utils/routes/routes_const.dart';
 import '../../utils/services/firebase_firestore_controller.dart';
-import '../auth_model/login_response_api.dart';
+
+import '../auth_model/login_response_model.dart';
 import '../auth_services/Auth_api_service.dart';
 import '../profile_setup_const.dart';
 import '../screens/add_location_page.dart';
@@ -25,7 +27,7 @@ import '../screens/add_profile_picture_page.dart';
 class ProfileSetupController extends BaseController {
   AuthApiService _authApiService = AuthApiService();
   int pageIndex = 1;
-  LoginResponseApi loginResponseApi = LoginResponseApi();
+  LoginResponseModel loginResponseModel = LoginResponseModel();
   final nameTextController = TextEditingController();
   final birthDateTextController = TextEditingController();
   final mobileTextController = TextEditingController();
@@ -85,10 +87,10 @@ class ProfileSetupController extends BaseController {
   void completeSignUp() async {
     if (pageIndex == CompleteProfilePageIndex.addProfilePicturePage) {
       showLoaderDialog(context: Get.context!);
-    //  final firebaseAuthController = Get.find<FirebaseAuthController>();
-    //  final firebaseFireStoreController = Get.find<FirebaseFireStoreController>();
+      //  final firebaseAuthController = Get.find<FirebaseAuthController>();
+      //  final firebaseFireStoreController = Get.find<FirebaseFireStoreController>();
       final response = await _authApiService.SignUpUser(
-          email: signUpController.emailTextController.text,
+        email: signUpController.emailTextController.text,
         date_of_birth: birthDateTextController.text,
         firstName: nameTextController.text,
         profile_pic: imageUrl,
@@ -100,26 +102,24 @@ class ProfileSetupController extends BaseController {
         phoneNumber: mobileTextController.text,
         maritalStatus: 'Single',
         postalCode: '311035',
-        gender:'male',
+        gender: 'male',
         username: signUpController.usernameTextController.text,
       );
       cancelLoaderDialog();
-      loginResponseApi = response;
-      if(loginResponseApi.message?.toLowerCase() == 'Signup Successful')
-        {
-          GetStorage().write(token, loginResponseApi.accessToken);
-          GetStorage().write(userMobile, loginResponseApi.data?.phoneNumber);
-          GetStorage().write(username, loginResponseApi.data?.username);
-          GetStorage().write(email, loginResponseApi.data?.email);
-          GetStorage().write(userId, loginResponseApi.data?.id);
-          GetStorage().write(profile_url, loginResponseApi.data?.profilePicUrl);
-          Get.offAllNamed(RoutesConst.dashboardScreen);
-        }
+      loginResponseModel = response;
+      if (loginResponseModel.message?.toLowerCase() == 'Signup Successful') {
+        GetStorage().write(token, loginResponseModel.accessToken);
+        GetStorage().write(userMobile, loginResponseModel.data?.phoneNumber);
+        GetStorage().write(username, loginResponseModel.data?.username);
+        GetStorage().write(email, loginResponseModel.data?.email);
+        GetStorage().write(userId, loginResponseModel.data?.id);
+        GetStorage().write(profile_url, loginResponseModel.data?.profilePicUrl);
+        Get.offAllNamed(RoutesConst.dashboardScreen);
+      }
     } else {
       onChangePageIndex(++pageIndex);
     }
   }
-
 
   void onBack() {
     if (pageIndex > 1) {

@@ -1,11 +1,11 @@
-class LoginResponseApi {
+class LoginResponseModel {
   String? message;
   Data? data;
   String? accessToken;
 
-  LoginResponseApi({this.message, this.data, this.accessToken});
+  LoginResponseModel({this.message, this.data, this.accessToken});
 
-  LoginResponseApi.fromJson(Map<String, dynamic> json) {
+  LoginResponseModel.fromJson(Map<String, dynamic> json) {
     message = json['message'];
     data = json['data'] != null ? new Data.fromJson(json['data']) : null;
     accessToken = json['access_token'];
@@ -43,33 +43,31 @@ class Data {
   String? maritalStatus;
   bool? isActive;
   String? profilePicUrl;
- // List<dynamic>? groups;
- // List<dynamic>? userPermissions;
 
-  Data(
-      {this.id,
-        this.lastLogin,
-        this.isSuperuser,
-        this.username,
-        this.isStaff,
-        this.email,
-        this.firstName,
-        this.lastName,
-        this.dateOfBirth,
-        this.address,
-        this.city,
-        this.state,
-        this.country,
-        this.postalCode,
-        this.phoneNumber,
-        this.gender,
-        this.dateJoined,
-        this.maritalStatus,
-        this.isActive,
-        this.profilePicUrl,
-        //this.groups,
-       // this.userPermissions
-      });
+  Data({
+    this.id,
+    this.lastLogin,
+    this.isSuperuser,
+    this.username,
+    this.isStaff,
+    this.email,
+    this.firstName,
+    this.lastName,
+    this.dateOfBirth,
+    this.address,
+    this.city,
+    this.state,
+    this.country,
+    this.postalCode,
+    this.phoneNumber,
+    this.gender,
+    this.dateJoined,
+    this.maritalStatus,
+    this.isActive,
+    this.profilePicUrl,
+    //this.groups,
+    // this.userPermissions
+  });
 
   Data.fromJson(Map<String, dynamic> json) {
     id = json['id'];
@@ -92,18 +90,6 @@ class Data {
     maritalStatus = json['marital_status'];
     isActive = json['is_active'];
     profilePicUrl = json['profile_pic_url'];
-  /*  if (json['groups'] != null) {
-      groups = <dynamic>[];
-      json['groups'].forEach((v) {
-        groups!.add(.fromJson(v));
-      });
-    }
-    if (json['user_permissions'] != null) {
-      userPermissions = <Null>[];
-      json['user_permissions'].forEach((v) {
-        userPermissions!.add(Null.fromJson(v));
-      });
-    }*/
   }
 
   Map<String, dynamic> toJson() {
@@ -128,13 +114,7 @@ class Data {
     data['marital_status'] = this.maritalStatus;
     data['is_active'] = this.isActive;
     data['profile_pic_url'] = this.profilePicUrl;
-  /*  if (this.groups != null) {
-      data['groups'] = this.groups!.map((v) => v?.toJson()).toList();
-    }
-    if (this.userPermissions != null) {
-      data['user_permissions'] =
-          this.userPermissions!.map((v) => v?.toJson()).toList();
-    }*/
+
     return data;
   }
 }

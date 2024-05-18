@@ -11,24 +11,19 @@ import 'package:where_hearts_meet/utils/routes/routes_const.dart';
 import '../../utils/services/firebase_auth_controller.dart';
 
 class SplashController extends GetxController {
-  SplashEnum splashEnum = SplashEnum.showBrokenHeart;
-  late ConfettiController controllerTopCenter;
-
   @override
   void onInit() {
     super.onInit();
     updateSplashView();
-    controllerTopCenter = ConfettiController(duration: const Duration(seconds: 4));
   }
 
   void updateSplashView() async {
     await Future.delayed(const Duration(milliseconds: 1500));
-
-    if (await GetStorage().read(token)!= '') {
-        Get.offAllNamed(RoutesConst.dashboardScreen);
-      } else {
-        Get.offAllNamed(RoutesConst.loginScreen);
-      }
-
+    final String? login = GetStorage().read(token);
+    if (login != null && login != '') {
+      Get.offAllNamed(RoutesConst.dashboardScreen);
+    } else {
+      Get.offAllNamed(RoutesConst.loginScreen);
+    }
   }
 }

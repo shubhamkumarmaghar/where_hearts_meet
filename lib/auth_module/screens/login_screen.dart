@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:where_hearts_meet/auth_module/controller/login_controller.dart';
@@ -34,25 +33,23 @@ class LoginScreen extends StatelessWidget {
                     height: _mainHeight,
                     child: Stack(
                       children: [
-                       getLoginBackground(),
+                        getLoginBackground(),
                         Positioned(
-                          top: _mainWidth*0.63,
+                          top: _mainWidth * 0.63,
                           left: 0,
                           right: 0,
                           child: Container(
                             height: _mainHeight * 0.5,
-                            margin: EdgeInsets.only(left: _mainWidth*0.06, right: _mainWidth*0.06),
+                            margin: EdgeInsets.only(left: _mainWidth * 0.06, right: _mainWidth * 0.06),
                             width: _mainWidth,
                             child: Card(
-                              shape: const RoundedRectangleBorder(
-                                borderRadius: BorderRadius.all(Radius.circular(20))
-                              ),
+                              shape: const RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(20))),
                               child: Container(
-                                padding: const EdgeInsets.only(left: 15,right: 15,top: 30),
+                                padding: const EdgeInsets.only(left: 15, right: 15, top: 30),
                                 child: Column(
                                   children: [
                                     Obx(
-                                          () => CustomTextField(
+                                      () => CustomTextField(
                                           title: 'Email',
                                           error: controller.errorEmailText.value,
                                           hint: 'Please enter email',
@@ -63,7 +60,7 @@ class LoginScreen extends StatelessWidget {
                                       height: _mainHeight * 0.04,
                                     ),
                                     Obx(
-                                          () => CustomTextField(
+                                      () => CustomTextField(
                                         title: 'Password',
                                         error: controller.errorPasswordText.value,
                                         hint: 'Please enter password',
@@ -71,7 +68,8 @@ class LoginScreen extends StatelessWidget {
                                         onChanged: controller.onPasswordChanged,
                                         controller: controller.passwordTextController,
                                         suffix: InkWell(
-                                          onTap: () => controller.obscurePassword.value = !controller.obscurePassword.value,
+                                          onTap: () =>
+                                              controller.obscurePassword.value = !controller.obscurePassword.value,
                                           child: Container(
                                               padding: const EdgeInsets.only(right: 10),
                                               child: const Icon(
@@ -82,53 +80,60 @@ class LoginScreen extends StatelessWidget {
                                         ),
                                       ),
                                     ),
-                                    SizedBox(height: _mainHeight*0.02,),
+                                    SizedBox(
+                                      height: _mainHeight * 0.02,
+                                    ),
                                     InkWell(
-                                      onTap: ()async{
-                                      },
+                                      onTap: () async {},
                                       child: Container(
                                           alignment: Alignment.centerRight,
-                                          child: const Text('Forgot Password ?',style: TextStyle(
-                                              color: primaryColor,
-                                              fontWeight: FontWeight.w600,
-                                              fontSize: 16,
-                                              decoration: TextDecoration.underline
-                                          ),)),
-                                    ),
-                                    SizedBox(height: _mainHeight*0.05,),
-                                    Center(
-                                      child: GradientButton(
-                                        title: 'Login',
-                                        height: _mainHeight*0.06,
-                                        width: _mainWidth*0.8,
-                                        onPressed: () async{
-                                          controller.loginWithEmail();
-                                        },),
-                                    ),
-                                    SizedBox(height: _mainHeight*0.025,),
-                                    GestureDetector(
-                                      onTap: (){
-                                        Get.toNamed(RoutesConst.signUpScreen);
-                                      },
-                                      child: Container(
-
-                                        child: const Row(
-                                          mainAxisAlignment: MainAxisAlignment.center,
-                                          children: [
-                                            Text('Don\'t have an account ?  ',style: TextStyle(
-                                              color: blackColor,
-                                              fontWeight: FontWeight.w600,
-                                              fontSize: 16,
-
-
-                                            )),
-                                            Text('Create one',style: TextStyle(
+                                          child: const Text(
+                                            'Forgot Password ?',
+                                            style: TextStyle(
                                                 color: primaryColor,
                                                 fontWeight: FontWeight.w600,
                                                 fontSize: 16,
-                                                decoration: TextDecoration.underline
-
-                                            ),),
+                                                decoration: TextDecoration.underline),
+                                          )),
+                                    ),
+                                    SizedBox(
+                                      height: _mainHeight * 0.05,
+                                    ),
+                                    Center(
+                                      child: GradientButton(
+                                        title: 'Login',
+                                        height: _mainHeight * 0.06,
+                                        width: _mainWidth * 0.8,
+                                        onPressed: () async {
+                                          controller.loginWithEmail();
+                                        },
+                                      ),
+                                    ),
+                                    SizedBox(
+                                      height: _mainHeight * 0.025,
+                                    ),
+                                    GestureDetector(
+                                      onTap: () {
+                                        Get.offAllNamed(RoutesConst.signUpScreen);
+                                      },
+                                      child: Container(
+                                        child: const Row(
+                                          mainAxisAlignment: MainAxisAlignment.center,
+                                          children: [
+                                            Text('Don\'t have an account ?  ',
+                                                style: TextStyle(
+                                                  color: blackColor,
+                                                  fontWeight: FontWeight.w600,
+                                                  fontSize: 16,
+                                                )),
+                                            Text(
+                                              'Create one',
+                                              style: TextStyle(
+                                                  color: primaryColor,
+                                                  fontWeight: FontWeight.w600,
+                                                  fontSize: 16,
+                                                  decoration: TextDecoration.underline),
+                                            ),
                                           ],
                                         ),
                                       ),
@@ -143,51 +148,47 @@ class LoginScreen extends StatelessWidget {
                           ),
                         ),
                         Positioned(
-                            top: _mainHeight*0.13,
-                            left: _mainWidth*0.06,
-                            child: const Text('Welcome  back',style: TextStyle(
-                              fontSize: 45,
-                              fontWeight: FontWeight.w700
-
-                            ),)),
+                            top: _mainHeight * 0.13,
+                            left: _mainWidth * 0.06,
+                            child: const Text(
+                              'Welcome  back',
+                              style: TextStyle(fontSize: 45, fontWeight: FontWeight.w700),
+                            )),
                         Positioned(
-                            top: _mainHeight*0.18,
-                            left: _mainWidth*0.06,
+                            top: _mainHeight * 0.18,
+                            left: _mainWidth * 0.06,
                             child: Row(
                               children: [
-                                const Text('to  ',style: TextStyle(
-                                    fontSize: 45,
-                                    fontWeight: FontWeight.w700
-
-                                ),),
-                                GradientText(text: 'HeH', gradient: LinearGradient(
-                                  colors: [
-                                    Colors.pink.shade400,
-                                   // Colors.blue.shade400,
-                                    primaryColor,
-                                    primaryColor,
-                                    Colors.pink.shade600,
-                                   // const Color(0XFF7AB02A),
-                                  ],
-
-                                ),style: const TextStyle(
-                                    fontSize: 45,
-                                    fontWeight: FontWeight.w700
-                                ),),
-                                const GradientText(text: '  \u2764 ', gradient: LinearGradient(
-                                  colors: [
-                                    Colors.pink,
-                                    Colors.pinkAccent,
-                                  ],
-
-                                ),style: TextStyle(
-                                    fontSize: 40,
-                                    fontWeight: FontWeight.w700
-                                ),)
+                                const Text(
+                                  'to  ',
+                                  style: TextStyle(fontSize: 45, fontWeight: FontWeight.w700),
+                                ),
+                                GradientText(
+                                  text: 'HeH',
+                                  gradient: LinearGradient(
+                                    colors: [
+                                      Colors.pink.shade400,
+                                      // Colors.blue.shade400,
+                                      primaryColor,
+                                      primaryColor,
+                                      Colors.pink.shade600,
+                                      // const Color(0XFF7AB02A),
+                                    ],
+                                  ),
+                                  style: const TextStyle(fontSize: 45, fontWeight: FontWeight.w700),
+                                ),
+                                const GradientText(
+                                  text: '  \u2764 ',
+                                  gradient: LinearGradient(
+                                    colors: [
+                                      Colors.pink,
+                                      Colors.pinkAccent,
+                                    ],
+                                  ),
+                                  style: TextStyle(fontSize: 40, fontWeight: FontWeight.w700),
+                                )
                               ],
                             )),
-
-
                       ],
                     ),
                   ),
@@ -201,7 +202,6 @@ class LoginScreen extends StatelessWidget {
   }
 
   Widget getLoginBackground() {
-
     return SizedBox(
       height: _mainHeight,
       width: _mainWidth,
