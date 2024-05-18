@@ -107,7 +107,7 @@ class ProfileSetupController extends BaseController {
       );
       cancelLoaderDialog();
       loginResponseModel = response;
-      if(loginResponseModel.message?.toLowerCase() == 'Signup Successful')
+      if(loginResponseModel.message == 'Signup Successful')
         {
           GetStorage().write(token, loginResponseModel.data?.accessToken);
           GetStorage().write(userMobile, loginResponseModel.data?.phoneNumber);

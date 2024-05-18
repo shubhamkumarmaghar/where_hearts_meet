@@ -14,7 +14,8 @@ class ApiService {
 
   Map<String, dynamic> getHeaders() {
     return {
-      'Authorization':'Bearer '+ GetStorage().read(token)
+      'Authorization':'Bearer '+'rdrcStCqEAlRVn1j0xxCRTx0x6gHYW'
+          //GetStorage().read(token)
     };
   }
 
