@@ -84,7 +84,7 @@ class AuthApiService {
     );
     final data = response;
 
-    if (data['msg'].toString().toLowerCase().contains('failure')) {
+    if (data['message'].toString().toLowerCase().contains('failure')) {
       return LoginResponseModel(message: 'failure');
     } else {
       return LoginResponseModel.fromJson(data);

@@ -4,6 +4,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 import 'package:get/get_rx/src/rx_types/rx_types.dart';
 import 'package:get/get_utils/src/get_utils/get_utils.dart';
+import 'package:get_storage/get_storage.dart';
 import 'package:where_hearts_meet/utils/controller/base_controller.dart';
 
 import '../../utils/consts/color_const.dart';
@@ -46,9 +47,10 @@ class SignUpController extends BaseController {
         errorUserNameText.value == null &&
         passwordTextController.text.isNotEmpty &&
         errorPasswordText.value == null &&
-        confirmPasswordTextController.text == passwordTextController.text) {
+    confirmPasswordTextController.text == passwordTextController.text
+    ) {
       enableSignUpButton.value = true;
-    } else {
+    }else{
       enableSignUpButton.value = false;
     }
   }
@@ -93,8 +95,8 @@ class SignUpController extends BaseController {
     if (response.message?.toLowerCase() == 'user registered successfully') {
       registerResponseModel = response;
       log('Create User Data :: ${response.accessToken} -- ${response.data?.email} ');
-
-      Get.offAllNamed(RoutesConst.profileSetUpScreen);
+      GetStorage().write('token',response.accessToken );
+      Get.toNamed(RoutesConst.profileSetUpScreen);
     }
   }
 
