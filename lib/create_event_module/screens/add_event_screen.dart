@@ -400,7 +400,7 @@ class AddEventScreen extends StatelessWidget {
                         width: _mainWidth * 0.8,
                         onPressed: () async {
                           FocusScope.of(context).requestFocus(FocusNode());
-                          //await controller.addEvent();
+                          await controller.addEvent();
                           Get.toNamed(RoutesConst.addEventSpecialsScreen,
                               arguments: controller.eventNameController.text);
                         },

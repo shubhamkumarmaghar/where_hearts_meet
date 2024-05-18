@@ -1,14 +1,14 @@
 class LoginResponseApi {
   String? message;
   Data? data;
-  String? accessToken;
 
-  LoginResponseApi({this.message, this.data, this.accessToken});
+
+  LoginResponseApi({this.message, this.data, });
 
   LoginResponseApi.fromJson(Map<String, dynamic> json) {
     message = json['message'];
     data = json['data'] != null ? new Data.fromJson(json['data']) : null;
-    accessToken = json['access_token'];
+
   }
 
   Map<String, dynamic> toJson() {
@@ -17,7 +17,7 @@ class LoginResponseApi {
     if (this.data != null) {
       data['data'] = this.data!.toJson();
     }
-    data['access_token'] = this.accessToken;
+
     return data;
   }
 }
@@ -43,6 +43,7 @@ class Data {
   String? maritalStatus;
   bool? isActive;
   String? profilePicUrl;
+  String? accessToken;
  // List<dynamic>? groups;
  // List<dynamic>? userPermissions;
 
@@ -67,6 +68,7 @@ class Data {
         this.maritalStatus,
         this.isActive,
         this.profilePicUrl,
+        this.accessToken
         //this.groups,
        // this.userPermissions
       });
@@ -92,6 +94,7 @@ class Data {
     maritalStatus = json['marital_status'];
     isActive = json['is_active'];
     profilePicUrl = json['profile_pic_url'];
+    accessToken = json['access_token'];
   /*  if (json['groups'] != null) {
       groups = <dynamic>[];
       json['groups'].forEach((v) {
@@ -128,6 +131,7 @@ class Data {
     data['marital_status'] = this.maritalStatus;
     data['is_active'] = this.isActive;
     data['profile_pic_url'] = this.profilePicUrl;
+    data['access_token'] = this.accessToken;
   /*  if (this.groups != null) {
       data['groups'] = this.groups!.map((v) => v?.toJson()).toList();
     }

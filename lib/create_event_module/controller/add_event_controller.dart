@@ -2,8 +2,10 @@
 import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:get_storage/get_storage.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:where_hearts_meet/profile_module/controller/add_people_controller.dart';
+import 'package:where_hearts_meet/utils/consts/shared_pref_const.dart';
 import 'package:where_hearts_meet/utils/controller/base_controller.dart';
 import 'package:where_hearts_meet/utils/model/event_type_model.dart';
 import 'package:where_hearts_meet/utils/routes/routes_const.dart';
@@ -110,30 +112,32 @@ class AddEventController extends BaseController {
     } else if (selectedEventType.eventTypeId == '0') {
       showSnackBar(context: Get.context!, message: 'Please select event type');
       return;
-    } else if (screenType == ScreenName.fromDashboard && (selectedUser.email == null || selectedUser.email == "")) {
+    } /*else if (screenType == ScreenName.fromDashboard && (selectedUser.email == null || selectedUser.email == "")) {
        showSnackBar(context: Get.context!, message: 'Please Select User');
        return;
      }else if (imageUrl1 == '' || imageUrl2 == ''|| imageUrl3 == ''|| imageUrl4 == ''|| imageUrl5 == ''|| imageUrl6 == '') {
       showSnackBar(context: Get.context!, message: 'Please upload image');
       return;
-    }
+    }*/
 
     showLoaderDialog(context: Get.context!);
-    var email;
+ /*   var email;
     if (screenType == ScreenName.fromAddPeople) {
       final peopleController = Get.find<AddPeopleController>();
       email = peopleController.selectedUser.email;
     } else if (screenType == ScreenName.fromDashboard) {
       email = selectedUser.email;
-    }
+    }*/
      final response =
      await _eventApiService.createEvent(
-         eventName: eventNameController.text,
-       eventType: eventTypeController.text,
-       eventDescription:infoController.text ,
-       eventHostDay:subtitleController.text ,
-       eventSubtext: subtitleController.text,
-       hostName: nameController.text,
+       eventName: eventNameController.text.toString(),
+       eventType: eventTypeController.text.toString(),
+       eventDescription:infoController.text.toString() ,
+       eventHostDay:"happy birthday",
+       eventSubtext: subtitleController.text.toString(),
+       hostName: nameController.text.toString(),
+       mobileNo:'8987772348',
+       username: 'goku@1234'
      );
 
      createEventResponseModel = response;
@@ -153,7 +157,7 @@ class AddEventController extends BaseController {
      */
     cancelLoaderDialog();
 
-    Get.offAllNamed(RoutesConst.dashboardScreen);
+  // Get.offAllNamed(RoutesConst.dashboardScreen);
   }
 
   void showUsersBottomSheet() {

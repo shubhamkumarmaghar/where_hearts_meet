@@ -107,7 +107,7 @@ class ProfileSetupController extends BaseController {
       loginResponseApi = response;
       if(loginResponseApi.message?.toLowerCase() == 'Signup Successful')
         {
-          GetStorage().write(token, loginResponseApi.accessToken);
+          GetStorage().write(token, loginResponseApi.data?.accessToken);
           GetStorage().write(userMobile, loginResponseApi.data?.phoneNumber);
           GetStorage().write(username, loginResponseApi.data?.username);
           GetStorage().write(email, loginResponseApi.data?.email);
