@@ -1,3 +1,4 @@
+import 'package:collapsible_sidebar/collapsible_sidebar.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
@@ -7,9 +8,8 @@ import 'package:where_hearts_meet/utils/dialogs/pop_up_dialogs.dart';
 import 'package:where_hearts_meet/utils/routes/routes_const.dart';
 import 'package:where_hearts_meet/utils/services/firebase_auth_controller.dart';
 import '../../utils/consts/color_const.dart';
-import '../../utils/services/firebase_firestore_controller.dart';
 import '../controller/dashboard_controller.dart';
-import '../widgets/dashboard_widgets.dart';
+
 
 class DashboardDrawerScreen extends StatelessWidget {
   final _mainHeight = Get.height;
@@ -22,7 +22,6 @@ class DashboardDrawerScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return CollapsibleSidebar(
-
       items: _drawerItems,
       maxWidth: screenWidth*0.75,
      backgroundColor: appColor1,
@@ -161,7 +160,7 @@ class DashboardDrawerScreen extends StatelessWidget {
 
   UserAccountsDrawerHeader getUserAccountHeader({required BuildContext context}) {
     return UserAccountsDrawerHeader(
-      decoration: BoxDecoration(color: appColor2)),
+      decoration: BoxDecoration(color: appColor2),
       accountName: Text(
         GetStorage().read(username) ?? '',
         style: const TextStyle(fontSize: 20, fontWeight: FontWeight.w700),
