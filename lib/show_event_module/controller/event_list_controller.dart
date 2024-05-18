@@ -1,14 +1,11 @@
 
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
-import 'package:get/get_core/src/get_main.dart';
-import 'package:image_picker/image_picker.dart';
-import 'package:where_hearts_meet/event_module/model/add_event_model.dart';
-import 'package:where_hearts_meet/profile_module/controller/add_people_controller.dart';
 import 'package:where_hearts_meet/utils/controller/base_controller.dart';
 import 'package:where_hearts_meet/utils/routes/routes_const.dart';
 import 'package:where_hearts_meet/utils/services/firebase_auth_controller.dart';
 
+import '../../create_event_module/model/add_event_model.dart';
 import '../../utils/dialogs/pop_up_dialogs.dart';
 import '../../utils/services/firebase_firestore_controller.dart';
 import '../../utils/services/firebase_storage_controller.dart';

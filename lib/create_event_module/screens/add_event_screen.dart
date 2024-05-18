@@ -396,12 +396,13 @@ class AddEventScreen extends StatelessWidget {
                       child: GradientButton(
                         title: 'Create  Event',
                         height: _mainHeight * 0.06,
-                      buttonColor: primaryColor,
+                        buttonColor: primaryColor,
                         width: _mainWidth * 0.8,
                         onPressed: () async {
                           FocusScope.of(context).requestFocus(FocusNode());
                           //await controller.addEvent();
-                          Get.toNamed(RoutesConst.AddEventSpecialsScreen,arguments: controller.eventNameController.text);
+                          Get.toNamed(RoutesConst.addEventSpecialsScreen,
+                              arguments: controller.eventNameController.text);
                         },
                       ),
                     ),

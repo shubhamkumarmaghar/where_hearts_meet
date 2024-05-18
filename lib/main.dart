@@ -40,6 +40,7 @@ class MyApp extends StatelessWidget {
       title: 'Flutter Demo',
       getPages: AppRoutes.getRoutes(),
       themeMode: ThemeMode.system,
+      debugShowCheckedModeBanner: false,
       color: primaryColor,
       theme: ThemeData(
         fontFamily: 'PlusJakartaSans',

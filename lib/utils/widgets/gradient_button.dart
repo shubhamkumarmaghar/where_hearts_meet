@@ -6,7 +6,7 @@ class GradientButton extends StatefulWidget {
   final bool busy;
   final String title;
   final TextStyle? titleTextStyle;
-  final Function() onPressed;
+  final Function()? onPressed;
   final bool enabled;
   final Color buttonColor;
   final Color splashColor;
@@ -17,12 +17,13 @@ class GradientButton extends StatefulWidget {
   final double? borderWidth;
   final Gradient? gradient;
 
-  const GradientButton({super.key,
+  const GradientButton({
+    super.key,
     required this.title,
     this.gradient,
     this.busy = false,
     this.titleTextStyle,
-    required this.onPressed,
+    this.onPressed,
     this.width = 150,
     this.buttonCorner,
     this.borderWidth,
@@ -43,40 +44,44 @@ class _GradientButtonState extends State<GradientButton> {
     return Container(
       height: widget.height,
       width: widget.width,
-      decoration:widget.enabled? BoxDecoration(
-        color: widget.buttonColor,
-          borderRadius: BorderRadius.circular(50),
-          border: Border.all(color:widget.borderColor ?? primaryColor,width:widget.borderWidth ?? 0)
-      ):BoxDecoration(
-        color: greyColor,
-        borderRadius: BorderRadius.circular(50),
-      ),
+      decoration: widget.enabled
+          ? BoxDecoration(
+              color: widget.buttonColor,
+              borderRadius: BorderRadius.circular(50),
+      )
+          : BoxDecoration(
+              color: greyColor,
+              borderRadius: BorderRadius.circular(50),
+            ),
       child: ElevatedButton(
         style: ButtonStyle(
           shape: MaterialStateProperty.all<RoundedRectangleBorder>(
             RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(widget.buttonCorner?? 50.0),
+              borderRadius: BorderRadius.circular(widget.buttonCorner ?? 50.0),
             ),
           ),
           minimumSize: MaterialStateProperty.all(Size(widget.width, 50)),
-          backgroundColor:widget.enabled? MaterialStateProperty.all(widget.buttonColor ?? Colors.transparent):MaterialStateProperty.all(greyColor),
+          backgroundColor: widget.enabled
+              ? MaterialStateProperty.all(widget.buttonColor)
+              : MaterialStateProperty.all(greyColor),
           // elevation: MaterialStateProperty.all(3),
           shadowColor: MaterialStateProperty.all(Colors.transparent),
         ),
-        onPressed:widget.busy || widget.enabled == false ?(){}: widget.onPressed,
+        onPressed: widget.busy || widget.enabled == false ? () {} : widget.onPressed,
         child: widget.busy
             ? const SizedBox(
-          height: 30.0,
-          width: 30.0,
-          child: CircularProgressIndicator(
-            strokeWidth: 2,
-            valueColor: AlwaysStoppedAnimation<Color>(Colors.white),
-          ),
-        )
+                height: 30.0,
+                width: 30.0,
+                child: CircularProgressIndicator(
+                  strokeWidth: 2,
+                  valueColor: AlwaysStoppedAnimation<Color>(Colors.white),
+                ),
+              )
             : Text(
-          widget.title,
-          style:widget.titleTextStyle ?? const TextStyle(color: Colors.white, fontWeight: FontWeight.w700, fontSize: 19),
-        ),
+                widget.title,
+                style: widget.titleTextStyle ??
+                    const TextStyle(color: Colors.white, fontWeight: FontWeight.w700, fontSize: 19),
+              ),
       ),
     );
   }
