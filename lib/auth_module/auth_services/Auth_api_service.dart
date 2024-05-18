@@ -17,7 +17,7 @@ class AuthApiService {
     );
     final data = response;
 
-    if (data['msg'].toString().toLowerCase().contains('failure')) {
+    if (data['message'].toString().toLowerCase().contains('failure')) {
       return RegisterResponseModel(message: 'failure');
     } else {
       return RegisterResponseModel.fromJson(data);
@@ -38,7 +38,7 @@ class AuthApiService {
     );
     final data = response;
 
-    if (data['msg'].toString().toLowerCase().contains('failure')) {
+    if (data['message'].toString().toLowerCase().contains('failure')) {
       return LoginResponseApi(message: 'failure');
     } else {
       return LoginResponseApi.fromJson(data);
@@ -83,7 +83,7 @@ class AuthApiService {
     );
     final data = response;
 
-    if (data['msg'].toString().toLowerCase().contains('failure')) {
+    if (data['message'].toString().toLowerCase().contains('failure')) {
       return LoginResponseApi(message: 'failure');
     } else {
       return LoginResponseApi.fromJson(data);

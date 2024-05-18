@@ -14,9 +14,13 @@ import '../../utils/consts/screen_const.dart';
 import '../../utils/dialogs/pop_up_dialogs.dart';
 import '../../utils/services/firebase_firestore_controller.dart';
 import '../../utils/services/firebase_storage_controller.dart';
+import '../create_event_service/create_event_service.dart';
 import '../model/add_event_model.dart';
+import '../model/create_event_model.dart';
 
 class AddEventController extends BaseController {
+  EventApiService _eventApiService = EventApiService();
+  CreateEventResponseModel createEventResponseModel = CreateEventResponseModel();
   final nameController = TextEditingController();
   final eventNameController = TextEditingController();
   final titleController = TextEditingController();
@@ -122,8 +126,19 @@ class AddEventController extends BaseController {
     } else if (screenType == ScreenName.fromDashboard) {
       email = selectedUser.email;
     }
+     final response =
+     await _eventApiService.createEvent(
+         eventName: eventNameController.text,
+       eventType: eventTypeController.text,
+       eventDescription:infoController.text ,
+       eventHostDay:subtitleController.text ,
+       eventSubtext: subtitleController.text,
+       hostName: nameController.text,
+     );
 
-    await fireStoreController.addEvent(
+     createEventResponseModel = response;
+
+   /*  await fireStoreController.addEvent(
         addEventModel: AddEventModel(
             imageUrl: imageUrl1,
             imageList: [imageUrl1,imageUrl2,imageUrl3,imageUrl4,imageUrl5,imageUrl6],
@@ -135,6 +150,7 @@ class AddEventController extends BaseController {
             eventInfo: infoController.text,
             fromEmail: firebaseAuthController.getCurrentUser()?.email,
             toEmail: email));
+     */
     cancelLoaderDialog();
 
     Get.offAllNamed(RoutesConst.dashboardScreen);

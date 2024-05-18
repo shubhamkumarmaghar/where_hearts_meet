@@ -68,11 +68,6 @@ class LoginController extends BaseController {
        GetStorage().write(email, loginResponseApi.data?.email);
        GetStorage().write(userId, loginResponseApi.data?.id);
        GetStorage().write(profile_url, loginResponseApi.data?.profilePicUrl);
-
-
-
-
-
        Get.offAllNamed(RoutesConst.dashboardScreen);
      }
     }

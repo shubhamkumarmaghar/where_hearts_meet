@@ -15,7 +15,7 @@ class DioInjector {
 
   void init() {
     _dio = Dio(BaseOptions(
-      baseUrl: "http://heartehomies.com/userPolls/",
+      baseUrl: AppUrls.baseUrl,
       connectTimeout: const Duration(seconds: 30),
       receiveTimeout: const Duration(seconds: 30),
       sendTimeout: const Duration(seconds: 30),
