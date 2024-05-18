@@ -4,12 +4,11 @@ import 'package:easy_stepper/easy_stepper.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:where_hearts_meet/create_event_module/screens/add_giftcard_screen.dart';
+import 'package:where_hearts_meet/create_event_module/screens/add_secret_wishes_screen.dart';
+import 'package:where_hearts_meet/create_event_module/screens/add_timeline_screen.dart';
 import 'package:where_hearts_meet/create_event_module/screens/add_wishes_screen.dart';
 import 'package:where_hearts_meet/utils/consts/app_screen_size.dart';
 import 'package:where_hearts_meet/utils/consts/event_special_const.dart';
-import 'package:where_hearts_meet/utils/routes/app_routes.dart';
-import 'package:where_hearts_meet/utils/routes/routes_const.dart';
-import 'package:where_hearts_meet/utils/widgets/app_bar_widget.dart';
 import '../../utils/consts/color_const.dart';
 import '../controller/add_event_specials_controller.dart';
 
@@ -20,24 +19,25 @@ class AddEventSpecialsScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return GetBuilder<AddEventSpecialsController>(
       builder: (controller) {
-        log('mmmm ${controller.pageIndex}');
-        return Scaffold(
-            body: Container(
-          height: screenHeight,
-          width: screenWidth,
-          padding: EdgeInsets.only(left: 15, right: 15, top: screenHeight * 0.1),
-          child: SingleChildScrollView(
-            child: Column(
-              children: [
-                SizedBox(
-                  height: screenHeight * 0.1,
-                  child: getStepper(controller: controller),
+        return WillPopScope(
+            onWillPop: () async => false,
+            child: Scaffold(
+                body: Container(
+              height: screenHeight,
+              width: screenWidth,
+              padding: EdgeInsets.only(left: 15, right: 15, top: screenHeight * 0.1),
+              child: SingleChildScrollView(
+                child: Column(
+                  children: [
+                    SizedBox(
+                      height: screenHeight * 0.1,
+                      child: getStepper(controller: controller),
+                    ),
+                    SizedBox(height: screenHeight * 0.8, child: getPage(controller.pageIndex, controller)),
+                  ],
                 ),
-                SizedBox(height: screenHeight * 0.8, child: getPage(controller.pageIndex,controller)),
-              ],
-            ),
-          ),
-        ));
+              ),
+            )));
       },
     );
   }
@@ -111,16 +111,16 @@ class AddEventSpecialsScreen extends StatelessWidget {
     );
   }
 
-  Widget getPage(int index,AddEventSpecialsController controller) {
+  Widget getPage(int index, AddEventSpecialsController controller) {
     switch (index) {
       case EventSpecialPageIndex.addWishes:
         return const AddWishesScreen();
       case EventSpecialPageIndex.addGiftCards:
         return const AddGiftCardScreen();
       case EventSpecialPageIndex.addTimeline:
-        return const AddWishesScreen();
+        return const AddTimelineScreen();
       case EventSpecialPageIndex.addSecretWishes:
-        return const AddWishesScreen();
+        return const AddSecretWishesScreen();
       default:
         return const Text('hello');
     }

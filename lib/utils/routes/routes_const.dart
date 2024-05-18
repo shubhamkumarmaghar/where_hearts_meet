@@ -13,4 +13,6 @@ class RoutesConst{
   static String addEventSpecialsScreen='/addEventSpecialsScreen';
   static String addWishesScreen='/addWishesScreen';
   static String addGiftCardScreen='/addGiftCardScreen';
+  static String addTimelineScreen='/addTimelineScreen';
+  static String secretWishesScreen='/secretWishesScreen';
 }
