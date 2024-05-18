@@ -2,6 +2,8 @@ import 'package:get/get.dart';
 import 'package:where_hearts_meet/auth_module/binding/profile_setup_binding.dart';
 import 'package:where_hearts_meet/auth_module/screens/profile_setup_screen.dart';
 import 'package:where_hearts_meet/create_event_module/screens/add_giftcard_screen.dart';
+import 'package:where_hearts_meet/create_event_module/screens/add_secret_wishes_screen.dart';
+import 'package:where_hearts_meet/create_event_module/screens/add_timeline_screen.dart';
 import 'package:where_hearts_meet/create_event_module/screens/add_wishes_screen.dart';
 import 'package:where_hearts_meet/dashboard_module/screens/dashboard_screen.dart';
 import 'package:where_hearts_meet/show_event_module/binding/event_details_binding.dart';
@@ -97,6 +99,16 @@ class AppRoutes {
         name: RoutesConst.addGiftCardScreen,
         // binding: AddEventSpecialsBinding(),
         page: () => const AddGiftCardScreen(),
+      ),
+      GetPage(
+        name: RoutesConst.addTimelineScreen,
+        // binding: AddEventSpecialsBinding(),
+        page: () => const AddTimelineScreen(),
+      ),
+      GetPage(
+        name: RoutesConst.secretWishesScreen,
+        // binding: AddEventSpecialsBinding(),
+        page: () => const AddSecretWishesScreen(),
       ),
     ];
   }

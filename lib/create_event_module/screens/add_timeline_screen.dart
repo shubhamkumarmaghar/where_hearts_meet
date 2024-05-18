@@ -1,21 +1,19 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:unicons/unicons.dart';
-import 'package:where_hearts_meet/create_event_module/controller/add_event_specials_controller.dart';
-import 'package:where_hearts_meet/utils/consts/app_screen_size.dart';
-import 'package:where_hearts_meet/utils/consts/color_const.dart';
-import 'package:where_hearts_meet/utils/model/dropdown_model.dart';
-import 'package:where_hearts_meet/utils/text_styles/custom_text_styles.dart';
-import 'package:where_hearts_meet/utils/widgets/gradient_button.dart';
 
 import '../../utils/buttons/buttons.dart';
+import '../../utils/consts/app_screen_size.dart';
+import '../../utils/consts/color_const.dart';
 import '../../utils/consts/event_special_const.dart';
+import '../../utils/text_styles/custom_text_styles.dart';
 import '../../utils/util_functions/app_pickers.dart';
+import '../../utils/widgets/gradient_button.dart';
+import '../controller/add_event_specials_controller.dart';
 
-class AddWishesScreen extends StatelessWidget {
-  const AddWishesScreen({super.key});
+class AddTimelineScreen extends StatelessWidget {
+  const AddTimelineScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -32,13 +30,26 @@ class AddWishesScreen extends StatelessWidget {
                 height: screenHeight * 0.03,
               ),
               Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  const Spacer(),
-                  getPrimaryText(text: 'Add Wishes', fontWeight: FontWeight.w700, fontSize: 20),
-                  const Spacer(),
                   GestureDetector(
                     onTap: () {
-                      controller.onNextScreen(EventSpecialPageIndex.addGiftCards);
+                      controller.onPreviousScreen(EventSpecialPageIndex.addGiftCards);
+                    },
+                    child: const CircleAvatar(
+                      radius: 14,
+                      backgroundColor: primaryColor,
+                      child: Icon(
+                        Icons.arrow_back_ios_new_rounded,
+                        color: Colors.white,
+                        size: 18,
+                      ),
+                    ),
+                  ),
+                  getPrimaryText(text: 'Add Timeline', fontWeight: FontWeight.w700, fontSize: 20),
+                  GestureDetector(
+                    onTap: () {
+                       controller.onNextScreen(EventSpecialPageIndex.addSecretWishes);
                     },
                     child: Container(
                       height: 25,
@@ -59,8 +70,9 @@ class AddWishesScreen extends StatelessWidget {
                   getPrimaryText(
                       text: 'Add Images', fontWeight: FontWeight.w600, fontSize: 18, textColor: Colors.black),
                   getPrimaryText(
-                      text:
-                          controller.wishesImagesList.isNotEmpty ? '${controller.wishesImagesList.length}  Images' : '',
+                      text: controller.timelineImagesList.isNotEmpty
+                          ? '${controller.timelineImagesList.length}  Images'
+                          : '',
                       fontWeight: FontWeight.w500,
                       fontSize: 12,
                       textColor: appColor3),
@@ -79,8 +91,9 @@ class AddWishesScreen extends StatelessWidget {
                   getPrimaryText(
                       text: 'Add Videos', fontWeight: FontWeight.w600, fontSize: 18, textColor: Colors.black),
                   getPrimaryText(
-                      text:
-                          controller.wishesVideosList.isNotEmpty ? '${controller.wishesVideosList.length}  Videos' : '',
+                      text: controller.timelineVideosList.isNotEmpty
+                          ? '${controller.timelineVideosList.length}  Videos'
+                          : '',
                       fontWeight: FontWeight.w500,
                       fontSize: 12,
                       textColor: appColor3),
@@ -95,9 +108,9 @@ class AddWishesScreen extends StatelessWidget {
                 width: screenWidth * 0.8,
                 child: GradientButton(
                     title: 'Save',
-                    enabled: controller.wishesImagesList.isNotEmpty || controller.wishesVideosList.isNotEmpty,
+                    enabled: controller.timelineImagesList.isNotEmpty || controller.timelineVideosList.isNotEmpty,
                     onPressed: () {
-                      if (controller.wishesImagesList.isEmpty || controller.wishesVideosList.isEmpty) {
+                      if (controller.timelineImagesList.isEmpty || controller.timelineVideosList.isEmpty) {
                         return;
                       }
                       controller.onNextScreen(EventSpecialPageIndex.addGiftCards);
@@ -118,7 +131,7 @@ class AddWishesScreen extends StatelessWidget {
       thickness: 3,
       child: GridView.builder(
           scrollDirection: Axis.horizontal,
-          itemCount: controller.wishesImagesList.length + 1,
+          itemCount: controller.timelineImagesList.length + 1,
           gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
             crossAxisCount: 1,
             crossAxisSpacing: 12,
@@ -127,15 +140,15 @@ class AddWishesScreen extends StatelessWidget {
           itemBuilder: (BuildContext context, int index) {
             return Container(
               alignment: Alignment.center,
-              child: controller.wishesImagesList.length == index
+              child: controller.timelineImagesList.length == index
                   ? getElevatedButton(
                       onPressed: () async {
                         showImagePickerDialog(
                           context: Get.context!,
                           onCamera: () => controller.onCaptureImage(
-                              source: ImageSource.camera, pageIndex: EventSpecialPageIndex.addWishes),
+                              source: ImageSource.camera, pageIndex: EventSpecialPageIndex.addTimeline),
                           onGallery: () => controller.onCaptureImage(
-                              source: ImageSource.gallery, pageIndex: EventSpecialPageIndex.addWishes),
+                              source: ImageSource.gallery, pageIndex: EventSpecialPageIndex.addTimeline),
                         );
                       },
                       child: Icon(
@@ -149,9 +162,9 @@ class AddWishesScreen extends StatelessWidget {
                         showImagePickerDialog(
                           context: Get.context!,
                           onCamera: () => controller.onCaptureImage(
-                              source: ImageSource.camera, pageIndex: EventSpecialPageIndex.addWishes),
+                              source: ImageSource.camera, pageIndex: EventSpecialPageIndex.addTimeline),
                           onGallery: () => controller.onCaptureImage(
-                              source: ImageSource.gallery, pageIndex: EventSpecialPageIndex.addWishes),
+                              source: ImageSource.gallery, pageIndex: EventSpecialPageIndex.addTimeline),
                         );
                       },
                       child: SizedBox(
@@ -160,7 +173,7 @@ class AddWishesScreen extends StatelessWidget {
                         child: ClipRRect(
                             borderRadius: const BorderRadius.all(Radius.circular(20)),
                             child: Image.network(
-                              controller.wishesImagesList[index],
+                              controller.timelineImagesList[index],
                               fit: BoxFit.cover,
                             )),
                       ),
@@ -177,7 +190,7 @@ class AddWishesScreen extends StatelessWidget {
       thumbColor: appColor4,
       thickness: 3,
       child: GridView.builder(
-          itemCount: controller.wishesVideosList.length + 1,
+          itemCount: controller.timelineVideosList.length + 1,
           scrollDirection: Axis.horizontal,
           gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
             crossAxisCount: 1,
@@ -187,15 +200,15 @@ class AddWishesScreen extends StatelessWidget {
           itemBuilder: (BuildContext context, int index) {
             return Container(
               alignment: Alignment.center,
-              child: controller.wishesVideosList.length == index
+              child: controller.timelineVideosList.length == index
                   ? getElevatedButton(
                       onPressed: () async {
                         showImagePickerDialog(
                           context: Get.context!,
                           onCamera: () => controller.onCaptureVideo(
-                              source: ImageSource.camera, pageIndex: EventSpecialPageIndex.addWishes),
+                              source: ImageSource.camera, pageIndex: EventSpecialPageIndex.addTimeline),
                           onGallery: () => controller.onCaptureVideo(
-                              source: ImageSource.gallery, pageIndex: EventSpecialPageIndex.addWishes),
+                              source: ImageSource.gallery, pageIndex: EventSpecialPageIndex.addTimeline),
                         );
                       },
                       child: Icon(
@@ -209,9 +222,9 @@ class AddWishesScreen extends StatelessWidget {
                         showImagePickerDialog(
                           context: Get.context!,
                           onCamera: () => controller.onCaptureVideo(
-                              source: ImageSource.camera, pageIndex: EventSpecialPageIndex.addWishes),
+                              source: ImageSource.camera, pageIndex: EventSpecialPageIndex.addTimeline),
                           onGallery: () => controller.onCaptureVideo(
-                              source: ImageSource.gallery, pageIndex: EventSpecialPageIndex.addWishes),
+                              source: ImageSource.gallery, pageIndex: EventSpecialPageIndex.addTimeline),
                         );
                       },
                       child: SizedBox(
@@ -220,7 +233,7 @@ class AddWishesScreen extends StatelessWidget {
                         child: ClipRRect(
                             borderRadius: const BorderRadius.all(Radius.circular(20)),
                             child: Image.network(
-                              controller.wishesImagesList[index],
+                              controller.timelineImagesList[index],
                               fit: BoxFit.cover,
                             )),
                       ),
