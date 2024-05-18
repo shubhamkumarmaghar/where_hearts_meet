@@ -46,10 +46,9 @@ class SignUpController extends BaseController {
         errorUserNameText.value == null &&
         passwordTextController.text.isNotEmpty &&
         errorPasswordText.value == null &&
-    confirmPasswordTextController.text == passwordTextController.text
-    ) {
+        confirmPasswordTextController.text == passwordTextController.text) {
       enableSignUpButton.value = true;
-    }else{
+    } else {
       enableSignUpButton.value = false;
     }
   }
@@ -73,7 +72,7 @@ class SignUpController extends BaseController {
   }
 
   void onConfirmPasswordChanged(String confirmPassword) {
-    if (confirmPassword.isNotEmpty && confirmPassword.length > 7 ) {
+    if (confirmPassword.isNotEmpty && confirmPassword.length > 7) {
       errorConfirmPasswordText.value = null;
     } else {
       errorConfirmPasswordText.value = 'Enter valid password';
@@ -83,16 +82,19 @@ class SignUpController extends BaseController {
 
   Future<void> createUserWithEmail() async {
     showLoaderDialog(context: Get.context!);
+
     if (passwordTextController.text != confirmPasswordTextController.text) {
       AppWidgets.getToast(message: 'Password and confirm password is not matching.', color: redColorError);
       return;
     }
     final response = await _authApiService.registerUser(
         email: emailTextController.text, password: passwordTextController.text, username: usernameTextController.text);
+    cancelLoaderDialog();
     if (response.message?.toLowerCase() == 'user registered successfully') {
       registerResponseModel = response;
       log('Create User Data :: ${response.accessToken} -- ${response.data?.email} ');
-      Get.toNamed(RoutesConst.profileSetUpScreen);
+
+      Get.offAllNamed(RoutesConst.profileSetUpScreen);
     }
   }
 

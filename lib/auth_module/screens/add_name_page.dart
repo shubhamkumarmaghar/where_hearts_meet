@@ -49,6 +49,7 @@ class AddNamePage extends StatelessWidget {
           Obx(
                 () => CustomTextField(
                 title: 'Mobile Number',
+                inputType: TextInputType.phone,
                 error: controller.errorMobileText.value,
                 hint: 'Please enter mobile number',
                 onChanged: controller.onMobileChanged,

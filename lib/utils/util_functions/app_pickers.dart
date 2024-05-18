@@ -9,9 +9,9 @@ import '../widgets/image_dialog.dart';
 Future<DateTime?> dateOfBirthPicker({required BuildContext context}) async {
   final DateTime? picked = await showDatePicker(
     context: context,
-    initialDate: DateTime.now(),
+    initialDate: DateTime.now().subtract(Duration(days: 3650)),
     firstDate: DateTime(1950),
-    lastDate: DateTime(2028),
+    lastDate: DateTime.now().subtract(Duration(days: 3650)),
     builder: (BuildContext context, Widget? child) {
       return Theme(
         data: Theme.of(context).copyWith(

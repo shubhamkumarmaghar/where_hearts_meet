@@ -46,10 +46,10 @@ class ProfileSetupController extends BaseController {
   }
 
   void onMobileChanged(String mobile) {
-    if (GetUtils.isAlphabetOnly(mobile)) {
-      errorNameText.value = null;
+    if (GetUtils.isPhoneNumber(mobile)) {
+      errorMobileText.value = null;
     } else {
-      errorNameText.value = 'Enter valid mobile number';
+      errorMobileText.value = 'Enter valid mobile number';
     }
   }
 
