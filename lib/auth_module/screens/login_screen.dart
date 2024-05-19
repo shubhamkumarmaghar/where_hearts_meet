@@ -39,7 +39,7 @@ class LoginScreen extends StatelessWidget {
                           left: 0,
                           right: 0,
                           child: Container(
-                            height: _mainHeight * 0.5,
+                            height: _mainHeight * 0.51,
                             margin: EdgeInsets.only(left: _mainWidth * 0.06, right: _mainWidth * 0.06),
                             width: _mainWidth,
                             child: Card(

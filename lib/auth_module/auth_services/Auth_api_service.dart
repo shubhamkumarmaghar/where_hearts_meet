@@ -12,7 +12,7 @@ class AuthApiService {
       required username}) async {
     String url = AppUrls.registerUrl;
 
-    final response = await _apiService.postApiCallforLogin(
+    final response = await _apiService.postApiCallForLogin(
       url: url,
       data: {'email': email, 'password': password, 'username': username},
     );
@@ -30,7 +30,7 @@ class AuthApiService {
     required String password,
   }) async {
     String url = AppUrls.loginUrl;
-    final response = await _apiService.postApiCallforLogin(
+    final response = await _apiService.postApiCallForLogin(
       url: url,
       data: {
         'username': email,

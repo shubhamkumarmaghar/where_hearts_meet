@@ -94,9 +94,8 @@ class SignUpController extends BaseController {
     cancelLoaderDialog();
     if (response.message?.toLowerCase() == 'user registered successfully') {
       registerResponseModel = response;
-      log('Create User Data :: ${response.accessToken} -- ${response.data?.email} ');
       GetStorage().write('token',response.accessToken );
-      Get.toNamed(RoutesConst.profileSetUpScreen);
+      Get.offAllNamed(RoutesConst.profileSetUpScreen);
     }
   }
 

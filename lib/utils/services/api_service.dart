@@ -48,7 +48,7 @@ class ApiService {
     }
   }
 
-  Future<Map<String, dynamic>> postApiCallforLogin({required String url, required Map<String, dynamic> data}) async {
+  Future<Map<String, dynamic>> postApiCallForLogin({required String url, required Map<String, dynamic> data}) async {
     try {
       Response response = await apiClient.dio.post(
         url,
