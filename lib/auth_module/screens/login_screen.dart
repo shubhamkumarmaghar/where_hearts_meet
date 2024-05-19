@@ -50,11 +50,11 @@ class LoginScreen extends StatelessWidget {
                                   children: [
                                     Obx(
                                       () => CustomTextField(
-                                          title: 'Email',
-                                          error: controller.errorEmailText.value,
-                                          hint: 'Please enter email',
-                                          onChanged: controller.onEmailChanged,
-                                          controller: controller.emailTextController),
+                                          title: 'Username',
+                                          error: controller.errorUsernameText.value,
+                                          hint: 'Please enter username',
+                                          onChanged: controller.onUsernameChanged,
+                                          controller: controller.usernameTextController),
                                     ),
                                     SizedBox(
                                       height: _mainHeight * 0.04,

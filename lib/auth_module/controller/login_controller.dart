@@ -17,67 +17,53 @@ import '../auth_services/Auth_api_service.dart';
 
 class LoginController extends BaseController {
   final AuthApiService _authApiService = AuthApiService();
-  final emailTextController = TextEditingController();
+  final usernameTextController = TextEditingController();
   final passwordTextController = TextEditingController();
-  RxnString errorEmailText = RxnString(null);
+  RxnString errorUsernameText = RxnString(null);
   RxnString errorPasswordText = RxnString(null);
   RxBool obscurePassword = true.obs;
   LoginResponseModel loginResponseModel = LoginResponseModel();
 
-  void onEmailChanged(String email) {
+  void onUsernameChanged(String email) {
     if (GetUtils.isEmail(email)) {
-      errorEmailText.value = null;
+      errorUsernameText.value = null;
     } else {
-      errorEmailText.value = 'Enter valid email';
+      errorUsernameText.value = 'Enter valid email';
     }
   }
 
   void onPasswordChanged(String password) {
     if (password.isNotEmpty) {
-      errorEmailText.value = null;
+      errorPasswordText.value = null;
     } else {
-      errorEmailText.value = 'Enter valid password';
+      errorPasswordText.value = 'Enter valid password';
     }
   }
 
-  /* Future<void> loginWithEmail() async {
-    showLoaderDialog(context: Get.context!);
-    final firebaseAuthController = Get.find<FirebaseAuthController>();
-    final data =
-        await firebaseAuthController.loginWithEmail(email: emailTextController.text, password: passwordTextController.text);
-    cancelLoaderDialog();
-    if (data != null) {
-      log('Login Data :: ${data.uid} -- ${data.email}');
-      Get.offAllNamed(RoutesConst.dashboardScreen);
-    }
-  }*/
-
   Future<void> loginWithEmail() async {
     showLoaderDialog(context: Get.context!);
-    // final firebaseAuthController = Get.find<FirebaseAuthController>();
     final response =
-        await _authApiService.fetchLoginUser(email: emailTextController.text, password: passwordTextController.text);
+        await _authApiService.fetchLoginUser(email: usernameTextController.text, password: passwordTextController.text);
     cancelLoaderDialog();
     if (response.message == 'Login Successful') {
       loginResponseModel = response;
-      log('Login Data :: ${response.data?.username} -- ${response.data?.email}');
-     if(loginResponseModel.data?.phoneNumber ==''){
-       Get.toNamed(RoutesConst.profileSetUpScreen);
-     }else {
-       GetStorage().write(token, loginResponseModel.data?.accessToken);
-       GetStorage().write(userMobile, loginResponseModel.data?.phoneNumber);
-       GetStorage().write(username, loginResponseModel.data?.username);
-       GetStorage().write(email, loginResponseModel.data?.email);
-       GetStorage().write(userId, loginResponseModel.data?.id);
-       GetStorage().write(profile_url, loginResponseModel.data?.profilePicUrl);
-       Get.offAllNamed(RoutesConst.dashboardScreen);
-     }
+      if (loginResponseModel.data?.phoneNumber == '') {
+        Get.toNamed(RoutesConst.profileSetUpScreen);
+      } else {
+        GetStorage().write(token, loginResponseModel.data?.accessToken);
+        GetStorage().write(userMobile, loginResponseModel.data?.phoneNumber);
+        GetStorage().write(username, loginResponseModel.data?.username);
+        GetStorage().write(email, loginResponseModel.data?.email);
+        GetStorage().write(userId, loginResponseModel.data?.id);
+        GetStorage().write(profile_url, loginResponseModel.data?.profilePicUrl);
+        Get.offAllNamed(RoutesConst.dashboardScreen);
+      }
     }
   }
 
   @override
   void onClose() {
-    emailTextController.dispose();
+    usernameTextController.dispose();
     passwordTextController.dispose();
     super.onClose();
   }
