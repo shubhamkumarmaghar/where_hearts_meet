@@ -16,9 +16,9 @@ import '../../utils/consts/screen_const.dart';
 import '../../utils/dialogs/pop_up_dialogs.dart';
 import '../../utils/services/firebase_firestore_controller.dart';
 import '../../utils/services/firebase_storage_controller.dart';
-import '../create_event_service/create_event_service.dart';
 import '../model/add_event_model.dart';
 import '../model/create_event_model.dart';
+import '../service/create_event_service.dart';
 
 class AddEventController extends BaseController {
   EventApiService _eventApiService = EventApiService();

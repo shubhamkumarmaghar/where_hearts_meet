@@ -8,6 +8,7 @@ import 'package:get_storage/get_storage.dart';
 import 'package:where_hearts_meet/utils/controller/base_controller.dart';
 
 import '../../utils/consts/color_const.dart';
+import '../../utils/consts/shared_pref_const.dart';
 import '../../utils/dialogs/pop_up_dialogs.dart';
 import '../../utils/routes/routes_const.dart';
 import '../../utils/services/firebase_auth_controller.dart';
@@ -19,15 +20,18 @@ class SignUpController extends BaseController {
   final emailTextController = TextEditingController();
   final usernameTextController = TextEditingController();
   final passwordTextController = TextEditingController();
+  final mobileTextController = TextEditingController();
   final confirmPasswordTextController = TextEditingController();
 
   RxnString errorEmailText = RxnString(null);
+  RxnString errorMobileText = RxnString(null);
   RxnString errorUserNameText = RxnString(null);
   RxnString errorPasswordText = RxnString(null);
   RxnString errorConfirmPasswordText = RxnString(null);
   RxBool obscurePassword = true.obs;
   RxBool obscureConfirmPassword = true.obs;
   RxBool enableSignUpButton = false.obs;
+
   final AuthApiService _authApiService = AuthApiService();
   RegisterResponseModel registerResponseModel = RegisterResponseModel();
 
@@ -40,6 +44,15 @@ class SignUpController extends BaseController {
     _hasSignUpButtonEnabled();
   }
 
+  void onMobileNumberChanged(String mobile) {
+    if (mobile.length == 10) {
+      errorMobileText.value = null;
+    } else {
+      errorMobileText.value = 'Enter valid mobile number';
+    }
+    _hasSignUpButtonEnabled();
+  }
+
   void _hasSignUpButtonEnabled() {
     if (emailTextController.text.isNotEmpty &&
         errorEmailText.value == null &&
@@ -47,10 +60,9 @@ class SignUpController extends BaseController {
         errorUserNameText.value == null &&
         passwordTextController.text.isNotEmpty &&
         errorPasswordText.value == null &&
-    confirmPasswordTextController.text == passwordTextController.text
-    ) {
+        confirmPasswordTextController.text == passwordTextController.text) {
       enableSignUpButton.value = true;
-    }else{
+    } else {
       enableSignUpButton.value = false;
     }
   }
@@ -82,7 +94,7 @@ class SignUpController extends BaseController {
     _hasSignUpButtonEnabled();
   }
 
-  Future<void> createUserWithEmail() async {
+  Future<void> createUser() async {
     showLoaderDialog(context: Get.context!);
 
     if (passwordTextController.text != confirmPasswordTextController.text) {
@@ -90,11 +102,15 @@ class SignUpController extends BaseController {
       return;
     }
     final response = await _authApiService.registerUser(
-        email: emailTextController.text, password: passwordTextController.text, username: usernameTextController.text);
+        email: emailTextController.text,
+        password: passwordTextController.text,
+        username: usernameTextController.text,
+        mobileNumber: mobileTextController.text);
+
     cancelLoaderDialog();
     if (response.message?.toLowerCase() == 'user registered successfully') {
       registerResponseModel = response;
-      GetStorage().write('token',response.accessToken );
+      await GetStorage().write(token, response.accessToken);
       Get.offAllNamed(RoutesConst.profileSetUpScreen);
     }
   }

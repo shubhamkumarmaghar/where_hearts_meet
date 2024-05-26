@@ -1,6 +1,7 @@
-
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
+import 'package:where_hearts_meet/show_event_module/model/events_list_model.dart';
+import 'package:where_hearts_meet/show_event_module/service/show_event_service.dart';
 import 'package:where_hearts_meet/utils/controller/base_controller.dart';
 import 'package:where_hearts_meet/utils/routes/routes_const.dart';
 import 'package:where_hearts_meet/utils/services/firebase_auth_controller.dart';
@@ -11,10 +12,9 @@ import '../../utils/services/firebase_firestore_controller.dart';
 import '../../utils/services/firebase_storage_controller.dart';
 
 class EventListController extends BaseController {
-  final fireStoreController = Get.find<FirebaseFireStoreController>();
-  final firebaseAuthController = Get.find<FirebaseAuthController>();
-  List<AddEventModel> allEventList=[];
-  List<AddEventModel> currentUserEventList=[];
+  List<EventsListModel>? eventsList;
+
+  final showEventService = ShowEventApiService();
 
   @override
   void onInit() {
@@ -22,18 +22,10 @@ class EventListController extends BaseController {
     super.onInit();
   }
 
-
   Future<void> getEventList() async {
-   setBusy(true);
-   final email=firebaseAuthController.getCurrentUser()?.email;
-   allEventList=await fireStoreController.getEventList();
-   for (var data in allEventList){
-     if(data.toEmail == email){
-       currentUserEventList.add(data);
-     }
-   }
-   setBusy(false);
-   update();
+    setBusy(true);
+    eventsList = await showEventService.getAllEvents();
+    setBusy(false);
+    update();
   }
-
 }

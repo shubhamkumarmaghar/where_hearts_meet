@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:where_hearts_meet/show_event_module/controller/event_list_controller.dart';
 import 'package:where_hearts_meet/utils/routes/routes_const.dart';
 
 import '../../utils/consts/color_const.dart';
 import '../../utils/widgets/base_container.dart';
+import '../controller/event_list_controller.dart';
 
 class EventListScreen extends StatelessWidget {
   final _mainHeight = Get.height;
@@ -33,7 +33,7 @@ class EventListScreen extends StatelessWidget {
                           height: _mainHeight * 0.75,
                           child: ListView.separated(
                               itemBuilder: (context, index) {
-                                var data = controller.currentUserEventList[index];
+                                var data = controller.eventsList![index];
                                 return InkWell(
                                   onTap: () {
                                     Get.toNamed(RoutesConst.eventDetailsScreen, arguments: data);
@@ -51,7 +51,7 @@ class EventListScreen extends StatelessWidget {
                                           child: ClipRRect(
                                             borderRadius: const BorderRadius.all(Radius.circular(100)),
                                             child: Image.network(
-                                              data.imageUrl ?? '',
+                                              data.imageUrls![0] ?? '',
                                               fit: BoxFit.fill,
                                             ),
                                           ),
@@ -68,14 +68,14 @@ class EventListScreen extends StatelessWidget {
                                             SizedBox(
                                               height: _mainHeight * 0.005,
                                             ),
-                                            Text(data.title ?? '',
+                                            Text(data.eventName ?? '',
                                                 style: const TextStyle(fontSize: 14, fontWeight: FontWeight.w500)),
                                             SizedBox(
                                               height: _mainHeight * 0.005,
                                             ),
                                             Container(
                                               alignment: Alignment.centerRight,
-                                              child: Text('from - ${data.fromEmail}',
+                                              child: Text('TO - ${data.receiverName}',
                                                   style: const TextStyle(
                                                       fontSize: 12, fontWeight: FontWeight.w500, color: greyColor)),
                                             ),
@@ -89,7 +89,7 @@ class EventListScreen extends StatelessWidget {
                               separatorBuilder: (context, index) => const SizedBox(
                                     height: 10,
                                   ),
-                              itemCount: controller.currentUserEventList.length),
+                              itemCount: controller.eventsList!.length),
                         ),
                 ],
               ),

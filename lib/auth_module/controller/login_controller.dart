@@ -17,18 +17,20 @@ import '../auth_services/Auth_api_service.dart';
 
 class LoginController extends BaseController {
   final AuthApiService _authApiService = AuthApiService();
-  final usernameTextController = TextEditingController();
+  final phoneNumberController = TextEditingController();
   final passwordTextController = TextEditingController();
-  RxnString errorUsernameText = RxnString(null);
+
+  RxnString errorPhoneNumberText = RxnString(null);
   RxnString errorPasswordText = RxnString(null);
+
   RxBool obscurePassword = true.obs;
   LoginResponseModel loginResponseModel = LoginResponseModel();
 
-  void onUsernameChanged(String email) {
-    if (GetUtils.isEmail(email)) {
-      errorUsernameText.value = null;
+  void onPhoneNumberChanged(String mobile) {
+    if (mobile.length == 10) {
+      errorPhoneNumberText.value = null;
     } else {
-      errorUsernameText.value = 'Enter valid email';
+      errorPhoneNumberText.value = 'Enter valid mobile number';
     }
   }
 
@@ -40,10 +42,10 @@ class LoginController extends BaseController {
     }
   }
 
-  Future<void> loginWithEmail() async {
+  Future<void> login() async {
     showLoaderDialog(context: Get.context!);
-    final response =
-        await _authApiService.fetchLoginUser(email: usernameTextController.text, password: passwordTextController.text);
+    final response = await _authApiService.fetchLoginUser(
+        phoneNumber: phoneNumberController.text, password: passwordTextController.text);
     cancelLoaderDialog();
     if (response.message == 'Login Successful') {
       loginResponseModel = response;
@@ -63,7 +65,7 @@ class LoginController extends BaseController {
 
   @override
   void onClose() {
-    usernameTextController.dispose();
+    phoneNumberController.dispose();
     passwordTextController.dispose();
     super.onClose();
   }

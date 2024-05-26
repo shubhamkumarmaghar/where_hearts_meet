@@ -11,14 +11,12 @@ import 'package:where_hearts_meet/utils/services/firebase_firestore_controller.d
 import 'package:where_hearts_meet/utils/widgets/event_card.dart';
 import '../../create_event_module/model/add_event_model.dart';
 import '../../utils/buttons/buttons.dart';
+import '../../utils/consts/app_screen_size.dart';
 import '../../utils/util_functions/decoration_functions.dart';
 import '../../utils/widgets/mini_user_card.dart';
 
 class DashboardScreen extends StatelessWidget {
-  final _mainHeight = Get.height;
-  final _mainWidth = Get.width;
-
-  DashboardScreen({Key? key}) : super(key: key);
+  const DashboardScreen({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -27,15 +25,20 @@ class DashboardScreen extends StatelessWidget {
       builder: (controller) {
         return Scaffold(
           appBar: AppBar(
-            title:  Center(child: Image.asset(logo, height: 80,width: 80,)),
+            title: Center(
+                child: Image.asset(
+              logo,
+              height: 80,
+              width: 80,
+            )),
             actions: [
-              Container(margin: EdgeInsets.only(right: _mainWidth * 0.04), child: const Icon(Icons.notifications))
+              Container(margin: EdgeInsets.only(right: screenWidth * 0.04), child: const Icon(Icons.notifications))
             ],
           ),
           drawer: DashboardDrawerScreen(dashboardController: controller),
           body: Container(
-            height: _mainHeight,
-            width: _mainWidth,
+            height: screenHeight,
+            width: screenWidth,
             color: appColor5,
             padding: const EdgeInsets.symmetric(vertical: 15, horizontal: 15),
             child: SingleChildScrollView(
@@ -47,7 +50,7 @@ class DashboardScreen extends StatelessWidget {
                     style: TextStyle(color: blackColor, fontWeight: FontWeight.w700, fontSize: 24),
                   ),
                   SizedBox(
-                    height: _mainHeight * 0.02,
+                    height: screenHeight * 0.02,
                   ),
                   Container(
                     alignment: Alignment.center,
@@ -57,36 +60,36 @@ class DashboardScreen extends StatelessWidget {
                       },
                       child: Icon(
                         Icons.add_photo_alternate,
-                        size: _mainHeight * 0.06,
+                        size: screenHeight * 0.06,
                         color: whiteColor,
                       ),
                     ),
                   ),
                   SizedBox(
-                    height: _mainHeight * 0.025,
+                    height: screenHeight * 0.025,
                   ),
                   const Text(
                     'Add People',
                     style: TextStyle(color: blackColor, fontWeight: FontWeight.w700, fontSize: 24),
                   ),
                   SizedBox(
-                    height: _mainHeight * 0.02,
+                    height: screenHeight * 0.02,
                   ),
                   Container(
                     alignment: Alignment.center,
                     child: getIconButton(
-                      onPressed: () async{
-                       Get.toNamed(RoutesConst.addPeopleScreen);
+                      onPressed: () async {
+                        Get.toNamed(RoutesConst.addPeopleScreen);
                       },
                       child: Icon(
                         Icons.add_reaction,
-                        size: _mainHeight * 0.06,
+                        size: screenHeight * 0.06,
                         color: whiteColor,
                       ),
                     ),
                   ),
                   SizedBox(
-                    height: _mainHeight * 0.025,
+                    height: screenHeight * 0.025,
                   ),
                   const Row(
                     children: [
@@ -103,18 +106,19 @@ class DashboardScreen extends StatelessWidget {
                     ],
                   ),
                   SizedBox(
-                    height: _mainHeight * 0.025,
+                    height: screenHeight * 0.025,
                   ),
                   Obx(() {
                     return SizedBox(
-                      height: _mainHeight * 0.25,
+                      height: screenHeight * 0.25,
                       child: controller.showEventView.value
-                          ? getEventsCard(context: context, controller: controller, eventsList: controller.currentUserEventList)
+                          ? getEventsCard(
+                              context: context, controller: controller, eventsList: controller.currentUserEventList)
                           : const Center(child: CircularProgressIndicator()),
                     );
                   }),
                   SizedBox(
-                    height: _mainHeight * 0.04,
+                    height: screenHeight * 0.04,
                   ),
                   const Row(
                     children: [
@@ -131,18 +135,18 @@ class DashboardScreen extends StatelessWidget {
                     ],
                   ),
                   SizedBox(
-                    height: _mainHeight * 0.025,
+                    height: screenHeight * 0.025,
                   ),
                   Obx(() {
                     return SizedBox(
-                      height: _mainHeight * 0.25,
+                      height: screenHeight * 0.25,
                       child: controller.showPeopleView.value
                           ? getUsersCard(context: context, controller: controller, usersList: controller.peopleList)
                           : const Center(child: CircularProgressIndicator()),
                     );
                   }),
                   SizedBox(
-                    height: _mainHeight * 0.025,
+                    height: screenHeight * 0.025,
                   ),
                 ],
               ),
@@ -163,7 +167,7 @@ class DashboardScreen extends StatelessWidget {
         scrollDirection: Axis.horizontal,
         gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
             crossAxisCount: 1,
-            childAspectRatio: _mainWidth / (_mainHeight * 0.75),
+            childAspectRatio: screenWidth / (screenHeight * 0.75),
             crossAxisSpacing: 10,
             mainAxisSpacing: 10),
         itemBuilder: (BuildContext context, int index) {
@@ -186,7 +190,7 @@ class DashboardScreen extends StatelessWidget {
         scrollDirection: Axis.horizontal,
         gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
             crossAxisCount: 1,
-            childAspectRatio: _mainWidth / (_mainHeight * 0.36),
+            childAspectRatio: screenWidth / (screenHeight * 0.36),
             crossAxisSpacing: 10,
             mainAxisSpacing: 10),
         itemBuilder: (BuildContext context, int index) {

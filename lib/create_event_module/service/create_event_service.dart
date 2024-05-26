@@ -7,7 +7,7 @@ import '../../utils/services/api_service.dart';
 import '../model/create_event_model.dart';
 
 class EventApiService {
-  ApiService _apiService = ApiService();
+  final ApiService _apiService = ApiService();
 
   Future<CreateEventResponseModel> createEvent(
       {required String eventName,

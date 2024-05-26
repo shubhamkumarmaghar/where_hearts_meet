@@ -58,37 +58,9 @@ class ProfileSetupController extends BaseController {
     update();
   }
 
-  void onNext() async {
-    if (pageIndex == CompleteProfilePageIndex.addProfilePicturePage) {
-      showLoaderDialog(context: Get.context!);
-      final firebaseAuthController = Get.find<FirebaseAuthController>();
-      final firebaseFireStoreController = Get.find<FirebaseFireStoreController>();
-      final user = firebaseAuthController.getCurrentUser();
-      if (user != null) {
-        await user.updateDisplayName(nameTextController.text);
-        await user.updatePhotoURL(imageUrl);
-        await firebaseFireStoreController.userSetup(
-            userInfoModel: UserInfoModel(
-                name: nameTextController.text,
-                dateOfBirth: birthDateTextController.text,
-                email: signUpController.emailTextController.text,
-                password: base64Encode(signUpController.passwordTextController.text.codeUnits),
-                uid: user.uid,
-                imageUrl: imageUrl));
-      }
-      cancelLoaderDialog();
-
-      Get.offAllNamed(RoutesConst.dashboardScreen);
-    } else {
-      onChangePageIndex(++pageIndex);
-    }
-  }
-
   void completeSignUp() async {
     if (pageIndex == CompleteProfilePageIndex.addProfilePicturePage) {
       showLoaderDialog(context: Get.context!);
-      //  final firebaseAuthController = Get.find<FirebaseAuthController>();
-      //  final firebaseFireStoreController = Get.find<FirebaseFireStoreController>();
       final response = await _authApiService.SignUpUser(
         email: signUpController.emailTextController.text,
         date_of_birth: birthDateTextController.text,
@@ -107,16 +79,17 @@ class ProfileSetupController extends BaseController {
       );
       cancelLoaderDialog();
       loginResponseModel = response;
-      if(loginResponseModel.message == 'Signup Successful')
-        {
-          GetStorage().write(token, loginResponseModel.data?.accessToken);
-          GetStorage().write(userMobile, loginResponseModel.data?.phoneNumber);
-          GetStorage().write(username, loginResponseModel.data?.username);
-          GetStorage().write(email, loginResponseModel.data?.email);
-          GetStorage().write(userId, loginResponseModel.data?.id);
-          GetStorage().write(profile_url, loginResponseModel.data?.profilePicUrl);
-          Get.offAllNamed(RoutesConst.dashboardScreen);
-        }
+      if (loginResponseModel.message == 'Signup Successful') {
+        await Future.wait([
+          GetStorage().write(token, loginResponseModel.data?.accessToken),
+          GetStorage().write(userMobile, loginResponseModel.data?.phoneNumber),
+          GetStorage().write(username, loginResponseModel.data?.username),
+          GetStorage().write(email, loginResponseModel.data?.email),
+          GetStorage().write(userId, loginResponseModel.data?.id),
+          GetStorage().write(profile_url, loginResponseModel.data?.profilePicUrl)
+        ]);
+        Get.offAllNamed(RoutesConst.dashboardScreen);
+      }
     } else {
       onChangePageIndex(++pageIndex);
     }

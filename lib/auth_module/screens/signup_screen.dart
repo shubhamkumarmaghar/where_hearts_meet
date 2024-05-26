@@ -79,10 +79,22 @@ class SignUpScreen extends StatelessWidget {
                             height: _mainHeight * 0.02,
                           ),
                           Obx(
+                                () => CustomTextField(
+                              title: 'Mobile Number',
+                              error: controller.errorMobileText.value,
+                              hint: 'Please enter mobile number',
+                              onChanged: controller.onMobileNumberChanged,
+                              controller: controller.mobileTextController,
+                            ),
+                          ),
+                          SizedBox(
+                            height: _mainHeight * 0.02,
+                          ),
+                          Obx(
                             () => CustomTextField(
-                              title: 'UserName',
+                              title: 'First Name',
                               error: controller.errorUserNameText.value,
-                              hint: 'Please enter Username',
+                              hint: 'Please enter first name',
                               onChanged: controller.onUsernameChanged,
                               controller: controller.usernameTextController,
                             ),
@@ -144,9 +156,7 @@ class SignUpScreen extends StatelessWidget {
                                height: _mainHeight * 0.06,
                                width: _mainWidth * 0.8,
                                enabled: controller.enableSignUpButton.value,
-                               onPressed: () async {
-                                 controller.createUserWithEmail();
-                               },
+                               onPressed: controller.createUser,
                              ),
                            );
                          }),
@@ -158,7 +168,7 @@ class SignUpScreen extends StatelessWidget {
                               Get.offAllNamed(RoutesConst.loginScreen);
                             },
                             child: Container(
-                              color: whiteColor,
+
                               child: const Row(
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 children: [

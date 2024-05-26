@@ -50,7 +50,7 @@ class AddLocationPage extends StatelessWidget {
               height: _mainHeight * 0.06,
               width: _mainWidth ,
               onPressed: () {
-                controller.onNext();
+                controller.completeSignUp();
               },
             ),
           )

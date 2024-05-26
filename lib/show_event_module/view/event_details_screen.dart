@@ -3,7 +3,6 @@ import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:story_view/controller/story_controller.dart';
-import 'package:where_hearts_meet/show_event_module/controller/event_details_controller.dart';
 import 'package:where_hearts_meet/utils/consts/color_const.dart';
 import 'package:where_hearts_meet/utils/widgets/base_container.dart';
 import 'package:where_hearts_meet/utils/widgets/image_stroy_widget.dart';
@@ -11,6 +10,7 @@ import 'package:where_hearts_meet/utils/widgets/image_stroy_widget.dart';
 import '../../utils/consts/confetti_shape_enum.dart';
 import '../../utils/widgets/confetti_view.dart';
 import '../../utils/widgets/gradient_text.dart';
+import '../controller/event_details_controller.dart';
 
 class EventDetailsScreen extends StatelessWidget {
   final _mainHeight = Get.height;

@@ -4,17 +4,15 @@ import '../auth_model/login_response_model.dart';
 import '../auth_model/response_register_model.dart';
 
 class AuthApiService {
-  ApiService _apiService = ApiService();
+  final ApiService _apiService = ApiService();
 
   Future<RegisterResponseModel> registerUser(
-      {required String email,
-      required String password,
-      required username}) async {
+      {required String email, required String password, required String mobileNumber, required username}) async {
     String url = AppUrls.registerUrl;
 
     final response = await _apiService.postApiCallForLogin(
       url: url,
-      data: {'email': email, 'password': password, 'username': username},
+      data: {'email': email, 'password': password, 'first_name': username, 'phone_number': mobileNumber},
     );
     final data = response;
 
@@ -26,14 +24,14 @@ class AuthApiService {
   }
 
   Future<LoginResponseModel> fetchLoginUser({
-    required String email,
+    required String phoneNumber,
     required String password,
   }) async {
     String url = AppUrls.loginUrl;
     final response = await _apiService.postApiCallForLogin(
       url: url,
       data: {
-        'username': email,
+        'phone_number': phoneNumber,
         'password': password,
       },
     );
@@ -46,22 +44,22 @@ class AuthApiService {
     }
   }
 
-  Future<LoginResponseModel> SignUpUser(
-      {required String email,
-      required String firstName,
-      required String lastName,
-      required String date_of_birth,
-      required String address,
-      required String city,
-      required String state,
-      required String country,
-      required String postalCode,
-      required String phoneNumber,
-      required String maritalStatus,
-      required String profile_pic,
-      required String username,
-        required String gender,
-      }) async {
+  Future<LoginResponseModel> SignUpUser({
+    required String email,
+    required String firstName,
+    required String lastName,
+    required String date_of_birth,
+    required String address,
+    required String city,
+    required String state,
+    required String country,
+    required String postalCode,
+    required String phoneNumber,
+    required String maritalStatus,
+    required String profile_pic,
+    required String username,
+    required String gender,
+  }) async {
     String url = AppUrls.signUpUrl;
     final response = await _apiService.patchApiCall(
       url: url,
@@ -78,8 +76,8 @@ class AuthApiService {
         'marital_status': maritalStatus,
         'profile_pic_url': profile_pic,
         'email': email,
-        'username':username,
-        'gender':gender
+        'username': username,
+        'gender': gender
       },
     );
     final data = response;
