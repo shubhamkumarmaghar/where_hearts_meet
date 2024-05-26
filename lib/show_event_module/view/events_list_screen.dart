@@ -40,18 +40,18 @@ class EventListScreen extends StatelessWidget {
                                   },
                                   child: Container(
                                     decoration: BoxDecoration(
-                                        color: greyColor.withOpacity(0.2), borderRadius: BorderRadius.circular(10)),
+                                        color: primaryColor.withOpacity(0.2), borderRadius: BorderRadius.circular(10)),
                                     padding: const EdgeInsets.all(10),
                                     child: Row(
                                       crossAxisAlignment: CrossAxisAlignment.start,
                                       children: [
                                         SizedBox(
-                                          height: _mainHeight * 0.06,
+                                          height: _mainHeight * 0.075,
                                           width: _mainWidth * 0.14,
                                           child: ClipRRect(
                                             borderRadius: const BorderRadius.all(Radius.circular(100)),
                                             child: Image.network(
-                                              data.imageUrls![0] ?? '',
+                                              data.imageUrls![0].imageUrl ?? '',
                                               fit: BoxFit.fill,
                                             ),
                                           ),

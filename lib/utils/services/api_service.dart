@@ -47,6 +47,21 @@ class ApiService {
       return {'message': 'failure'};
     }
   }
+  Future<Map<String, dynamic>> formDataPostApiCall({required String url, required Map<String, dynamic> data}) async {
+    try {
+      FormData formData = FormData.fromMap(data);
+      Response response = await apiClient.dio.post(
+        url,
+        data: formData,
+        options: Options(headers: getHeaders()),
+      );
+
+      return await _handleResponse(response: response, url: url);
+    } catch (e) {
+      log('Error :: ${e.toString()}');
+      return {'message': 'failure'};
+    }
+  }
 
   Future<Map<String, dynamic>> postApiCallForLogin({required String url, required Map<String, dynamic> data}) async {
     try {

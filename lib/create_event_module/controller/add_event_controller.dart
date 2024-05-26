@@ -1,6 +1,7 @@
-
+import 'package:http_parser/http_parser.dart';
 import 'dart:io';
 import 'package:flutter/material.dart';
+import 'package:dio/dio.dart' as dio;
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:image_picker/image_picker.dart';
@@ -62,6 +63,8 @@ class AddEventController extends BaseController {
     setBusy(false);
   }
 
+  List<dio.MultipartFile> imageFiles=[];
+
   void onCaptureMediaClick({required ImageSource source, required int number}) async {
     final ImagePicker picker = ImagePicker();
 
@@ -73,29 +76,13 @@ class AddEventController extends BaseController {
     final imageFile = File(image?.path ?? '');
 
     if (image != null) {
-      showLoaderDialog(context: Get.context!);
-      final url = await firebaseStorageController.uploadEventPic(file: imageFile, eventName: '${image.name}_${eventNameController.text}');
-      if (number == 1) {
-        imageUrl1 = url;
-      }
-      if (number == 2) {
-        imageUrl2 = url;
-      }
-      if (number == 3) {
-        imageUrl3 = url;
-      }
-      if (number == 4) {
-        imageUrl4 = url;
-      }
-      if (number == 5) {
-        imageUrl5 = url;
-      }
-      if (number == 6) {
-        imageUrl6 = url;
-      }
+     // showLoaderDialog(context: Get.context!);
+      final img =await dio.MultipartFile.fromFile(image.path ?? '',filename:'deepak_img',contentType: MediaType('image','deepak'));
+     imageFiles.add( img);
 
-      cancelLoaderDialog();
-      update();
+
+     // cancelLoaderDialog();
+     // update();
     }
   }
 
@@ -137,7 +124,9 @@ class AddEventController extends BaseController {
        eventSubtext: subtitleController.text.toString(),
        hostName: nameController.text.toString(),
        mobileNo:'8987772348',
-       username: 'goku@1234'
+       username: 'deepak@1234',
+       imageFiles:  imageFiles
+
      );
 
      createEventResponseModel = response;

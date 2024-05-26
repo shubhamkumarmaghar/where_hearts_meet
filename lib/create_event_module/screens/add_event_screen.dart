@@ -67,7 +67,10 @@ class AddEventScreen extends StatelessWidget {
                     ),
                     const Text(
                       'Select Event Type*',
-                      style: TextStyle(color: blackColor, fontSize: 18.0, fontWeight: FontWeight.w700),
+                      style: TextStyle(
+                          color: blackColor,
+                          fontSize: 18.0,
+                          fontWeight: FontWeight.w700),
                     ),
                     SizedBox(
                       height: _mainHeight * 0.015,
@@ -388,7 +391,25 @@ class AddEventScreen extends StatelessWidget {
                     //       ),
                     //     ),
                     //   ],
+
                     // ),
+
+                    getElevatedButton(
+                      onPressed: () async {
+                        showImagePickerDialog(
+                          context: Get.context!,
+                          onCamera: () => controller.onCaptureMediaClick(
+                              source: ImageSource.camera, number: 6),
+                          onGallery: () => controller.onCaptureMediaClick(
+                              source: ImageSource.gallery, number: 6),
+                        );
+                      },
+                      child: Icon(
+                        Icons.add_photo_alternate,
+                        size: _mainHeight * 0.06,
+                        color: blackColor,
+                      ),
+                    ),
                     SizedBox(
                       height: _mainHeight * 0.1,
                     ),
@@ -427,7 +448,10 @@ class AddEventScreen extends StatelessWidget {
                 children: [
                   const Text(
                     'Selected  User',
-                    style: TextStyle(fontWeight: FontWeight.w600, color: primaryColor, fontSize: 22),
+                    style: TextStyle(
+                        fontWeight: FontWeight.w600,
+                        color: primaryColor,
+                        fontSize: 22),
                   ),
                   SizedBox(
                     height: _mainHeight * 0.02,
@@ -452,7 +476,10 @@ class AddEventScreen extends StatelessWidget {
                         borderRadius: BorderRadius.all(Radius.circular(50))),
                     child: const Text(
                       'Select  User',
-                      style: TextStyle(color: whiteColor, fontWeight: FontWeight.w600, fontSize: 18),
+                      style: TextStyle(
+                          color: whiteColor,
+                          fontWeight: FontWeight.w600,
+                          fontSize: 18),
                     ),
                   ),
                 ),
@@ -468,7 +495,9 @@ class AddEventScreen extends StatelessWidget {
     return Column(
       children: [
         Container(
-          decoration: BoxDecoration(color: greyColor.withOpacity(0.2), borderRadius: BorderRadius.circular(10)),
+          decoration: BoxDecoration(
+              color: greyColor.withOpacity(0.2),
+              borderRadius: BorderRadius.circular(10)),
           padding: EdgeInsets.all(10),
           child: Row(
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -478,7 +507,8 @@ class AddEventScreen extends StatelessWidget {
                 width: _mainWidth * 0.14,
                 child: ClipRRect(
                   borderRadius: BorderRadius.all(Radius.circular(100)),
-                  child: controller.selectedUser.imageUrl != null && controller.selectedUser.imageUrl != ''
+                  child: controller.selectedUser.imageUrl != null &&
+                          controller.selectedUser.imageUrl != ''
                       ? Image.network(
                           controller.selectedUser.imageUrl ?? '',
                           fit: BoxFit.fill,
@@ -493,12 +523,15 @@ class AddEventScreen extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 mainAxisSize: MainAxisSize.min,
                 children: [
-                  Text(controller.selectedUser.name ?? '', style: TextStyle(fontSize: 18, fontWeight: FontWeight.w700)),
+                  Text(controller.selectedUser.name ?? '',
+                      style:
+                          TextStyle(fontSize: 18, fontWeight: FontWeight.w700)),
                   SizedBox(
                     height: _mainHeight * 0.005,
                   ),
                   Text(controller.selectedUser.email ?? '',
-                      style: TextStyle(fontSize: 14, fontWeight: FontWeight.w500)),
+                      style:
+                          TextStyle(fontSize: 14, fontWeight: FontWeight.w500)),
                 ],
               ),
             ],
