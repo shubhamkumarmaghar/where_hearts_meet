@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:where_hearts_meet/utils/consts/color_const.dart';
 
-PreferredSizeWidget appBarWidget({required String title, Function()? onBack, Function()? onRefresh}) {
+PreferredSizeWidget appBarWidget({required String title, Function()? onBack, Function()? onRefresh,  Color? backgroundColor}) {
   return AppBar(
     title: Text(
       title,
@@ -39,9 +39,9 @@ PreferredSizeWidget appBarWidget({required String title, Function()? onBack, Fun
               ))),
     ],
     flexibleSpace: Container(
-      decoration: const BoxDecoration(
-        color: primaryColor,
-        borderRadius: BorderRadius.only(bottomRight: Radius.circular(20), bottomLeft: Radius.circular(20)),
+      decoration: BoxDecoration(
+        color:backgroundColor ??  primaryColor,
+       // borderRadius: const BorderRadius.only(bottomRight: Radius.circular(20), bottomLeft: Radius.circular(20)),
       ),
     ),
     // shape: const RoundedRectangleBorder(

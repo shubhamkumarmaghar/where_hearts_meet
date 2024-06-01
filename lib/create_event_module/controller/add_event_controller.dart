@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:http_parser/http_parser.dart';
 import 'dart:io';
 import 'package:flutter/material.dart';
@@ -11,6 +13,7 @@ import 'package:where_hearts_meet/utils/controller/base_controller.dart';
 import 'package:where_hearts_meet/utils/model/event_type_model.dart';
 import 'package:where_hearts_meet/utils/routes/routes_const.dart';
 import 'package:where_hearts_meet/utils/services/firebase_auth_controller.dart';
+import 'package:where_hearts_meet/utils/services/functions_service.dart';
 import '../../profile_module/model/people_model.dart';
 import '../../utils/consts/color_const.dart';
 import '../../utils/consts/screen_const.dart';
@@ -45,7 +48,8 @@ class AddEventController extends BaseController {
   final _mainWidth = Get.width;
   PeopleModel selectedUser = PeopleModel();
   bool userSelected = false;
-  EventTypeModel selectedEventType = EventTypeModel(eventName: 'Select Event',eventTypeId: '0',eventIcon: Icons.select_all);
+  EventTypeModel selectedEventType =
+      EventTypeModel(eventName: 'Select Event', eventTypeId: '0', eventIcon: Icons.select_all);
 
   @override
   void onInit() {
@@ -63,7 +67,7 @@ class AddEventController extends BaseController {
     setBusy(false);
   }
 
-  List<dio.MultipartFile> imageFiles=[];
+  List<dio.MultipartFile> imageFiles = [];
 
   void onCaptureMediaClick({required ImageSource source, required int number}) async {
     final ImagePicker picker = ImagePicker();
@@ -76,18 +80,42 @@ class AddEventController extends BaseController {
     final imageFile = File(image?.path ?? '');
 
     if (image != null) {
-     // showLoaderDialog(context: Get.context!);
-      final img =await dio.MultipartFile.fromFile(image.path ?? '',filename:'deepak_img',contentType: MediaType('image','deepak'));
-     imageFiles.add( img);
+      showLoaderDialog(context: Get.context!);
+      final img = await dio.MultipartFile.fromFile(image.path ?? '',
+          filename: 'deepak_img', contentType: MediaType('image', 'deepak'));
+      imageFiles.add(img);
 
+      cancelLoaderDialog();
+      update();
+    }
+  }
 
-     // cancelLoaderDialog();
-     // update();
+  void onCaptureVideo({required ImageSource source}) async {
+    final ImagePicker picker = ImagePicker();
+
+    var video = await picker.pickVideo(
+      source: source,
+
+    );
+
+    final videoFile = File(video?.path ?? '');
+
+    if (video != null) {
+      showLoaderDialog(context: Get.context!);
+
+      var path = videoFile.path.split('/');
+      final url = await FunctionsService.uploadFileToAWS(
+          eventKey: 'events/37_father_retirement/wishes/${path.last}', file: videoFile);
+      if (url.isNotEmpty) {
+        log('video url :: $url');
+      }
+      cancelLoaderDialog();
+      // update();
     }
   }
 
   Future<void> addEvent() async {
-     if (nameController.text.isEmpty) {
+    if (nameController.text.isEmpty) {
       showSnackBar(context: Get.context!, message: 'Please enter name');
       return;
     } else if (eventNameController.text.isEmpty) {
@@ -99,7 +127,8 @@ class AddEventController extends BaseController {
     } else if (selectedEventType.eventTypeId == '0') {
       showSnackBar(context: Get.context!, message: 'Please select event type');
       return;
-    } /*else if (screenType == ScreenName.fromDashboard && (selectedUser.email == null || selectedUser.email == "")) {
+    }
+    /*else if (screenType == ScreenName.fromDashboard && (selectedUser.email == null || selectedUser.email == "")) {
        showSnackBar(context: Get.context!, message: 'Please Select User');
        return;
      }else if (imageUrl1 == '' || imageUrl2 == ''|| imageUrl3 == ''|| imageUrl4 == ''|| imageUrl5 == ''|| imageUrl6 == '') {
@@ -108,30 +137,27 @@ class AddEventController extends BaseController {
     }*/
 
     showLoaderDialog(context: Get.context!);
- /*   var email;
+    /*   var email;
     if (screenType == ScreenName.fromAddPeople) {
       final peopleController = Get.find<AddPeopleController>();
       email = peopleController.selectedUser.email;
     } else if (screenType == ScreenName.fromDashboard) {
       email = selectedUser.email;
     }*/
-     final response =
-     await _eventApiService.createEvent(
-       eventName: eventNameController.text.toString(),
-       eventType: eventTypeController.text.toString(),
-       eventDescription:infoController.text.toString() ,
-       eventHostDay:"happy birthday",
-       eventSubtext: subtitleController.text.toString(),
-       hostName: nameController.text.toString(),
-       mobileNo:'8987772348',
-       username: 'deepak@1234',
-       imageFiles:  imageFiles
+    final response = await _eventApiService.createEvent(
+        eventName: eventNameController.text.toString(),
+        eventType: eventTypeController.text.toString(),
+        eventDescription: infoController.text.toString(),
+        eventHostDay: "happy birthday",
+        eventSubtext: subtitleController.text.toString(),
+        hostName: nameController.text.toString(),
+        mobileNo: '8987772348',
+        username: 'deepak@1234',
+        imageFiles: imageFiles);
 
-     );
+    createEventResponseModel = response;
 
-     createEventResponseModel = response;
-
-   /*  await fireStoreController.addEvent(
+    /*  await fireStoreController.addEvent(
         addEventModel: AddEventModel(
             imageUrl: imageUrl1,
             imageList: [imageUrl1,imageUrl2,imageUrl3,imageUrl4,imageUrl5,imageUrl6],
@@ -146,121 +172,14 @@ class AddEventController extends BaseController {
      */
     cancelLoaderDialog();
 
-  // Get.offAllNamed(RoutesConst.dashboardScreen);
+    // Get.offAllNamed(RoutesConst.dashboardScreen);
   }
 
-  void showUsersBottomSheet() {
-    showModalBottomSheet<void>(
-      context: Get.context!,
-      isScrollControlled: true,
-      shape: const RoundedRectangleBorder(
-        borderRadius: BorderRadius.only(
-          topLeft: Radius.circular(25),
-          topRight: Radius.circular(25),
-        ),
-      ),
-      backgroundColor: Colors.white,
-      builder: (BuildContext context) {
-        return Container(
-            decoration: const BoxDecoration(
-                color: whiteColor,
-                borderRadius: BorderRadius.only(
-                  topLeft: Radius.circular(25),
-                  topRight: Radius.circular(25),
-                )),
-            height: Get.height * 0.75,
-            padding: const EdgeInsets.all(15),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    const Text(
-                      'Users',
-                      style: TextStyle(fontSize: 20, color: blackColor, fontWeight: FontWeight.w700),
-                    ),
-                    InkWell(
-                        onTap: () {
-                          Navigator.of(context).pop();
-                        },
-                        child: const Icon(
-                          Icons.clear,
-                          color: blackColor,
-                          size: 20,
-                        ))
-                  ],
-                ),
-                SizedBox(
-                  height: _mainHeight * 0.03,
-                ),
-                SizedBox(
-                  height: Get.height * 0.65,
-                  child: ListView.separated(
-                      itemBuilder: (context, index) {
-                        var data = allUsersList[index];
-                        return InkWell(
-                          onTap: () {
-                            selectedUser = data;
-                            userSelected = true;
-                            Navigator.of(context).pop();
-                            update();
-                          },
-                          child: Container(
-                            decoration: BoxDecoration(
-                                color: greyColor.withOpacity(0.2), borderRadius: BorderRadius.circular(10)),
-                            padding: EdgeInsets.all(10),
-                            child: Row(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Container(
-                                  height: _mainHeight * 0.06,
-                                  width: _mainWidth * 0.14,
-                                  child: ClipRRect(
-                                    borderRadius: const BorderRadius.all(Radius.circular(100)),
-                                    child: data.imageUrl != null && data.imageUrl != ''
-                                        ? Image.network(
-                                            data.imageUrl ?? '',
-                                            fit: BoxFit.fill,
-                                          )
-                                        : const Icon(Icons.person),
-                                  ),
-                                ),
-                                SizedBox(
-                                  width: _mainWidth * 0.04,
-                                ),
-                                Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  mainAxisSize: MainAxisSize.min,
-                                  children: [
-                                    Text(data.name ?? '', style: TextStyle(fontSize: 18, fontWeight: FontWeight.w700)),
-                                    SizedBox(
-                                      height: _mainHeight * 0.005,
-                                    ),
-                                    Text(data.email ?? '', style: TextStyle(fontSize: 14, fontWeight: FontWeight.w500)),
-                                  ],
-                                ),
-                              ],
-                            ),
-                          ),
-                        );
-                      },
-                      separatorBuilder: (context, index) => const SizedBox(
-                            height: 10,
-                          ),
-                      itemCount: allUsersList.length),
-                ),
-              ],
-            ));
-      },
-    );
-  }
-
-  void selectEventSheet()async{
+  void selectEventSheet() async {
     final event = await _showEventsTypeBottomSheet();
-    if(event != null){
+    if (event != null) {
       selectedEventType = event;
-      eventTypeController.text=selectedEventType.eventName ??'Others';
+      eventTypeController.text = selectedEventType.eventName ?? 'Others';
       update();
     }
   }
@@ -285,38 +204,44 @@ class AddEventController extends BaseController {
                   topRight: Radius.circular(25),
                 )),
             height: Get.height * 0.7,
-            padding:  EdgeInsets.only(top: _mainHeight*0.02),
+            padding: EdgeInsets.only(top: _mainHeight * 0.02),
             child: Column(
               children: [
                 const Center(
                   child: Text(
-                    'Select Event Type',style: TextStyle(fontWeight: FontWeight.w700,fontSize: 16),
+                    'Select Event Type',
+                    style: TextStyle(fontWeight: FontWeight.w700, fontSize: 16),
                   ),
                 ),
                 SizedBox(
-                  height: _mainHeight*0.02,
+                  height: _mainHeight * 0.02,
                 ),
                 Container(
                   padding: EdgeInsets.symmetric(horizontal: 15),
-                  height: _mainHeight*0.62,
+                  height: _mainHeight * 0.62,
                   child: ListView.separated(
                       itemBuilder: (context, index) {
                         var data = getEventsTypeList()[index];
                         return InkWell(
-                          onTap: (){
+                          onTap: () {
                             Navigator.of(context).pop(data);
                           },
                           child: SizedBox(
-                            height: _mainHeight*0.04,
+                            height: _mainHeight * 0.04,
                             child: Row(
                               children: [
-                                Icon(data.eventIcon,color: primaryColor,),
-                                SizedBox(width: _mainWidth*0.03,),
-                                Text(data.eventName ??'',style: const TextStyle(
-                                  fontSize: 15,
-                                  fontWeight: FontWeight.w500,
-                                  color: primaryColor
-                                ),)
+                                Icon(
+                                  data.eventIcon,
+                                  color: primaryColor,
+                                ),
+                                SizedBox(
+                                  width: _mainWidth * 0.03,
+                                ),
+                                Text(
+                                  data.eventName ?? '',
+                                  style:
+                                      const TextStyle(fontSize: 15, fontWeight: FontWeight.w500, color: primaryColor),
+                                )
                               ],
                             ),
                           ),
@@ -330,7 +255,6 @@ class AddEventController extends BaseController {
       },
     );
   }
-
 
   @override
   void dispose() {

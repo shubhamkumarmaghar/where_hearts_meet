@@ -86,7 +86,7 @@ class ProfileSetupController extends BaseController {
           GetStorage().write(username, loginResponseModel.data?.username),
           GetStorage().write(email, loginResponseModel.data?.email),
           GetStorage().write(userId, loginResponseModel.data?.id),
-          GetStorage().write(profile_url, loginResponseModel.data?.profilePicUrl)
+          GetStorage().write(profileUrl, loginResponseModel.data?.profilePicUrl)
         ]);
         Get.offAllNamed(RoutesConst.dashboardScreen);
       }

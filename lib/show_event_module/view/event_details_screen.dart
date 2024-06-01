@@ -21,89 +21,99 @@ class EventDetailsScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      extendBodyBehindAppBar: true,
-      extendBody: true,
-      body: BaseContainer(
-        child: Stack(
-          children: [
-            Container(
-              height: _mainHeight,
-              width: _mainWidth,
-              padding: const EdgeInsets.only(left: 15, right: 15),
-              child: SingleChildScrollView(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    SizedBox(
-                      height: _mainHeight * 0.06,
-                    ),
-                    Row(
-                      children: [
-                        InkWell(
-                          onTap: () {
-                            Get.back();
-                          },
-                          child: const CircleAvatar(
-                            backgroundColor: appColor1,
-                            child: Icon(
-                              Icons.arrow_back_outlined,
-                              color: whiteColor,
-                            ),
+    return GetBuilder<EventDetailsController>(
+      builder: (controller) {
+        return Scaffold(
+          extendBodyBehindAppBar: true,
+          extendBody: true,
+          body: BaseContainer(
+            child: controller.eventDetails != null
+                ? Stack(
+                    children: [
+                      Container(
+                        height: _mainHeight,
+                        width: _mainWidth,
+                        padding: const EdgeInsets.only(left: 15, right: 15),
+                        child: SingleChildScrollView(
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              SizedBox(
+                                height: _mainHeight * 0.06,
+                              ),
+                              Row(
+                                children: [
+                                  InkWell(
+                                    onTap: () {
+                                      Get.back();
+                                    },
+                                    child: const CircleAvatar(
+                                      backgroundColor: appColor1,
+                                      child: Icon(
+                                        Icons.arrow_back_outlined,
+                                        color: whiteColor,
+                                      ),
+                                    ),
+                                  ),
+                                  const Spacer(),
+                                  getEventTitle(event: controller.eventDetails?.eventName ?? ''),
+                                  SizedBox(
+                                    width: _mainHeight * 0.05,
+                                  ),
+                                  const Spacer(),
+                                ],
+                              ),
+                              SizedBox(
+                                height: _mainHeight * 0.05,
+                              ),
+                              Container(
+                                height: _mainHeight * 0.35,
+                                width: _mainWidth,
+                                child: ImageStoryWidget(
+                                    controller: StoryController(),
+                                    images: controller.eventDetails!.imageUrls!.map((e) => e.imageUrl ?? '').toList()),
+                              ),
+                              SizedBox(
+                                height: _mainHeight * 0.02,
+                              ),
+                              Center(
+                                child: Text(
+                                  controller.eventDetails?.receiverName != null ?'Hi ${controller.eventDetails!.receiverName!.toString().capitalizeFirst.toString()}':'',
+                                  style: TextStyle(
+                                      fontWeight: FontWeight.w500, fontSize: 22, color: primaryColor.withOpacity(1)),
+                                ),
+                              ),
+                              SizedBox(
+                                height: _mainHeight * 0.02,
+                              ),
+                              Obx(() {
+                                return Text(
+                                  controller.infoText.value,
+                                  style:
+                                       TextStyle(fontSize: 18, color: Colors.blueGrey.shade500, fontWeight: FontWeight.w500,),
+                                );
+                              }),
+                            ],
                           ),
                         ),
-                        const Spacer(),
-                        getEventTitle(event: '${controller.eventDetails.eventName}'),
-                        SizedBox(
-                          width: _mainHeight * 0.05,
-                        ),
-                        const Spacer(),
-                      ],
-                    ),
-                    SizedBox(
-                      height: _mainHeight * 0.05,
-                    ),
-                    Container(
-                      height: _mainHeight * 0.35,
-                      width: _mainWidth ,
-                      child:ImageStoryWidget(controller: StoryController(),images: controller.eventDetails.imageList ??[]),
-                    ),
-                    SizedBox(
-                      height: _mainHeight * 0.02,
-                    ),
-                    Center(
-                      child: Text(
-                        controller.eventDetails.personName ?? '',
-                        style: TextStyle(fontWeight: FontWeight.w600, fontSize: 25, color: primaryColor.withOpacity(1)),
                       ),
-                    ),
-                    SizedBox(
-                      height: _mainHeight * 0.02,
-                    ),
-                    Obx(() {
-                      return Text(
-                        controller.infoText.value,
-                        style: const TextStyle(fontSize: 20, color: primaryColor, fontWeight: FontWeight.w600),
-                      );
-                    }),
-                  ],
-                ),
-              ),
-            ),
-            ConfettiView(
-              controller: controller.confettiController,
-              confettiShapeEnum: ConfettiShapeEnum.drawHeart,
-            ),
-          ],
-        ),
-      ),
+                      ConfettiView(
+                        controller: controller.confettiController,
+                        confettiShapeEnum: ConfettiShapeEnum.drawHeart,
+                      ),
+                    ],
+                  )
+                : SizedBox.shrink(),
+          ),
+        );
+      },
     );
   }
 
   Widget getEventTitle({required String event}) {
     return Center(
       child: GradientText(
-        text: event,
+        text: event.capitalizeFirst.toString(),
         gradient: LinearGradient(
           colors: [
             Colors.red.shade400,

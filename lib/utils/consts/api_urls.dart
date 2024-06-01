@@ -5,5 +5,6 @@ class AppUrls {
   static const String signUpUrl = 'userPolls/signup/';
   static const String createEventUrl = 'eventApp/events/';
   static const String allEventsUrl = 'eventApp/get_events_list/';
+  static const String userAccountUrl = 'userPolls/get_user/';
 
 }

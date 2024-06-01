@@ -13,9 +13,10 @@ class ApiService {
   final apiClient = locator<DioInjector>();
 
   Map<String, dynamic> getHeaders() {
+    String userToken = GetStorage().read(token);
     return {
-      'Authorization':'Bearer '+'rdrcStCqEAlRVn1j0xxCRTx0x6gHYW'
-          //GetStorage().read(token)
+      'Authorization':'Bearer $userToken'
+
     };
   }
 

@@ -55,9 +55,9 @@ class LoginController extends BaseController {
         GetStorage().write(token, loginResponseModel.data?.accessToken);
         GetStorage().write(userMobile, loginResponseModel.data?.phoneNumber);
         GetStorage().write(username, loginResponseModel.data?.username);
-        GetStorage().write(email, loginResponseModel.data?.email);
-        GetStorage().write(userId, loginResponseModel.data?.id);
-        GetStorage().write(profile_url, loginResponseModel.data?.profilePicUrl);
+        GetStorage().write(profileUrl, loginResponseModel.data?.profilePicUrl);
+        GetStorage().write(firstName, loginResponseModel.data?.firstName);
+
         Get.offAllNamed(RoutesConst.dashboardScreen);
       }
     }

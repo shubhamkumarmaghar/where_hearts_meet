@@ -26,6 +26,18 @@ class EventListController extends BaseController {
     setBusy(true);
     eventsList = await showEventService.getAllEvents();
     setBusy(false);
+    // eventsList = [EventsListModel(
+    //   imageUrls: [
+    //    ImageUrls(
+    //      imageUrl: "https://www.southernliving.com/thmb/1VFCIwa-50xPATCZHcSKdlYc1BY=/1500x0/filters:no_upscale():max_bytes(150000):strip_icc()/SL-Birthday_Quote_1-da9fac5d17bd4582add4fd7e15376127.png",
+    //      imageId: '12345'
+    //    ),
+    //     ImageUrls(
+    //         imageUrl: "https://parade.com/.image/t_share/MjAzMzU3NzQxMzU4NTIzOTgz/happy-birthday-wishes-messages.jpg",
+    //         imageId: '123456'
+    //     ),
+    //   ]
+    // )];
     update();
   }
 }

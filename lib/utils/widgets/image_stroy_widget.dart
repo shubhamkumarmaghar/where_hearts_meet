@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:story_view/controller/story_controller.dart';
 import 'package:story_view/widgets/story_view.dart';
 import 'package:where_hearts_meet/utils/consts/app_screen_size.dart';
 import 'package:where_hearts_meet/utils/consts/color_const.dart';
+import 'package:where_hearts_meet/utils/widgets/custom_photo_view.dart';
 
 class ImageStoryWidget extends StatelessWidget {
   final StoryController controller;
@@ -81,7 +83,9 @@ class ImageStoryWidget extends StatelessWidget {
             top: screenHeight * 0.015,
             right: screenWidth * 0.03,
             child: InkWell(
-              onTap: () {},
+              onTap: () {
+                Get.to(()=>CustomPhotoView(imageUrl: images[currentIndex],));
+              },
               child: const CircleAvatar(
                   radius: 16,
                   backgroundColor: Colors.white,

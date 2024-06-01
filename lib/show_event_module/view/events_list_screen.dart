@@ -16,7 +16,7 @@ class EventListScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text('All Events')),
+      appBar: AppBar(title: const Text('All Events')),
       body: BaseContainer(
         child: GetBuilder<EventListController>(
           builder: (controller) {
@@ -36,7 +36,7 @@ class EventListScreen extends StatelessWidget {
                                 var data = controller.eventsList![index];
                                 return InkWell(
                                   onTap: () {
-                                    Get.toNamed(RoutesConst.eventDetailsScreen, arguments: data);
+                                    Get.toNamed(RoutesConst.eventDetailsScreen, arguments: data.eventid);
                                   },
                                   child: Container(
                                     decoration: BoxDecoration(
@@ -51,7 +51,9 @@ class EventListScreen extends StatelessWidget {
                                           child: ClipRRect(
                                             borderRadius: const BorderRadius.all(Radius.circular(100)),
                                             child: Image.network(
-                                              data.imageUrls![0].imageUrl ?? '',
+                                              data.imageUrls != null && data.imageUrls!.isNotEmpty
+                                                  ? data.imageUrls!.first.imageUrl.toString()
+                                                  : '',
                                               fit: BoxFit.fill,
                                             ),
                                           ),
@@ -89,7 +91,7 @@ class EventListScreen extends StatelessWidget {
                               separatorBuilder: (context, index) => const SizedBox(
                                     height: 10,
                                   ),
-                              itemCount: controller.eventsList!.length),
+                              itemCount: controller.eventsList?.length ?? 0),
                         ),
                 ],
               ),

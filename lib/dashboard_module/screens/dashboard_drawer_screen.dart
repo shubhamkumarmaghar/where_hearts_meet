@@ -31,7 +31,7 @@ class DashboardDrawerScreen extends StatelessWidget {
               icon: Icons.list,
               heading: "Created Events",
               onTap: () {
-                Get.toNamed(RoutesConst.createdEventListScreen);
+                Get.toNamed(RoutesConst.eventListScreen);
               }),
           SizedBox(
             height: _mainHeight * 0.01,
@@ -49,7 +49,7 @@ class DashboardDrawerScreen extends StatelessWidget {
               icon: Icons.wallet_giftcard,
               heading: "Received Events",
               onTap: () {
-                Get.toNamed(RoutesConst.eventListScreen);
+               // Get.toNamed(RoutesConst.eventListScreen);
               }),
           SizedBox(
             height: _mainHeight * 0.01,
@@ -91,7 +91,7 @@ class DashboardDrawerScreen extends StatelessWidget {
     return UserAccountsDrawerHeader(
       decoration: const BoxDecoration(color: appColor3),
       accountName: Text(
-        GetStorage().read(username) ?? '',
+        (GetStorage().read(firstName))?.toString().capitalizeFirst ?? '',
         style: const TextStyle(fontSize: 20, fontWeight: FontWeight.w700),
       ),
       otherAccountsPictures: [
@@ -109,8 +109,8 @@ class DashboardDrawerScreen extends StatelessWidget {
         )
       ],
       accountEmail: Text(
-        GetStorage().read(username) ?? 'NA',
-        style: TextStyle(color: Colors.white, fontSize: 16),
+        (GetStorage().read(userMobile))?.toString().capitalizeFirst ?? '',
+        style: const TextStyle(color: Colors.white, fontSize: 16),
       ),
       currentAccountPicture: InkWell(
         onTap: () {
@@ -126,7 +126,8 @@ class DashboardDrawerScreen extends StatelessWidget {
                 : ClipRRect(
                     borderRadius: BorderRadius.circular(50),
                     child: Image.network(
-                      GetStorage().read(profile_url) ?? '',
+                      'https://cdn-icons-png.flaticon.com/512/5231/5231019.png',
+                      // GetStorage().read(profileUrl) ?? '',
                       fit: BoxFit.fitWidth,
                       width: _mainWidth * 0.2,
                     ))),
