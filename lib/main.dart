@@ -12,6 +12,8 @@ import 'package:where_hearts_meet/utils/services/firebase_auth_controller.dart';
 import 'package:where_hearts_meet/utils/services/firebase_firestore_controller.dart';
 import 'package:where_hearts_meet/utils/services/firebase_storage_controller.dart';
 
+import 'onboarding_module/view/onboarding_view.dart';
+
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await GetStorage.init();
@@ -46,7 +48,8 @@ class MyApp extends StatelessWidget {
         fontFamily: 'PlusJakartaSans',
         primarySwatch: getMaterialColor(primaryColor),
       ),
-      home: SplashScreen(),
+      home:
+     const SplashScreen(),
     );
   }
   MaterialColor getMaterialColor(Color color) {

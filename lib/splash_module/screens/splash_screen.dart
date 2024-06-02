@@ -22,7 +22,19 @@ class SplashScreen extends StatelessWidget {
       body: GetBuilder(
         init: SplashController(),
         builder: (controller) {
-          return SizedBox(height: screenHeight, width: screenWidth, child: Center(child: getAppLogo()));
+          return Container(
+              decoration: BoxDecoration(gradient:LinearGradient(
+                  begin: Alignment.topCenter,
+                  end: Alignment.bottomCenter,
+                  colors: [
+                    Color(0xff9467ff),
+                    Color(0xffae8bff),
+                    Color(0xffc7afff),
+                    Color(0xffdfd2ff),
+                    Color(0xfff2edff),
+                  ]
+              ),),
+              height: screenHeight, width: screenWidth, child: Center(child: getAppLogo()));
         },
       ),
     );
