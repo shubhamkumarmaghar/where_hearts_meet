@@ -1,5 +1,4 @@
 class EventDetailsModel {
-  int? id;
   String? eventName;
   String? hostName;
   String? eventType;
@@ -13,21 +12,19 @@ class EventDetailsModel {
   List<ImageUrls>? imageUrls;
 
   EventDetailsModel(
-      {this.id,
-        this.eventName,
-        this.hostName,
-        this.eventType,
-        this.eventHostDay,
-        this.eventSubtext,
-        this.eventDescription,
-        this.eventid,
-        this.receiverPhoneNumber,
-        this.username,
-        this.receiverName,
-        this.imageUrls});
+      {this.eventName,
+      this.hostName,
+      this.eventType,
+      this.eventHostDay,
+      this.eventSubtext,
+      this.eventDescription,
+      this.eventid,
+      this.receiverPhoneNumber,
+      this.username,
+      this.receiverName,
+      this.imageUrls});
 
   EventDetailsModel.fromJson(Map<String, dynamic> json) {
-    id = json['id'];
     eventName = json['event_name'];
     hostName = json['host_name'];
     eventType = json['event_type'];
@@ -48,7 +45,6 @@ class EventDetailsModel {
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['id'] = this.id;
     data['event_name'] = this.eventName;
     data['host_name'] = this.hostName;
     data['event_type'] = this.eventType;

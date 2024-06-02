@@ -1,75 +1,52 @@
 import 'dart:developer';
 
+import 'package:get_storage/get_storage.dart';
 import 'package:http_parser/http_parser.dart';
 import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:dio/dio.dart' as dio;
 import 'package:get/get.dart';
-import 'package:get_storage/get_storage.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:where_hearts_meet/profile_module/controller/add_people_controller.dart';
+import 'package:where_hearts_meet/show_event_module/model/event_details_model.dart';
+import 'package:where_hearts_meet/utils/consts/app_screen_size.dart';
 import 'package:where_hearts_meet/utils/consts/shared_pref_const.dart';
 import 'package:where_hearts_meet/utils/controller/base_controller.dart';
 import 'package:where_hearts_meet/utils/model/event_type_model.dart';
-import 'package:where_hearts_meet/utils/routes/routes_const.dart';
-import 'package:where_hearts_meet/utils/services/firebase_auth_controller.dart';
-import 'package:where_hearts_meet/utils/services/functions_service.dart';
-import '../../profile_module/model/people_model.dart';
 import '../../utils/consts/color_const.dart';
 import '../../utils/consts/screen_const.dart';
 import '../../utils/dialogs/pop_up_dialogs.dart';
-import '../../utils/services/firebase_firestore_controller.dart';
-import '../../utils/services/firebase_storage_controller.dart';
-import '../model/add_event_model.dart';
+import '../../utils/routes/routes_const.dart';
 import '../model/create_event_model.dart';
 import '../service/create_event_service.dart';
 
 class AddEventController extends BaseController {
-  EventApiService _eventApiService = EventApiService();
-  CreateEventResponseModel createEventResponseModel = CreateEventResponseModel();
+  final EventApiService _eventApiService = EventApiService();
   final nameController = TextEditingController();
   final eventNameController = TextEditingController();
   final titleController = TextEditingController();
   final eventTypeController = TextEditingController();
   final subtitleController = TextEditingController();
-  final firebaseStorageController = Get.find<FirebaseStorageController>();
+  final guestMobileController = TextEditingController();
+  List<File> imageFiles = [];
+  Rx<DateTime> selectedDate = DateTime.now().add(const Duration(days: 0)).obs;
+
   final infoController = TextEditingController();
-  String imageUrl1 = '';
-  String imageUrl2 = '';
-  String imageUrl3 = '';
-  String imageUrl4 = '';
-  String imageUrl5 = '';
-  String imageUrl6 = '';
-  final fireStoreController = Get.find<FirebaseFireStoreController>();
-  final firebaseAuthController = Get.find<FirebaseAuthController>();
+
   ScreenName? screenType;
-  List<PeopleModel> allUsersList = [];
-  final _mainHeight = Get.height;
-  final _mainWidth = Get.width;
-  PeopleModel selectedUser = PeopleModel();
-  bool userSelected = false;
   EventTypeModel selectedEventType =
       EventTypeModel(eventName: 'Select Event', eventTypeId: '0', eventIcon: Icons.select_all);
 
   @override
   void onInit() {
     super.onInit();
-    getAllUsers();
+
     final arg = Get.arguments;
     if (arg != null) {
       screenType = arg as ScreenName;
     }
   }
 
-  Future<void> getAllUsers() async {
-    setBusy(true);
-    allUsersList = await fireStoreController.getAllUsers();
-    setBusy(false);
-  }
-
-  List<dio.MultipartFile> imageFiles = [];
-
-  void onCaptureMediaClick({required ImageSource source, required int number}) async {
+  void onCaptureMediaClick({required ImageSource source}) async {
     final ImagePicker picker = ImagePicker();
 
     var image = await picker.pickImage(
@@ -81,36 +58,11 @@ class AddEventController extends BaseController {
 
     if (image != null) {
       showLoaderDialog(context: Get.context!);
-      final img = await dio.MultipartFile.fromFile(image.path ?? '',
-          filename: 'deepak_img', contentType: MediaType('image', 'deepak'));
-      imageFiles.add(img);
 
+
+      imageFiles.add(imageFile);
       cancelLoaderDialog();
       update();
-    }
-  }
-
-  void onCaptureVideo({required ImageSource source}) async {
-    final ImagePicker picker = ImagePicker();
-
-    var video = await picker.pickVideo(
-      source: source,
-
-    );
-
-    final videoFile = File(video?.path ?? '');
-
-    if (video != null) {
-      showLoaderDialog(context: Get.context!);
-
-      var path = videoFile.path.split('/');
-      final url = await FunctionsService.uploadFileToAWS(
-          eventKey: 'events/37_father_retirement/wishes/${path.last}', file: videoFile);
-      if (url.isNotEmpty) {
-        log('video url :: $url');
-      }
-      cancelLoaderDialog();
-      // update();
     }
   }
 
@@ -127,52 +79,34 @@ class AddEventController extends BaseController {
     } else if (selectedEventType.eventTypeId == '0') {
       showSnackBar(context: Get.context!, message: 'Please select event type');
       return;
-    }
-    /*else if (screenType == ScreenName.fromDashboard && (selectedUser.email == null || selectedUser.email == "")) {
-       showSnackBar(context: Get.context!, message: 'Please Select User');
-       return;
-     }else if (imageUrl1 == '' || imageUrl2 == ''|| imageUrl3 == ''|| imageUrl4 == ''|| imageUrl5 == ''|| imageUrl6 == '') {
-      showSnackBar(context: Get.context!, message: 'Please upload image');
+    } else if (guestMobileController.text.isEmpty || guestMobileController.text.length != 10) {
+      showSnackBar(context: Get.context!, message: 'Please select valid guest mobile number');
       return;
-    }*/
+    }
+
+
+    List<dio.MultipartFile> eventImages = [];
+    for (var image in imageFiles) {
+      final img = await dio.MultipartFile.fromFile(image.path,
+          filename: (image.path.split('/')).last, contentType: MediaType('image', (image.path.split('.')).last));
+      eventImages.add(img);
+    }
 
     showLoaderDialog(context: Get.context!);
-    /*   var email;
-    if (screenType == ScreenName.fromAddPeople) {
-      final peopleController = Get.find<AddPeopleController>();
-      email = peopleController.selectedUser.email;
-    } else if (screenType == ScreenName.fromDashboard) {
-      email = selectedUser.email;
-    }*/
+    String userName = GetStorage().read(username)?.toString() ?? '';
     final response = await _eventApiService.createEvent(
         eventName: eventNameController.text.toString(),
         eventType: eventTypeController.text.toString(),
         eventDescription: infoController.text.toString(),
-        eventHostDay: "happy birthday",
+        eventHostDay: selectedDate.value.toUtc().toString(),
         eventSubtext: subtitleController.text.toString(),
         hostName: nameController.text.toString(),
-        mobileNo: '8987772348',
-        username: 'deepak@1234',
-        imageFiles: imageFiles);
-
-    createEventResponseModel = response;
-
-    /*  await fireStoreController.addEvent(
-        addEventModel: AddEventModel(
-            imageUrl: imageUrl1,
-            imageList: [imageUrl1,imageUrl2,imageUrl3,imageUrl4,imageUrl5,imageUrl6],
-            personName: nameController.text,
-            eventName: eventNameController.text,
-            eventType: eventTypeController.text,
-            title: titleController.text,
-            subtitle: subtitleController.text,
-            eventInfo: infoController.text,
-            fromEmail: firebaseAuthController.getCurrentUser()?.email,
-            toEmail: email));
-     */
+        mobileNo: guestMobileController.text,
+        username: userName,
+        imageFiles: eventImages);
     cancelLoaderDialog();
+    Get.toNamed(RoutesConst.addEventSpecialsScreen, arguments: response);
 
-    // Get.offAllNamed(RoutesConst.dashboardScreen);
   }
 
   void selectEventSheet() async {
@@ -181,6 +115,18 @@ class AddEventController extends BaseController {
       selectedEventType = event;
       eventTypeController.text = selectedEventType.eventName ?? 'Others';
       update();
+    }
+  }
+
+  void onSelectDate() async {
+    final date = await showDatePicker(
+      context: Get.context!,
+      initialDate: selectedDate.value,
+      firstDate: DateTime.now(),
+      lastDate: DateTime.now().add(const Duration(days: 365)),
+    );
+    if (date != null) {
+      selectedDate.value = date;
     }
   }
 
@@ -204,7 +150,7 @@ class AddEventController extends BaseController {
                   topRight: Radius.circular(25),
                 )),
             height: Get.height * 0.7,
-            padding: EdgeInsets.only(top: _mainHeight * 0.02),
+            padding: EdgeInsets.only(top: screenHeight * 0.02),
             child: Column(
               children: [
                 const Center(
@@ -214,11 +160,11 @@ class AddEventController extends BaseController {
                   ),
                 ),
                 SizedBox(
-                  height: _mainHeight * 0.02,
+                  height: screenHeight * 0.02,
                 ),
                 Container(
                   padding: EdgeInsets.symmetric(horizontal: 15),
-                  height: _mainHeight * 0.62,
+                  height: screenHeight * 0.62,
                   child: ListView.separated(
                       itemBuilder: (context, index) {
                         var data = getEventsTypeList()[index];
@@ -227,7 +173,7 @@ class AddEventController extends BaseController {
                             Navigator.of(context).pop(data);
                           },
                           child: SizedBox(
-                            height: _mainHeight * 0.04,
+                            height: screenHeight * 0.04,
                             child: Row(
                               children: [
                                 Icon(
@@ -235,7 +181,7 @@ class AddEventController extends BaseController {
                                   color: primaryColor,
                                 ),
                                 SizedBox(
-                                  width: _mainWidth * 0.03,
+                                  width: screenWidth * 0.03,
                                 ),
                                 Text(
                                   data.eventName ?? '',

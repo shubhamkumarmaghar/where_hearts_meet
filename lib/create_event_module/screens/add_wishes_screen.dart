@@ -159,7 +159,7 @@ class AddWishesScreen extends StatelessWidget {
                         height: screenHeight * 0.1,
                         child: ClipRRect(
                             borderRadius: const BorderRadius.all(Radius.circular(20)),
-                            child: Image.network(
+                            child: Image.file(
                               controller.wishesImagesList[index],
                               fit: BoxFit.cover,
                             )),
@@ -219,9 +219,8 @@ class AddWishesScreen extends StatelessWidget {
                         height: screenHeight * 0.1,
                         child: ClipRRect(
                             borderRadius: const BorderRadius.all(Radius.circular(20)),
-                            child: Image.network(
-                              controller.wishesImagesList[index],
-                              fit: BoxFit.cover,
+                            child: Container(
+                              color: Colors.black,
                             )),
                       ),
                     ),
