@@ -50,9 +50,10 @@ class LoginScreen extends StatelessWidget {
                             ),
                             const SizedBox(height: 30,),
                             Container(
-                              height: _mainHeight * 0.51,
+                              height: _mainHeight * 0.53,
                               margin: EdgeInsets.only(left: _mainWidth * 0.06, right: _mainWidth * 0.06),
                               width: _mainWidth,
+
                               child: Card(
                                 shape:
                                     const RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(20))),
@@ -185,6 +186,7 @@ class LoginScreen extends StatelessWidget {
               strokeColor: primaryColor,
               strokeWidth: 1,
               paintingStyle: PaintingStyle.fill,
+
             ),
             child: SizedBox(
               height: _mainHeight * 0.6,

@@ -8,6 +8,7 @@ import 'package:where_hearts_meet/splash_module/util/splash_enum.dart';
 import 'package:where_hearts_meet/utils/consts/shared_pref_const.dart';
 import 'package:where_hearts_meet/utils/routes/routes_const.dart';
 
+import '../../onboarding_module/view/onboarding_view.dart';
 import '../../utils/services/firebase_auth_controller.dart';
 
 class SplashController extends GetxController {
@@ -19,11 +20,13 @@ class SplashController extends GetxController {
 
   void updateSplashView() async {
     await Future.delayed(const Duration(milliseconds: 1500));
+
     final String? login = GetStorage().read(token);
     if (login != null && login != '') {
       Get.offAllNamed(RoutesConst.dashboardScreen);
     } else {
-      Get.offAllNamed(RoutesConst.loginScreen);
+      Get.offAll(const OnboardingScreen());
+
     }
   }
 }

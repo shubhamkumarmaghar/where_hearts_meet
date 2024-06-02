@@ -6,6 +6,7 @@ import 'package:where_hearts_meet/create_event_module/screens/add_secret_wishes_
 import 'package:where_hearts_meet/create_event_module/screens/add_timeline_screen.dart';
 import 'package:where_hearts_meet/create_event_module/screens/add_wishes_screen.dart';
 import 'package:where_hearts_meet/dashboard_module/screens/dashboard_screen.dart';
+import 'package:where_hearts_meet/onboarding_module/view/onboarding_view.dart';
 import 'package:where_hearts_meet/show_event_module/binding/event_details_binding.dart';
 import 'package:where_hearts_meet/show_event_module/view/created_event_list_screen.dart';
 import 'package:where_hearts_meet/show_event_module/view/event_details_screen.dart';
@@ -40,6 +41,7 @@ class AppRoutes {
         binding: EditProfileBinding(),
         page: () => EditProfileScreen(),
       ),
+
       GetPage(
         name: RoutesConst.loginScreen,
         binding: LoginBinding(),
