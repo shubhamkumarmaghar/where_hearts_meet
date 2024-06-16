@@ -7,7 +7,6 @@ import 'package:flutter/material.dart';
 import 'package:dio/dio.dart' as dio;
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:where_hearts_meet/show_event_module/model/event_details_model.dart';
 import 'package:where_hearts_meet/utils/consts/app_screen_size.dart';
 import 'package:where_hearts_meet/utils/consts/shared_pref_const.dart';
 import 'package:where_hearts_meet/utils/controller/base_controller.dart';
@@ -16,14 +15,12 @@ import '../../utils/consts/color_const.dart';
 import '../../utils/consts/screen_const.dart';
 import '../../utils/dialogs/pop_up_dialogs.dart';
 import '../../utils/routes/routes_const.dart';
-import '../model/create_event_model.dart';
 import '../service/create_event_service.dart';
 
 class AddEventController extends BaseController {
   final EventApiService _eventApiService = EventApiService();
   final nameController = TextEditingController();
   final eventNameController = TextEditingController();
-  final titleController = TextEditingController();
   final eventTypeController = TextEditingController();
   final subtitleController = TextEditingController();
   final guestMobileController = TextEditingController();
@@ -59,7 +56,6 @@ class AddEventController extends BaseController {
     if (image != null) {
       showLoaderDialog(context: Get.context!);
 
-
       imageFiles.add(imageFile);
       cancelLoaderDialog();
       update();
@@ -74,7 +70,7 @@ class AddEventController extends BaseController {
       showSnackBar(context: Get.context!, message: 'Please enter event name');
       return;
     } else if (infoController.text.isEmpty) {
-      showSnackBar(context: Get.context!, message: 'Please enter info');
+      showSnackBar(context: Get.context!, message: 'Please enter description');
       return;
     } else if (selectedEventType.eventTypeId == '0') {
       showSnackBar(context: Get.context!, message: 'Please select event type');
@@ -82,8 +78,10 @@ class AddEventController extends BaseController {
     } else if (guestMobileController.text.isEmpty || guestMobileController.text.length != 10) {
       showSnackBar(context: Get.context!, message: 'Please select valid guest mobile number');
       return;
+    } else if (imageFiles.isEmpty) {
+      showSnackBar(context: Get.context!, message: 'Please select images for event');
+      return;
     }
-
 
     List<dio.MultipartFile> eventImages = [];
     for (var image in imageFiles) {
@@ -105,8 +103,9 @@ class AddEventController extends BaseController {
         username: userName,
         imageFiles: eventImages);
     cancelLoaderDialog();
-    Get.toNamed(RoutesConst.addEventSpecialsScreen, arguments: response);
-
+    if (response.eventid != '-1') {
+      Get.toNamed(RoutesConst.addEventSpecialsScreen, arguments: response);
+    }
   }
 
   void selectEventSheet() async {
@@ -206,10 +205,10 @@ class AddEventController extends BaseController {
   void dispose() {
     nameController.dispose();
     eventNameController.dispose();
-    titleController.dispose();
     subtitleController.dispose();
     infoController.dispose();
     eventTypeController.dispose();
+    guestMobileController.dispose();
     super.dispose();
   }
 }

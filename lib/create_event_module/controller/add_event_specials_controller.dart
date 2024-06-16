@@ -114,7 +114,8 @@ class AddEventSpecialsController extends BaseController {
 
     var path = videoFile.path.split('/');
     final url = await FunctionsService.uploadFileToAWS(
-        eventKey: getAwsEventKey(pageIndex: pageIndex, eventId: 'eventId', fileName: path.last), file: videoFile);
+        eventKey: getAwsEventKey(pageIndex: pageIndex, eventId: eventDetailsModel.eventid ?? '', fileName: path.last),
+        file: videoFile);
 
     cancelLoaderDialog();
     if (pageIndex == EventSpecialPageIndex.addWishes) {
@@ -149,7 +150,7 @@ class AddEventSpecialsController extends BaseController {
     }
 
     final response = await _eventApiService.submitEventWishes(
-        eventId: 'eventId', imageFiles: imageFiles, videoFiles: wishesVideosList);
+        eventId: eventDetailsModel.eventid ?? '', imageFiles: imageFiles, videoFiles: wishesVideosList);
 
     cancelLoaderDialog();
   }

@@ -25,7 +25,7 @@ class AddEventScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: appColor5,
+      backgroundColor: appColor4,
       appBar: appBarWidget(title: 'Create Event'),
       body: GestureDetector(
         onTap: () => FocusScope.of(context).requestFocus(FocusNode()),
@@ -71,8 +71,9 @@ class AddEventScreen extends StatelessWidget {
                     CustomTextField(
                         title: 'Guest mobile number*',
                         hint: 'Mobile number',
+                        inputType: TextInputType.phone,
                         onChanged: (text) {},
-                        controller: controller.infoController),
+                        controller: controller.guestMobileController),
                     SizedBox(
                       height: _mainHeight * 0.03,
                     ),
@@ -81,7 +82,7 @@ class AddEventScreen extends StatelessWidget {
                       style: const TextStyle(color: blackColor, fontSize: 16.0, fontWeight: FontWeight.w700),
                     ),
                     const SizedBox(
-                      height: 5,
+                      height: 8,
                     ),
                     Container(
                       height: 50,
@@ -121,8 +122,8 @@ class AddEventScreen extends StatelessWidget {
                       'Select Event Type*',
                       style: TextStyle(color: blackColor, fontSize: 16.0, fontWeight: FontWeight.w700),
                     ),
-                    SizedBox(
-                      height: _mainHeight * 0.015,
+                    const SizedBox(
+                      height: 8,
                     ),
                     InkWell(
                       onTap: () {
@@ -168,7 +169,14 @@ class AddEventScreen extends StatelessWidget {
                           )
                         : SizedBox.shrink(),
                     SizedBox(
-                      height: _mainHeight * 0.05,
+                      height: _mainHeight * 0.03,
+                    ),
+                    const Text(
+                      'Event Images*',
+                      style: TextStyle(color: blackColor, fontSize: 16.0, fontWeight: FontWeight.w700),
+                    ),
+                    const SizedBox(
+                      height: 8,
                     ),
                     SizedBox(height: screenHeight * 0.1, child: getImagesListWidget(controller: controller)),
 

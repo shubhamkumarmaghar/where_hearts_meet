@@ -11,17 +11,15 @@ class FunctionsService {
           accessKey: awsAccessKey,
           secretKey: awsSecretKey,
           file: file,
-          //  key: 'events/$eventId/wishes/${file.path}',
           key: eventKey,
           bucket: awsBucket,
           region: awsRegion,
-
           metadata: {"test": "test"} // optional
           );
 
-      if (url != null ) {
+      if (url != null) {
         return url;
-      }else{
+      } else {
         log('some issue ');
       }
     } catch (e) {

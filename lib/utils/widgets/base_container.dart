@@ -15,10 +15,17 @@ class BaseContainer extends StatelessWidget {
               color: Colors.white,
             )
           : const BoxDecoration(
-              image: DecorationImage(
-                image: AssetImage("asset/images/app_background.png"),
-                fit: BoxFit.cover,
-              ),
+          gradient:LinearGradient(
+              begin: Alignment.topCenter,
+              end: Alignment.bottomCenter,
+              colors: [
+                Color(0xff9467ff),
+                Color(0xffae8bff),
+                Color(0xffc7afff),
+                Color(0xffdfd2ff),
+                Color(0xfff2edff),
+              ]
+          )
             ),
       child: child /* add child content here */,
     );

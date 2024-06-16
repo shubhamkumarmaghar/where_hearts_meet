@@ -26,12 +26,12 @@ class EventApiService {
       url: url,
       data: {
         'event_name': eventName,
-        'host_name': hostName,
+        'receiver_name': hostName,
         'event_type': eventType,
         'event_host_day': eventHostDay,
         'event_subtext': eventSubtext,
         'event_description': eventDescription,
-        'phone_number': mobileNo,
+        'receiver_phone_number': mobileNo,
         'username': username,
         "pic":imageFiles
       },
@@ -41,7 +41,7 @@ class EventApiService {
     if (data['message']
         .toString()
         .toLowerCase()
-        .contains('Event created successfully')) {
+        .contains('event created successfully')) {
       return EventDetailsModel.fromJson(data['data']);
     } else {
       return EventDetailsModel(eventid: '-1');
@@ -51,13 +51,14 @@ class EventApiService {
       {required String eventId,
         required List<MultipartFile> imageFiles,
         required List<String> videoFiles}) async {
+
     String url = AppUrls.eventWishesUrl;
     final response = await _apiService.formDataPostApiCall(
       url: url,
       data: {
         'event_id': eventId ,
         'images': imageFiles,
-        'videos': videoFiles,
+        'videos':videoFiles,
       },
     );
     final data = response;

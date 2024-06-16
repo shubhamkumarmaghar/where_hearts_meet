@@ -21,7 +21,7 @@ Widget getDrawerContentWidget({required IconData icon, required String heading, 
             padding: const EdgeInsets.all(2),
             child: Icon(
               icon,
-              color: appColor3,
+              color: appColor2,
               size: 20,
             ),
           ),

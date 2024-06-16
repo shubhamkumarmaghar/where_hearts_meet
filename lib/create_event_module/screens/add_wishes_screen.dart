@@ -100,7 +100,8 @@ class AddWishesScreen extends StatelessWidget {
                       if (controller.wishesImagesList.isEmpty || controller.wishesVideosList.isEmpty) {
                         return;
                       }
-                      controller.onNextScreen(EventSpecialPageIndex.addGiftCards);
+
+                      controller.submitWishes();
                     }),
               )
             ],

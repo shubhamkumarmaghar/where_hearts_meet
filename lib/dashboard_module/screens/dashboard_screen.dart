@@ -8,6 +8,7 @@ import 'package:where_hearts_meet/utils/consts/images_const.dart';
 import 'package:where_hearts_meet/utils/consts/screen_const.dart';
 import 'package:where_hearts_meet/utils/routes/routes_const.dart';
 import 'package:where_hearts_meet/utils/services/firebase_firestore_controller.dart';
+import 'package:where_hearts_meet/utils/widgets/base_container.dart';
 import 'package:where_hearts_meet/utils/widgets/event_card.dart';
 import '../../create_event_module/model/add_event_model.dart';
 import '../../utils/buttons/buttons.dart';
@@ -39,7 +40,7 @@ class DashboardScreen extends StatelessWidget {
           body: Container(
             height: screenHeight,
             width: screenWidth,
-            color: appColor5,
+            color: appColor4,
             padding: const EdgeInsets.symmetric(vertical: 15, horizontal: 15),
             child: SingleChildScrollView(
               child: Column(

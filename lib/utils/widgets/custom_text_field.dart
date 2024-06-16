@@ -53,7 +53,7 @@ class CustomTextField extends StatelessWidget {
             style: const TextStyle(color: blackColor, fontSize: 16.0, fontWeight: FontWeight.w700),
           ),
         const SizedBox(
-          height: 5,
+          height: 8,
         ),
         GestureDetector(
           onTap: () {
