@@ -51,7 +51,7 @@ class ApiService {
   }
   Future<Map<String, dynamic>> formDataPostApiCall({required String url, required Map<String, dynamic> data}) async {
     try {
-      FormData formData = FormData.fromMap(data);
+      FormData formData = FormData.fromMap(data,ListFormat.multiCompatible);
       Response response = await apiClient.dio.post(
         url,
         data: formData,

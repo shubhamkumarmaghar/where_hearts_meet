@@ -43,7 +43,7 @@ class ShowEventApiService {
     if (data['message'].toString().toLowerCase().contains('event found')) {
       return EventDetailsModel.fromJson(data['data']);
     } else {
-      return EventDetailsModel(id: -1);
+      return EventDetailsModel(eventid: '-1');
     }
   }
 }

@@ -1,6 +1,10 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:where_hearts_meet/utils/consts/app_screen_size.dart';
 import 'package:where_hearts_meet/utils/routes/routes_const.dart';
+import 'package:where_hearts_meet/utils/widgets/cached_image.dart';
 
 import '../../utils/consts/color_const.dart';
 import '../../utils/widgets/base_container.dart';
@@ -40,48 +44,57 @@ class EventListScreen extends StatelessWidget {
                                   },
                                   child: Container(
                                     decoration: BoxDecoration(
-                                        color: primaryColor.withOpacity(0.2), borderRadius: BorderRadius.circular(10)),
+                                        color: appColor4.withOpacity(0.2), borderRadius: BorderRadius.circular(10)),
                                     padding: const EdgeInsets.all(10),
                                     child: Row(
                                       crossAxisAlignment: CrossAxisAlignment.start,
                                       children: [
                                         SizedBox(
                                           height: _mainHeight * 0.075,
-                                          width: _mainWidth * 0.14,
+                                          width: _mainWidth * 0.16,
                                           child: ClipRRect(
                                             borderRadius: const BorderRadius.all(Radius.circular(100)),
-                                            child: Image.network(
-                                              data.imageUrls != null && data.imageUrls!.isNotEmpty
-                                                  ? data.imageUrls!.first.imageUrl.toString()
-                                                  : '',
-                                              fit: BoxFit.fill,
-                                            ),
+                                            child: cachedImage(
+                                                imageUrl: data.imageUrls != null && data.imageUrls!.isNotEmpty
+                                                    ? data.imageUrls!.first.imageUrl
+                                                    : ''),
                                           ),
                                         ),
                                         SizedBox(
                                           width: _mainWidth * 0.04,
                                         ),
-                                        Column(
-                                          crossAxisAlignment: CrossAxisAlignment.start,
-                                          mainAxisSize: MainAxisSize.min,
-                                          children: [
-                                            Text(data.eventName ?? '',
-                                                style: const TextStyle(fontSize: 18, fontWeight: FontWeight.w700)),
-                                            SizedBox(
-                                              height: _mainHeight * 0.005,
-                                            ),
-                                            Text(data.eventName ?? '',
-                                                style: const TextStyle(fontSize: 14, fontWeight: FontWeight.w500)),
-                                            SizedBox(
-                                              height: _mainHeight * 0.005,
-                                            ),
-                                            Container(
-                                              alignment: Alignment.centerRight,
-                                              child: Text('TO - ${data.receiverName}',
+                                        Container(
+                                          width: screenWidth * 0.65,
+                                          child: Column(
+                                            crossAxisAlignment: CrossAxisAlignment.start,
+                                            children: [
+                                              Text(
+                                                data.eventName != null
+                                                    ? data.eventName!.replaceAll('_', ' ').capitalizeFirst!.toString()
+                                                    : '',
+                                                style: const TextStyle(
+                                                  fontSize: 16,
+                                                  fontWeight: FontWeight.w700,
+                                                ),
+                                                maxLines: 3,
+                                              ),
+                                              SizedBox(
+                                                height: _mainHeight * 0.005,
+                                              ),
+                                              Text('TO - ${data.receiverName}',
                                                   style: const TextStyle(
-                                                      fontSize: 12, fontWeight: FontWeight.w500, color: greyColor)),
-                                            ),
-                                          ],
+                                                      fontSize: 12, fontWeight: FontWeight.w500, color: Colors.white)),
+                                              SizedBox(
+                                                height: _mainHeight * 0.005,
+                                              ),
+                                              Text(
+                                                data.eventDescription ?? '',
+                                                style: const TextStyle(fontSize: 14, fontWeight: FontWeight.w500),
+                                                maxLines: 2,
+                                                overflow: TextOverflow.ellipsis,
+                                              ),
+                                            ],
+                                          ),
                                         ),
                                       ],
                                     ),

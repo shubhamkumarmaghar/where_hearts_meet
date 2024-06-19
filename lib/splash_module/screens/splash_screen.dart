@@ -23,7 +23,8 @@ class SplashScreen extends StatelessWidget {
         init: SplashController(),
         builder: (controller) {
           return Container(
-              decoration: BoxDecoration(gradient:LinearGradient(
+              decoration: BoxDecoration(
+                gradient:LinearGradient(
                   begin: Alignment.topCenter,
                   end: Alignment.bottomCenter,
                   colors: [

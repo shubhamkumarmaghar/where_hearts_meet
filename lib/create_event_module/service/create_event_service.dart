@@ -1,6 +1,7 @@
 import 'dart:developer';
 
 import 'package:dio/dio.dart';
+import 'package:where_hearts_meet/show_event_module/model/event_details_model.dart';
 import 'package:where_hearts_meet/utils/consts/shared_pref_const.dart';
 
 import '../../utils/consts/api_urls.dart';
@@ -10,7 +11,7 @@ import '../model/create_event_model.dart';
 class EventApiService {
   final ApiService _apiService = ApiService();
 
-  Future<CreateEventResponseModel> createEvent(
+  Future<EventDetailsModel> createEvent(
       {required String eventName,
       required String hostName,
       required String eventType,
@@ -24,14 +25,14 @@ class EventApiService {
     final response = await _apiService.formDataPostApiCall(
       url: url,
       data: {
-        'event_name': eventName ?? "",
-        'host_name': hostName ?? "",
-        'event_type': eventType ?? "",
-        'event_host_day': eventHostDay ?? "",
-        'event_subtext': eventSubtext ?? "",
-        'event_description': eventDescription ?? "",
-        'phone_number': mobileNo ?? "",
-        'username': username ?? "",
+        'event_name': eventName,
+        'receiver_name': hostName,
+        'event_type': eventType,
+        'event_host_day': eventHostDay,
+        'event_subtext': eventSubtext,
+        'event_description': eventDescription,
+        'receiver_phone_number': mobileNo,
+        'username': username,
         "pic":imageFiles
       },
     );
@@ -40,11 +41,36 @@ class EventApiService {
     if (data['message']
         .toString()
         .toLowerCase()
-        .contains('Event created successfully')) {
-      log('data :: $data');
-      return CreateEventResponseModel.fromJson(data);
+        .contains('event created successfully')) {
+      return EventDetailsModel.fromJson(data['data']);
     } else {
-      return CreateEventResponseModel(message: 'failure');
+      return EventDetailsModel(eventid: '-1');
+    }
+  }
+  Future<dynamic> submitEventWishes(
+      {required String eventId,
+        required List<MultipartFile> imageFiles,
+        required List<String> videoFiles}) async {
+
+    String url = AppUrls.eventWishesUrl;
+    final response = await _apiService.formDataPostApiCall(
+      url: url,
+      data: {
+        'event_id': eventId ,
+        'images': imageFiles,
+        'videos':videoFiles,
+      },
+    );
+    final data = response;
+
+    if (data['message']
+        .toString()
+        .toLowerCase()
+        .isNotEmpty) {
+      log('data :: $data');
+      return data['message'];
+    } else {
+      return data;
     }
   }
 }

@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -14,6 +16,7 @@ class CreatedEventListScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    log('created event list class');
     return Scaffold(
       appBar: AppBar(title: Text('Created Events')),
       body: BaseContainer(
