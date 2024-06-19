@@ -41,10 +41,13 @@ class SplashScreen extends StatelessWidget {
   }
 
   Widget getAppLogo() {
-    return Image.asset(
-      logo,
-      height: 250,
-      width: 250,
+    return Hero(
+      tag: 'logo',
+      child: Image.asset(
+        logo,
+        height: 250,
+        width: 250,
+      ),
     );
   }
 }

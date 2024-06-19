@@ -100,6 +100,7 @@ class EventDetailsScreen extends StatelessWidget {
                       ConfettiView(
                         controller: controller.confettiController,
                         confettiShapeEnum: ConfettiShapeEnum.drawHeart,
+
                       ),
                     ],
                   )

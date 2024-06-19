@@ -1,4 +1,5 @@
 const String userId = 'user_id';
+const String onboarding =  'onboarding';
 const String userMobile = 'user_mobile';
 const String token= 'token';
 const String profileUrl= 'profile_pic';

@@ -7,6 +7,8 @@ import 'package:get/get.dart';
 import 'package:get/utils.dart';
 import 'package:where_hearts_meet/utils/consts/color_const.dart';
 
+import '../../guest_dashboard/view/guest_dashboard.dart';
+import 'intro_screen.dart';
 import '../../splash_module/controller/splash_controller.dart';
 import '../../utils/consts/images_const.dart';
 import '../../utils/routes/routes_const.dart';
@@ -26,13 +28,13 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
   List<OnboardingModel> onboarding = [
     OnboardingModel(
       text: 'Your Ultimate Gift Guide',
-      img: intro1,
+      img: intro5,
       url:
           'https://i.pinimg.com/originals/71/6e/fc/716efc545dbb2b0e2a018bed028b26f7.jpg',
     ),
     OnboardingModel(
         text: 'Create Memorable Moments',
-        img: intro2,
+        img: intro4,
         url:
             'https://i0.wp.com/shaadiwish.com/blog/wp-content/uploads/2021/12/roka-couple-pictures-810x1024.jpeg'),
     OnboardingModel(
@@ -42,25 +44,22 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
             'https://images-wixmp-ed30a86b8c4ca887773594c2.wixmp.com/f/02c28eda-4c2b-4051-8177-c24a3338489c/dg1y18w-7790bafd-abf1-4826-a474-287710a923ad.png/v1/fit/w_512,h_512,q_70,strp/love_couple_in_violet_dress_by_ecstasyai_dg1y18w-375w-2x.jpg?token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1cm46YXBwOjdlMGQxODg5ODIyNjQzNzNhNWYwZDQxNWVhMGQyNmUwIiwiaXNzIjoidXJuOmFwcDo3ZTBkMTg4OTgyMjY0MzczYTVmMGQ0MTVlYTBkMjZlMCIsIm9iaiI6W1t7ImhlaWdodCI6Ijw9NTEyIiwicGF0aCI6IlwvZlwvMDJjMjhlZGEtNGMyYi00MDUxLTgxNzctYzI0YTMzMzg0ODljXC9kZzF5MTh3LTc3OTBiYWZkLWFiZjEtNDgyNi1hNDc0LTI4NzcxMGE5MjNhZC5wbmciLCJ3aWR0aCI6Ijw9NTEyIn1dXSwiYXVkIjpbInVybjpzZXJ2aWNlOmltYWdlLm9wZXJhdGlvbnMiXX0.0dZ873Dpdn11oFEcCNsF6N_YM0ztohApNH3ghtp63TI'),
     OnboardingModel(
       text: 'Easy Fun & Personal',
-      img: intro4,
+      img: intro2,
       url:
           'https://i.pinimg.com/originals/71/6e/fc/716efc545dbb2b0e2a018bed028b26f7.jpg',
     ),
     OnboardingModel(
         text: 'Gift Inspiration just a click away',
-        img: intro5,
+        img: intro1,
         url:
             'https://i0.wp.com/shaadiwish.com/blog/wp-content/uploads/2021/12/roka-couple-pictures-810x1024.jpeg'),
   ];
-  SplashController splashController = Get.find();
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,
       body: Obx(
-        () => Stack(
-          children: [
+        () =>
             Container(
               decoration: BoxDecoration(
                 gradient: LinearGradient(
@@ -80,7 +79,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                   height: Get.height * 0.75,
                   width: Get.width,
                   child: PageView.builder(
-                    //reverse: true,
+
                     itemCount: onboarding.length,
                     itemBuilder: (BuildContext context, index) {
                       return customOnbordingText(onboarding[index].text,
@@ -99,10 +98,14 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                 GradientButton(
                   title: 'I am Guest',
                   width: Get.width * 0.8,
+                  onPressed: (){
+                   // Get.offAll(const GuestDashboard());
+                    Get.toNamed(RoutesConst.guestLogin);
+                  },
                 ),
                 SizedBox(height: Get.height * 0.02),
                 GradientButton(
-                  title: 'I am Creator',
+                  title: 'Host',
                   width: Get.width * 0.8,
                   buttonColor: appColor3,
                   titleTextStyle: const TextStyle(
@@ -110,26 +113,11 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                       fontWeight: FontWeight.w700,
                       fontSize: 19),
                   onPressed: () {
-                    Get.offAllNamed(RoutesConst.loginScreen);
+                    Get.toNamed(RoutesConst.loginScreen);
                   },
                 )
               ]),
-            ),
-            Positioned(child: Visibility(
-              visible: visible.value,
-              child: GestureDetector(
-                onTap: (){
-                  visible.value = false;
-                },
-                child: Container(
-                  height: Get.height ,
-                  width: Get.width,
-                  child: Image.asset(intro1,fit: BoxFit.fill),
-                ),
-              ),
-            ))
-          ],
-        ),
+            )
       ),
     );
   }
@@ -141,7 +129,8 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
         effects: [FadeEffect(), ScaleEffect()],
           child: Column(
             children: [
-              index ==1?Container(
+              index ==1?
+              Container(
                 height: Get.height * 0.6,
                 width: Get.width,
                 child: CardSwiper(controller: controller,
