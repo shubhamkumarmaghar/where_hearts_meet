@@ -103,7 +103,7 @@ class ApiService {
 
       Response response = await apiClient.dio.patch(
         url,
-        data: jsonEncode({'first_name':'Deepak'}),
+        data: jsonEncode(data),
         options: Options(
           headers: getHeaders(),
         ),
