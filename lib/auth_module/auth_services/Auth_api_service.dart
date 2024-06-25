@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import '../../utils/consts/api_urls.dart';
 import '../../utils/services/api_service.dart';
 import '../auth_model/login_response_model.dart';
@@ -25,14 +27,16 @@ class AuthApiService {
 
   Future<LoginResponseModel> fetchLoginUser({
     required String phoneNumber,
-    required String password,
+    required String uid,
+    //required String password,
   }) async {
     String url = AppUrls.loginUrl;
     final response = await _apiService.postApiCallForLogin(
       url: url,
       data: {
         'phone_number': phoneNumber,
-        'password': password,
+        'uid':uid
+       // 'password': password,
       },
     );
     final data = response;
@@ -40,7 +44,9 @@ class AuthApiService {
     if (data['message'].toString().toLowerCase().contains('failure')) {
       return LoginResponseModel(message: 'failure');
     } else {
-      return LoginResponseModel.fromJson(data);
+      final loginData = LoginResponseModel.fromJson(data);
+      log('dataaaaavvvv ${loginData.toJson()}');
+      return loginData;
     }
   }
 
@@ -57,10 +63,11 @@ class AuthApiService {
     required String phoneNumber,
     required String maritalStatus,
     required String profile_pic,
-    required String username,
+   // required String username,
     required String gender,
   }) async {
     String url = AppUrls.signUpUrl;
+    log('called for signup');
     final response = await _apiService.patchApiCall(
       url: url,
       data: {
@@ -76,7 +83,7 @@ class AuthApiService {
         'marital_status': maritalStatus,
         'profile_pic_url': profile_pic,
         'email': email,
-        'username': username,
+        //'username': username,
         'gender': gender
       },
     );

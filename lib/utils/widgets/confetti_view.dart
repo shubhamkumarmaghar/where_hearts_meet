@@ -18,6 +18,7 @@ class ConfettiView extends StatelessWidget {
       alignment: Alignment.topCenter,
       child: ConfettiWidget(
         confettiController: controller,
+
         blastDirectionality: BlastDirectionality.explosive,
         // don't specify a direction, blast randomly
         shouldLoop: true,

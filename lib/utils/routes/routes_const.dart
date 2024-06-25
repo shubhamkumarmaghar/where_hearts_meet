@@ -2,6 +2,7 @@ class RoutesConst{
   static String dashboardScreen='/dashboardScreen';
   static String editProfileScreen='/editProfileScreen';
   static String loginScreen='/loginScreen';
+  static String guestLogin = '/guestLogin';
   static String signUpScreen='/signUpScreen';
   static String profileSetUpScreen='/profileSetUpScreen';
   static String addPeopleScreen='/addPeopleScreen';
@@ -15,4 +16,5 @@ class RoutesConst{
   static String addGiftCardScreen='/addGiftCardScreen';
   static String addTimelineScreen='/addTimelineScreen';
   static String secretWishesScreen='/secretWishesScreen';
+  static String guestHomeScreen='/guestHomeScreen';
 }

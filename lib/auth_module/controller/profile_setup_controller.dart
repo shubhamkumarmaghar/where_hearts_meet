@@ -34,7 +34,7 @@ class ProfileSetupController extends BaseController {
   RxnString errorNameText = RxnString(null);
   RxnString errorMobileText = RxnString(null);
   Rx<String> dateOfBirth = 'Date of birth'.obs;
-  final signUpController = Get.find<SignUpController>();
+  //final signUpController = Get.find<SignUpController>();
   String imageUrl = '';
 
   void onNameChanged(String name) {
@@ -62,9 +62,10 @@ class ProfileSetupController extends BaseController {
     if (pageIndex == CompleteProfilePageIndex.addProfilePicturePage) {
       showLoaderDialog(context: Get.context!);
       final response = await _authApiService.SignUpUser(
-        email: signUpController.emailTextController.text,
+        // email: signUpController.emailTextController.text,
+        email: '',
         date_of_birth: birthDateTextController.text,
-        firstName: nameTextController.text,
+        firstName: nameTextController.text.toString(),
         profile_pic: imageUrl,
         address: 'Keshavpuram',
         city: 'Keshavpuram',
@@ -75,7 +76,7 @@ class ProfileSetupController extends BaseController {
         maritalStatus: 'Single',
         postalCode: '311035',
         gender: 'male',
-        username: signUpController.usernameTextController.text,
+        //username: await GetStorage().read(username),
       );
       cancelLoaderDialog();
       loginResponseModel = response;

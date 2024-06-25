@@ -37,6 +37,7 @@ class DioInjector {
 class CustomInterceptor extends Interceptor {
   @override
   void onRequest(RequestOptions options, RequestInterceptorHandler handler) {
+    log("Content data: ${options.data}");
     return handler.next(options);
   }
 

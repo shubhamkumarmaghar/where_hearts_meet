@@ -13,7 +13,8 @@ class ApiService {
   final apiClient = locator<DioInjector>();
 
   Map<String, dynamic> getHeaders() {
-    String userToken = GetStorage().read(token);
+    String userToken = GetStorage().read(token) ??'';
+    log('Authorization Bearer $userToken');
     return {
       'Authorization':'Bearer $userToken'
 
@@ -97,13 +98,17 @@ class ApiService {
 
   Future<Map<String, dynamic>> patchApiCall({required String url, required Map<String, dynamic> data}) async {
     try {
+      log('data :: $data');
+     //FormData formData = FormData.fromMap(data);
+
       Response response = await apiClient.dio.patch(
         url,
-        data: data,
+        data: jsonEncode(data),
         options: Options(
           headers: getHeaders(),
         ),
       );
+
       return await _handleResponse(response: response, url: url);
     } catch (e) {
       log('Error :: ${e.toString()}');
