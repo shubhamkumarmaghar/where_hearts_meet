@@ -7,8 +7,8 @@ import 'package:get/get.dart';
 import 'package:motion/motion.dart';
 import 'package:where_hearts_meet/utils/consts/images_const.dart';
 
-import '../../../utils/consts/confetti_shape_enum.dart';
-import '../../../utils/widgets/confetti_view.dart';
+import '../../../../utils/consts/confetti_shape_enum.dart';
+import '../../../../utils/widgets/confetti_view.dart';
 import '../controller/guest_home_controller.dart';
 
 class GuestHome extends StatefulWidget {
@@ -19,6 +19,11 @@ class GuestHome extends StatefulWidget {
 }
 
 class _GuestHomeState extends State<GuestHome> with TickerProviderStateMixin {
+
+  final _mainHeight = Get.height;
+  final _mainWidth = Get.width;
+  final controller = Get.find<GuestHomeController>();
+
   late AnimationController firstController;
   late Animation<double> firstAnimation;
 
@@ -30,7 +35,6 @@ class _GuestHomeState extends State<GuestHome> with TickerProviderStateMixin {
 
   late AnimationController fourthController;
   late Animation<double> fourthAnimation;
-  GuestHomeController controller = Get.find();
 
   @override
   void initState() {
@@ -126,6 +130,7 @@ class _GuestHomeState extends State<GuestHome> with TickerProviderStateMixin {
       body: Stack(
         children: [
           Container(
+            width: Get.width,
             decoration: BoxDecoration(
               gradient: LinearGradient(
                   begin: Alignment.topCenter,
@@ -187,14 +192,13 @@ class _GuestHomeState extends State<GuestHome> with TickerProviderStateMixin {
                       minutesDescription: 'Min',
                     ),
                   ),
+
                 ],
               ),
               Center(
                   child: Column(mainAxisSize: MainAxisSize.min, children: [
                 Motion.elevated(
                   elevation: 300,
-                  //shadow: false,
-
                   translation: true,
 
                   borderRadius: BorderRadius.all(Radius.circular(15)),
@@ -216,7 +220,87 @@ class _GuestHomeState extends State<GuestHome> with TickerProviderStateMixin {
                       'with Motion',
                       style: Theme.of(context).textTheme.bodyLarge,
                     )),
-              ])),
+               ])),
+              Stack(children: [
+                Container(
+                  margin:EdgeInsets.only(left: 20),
+                    height: Get.height*0.48,
+                    width: Get.height*0.35,
+                  decoration: BoxDecoration(border: Border.all(color: Colors.green),borderRadius: BorderRadius.all(Radius.circular(30)), image: DecorationImage(fit: BoxFit.cover,
+                      image:NetworkImage('https://firebasestorage.googleapis.com/v0/b/where-hearts-meet.appspot.com/o/Black%20Minimalist%20Happy%20Birthday%20Poster%20(1).png?alt=media&token=13bada89-8df2-4c06-b98e-962a08ba929e') )),
+               
+                    ),Positioned(top: 50,left: 110,
+                    child: Container(
+                      decoration: BoxDecoration(border: Border.all(color: Colors.green,width: 3) ,borderRadius: BorderRadius.all(Radius.circular(30),)),
+                      child: ClipRRect(borderRadius: BorderRadius.all(Radius.circular(26),),
+                        child: Image.network('https://firebasestorage.googleapis.com/v0/b/where-hearts-meet.appspot.com/o/profilePics%2Fprofile_pic_DJ6wp0i9qdRJ6cgv43UO9FGXT9C3?alt=media&token=23077f90-d6b2-415e-a30d-401f4944499d',
+                                          width: 150,
+                                          height: 200,fit: BoxFit.cover,),
+                      ),
+                    ))
+                
+              ]),
+              Center(
+                child: Container(
+                  width: Get.width*0.6,
+                  padding: const EdgeInsets.all(8.0),
+                  margin: EdgeInsets.all(10),
+                  decoration: BoxDecoration(color: Colors.white,borderRadius: BorderRadius.circular(10),),
+                  child: Column(
+                    children: [
+                      // Profile section
+                      Row(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          CircleAvatar(
+                            radius: 20,
+                            backgroundImage: NetworkImage('https://via.placeholder.com/150'),
+                          ),
+                          SizedBox(width: 10),
+                          Expanded(
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Row(
+                                  children: [
+                                    Text(
+                                      'username',
+                                      style: TextStyle(fontWeight: FontWeight.bold),
+                                    ),
+                                    SizedBox(width: 5),
+                                    Text(
+                                      '@handle · 1h',
+                                      style: TextStyle(color: Colors.grey),
+                                    ),
+                                    Spacer(),
+                                    Icon(Icons.more_vert),
+                                  ],
+                                ),
+                                SizedBox(height: 5),
+                                Text(
+                                  'This is the content of the tweet. It can be multiple lines long and contain various types of content.',
+                                ),
+                              ],
+                            ),
+                          ),
+                        ],
+                      ),
+                      SizedBox(height: 10),
+                      // Action buttons
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceAround,
+                        children: [
+                          Icon(Icons.chat_bubble_outline),
+                          Icon(Icons.repeat),
+                          Icon(Icons.favorite_border),
+                          Icon(Icons.share),
+                        ],
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+SizedBox(height: Get.height*0.1,)
             ]),
           ),
           ConfettiView(

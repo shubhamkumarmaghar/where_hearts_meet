@@ -5,9 +5,12 @@ import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:get/get_rx/src/rx_types/rx_types.dart';
-
-import '../../guest_dashboard/view/guest_dashboard.dart';
+import 'package:get_storage/get_storage.dart';
+import 'package:where_hearts_meet/utils/consts/color_const.dart';
+import '../../guest/guest_dashboard/view/guest_dashboard.dart';
+import '../../utils/consts/shared_pref_const.dart';
 import '../../utils/controller/base_controller.dart';
+import '../../utils/routes/routes_const.dart';
 import '../../utils/widgets/util_widgets/app_widgets.dart';
 import '../auth_services/Auth_api_service.dart';
 import '../screens/otp_screen.dart';
@@ -63,8 +66,10 @@ extends BaseController {
 
       if (user != null) {
         print("Successfully signed in UID: ${user.uid}");
-        AppWidgets.getToast(message: 'Mobile number is successfully verified');
-         Get.offAll(const GuestDashboard());
+        GetStorage().write(isGuest, true);
+        AppWidgets.getToast(message: 'Mobile number is successfully verified',color: primaryColor.withOpacity(0.2));
+        Get.offAllNamed(RoutesConst.guestDashboard);
+      //  Get.offAll(const GuestDashboard());
       } else {
         print("Failed to sign in");
       }

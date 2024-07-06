@@ -11,5 +11,7 @@ class AppUrls {
 
   static const String eventWishesUrl = 'wishesApp/wishes/';
 
+  static const String receiveEventUrl = 'eventApp/get_event_receiver/';
+
 
 }

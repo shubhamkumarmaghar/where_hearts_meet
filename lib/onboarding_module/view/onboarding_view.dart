@@ -6,10 +6,6 @@ import 'package:flutter_card_swiper/flutter_card_swiper.dart';
 import 'package:get/get.dart';
 import 'package:get/utils.dart';
 import 'package:where_hearts_meet/utils/consts/color_const.dart';
-
-import '../../guest_dashboard/view/guest_dashboard.dart';
-import 'intro_screen.dart';
-import '../../splash_module/controller/splash_controller.dart';
 import '../../utils/consts/images_const.dart';
 import '../../utils/routes/routes_const.dart';
 import '../../utils/widgets/gradient_button.dart';

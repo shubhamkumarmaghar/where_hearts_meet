@@ -2,7 +2,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:get_storage/get_storage.dart';
-import '../../guest_dashboard/view/guest_dashboard.dart';
 import '../../utils/consts/shared_pref_const.dart';
 import 'image_.dart';
 import 'onboarding_view.dart';

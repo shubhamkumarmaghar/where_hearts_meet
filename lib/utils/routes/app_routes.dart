@@ -6,7 +6,6 @@ import 'package:where_hearts_meet/create_event_module/screens/add_secret_wishes_
 import 'package:where_hearts_meet/create_event_module/screens/add_timeline_screen.dart';
 import 'package:where_hearts_meet/create_event_module/screens/add_wishes_screen.dart';
 import 'package:where_hearts_meet/dashboard_module/screens/dashboard_screen.dart';
-import 'package:where_hearts_meet/onboarding_module/view/onboarding_view.dart';
 import 'package:where_hearts_meet/show_event_module/binding/event_details_binding.dart';
 import 'package:where_hearts_meet/show_event_module/view/created_event_list_screen.dart';
 import 'package:where_hearts_meet/show_event_module/view/event_details_screen.dart';
@@ -25,9 +24,11 @@ import '../../create_event_module/binding/add_event_binding.dart';
 import '../../create_event_module/binding/add_event_specials_binding.dart';
 import '../../create_event_module/screens/add_event_screen.dart';
 import '../../create_event_module/screens/add_event_specials_screen.dart';
-import '../../guest_dashboard/guest_home/binding/guest_home_binding.dart';
-import '../../guest_dashboard/guest_home/controller/guest_home_controller.dart';
-import '../../guest_dashboard/guest_home/view/guest_home.dart';
+import '../../guest/guest_dashboard/binding/guest_dashboard_binding.dart';
+import '../../guest/guest_dashboard/guest_home/binding/guest_home_binding.dart';
+import '../../guest/guest_dashboard/guest_home/view/guest_home.dart';
+import '../../guest/guest_dashboard/view/guest_dashboard.dart';
+import '../../guest/guest_dashboard/view/guest_dashboard.dart';
 import '../../show_event_module/binding/created_event_list_binding.dart';
 import '../../profile_module/binding/edit_profile_binding.dart';
 import '../../profile_module/screens/add_people_screen.dart';
@@ -126,6 +127,11 @@ class AppRoutes {
         name: RoutesConst.guestHomeScreen,
          binding: GuestHomeBinding(),
         page: () => const GuestHome(),
+      ),
+      GetPage(
+        name: RoutesConst.guestDashboard,
+        binding: GuestDashboardBinding(),
+        page: () => const GuestDashboard(),
       ),
     ];
   }

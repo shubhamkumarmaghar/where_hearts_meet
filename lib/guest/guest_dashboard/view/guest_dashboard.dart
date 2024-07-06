@@ -6,6 +6,7 @@ import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:motion_tab_bar/MotionTabBar.dart';
 import 'package:motion_tab_bar/MotionTabBarController.dart';
+import 'package:where_hearts_meet/guest/guest_dashboard/view/test.dart';
 import 'package:where_hearts_meet/utils/consts/color_const.dart';
 
 import '../guest_home/controller/guest_home_controller.dart';
@@ -21,8 +22,9 @@ class GuestDashboard extends StatefulWidget {
 class _GuestDashboardState extends State<GuestDashboard> with TickerProviderStateMixin {
   MotionTabBarController? _motionTabBarController;
   int _selectedIndex = 0;
-  GuestHomeController guestHomeController = Get.put(GuestHomeController());
-  @override
+  final controller = Get.find<GuestHomeController>();
+
+ @override
   void initState() {
     super.initState();
     _motionTabBarController = MotionTabBarController(
@@ -40,8 +42,8 @@ class _GuestDashboardState extends State<GuestDashboard> with TickerProviderStat
       // controller: _tabController,
       controller: _motionTabBarController,
       children: <Widget>[
-        const Center(
-          child: Text("Dashboard"),
+         Center(
+          child: BirthdayWishes(),
         ),
         const Center(
           child:GuestHome(),

@@ -7,4 +7,5 @@ const String username = 'username';
 const String email =  'email';
 const String firstName =  'firstName';
 const String fullName =  'fullName';
+const String isGuest =  'isGuest';
 
