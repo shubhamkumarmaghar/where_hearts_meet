@@ -34,7 +34,7 @@ class AddPeopleController extends BaseController {
   Future<void> addPeople()async{
     showLoaderDialog(context: Get.context!);
     final response=await fireStoreController.addPeople(peopleModel: selectedUser);
-    cancelLoaderDialog();
+    cancelDialog();
     if(response){
       await dashboardController.getPeopleList();
       Get.back();

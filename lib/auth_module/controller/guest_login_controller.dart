@@ -11,9 +11,11 @@ import '../../utils/controller/base_controller.dart';
 import '../../utils/widgets/util_widgets/app_widgets.dart';
 import '../auth_services/Auth_api_service.dart';
 import '../screens/otp_screen.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/material.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 
-class GuestLoginController
-extends BaseController {
+class GuestLoginController extends BaseController {
   RxBool isLoading = false.obs;
   final AuthApiService _authApiService = AuthApiService();
   final FirebaseAuth _auth = FirebaseAuth.instance;
@@ -21,7 +23,6 @@ extends BaseController {
   final TextEditingController otpController = TextEditingController();
   RxnString errorPhoneNumberText = RxnString(null);
   String _verificationId = '';
-
 
   void onPhoneNumberChanged(String mobile) {
     if (mobile.length == 10) {
@@ -33,7 +34,7 @@ extends BaseController {
 
   Future<void> verifyPhoneNumber() async {
     await _auth.verifyPhoneNumber(
-      phoneNumber: '+91'+phoneNumberController.text,
+      phoneNumber: '+91' + phoneNumberController.text,
       verificationCompleted: (PhoneAuthCredential credential) async {
         await _auth.signInWithCredential(credential);
       },
@@ -42,12 +43,11 @@ extends BaseController {
       },
       codeSent: (String verificationId, int? resendToken) {
         log('shubham');
-          _verificationId = verificationId;
-          Get.to(OTPScreen());
-
+        _verificationId = verificationId;
+        Get.to(OTPScreen());
       },
       codeAutoRetrievalTimeout: (String verificationId) {
-          _verificationId = verificationId;
+        _verificationId = verificationId;
       },
     );
   }
@@ -62,9 +62,10 @@ extends BaseController {
       final User? user = (await _auth.signInWithCredential(credential)).user;
 
       if (user != null) {
+
         print("Successfully signed in UID: ${user.uid}");
         AppWidgets.getToast(message: 'Mobile number is successfully verified');
-         Get.offAll(const GuestDashboard());
+        Get.offAll(const GuestDashboard());
       } else {
         print("Failed to sign in");
       }
@@ -72,4 +73,5 @@ extends BaseController {
       print("Error: $e");
     }
   }
+
 }

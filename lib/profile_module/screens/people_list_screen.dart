@@ -74,7 +74,7 @@ class PeopleListScreen extends StatelessWidget {
 
                                         },
                                         child: const CircleAvatar(
-                                            backgroundColor: redColorError,
+                                            backgroundColor: errorColor,
                                             child: Icon(Icons.delete,color: whiteColor,)),
                                       )
                                     ],

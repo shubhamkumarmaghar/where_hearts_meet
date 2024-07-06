@@ -71,7 +71,7 @@ class DashboardDrawerScreen extends StatelessWidget {
                     logOutFunction: () async {
                       showLoaderDialog(context: Get.context!);
                       await GetStorage().erase();
-                      cancelLoaderDialog();
+                      cancelDialog();
                       Get.offAllNamed(RoutesConst.loginScreen);
                     });
               }),

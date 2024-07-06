@@ -39,7 +39,7 @@ class CreatedEventListController extends BaseController {
     await fireStoreController.deleteCreatedEvent(eventId: eventId);
     currentUserEventList.clear();
     await getCreatedEventList(initial: false);
-    cancelLoaderDialog();
+    cancelDialog();
 
     update();
   }

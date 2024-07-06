@@ -117,7 +117,7 @@ class AddEventSpecialsController extends BaseController {
         eventKey: getAwsEventKey(pageIndex: pageIndex, eventId: eventDetailsModel.eventid ?? '', fileName: path.last),
         file: videoFile);
 
-    cancelLoaderDialog();
+    cancelDialog();
     if (pageIndex == EventSpecialPageIndex.addWishes) {
       wishesVideosList.add(url);
     } else if (pageIndex == EventSpecialPageIndex.addTimeline) {
@@ -152,6 +152,6 @@ class AddEventSpecialsController extends BaseController {
     final response = await _eventApiService.submitEventWishes(
         eventId: eventDetailsModel.eventid ?? '', imageFiles: imageFiles, videoFiles: wishesVideosList);
 
-    cancelLoaderDialog();
+    cancelDialog();
   }
 }

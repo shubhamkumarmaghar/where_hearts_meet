@@ -7,7 +7,6 @@ import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:where_hearts_meet/auth_module/auth_model/login_response_model.dart';
-import 'package:where_hearts_meet/auth_module/controller/signup_controller.dart';
 import 'package:where_hearts_meet/utils/controller/base_controller.dart';
 import 'package:where_hearts_meet/utils/dialogs/pop_up_dialogs.dart';
 import 'package:where_hearts_meet/utils/model/user_info_model.dart';
@@ -78,7 +77,7 @@ class ProfileSetupController extends BaseController {
         gender: 'male',
         //username: await GetStorage().read(username),
       );
-      cancelLoaderDialog();
+      cancelDialog();
       loginResponseModel = response;
       if (loginResponseModel.message == 'Signup Successful') {
         await Future.wait([
@@ -137,7 +136,7 @@ class ProfileSetupController extends BaseController {
       final firebaseStorageController = Get.find<FirebaseStorageController>();
       final url = await firebaseStorageController.uploadPic(file: imageFile);
       imageUrl = url;
-      cancelLoaderDialog();
+      cancelDialog();
       update();
     }
   }

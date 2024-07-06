@@ -9,3 +9,9 @@ const String dummyImage = 'asset/images/dummy_image.png';
 const String errorImage = 'asset/images/error_image.png';
 const String sun1 = 'asset/images/sun1.jpg';
 
+const String googleIcon = 'asset/icons/google_icon.jpeg';
+const String otpIcon = 'asset/icons/otp_icon.png';
+const String appBackground2 = 'asset/images/app_background_2.jpg';
+const String appBackground = 'asset/images/app_background.png';
+
+

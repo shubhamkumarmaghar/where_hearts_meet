@@ -1,14 +1,12 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import '../../onboarding_module/view/onboarding_view.dart';
+import '../model/onboarding_model.dart';
+import '../view/onboarding_view.dart';
 
-class ImageWidget extends StatelessWidget {
-  OnboardingModel onboardingModel;
-   ImageWidget(
-  {super.key,
-    required this.onboardingModel
-}
-  );
+class OnboardingCardImageWidget extends StatelessWidget {
+  final OnboardingModel onboardingModel;
+
+  const OnboardingCardImageWidget({super.key, required this.onboardingModel});
 
   @override
   Widget build(BuildContext context) {
@@ -36,9 +34,9 @@ class ImageWidget extends StatelessWidget {
   }
 
   Widget buildImage() => SizedBox.expand(
-    child: ClipRRect(
-      borderRadius: BorderRadius.all(Radius.circular(8)),
-      child: Image.asset(onboardingModel.img, fit: BoxFit.fill),
-    ),
-  );
+        child: ClipRRect(
+          borderRadius: BorderRadius.all(Radius.circular(8)),
+          child: Image.asset(onboardingModel.img, fit: BoxFit.fill),
+        ),
+      );
 }
