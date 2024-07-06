@@ -211,7 +211,7 @@ class EditProfileScreen extends StatelessWidget {
                     await controller.deletePeople(uid: data.uid ?? '');
                   },
                   child: const CircleAvatar(
-                      backgroundColor: redColorError,
+                      backgroundColor: errorColor,
                       child: Icon(
                         Icons.delete,
                         color: whiteColor,

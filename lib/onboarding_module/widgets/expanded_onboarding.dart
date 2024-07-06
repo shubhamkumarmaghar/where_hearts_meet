@@ -2,10 +2,11 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:where_hearts_meet/utils/consts/color_const.dart';
 
-import 'onboarding_view.dart';
+import '../model/onboarding_model.dart';
+import '../view/onboarding_view.dart';
 
 class ExpandedContentWidget extends StatelessWidget {
-  OnboardingModel onboardingModel;
+  final OnboardingModel onboardingModel;
 
  ExpandedContentWidget(
   {required this.onboardingModel}

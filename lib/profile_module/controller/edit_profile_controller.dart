@@ -76,7 +76,7 @@ class EditProfileController extends BaseController {
       showLoaderDialog(context: Get.context!);
       final url = await firebaseStorageController.uploadPic(file: imageFile);
       userInfoModel.imageUrl = url;
-      cancelLoaderDialog();
+      cancelDialog();
       update();
     }
   }
@@ -94,7 +94,7 @@ class EditProfileController extends BaseController {
     showLoaderDialog(context: Get.context!);
     await fireStoreController.updateUserData(userInfoModel: userInfoModel);
 
-    cancelLoaderDialog();
+    cancelDialog();
     Get.offAllNamed(RoutesConst.dashboardScreen);
   }
 
@@ -104,7 +104,7 @@ class EditProfileController extends BaseController {
     await firestoreController.deletePeople(uid: uid);
     await getUserData(initial: false);
     await dashboardController.getPeopleList();
-    cancelLoaderDialog();
+    cancelDialog();
     update();
   }
 

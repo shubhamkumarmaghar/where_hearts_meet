@@ -45,7 +45,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GetMaterialApp(
-      title: 'Flutter Demo',
+      title: 'Heart-e-homies',
       getPages: AppRoutes.getRoutes(),
       themeMode: ThemeMode.system,
       debugShowCheckedModeBanner: false,

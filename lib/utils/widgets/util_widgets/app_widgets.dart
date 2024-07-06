@@ -11,7 +11,7 @@ class AppWidgets {
         toastLength: Toast.LENGTH_SHORT,
         gravity: ToastGravity.BOTTOM,
         timeInSecForIosWeb: 1,
-        backgroundColor: color ?? redColorError,
+        backgroundColor: color ?? errorColor,
         textColor: Colors.white,
         fontSize: 16.0);
   }
@@ -29,6 +29,15 @@ class AppWidgets {
       child: Text(
         message ?? 'No Data found!',
         style: const TextStyle(fontWeight: FontWeight.w500, fontSize: 16, color: Colors.grey),
+      ),
+    );
+  }
+  static void showSnackBar({required BuildContext context, String? message,Color? color}) {
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(
+        content: Text(message ??'Something went wrong!'),
+        duration: const Duration(milliseconds: 1500),
+        backgroundColor: color ?? errorColor,
       ),
     );
   }

@@ -10,23 +10,17 @@ import 'package:where_hearts_meet/utils/consts/color_const.dart';
 import '../controller/guest_login_controller.dart';
 
 class OTPScreen extends StatefulWidget {
-
-
-  OTPScreen({super.key,});
-
   @override
   State<OTPScreen> createState() => _OTPScreenState();
 }
 
-class _OTPScreenState extends State<OTPScreen>
-    with SingleTickerProviderStateMixin {
+class _OTPScreenState extends State<OTPScreen> with SingleTickerProviderStateMixin {
   String otpCodeValue = '';
 
   late AnimationController _animationController;
 
   late Animation<double> _fadeAnimation;
   final controller = Get.find<GuestLoginController>();
-
 
   @override
   void initState() {
@@ -60,11 +54,10 @@ class _OTPScreenState extends State<OTPScreen>
             Container(
               height: 400,
               decoration: const BoxDecoration(
-             //   image: DecorationImage(image: AssetImage('assets/images/background.png'), fit: BoxFit.fill,),
-              ),
+                  //   image: DecorationImage(image: AssetImage('assets/images/background.png'), fit: BoxFit.fill,),
+                  ),
               child: Stack(
                 children: <Widget>[
-
                   Positioned(
                     child: FadeTransition(
                         opacity: _fadeAnimation,
@@ -73,10 +66,7 @@ class _OTPScreenState extends State<OTPScreen>
                           child: const Center(
                             child: Text(
                               "OTP",
-                              style: TextStyle(
-                                  color: Colors.white,
-                                  fontSize: 40,
-                                  fontWeight: FontWeight.bold),
+                              style: TextStyle(color: Colors.white, fontSize: 40, fontWeight: FontWeight.bold),
                             ),
                           ),
                         )),
@@ -87,7 +77,7 @@ class _OTPScreenState extends State<OTPScreen>
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 20.0),
               child: Obx(
-                    () => Column(
+                () => Column(
                   mainAxisAlignment: MainAxisAlignment.start,
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
@@ -102,26 +92,20 @@ class _OTPScreenState extends State<OTPScreen>
                                   style: const TextStyle(color: Colors.black),
                                   children: [
                                     TextSpan(
-                                      text:
-                                      'Enter the 6-digit code sent to you \nat ',
-                                      style: TextStyle(
-                                          color: Colors.grey.shade700),
+                                      text: 'Enter the 6-digit code sent to you \nat ',
+                                      style: TextStyle(color: Colors.grey.shade700),
                                     ),
                                     TextSpan(
                                       text: controller.phoneNumberController.text,
-                                      style:
-                                      const TextStyle(color: Colors.black),
+                                      style: const TextStyle(color: Colors.black),
                                     ),
                                     TextSpan(
-                                      text:
-                                      ' did you enter the \ncorrect Number',
-                                      style: TextStyle(
-                                          color: Colors.grey.shade700),
+                                      text: ' did you enter the \ncorrect Number',
+                                      style: TextStyle(color: Colors.grey.shade700),
                                     ),
                                   ],
                                 ),
-                                textHeightBehavior: const TextHeightBehavior(
-                                    applyHeightToFirstAscent: false),
+                                textHeightBehavior: const TextHeightBehavior(applyHeightToFirstAscent: false),
                                 textAlign: TextAlign.left,
                               )),
                           const SizedBox(height: 15),
@@ -181,8 +165,7 @@ class _OTPScreenState extends State<OTPScreen>
                             ),
                           ],
                         ),
-                        textHeightBehavior: const TextHeightBehavior(
-                            applyHeightToFirstAscent: false),
+                        textHeightBehavior: const TextHeightBehavior(applyHeightToFirstAscent: false),
                         textAlign: TextAlign.center,
                       ),
                     ),
@@ -191,22 +174,20 @@ class _OTPScreenState extends State<OTPScreen>
                     ),
                     controller.isLoading.value == true
                         ? const CupertinoActivityIndicator(
-                      color: Colors.grey,
-                      radius: 10,
-                    ) // Show loading indicator while API call is in progress
+                            color: Colors.grey,
+                            radius: 10,
+                          ) // Show loading indicator while API call is in progress
                         : Material(
-                      elevation: 5.0,
-                      borderRadius: BorderRadius.circular(30.0),
-                      color: primaryColor,
-                      child:
-                      ElevatedButton(
-                        onPressed: () async {
-                          controller.signInWithPhoneNumber();
-                        },
-                        child: Text("Verify Phone Number"),
-                      ),
-
-                    ),
+                            elevation: 5.0,
+                            borderRadius: BorderRadius.circular(30.0),
+                            color: primaryColor,
+                            child: ElevatedButton(
+                              onPressed: () async {
+                                controller.signInWithPhoneNumber();
+                              },
+                              child: Text("Verify Phone Number"),
+                            ),
+                          ),
                   ],
                 ),
               ),

@@ -31,7 +31,7 @@ class PeopleListController extends BaseController {
     await firestoreController.deletePeople(uid: uid);
     await getPeopleList(initial: false);
     await dashboardController.getPeopleList();
-    cancelLoaderDialog();
+    cancelDialog();
     update();
   }
 }

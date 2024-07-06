@@ -16,17 +16,19 @@ void showSnackBar({required BuildContext context, String? message}) {
 
 void showLoaderDialog({required BuildContext context, String? loadingText, Color? color}) {
   AlertDialog alert = AlertDialog(
+    shape: const RoundedRectangleBorder(
+        borderRadius: BorderRadius.all(Radius.circular(10.0))),
     content: Row(
+      crossAxisAlignment: CrossAxisAlignment.center,
       children: [
-        CircularProgressIndicator(
-          color: color ?? primaryColor,
+        const CircularProgressIndicator.adaptive(
+
         ),
-        Container(
-            margin: const EdgeInsets.only(left: 10),
-            child: Text(
-              loadingText ?? 'Loading...',
-              style: const TextStyle(fontSize: 16, color: blackColor, fontWeight: FontWeight.w500),
-            )),
+        const SizedBox(width: 15,),
+        Text(
+          loadingText ?? 'Loading...',
+          style: const TextStyle(fontSize: 16, color: blackColor, fontWeight: FontWeight.w500),
+        ),
       ],
     ),
   );
@@ -39,7 +41,7 @@ void showLoaderDialog({required BuildContext context, String? loadingText, Color
   );
 }
 
-void cancelLoaderDialog() => Get.back();
+void cancelDialog() => Get.back();
 
 void showAlertDialogWithOK({String? message, required BuildContext context, Function? onCLick}) {
   final CupertinoAlertDialog alert = CupertinoAlertDialog(
@@ -52,7 +54,7 @@ void showAlertDialogWithOK({String? message, required BuildContext context, Func
         isDefaultAction: false,
         child: const Text('Ok', style: TextStyle(fontSize: 16, color: primaryColor)),
         onPressed: () {
-          onCLick != null ? onCLick() : cancelLoaderDialog();
+          onCLick != null ? onCLick() : cancelDialog();
         },
       ),
     ],
@@ -82,7 +84,7 @@ void showLogoutAlertDialog({String? message, required BuildContext context,requi
         isDefaultAction: false,
         child: const Text('No', style: TextStyle(fontSize: 16, color: primaryColor)),
         onPressed: () {
-          cancelLoaderDialog();
+          cancelDialog();
         },
       ),
     ],

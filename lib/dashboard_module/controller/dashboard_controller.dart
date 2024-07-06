@@ -121,8 +121,8 @@ class DashboardController extends BaseController {
       showLoaderDialog(context: Get.context!);
       await firebaseStorageController.deleteProfilePic();
       await user.updatePhotoURL(null);
-      cancelLoaderDialog();
-      cancelLoaderDialog();
+      cancelDialog();
+      cancelDialog();
       update();
     }else{
       showSnackBar(context: Get.context!,message: 'Already deleted...');
@@ -146,8 +146,8 @@ class DashboardController extends BaseController {
         var user = firebaseAuthController.getCurrentUser();
         await user?.updatePhotoURL(url);
       }
-      cancelLoaderDialog();
-      cancelLoaderDialog();
+      cancelDialog();
+      cancelDialog();
       update();
     }
   }

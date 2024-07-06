@@ -57,7 +57,7 @@ class AddEventController extends BaseController {
       showLoaderDialog(context: Get.context!);
 
       imageFiles.add(imageFile);
-      cancelLoaderDialog();
+      cancelDialog();
       update();
     }
   }
@@ -102,7 +102,7 @@ class AddEventController extends BaseController {
         mobileNo: guestMobileController.text,
         username: userName,
         imageFiles: eventImages);
-    cancelLoaderDialog();
+    cancelDialog();
     if (response.eventid != '-1') {
       Get.toNamed(RoutesConst.addEventSpecialsScreen, arguments: response);
     }
