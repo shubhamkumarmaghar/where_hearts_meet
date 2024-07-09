@@ -28,6 +28,7 @@ class AuthApiService {
   Future<LoginResponseModel> fetchLoginUser({
     required String phoneNumber,
     required String uid,
+    bool isGuest=false
     //required String password,
   }) async {
     String url = AppUrls.loginUrl;
@@ -35,7 +36,8 @@ class AuthApiService {
       url: url,
       data: {
         'phone_number': phoneNumber,
-        'uid':uid
+        'uid':uid,
+        'is_guest':isGuest
        // 'password': password,
       },
     );
@@ -81,7 +83,7 @@ class AuthApiService {
         'postal_code': postalCode,
         'phone_number': phoneNumber,
         'marital_status': maritalStatus,
-        'profile_pic_url': profile_pic,
+        //'profile_pic_url': profile_pic,
         'email': email,
         //'username': username,
         'gender': gender

@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:developer';
 
 import 'package:flutter/cupertino.dart';
@@ -6,7 +7,7 @@ import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:motion_tab_bar/MotionTabBar.dart';
 import 'package:motion_tab_bar/MotionTabBarController.dart';
-import 'package:where_hearts_meet/guest/guest_dashboard/view/test.dart';
+import 'package:where_hearts_meet/guest/guest_dashboard/view/wishes.dart';
 import 'package:where_hearts_meet/utils/consts/color_const.dart';
 
 import '../guest_home/controller/guest_home_controller.dart';
@@ -20,6 +21,7 @@ class GuestDashboard extends StatefulWidget {
 }
 
 class _GuestDashboardState extends State<GuestDashboard> with TickerProviderStateMixin {
+
   MotionTabBarController? _motionTabBarController;
   int _selectedIndex = 0;
   final controller = Get.find<GuestHomeController>();
@@ -27,6 +29,7 @@ class _GuestDashboardState extends State<GuestDashboard> with TickerProviderStat
  @override
   void initState() {
     super.initState();
+    controller.getEventDetails('57_Birthday of my love Sunanda arya');
     _motionTabBarController = MotionTabBarController(
       initialIndex: 1,
       length: 3,

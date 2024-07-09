@@ -3,7 +3,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:get_storage/get_storage.dart';
 import '../../../../utils/consts/images_const.dart';
+import '../../../../utils/routes/routes_const.dart';
 
 class GuestWishList extends StatefulWidget {
   final String title;
@@ -527,12 +529,19 @@ class _GuestWishListState extends State<GuestWishList>
     return Scaffold(
       appBar: AppBar(
         leading: IconButton(
-          icon: Icon(Icons.arrow_back),
+          icon: GestureDetector(
+            onTap: (){
+
+            },
+              child: Icon(Icons.arrow_back)),
           onPressed: () {
             // Action for back button
           },
         ),
-        title: Text('New Thread'),
+        title: GestureDetector(onTap: (){
+          GetStorage().erase();
+          Get.offAllNamed(RoutesConst.dashboardScreen);
+        },child: Text('New Thread')),
         actions: [
           TextButton(
             onPressed: () {

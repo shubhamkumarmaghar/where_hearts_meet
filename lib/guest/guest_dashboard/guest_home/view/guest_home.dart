@@ -5,9 +5,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_timer_countdown/flutter_timer_countdown.dart';
 import 'package:get/get.dart';
 import 'package:motion/motion.dart';
+import 'package:where_hearts_meet/utils/consts/color_const.dart';
 import 'package:where_hearts_meet/utils/consts/images_const.dart';
 
 import '../../../../utils/consts/confetti_shape_enum.dart';
+import '../../../../utils/dialogs/pop_up_dialogs.dart';
 import '../../../../utils/widgets/confetti_view.dart';
 import '../controller/guest_home_controller.dart';
 
@@ -39,7 +41,7 @@ class _GuestHomeState extends State<GuestHome> with TickerProviderStateMixin {
   @override
   void initState() {
     super.initState();
-
+    controller.startCountdown();
     firstController = AnimationController(
         vsync: this, duration: Duration(milliseconds: 1500));
     firstAnimation = Tween<double>(begin: 1.9, end: 2.1).animate(
@@ -121,13 +123,14 @@ class _GuestHomeState extends State<GuestHome> with TickerProviderStateMixin {
     secondController.dispose();
     thirdController.dispose();
     fourthController.dispose();
+    controller.countdownTimer?.cancel();
     super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Stack(
+      body: controller.isBusy != true? Stack(
         children: [
           Container(
             width: Get.width,
@@ -144,57 +147,55 @@ class _GuestHomeState extends State<GuestHome> with TickerProviderStateMixin {
                   ]),
             ),
             child: ListView(children: [
-              Stack(
-                children: [
-                  Container(
-                    height: Get.height * 0.5,
-                    width: Get.width,
-                    decoration: const BoxDecoration(
-                        image: DecorationImage(
-                            image: AssetImage(
-                              sun1,
-                            ),
-                            fit: BoxFit.cover)),
-                  ),
-                  Positioned(
-                      bottom: 0,
-                      child: SizedBox(
-                          width: Get.width,
-                          height: Get.height * 0.3,
-                          child: CustomPaint(
-                            painter: MyPainter(
-                              firstAnimation.value,
-                              secondAnimation.value,
-                              thirdAnimation.value,
-                              fourthAnimation.value,
-                            ),
-                          ))),
-                  Positioned(
-                    bottom: 10,
-                    left: Get.width * 0.23,
-                    child: TimerCountdown(
-                      format: CountDownTimerFormat.daysHoursMinutesSeconds,
-                      endTime: DateTime.now().add(
-                        Duration(
-                          days: 5,
-                          hours: 14,
-                          minutes: 27,
-                          seconds: 33,
-                        ),
-                      ),
-                      spacerWidth: 1,
-                      descriptionTextStyle:
-                          TextStyle(color: Colors.white, fontSize: 16),
-                      timeTextStyle:
-                          TextStyle(color: Colors.white, fontSize: 30),
-                      colonsTextStyle:TextStyle(color: Colors.white, fontSize: 30) ,
-                      secondsDescription: 'Sec',
-                      minutesDescription: 'Min',
-                    ),
-                  ),
 
-                ],
-              ),
+                 Stack(
+                  children: [
+                    Container(
+                      height: Get.height * 0.5,
+                      width: Get.width,
+                      decoration: BoxDecoration(
+                          image: DecorationImage(
+                              image: NetworkImage(
+                                controller.eventDetails!.coverPic??'',
+                              ),
+                              fit: BoxFit.cover)),
+                    ),
+                    Positioned(
+                        bottom: 0,
+                        child: SizedBox(
+                            width: Get.width,
+                            height: Get.height * 0.3,
+                            child: CustomPaint(
+                              painter: MyPainter(
+                                firstAnimation.value,
+                                secondAnimation.value,
+                                thirdAnimation.value,
+                                fourthAnimation.value,
+                              ),
+                            ))),
+                    Positioned(
+                      bottom: 10,
+                      left: Get.width * 0.23,
+                      child: Container(
+                         // height: MediaQuery.of(context).size.height * 0.5,
+                         // color: Colors.black.withOpacity(0.5),
+                          child: Center(
+                            child: Text(
+                              '${controller.countdownDuration.inDays}d ${controller.countdownDuration.inHours % 24}h ${controller.countdownDuration.inMinutes % 60}m ${controller.countdownDuration.inSeconds % 60}s',
+                              style: TextStyle(
+                                fontSize: 30,
+                                color: Colors.white,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                          ),
+                        ),
+
+                    ),
+
+                  ],
+                ),
+
               Center(
                   child: Column(mainAxisSize: MainAxisSize.min, children: [
                 Motion.elevated(
@@ -308,7 +309,8 @@ SizedBox(height: Get.height*0.1,)
             confettiShapeEnum: ConfettiShapeEnum.drawHeart,
           ),
         ],
-      ),
+      ):Center(child: CircularProgressIndicator(color: primaryColor,
+      )),
     );
   }
 }

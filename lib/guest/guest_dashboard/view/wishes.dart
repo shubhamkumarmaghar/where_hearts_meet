@@ -2,6 +2,11 @@ import 'dart:async';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:get/get_core/src/get_main.dart';
+import 'package:youtube_player_flutter/youtube_player_flutter.dart';
+
+import '../guest_home/controller/guest_home_controller.dart';
 
 class BirthdayWishes extends StatefulWidget {
   @override
@@ -9,28 +14,27 @@ class BirthdayWishes extends StatefulWidget {
 }
 
 class _BirthdayWishesState extends State<BirthdayWishes> {
-  DateTime birthday = DateTime(2024, 7, 20); // Set your birthday date here
-  Duration countdownDuration = Duration();
-  Timer? countdownTimer;
-
+  final controller = Get.find<GuestHomeController>();
+  void listener() {
+    if (controller.isPlayerReady && mounted && !controller.youtubePlayerController.value.isFullScreen) {
+      setState(() {
+        controller.playerState = controller.youtubePlayerController
+            .value.playerState;
+        controller.videoMetaData = controller.youtubePlayerController.metadata;
+      });
+    }
+  }
   @override
   void initState() {
     super.initState();
-    startCountdown();
+
   }
 
-  void startCountdown() {
-    countdownDuration = birthday.difference(DateTime.now());
-    countdownTimer = Timer.periodic(Duration(seconds: 1), (_) {
-      setState(() {
-        countdownDuration = birthday.difference(DateTime.now());
-      });
-    });
-  }
+
 
   @override
   void dispose() {
-    countdownTimer?.cancel();
+    controller.countdownTimer?.cancel();
     super.dispose();
   }
 
@@ -46,7 +50,7 @@ class _BirthdayWishesState extends State<BirthdayWishes> {
                 height: MediaQuery.of(context).size.height * 0.5,
                 decoration: BoxDecoration(
                   image: DecorationImage(
-                    image: NetworkImage('https://via.placeholder.com/500'),
+                    image: NetworkImage('${controller.eventDetails!.coverPic}'),
                     fit: BoxFit.cover,
                   ),
                 ),
@@ -56,7 +60,7 @@ class _BirthdayWishesState extends State<BirthdayWishes> {
                 color: Colors.black.withOpacity(0.5),
                 child: Center(
                   child: Text(
-                    '${countdownDuration.inDays}d ${countdownDuration.inHours % 24}h ${countdownDuration.inMinutes % 60}m ${countdownDuration.inSeconds % 60}s',
+                    '${controller.countdownDuration.inDays}d ${controller.countdownDuration.inHours % 24}h ${controller.countdownDuration.inMinutes % 60}m ${controller.countdownDuration.inSeconds % 60}s',
                     style: TextStyle(
                       fontSize: 30,
                       color: Colors.white,
@@ -73,12 +77,14 @@ class _BirthdayWishesState extends State<BirthdayWishes> {
                 // Birthday wish widgets
                 imageCardWidget(
                   'Happy Birthday!',
-                  'https://via.placeholder.com/300',
-                  'Wishing you all the best on your special day!',
+                  controller.eventDetails!.imageUrls!.first,
+                  controller.eventDetails!.eventSubtext.toString(),
+                  //'Wishing you all the best on your special day!',
                 ),
                 imageCard( 'Happy Birthday!',
-                  'https://via.placeholder.com/300',
-                  'Wishing you all the best on your special day!',),
+                  controller.eventDetails!.imageUrls![1],
+                  controller.eventDetails!.eventDescription.toString(),),
+                 // 'Wishing you all the best on your special day!',),
                 textCardWidget(
                   'Special Day!',
                   'May your birthday be filled with joy and happiness.',
@@ -89,6 +95,7 @@ class _BirthdayWishesState extends State<BirthdayWishes> {
                 ),
                 // Video play widget
                 videoPlayWidget('https://via.placeholder.com/150'),
+               // youtubeVideoPlayWidget('nPt8bK2gbaU'),
               ],
             ),
           ),
@@ -179,6 +186,37 @@ class _BirthdayWishesState extends State<BirthdayWishes> {
     );
   }
 
+  Widget youtubeVideoPlayWidget(String videoUrl) {
+    return Card(
+      margin: EdgeInsets.all(10),
+      child: Padding(
+        padding: EdgeInsets.all(10),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text(
+              'Birthday Video',
+              style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
+            ),
+            SizedBox(height: 10),
+            YoutubePlayer(
+              controller: controller.youtubePlayerController,
+              showVideoProgressIndicator: true,
+              progressIndicatorColor: Colors.amber,
+              progressColors: const ProgressBarColors(
+                playedColor: Colors.amber,
+                handleColor: Colors.amberAccent,
+              ),
+              onReady: () {
+                controller.youtubePlayerController.addListener(listener);
+              },
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+
   Widget imageCard(String title, String imageUrl, String message) {
     return Card(
       margin: EdgeInsets.all(10),
@@ -189,7 +227,7 @@ class _BirthdayWishesState extends State<BirthdayWishes> {
           Stack(
             children: [
               Container(
-                height: 200,
+                height: 250,
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.only(
                     topLeft: Radius.circular(15),
@@ -197,7 +235,7 @@ class _BirthdayWishesState extends State<BirthdayWishes> {
                   ),
                   image: DecorationImage(
                     image: NetworkImage(imageUrl),
-                    fit: BoxFit.cover,
+                    fit: BoxFit.fill,
                   ),
                 ),
               ),
@@ -208,8 +246,10 @@ class _BirthdayWishesState extends State<BirthdayWishes> {
                     topLeft: Radius.circular(15),
                     topRight: Radius.circular(15),
                   ),
+                  //color: Colors.transparent
                   gradient: LinearGradient(
-                    colors: [Colors.black.withOpacity(0.5), Colors.transparent],
+                    colors: [Colors.black.withOpacity(0.5),
+                      Colors.transparent],
                     begin: Alignment.topCenter,
                     end: Alignment.bottomCenter,
                   ),

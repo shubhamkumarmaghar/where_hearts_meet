@@ -17,6 +17,7 @@ import '../../utils/consts/images_const.dart';
 import '../../utils/consts/shared_pref_const.dart';
 import '../../utils/consts/widget_styles.dart';
 import '../../utils/dialogs/pop_up_dialogs.dart';
+import '../../utils/routes/routes_const.dart';
 import '../../utils/widgets/gradient_button.dart';
 import '../../utils/widgets/util_widgets/app_widgets.dart';
 
@@ -82,15 +83,23 @@ class OnboardingController extends BaseController {
 
   Future<void> loginAndSignup({required String uid}) async {
     showLoaderDialog(context: Get.context!);
-    final response = await _authApiService.fetchLoginUser(phoneNumber: phoneNumberController.text, uid: uid);
+    final response = await _authApiService.fetchLoginUser(phoneNumber: phoneNumberController.text, uid: uid,
+    isGuest: true);
     if (response.message != null && response.data != null) {
       await Future.wait([
         GetStorage().write(token, response.data?.accessToken),
       ]);
       cancelDialog();
       AppWidgets.showSnackBar(context: Get.context!, message: '${response.message}', color: greenTextColor);
-      if (response.message!.toLowerCase().contains('login')) {
-      } else if (response.message!.toLowerCase().contains('register')) {}
+      if (response.message!.toLowerCase().contains('guest')) {
+        GetStorage().write(token, response.data?.accessToken);
+    GetStorage().write(userMobile, response.data?.phoneNumber);
+    GetStorage().write(username, response.data?.username);
+    GetStorage().write(profileUrl, response.data?.profilePicUrl);
+    GetStorage().write(isGuest, true);
+        Get.offAllNamed(RoutesConst.guestDashboard);
+
+      }
     } else {
       cancelDialog();
     }

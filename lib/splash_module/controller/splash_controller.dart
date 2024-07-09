@@ -24,16 +24,19 @@ class SplashController extends GetxController {
     await Future.delayed(const Duration(milliseconds: 1500));
 
     final String? login = GetStorage().read(token);
-    if (login != null && login != '') {
+
+
+    if (login != null && login != '' && GetStorage().read(isGuest) != true) {
+
       Get.offAllNamed(RoutesConst.dashboardScreen);
     } else {
       if( GetStorage().read(onboarding)==true){
-        Get.offAll(OnboardingScreen());
-        if(GetStorage().read(isGuest)==true){
+      //  Get.offAll(OnboardingScreen());
+        if(GetStorage().read(isGuest)==true && login != null && login != ''){
           Get.offAllNamed(RoutesConst.guestDashboard);
         }
         else {
-          Get.offAll(const OnboardingScreen());
+          Get.offAll(OnboardingScreen());
         }
       }
       else {

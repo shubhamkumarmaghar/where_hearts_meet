@@ -62,7 +62,7 @@ class ProfileSetupController extends BaseController {
       showLoaderDialog(context: Get.context!);
       final response = await _authApiService.SignUpUser(
         // email: signUpController.emailTextController.text,
-        email: '',
+        email: 'deepak.513770@gmail.com',
         date_of_birth: birthDateTextController.text,
         firstName: nameTextController.text.toString(),
         profile_pic: imageUrl,

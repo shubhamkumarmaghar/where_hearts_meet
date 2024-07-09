@@ -9,7 +9,9 @@ class EventDetailsModel {
   String? receiverPhoneNumber;
   String? username;
   String? receiverName;
-  List<ImageUrls>? imageUrls;
+  List<String>? imageUrls;
+  bool? globalEvent;
+  String? coverPic;
 
   EventDetailsModel(
       {this.eventName,
@@ -22,7 +24,10 @@ class EventDetailsModel {
       this.receiverPhoneNumber,
       this.username,
       this.receiverName,
-      this.imageUrls});
+      this.imageUrls,
+        this.globalEvent,
+        this.coverPic
+      });
 
   EventDetailsModel.fromJson(Map<String, dynamic> json) {
     eventName = json['event_name'];
@@ -35,12 +40,11 @@ class EventDetailsModel {
     receiverPhoneNumber = json['receiver_phone_number'];
     username = json['username'];
     receiverName = json['receiver_name'];
-    if (json['image_urls'] != null) {
-      imageUrls = <ImageUrls>[];
-      json['image_urls'].forEach((v) {
-        imageUrls!.add(new ImageUrls.fromJson(v));
-      });
-    }
+    imageUrls = json['image_urls'].cast<String>();
+    globalEvent = json['global_event'];
+    coverPic=json['cover_pic'];
+
+
   }
 
   Map<String, dynamic> toJson() {
@@ -55,28 +59,11 @@ class EventDetailsModel {
     data['receiver_phone_number'] = this.receiverPhoneNumber;
     data['username'] = this.username;
     data['receiver_name'] = this.receiverName;
-    if (this.imageUrls != null) {
-      data['image_urls'] = this.imageUrls!.map((v) => v.toJson()).toList();
-    }
+    data['image_urls'] = this.imageUrls;
+    data['global_event'] = this.globalEvent;
+    data['cover_pic'] = this.coverPic;
     return data;
   }
 }
 
-class ImageUrls {
-  String? imageId;
-  String? imageUrl;
 
-  ImageUrls({this.imageId, this.imageUrl});
-
-  ImageUrls.fromJson(Map<String, dynamic> json) {
-    imageId = json['image_id'];
-    imageUrl = json['image_url'];
-  }
-
-  Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = Map<String, dynamic>();
-    data['image_id'] = this.imageId;
-    data['image_url'] = this.imageUrl;
-    return data;
-  }
-}

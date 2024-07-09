@@ -1,3 +1,5 @@
+import 'package:get_storage/get_storage.dart';
+
 import '../../../../show_event_module/model/event_details_model.dart';
 import '../../../../utils/consts/api_urls.dart';
 import '../../../../utils/services/api_service.dart';
@@ -11,8 +13,10 @@ class GuestReceiveService {
 
     final response = await _apiService.getApiCall(
       url: url,
-      queryParams:{'eventid': '37_father_retirement',
-      'receiver_phone_number':mobileNo} ,
+      queryParams:{
+        'eventid': eventId,
+       'receiver_phone_number': mobileNo
+      } ,
 
     );
     final data = response;
