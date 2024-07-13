@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
@@ -76,6 +78,7 @@ class _IntroWidgetState extends State<IntroWidget> {
   }
 
   void onPanUpdate(DragUpdateDetails details) {
+
     if (details.delta.dy < 0) {
       setState(() {
         isExpanded = true;

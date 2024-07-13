@@ -99,7 +99,6 @@ class LoginController extends BaseController {
       final User? user = (await _auth.signInWithCredential(credential)).user;
 
       if (user != null) {
-        AppWidgets.getToast(message: 'Mobile number is successfully verified');
         loginAndSignup(uid: user.uid);
       } else {
         log("Failed to sign in");
@@ -110,6 +109,8 @@ class LoginController extends BaseController {
   }
 
   Future<void> loginAndSignup({required String uid}) async {
+    Get.offAllNamed(RoutesConst.dashboardScreen);
+    return;
     showLoaderDialog(context: Get.context!);
     final response = await _authApiService.fetchLoginUser(phoneNumber: phoneNumberController.text, uid: uid);
     loginResponseModel = response;
@@ -123,7 +124,7 @@ class LoginController extends BaseController {
       ]);
       cancelDialog();
       AppWidgets.showSnackBar(context: Get.context!, message: '${response.message}', color: greenTextColor);
-      if (loginResponseModel.message!.toLowerCase().contains('login')) {
+      if (loginResponseModel.message!.toLowerCase().contains('user logged in successfully')) {
         Get.offAllNamed(RoutesConst.dashboardScreen);
       } else if (loginResponseModel.message!.toLowerCase().contains('register')) {
         Get.offAllNamed(RoutesConst.profileSetUpScreen);

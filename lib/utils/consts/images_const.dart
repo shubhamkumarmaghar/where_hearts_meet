@@ -15,10 +15,22 @@ const String rashi3 = 'asset/images/rashi_3.jpg';
 const String rashi4 = 'asset/images/rashi_4.jpg';
 const String rashi5 = 'asset/images/rashi_5.jpg';
 
+
+///social login
 const String googleIcon = 'asset/icons/google_icon.jpeg';
 const String otpIcon = 'asset/icons/otp_icon.png';
+
+
+///app background
 const String appBackground2 = 'asset/images/app_background_2.jpg';
 const String appBackground = 'asset/images/app_background.png';
+const String dashboardBackground = 'asset/images/dashboard_background.png';
+
+///wishes images
+const String anniversaryWishes = 'asset/images/anniversary_wish_image.webp';
+const String birthDayWishes = 'asset/images/birthday_wish_image.webp';
+const String congratulationWishes = 'asset/images/congratulations_wish_image.jpg';
+const String marriageWishes = 'asset/images/marriage_wish_image.jpg';
 
 //lotties json
 const String giftbox = 'asset/icons/Animation - 1720867208224.json';

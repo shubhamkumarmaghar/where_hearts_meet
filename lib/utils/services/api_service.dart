@@ -70,7 +70,6 @@ class ApiService {
       Response response = await apiClient.dio.post(
         url,
         data: data,
-       // options: Options(headers: getHeaders()),
       );
 
       return await _handleResponse(response: response, url: url);
@@ -166,7 +165,7 @@ class ApiService {
 
   Map<String, dynamic> _getErrorResponse(decode) {
     final error = decode as Map<String, dynamic>;
-    AppWidgets.getToast(message: 'Error : ${error['message']}', color: errorColor);
+  //  AppWidgets.getToast(message: 'Error : ${error['message']}', color: errorColor);
     return {'message': 'failure ${error['message']}'};
   }
 }
