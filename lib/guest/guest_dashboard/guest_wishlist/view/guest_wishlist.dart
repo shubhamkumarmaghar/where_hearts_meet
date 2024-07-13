@@ -620,89 +620,88 @@ class _GuestWishListState extends State<GuestWishList>
                 ],
               ),
              Container(
-               // constraints: BoxConstraints(
-               //   maxHeight: Get.height*0.35,
-               //   minHeight: Get.height*.015
-               // ),
-              height:Get.height*0.35,
-               child:    Container(
-                 height: Get.height*.68,
-                 child: CardSwiper(
-                   isLoop: true,
-                   scale: 0.9,
-                   backCardOffset: Offset(25,80,),
-                   cardBuilder: (BuildContext context, int index, int horizontalOffsetPercentage,
-                       int verticalOffsetPercentage) {
-                     return
-                       PostWidget(
-                         username:characters[index].title.toString() ,
-                         profileImageUrl:characters[index].avatar.toString()  ,
-                         likes: 5,
-                         postImageUrl: characters[index].avatar.toString(),
-                         caption: characters[index].description.toString(),
-                       );
-                     //   Container(
-                     //   width: Get.width*0.7,
-                     //   height: Get.height*35,
-                     //   padding: const EdgeInsets.all(8.0),
-                     //   margin: EdgeInsets.all(10),
-                     //   decoration: BoxDecoration(color: Colors.white,borderRadius: BorderRadius.circular(10),),
-                     //   child: Column(
-                     //     children: [
-                     //       // Profile section
-                     //       Row(
-                     //         crossAxisAlignment: CrossAxisAlignment.start,
-                     //         children: [
-                     //           CircleAvatar(
-                     //             radius: 20,
-                     //             backgroundImage: AssetImage(characters[index].avatar??sun1),
-                     //           ),
-                     //           SizedBox(width: 10),
-                     //           Expanded(
-                     //             child: Column(
-                     //               crossAxisAlignment: CrossAxisAlignment.start,
-                     //               children: [
-                     //                 Row(
-                     //                   children: [
-                     //                     Text(
-                     //                       characters[index].title.toString(),
-                     //                       style: TextStyle(fontWeight: FontWeight.bold),
-                     //                     ),
-                     //                     SizedBox(width: 5),
-                     //                     Text(
-                     //                       ' ',
-                     //                       style: TextStyle(color: Colors.grey),
-                     //                     ),
-                     //                     Spacer(),
-                     //                     Icon(Icons.more_vert),
-                     //                   ],
-                     //                 ),
-                     //                 SizedBox(height: 5),
-                     //                 Text(
-                     //                   characters[index].description.toString(),
-                     //                 ),
-                     //               ],
-                     //             ),
-                     //           ),
-                     //         ],
-                     //       ),
-                     //       SizedBox(height: 10),
-                     //       // Action buttons
-                     //       Row(
-                     //         mainAxisAlignment: MainAxisAlignment.spaceAround,
-                     //         children: [
-                     //           Icon(Icons.chat_bubble_outline),
-                     //           Icon(Icons.repeat),
-                     //           Icon(Icons.favorite_border),
-                     //           Icon(Icons.share),
-                     //         ],
-                     //       ),
-                     //     ],
-                     //   ),
-                     // );
-                   },
-                   cardsCount: characters.length,),
+               constraints: BoxConstraints(
+                 maxHeight: Get.height*0.3,
+                 minHeight: Get.height*.015
                ),
+             // height:Get.height*0.55,
+               width: Get.width,
+               child:    CardSwiper(
+                 isLoop: true,
+                 scale: 0.9,
+                 numberOfCardsDisplayed: 6,
+                 backCardOffset: Offset(0,-40,),
+                 cardBuilder: (BuildContext context, int index, int horizontalOffsetPercentage,
+                     int verticalOffsetPercentage) {
+                   return
+                     PostWidget(
+                       username:characters[index].title.toString() ,
+                       profileImageUrl:characters[index].avatar.toString()  ,
+                       likes: 5,
+                       postImageUrl: characters[index].avatar.toString(),
+                       caption: characters[index].description.toString(),
+                     );
+                   //   Container(
+                   //   width: Get.width*0.7,
+                   //   height: Get.height*35,
+                   //   padding: const EdgeInsets.all(8.0),
+                   //   margin: EdgeInsets.all(10),
+                   //   decoration: BoxDecoration(color: Colors.white,borderRadius: BorderRadius.circular(10),),
+                   //   child: Column(
+                   //     children: [
+                   //       // Profile section
+                   //       Row(
+                   //         crossAxisAlignment: CrossAxisAlignment.start,
+                   //         children: [
+                   //           CircleAvatar(
+                   //             radius: 20,
+                   //             backgroundImage: AssetImage(characters[index].avatar??sun1),
+                   //           ),
+                   //           SizedBox(width: 10),
+                   //           Expanded(
+                   //             child: Column(
+                   //               crossAxisAlignment: CrossAxisAlignment.start,
+                   //               children: [
+                   //                 Row(
+                   //                   children: [
+                   //                     Text(
+                   //                       characters[index].title.toString(),
+                   //                       style: TextStyle(fontWeight: FontWeight.bold),
+                   //                     ),
+                   //                     SizedBox(width: 5),
+                   //                     Text(
+                   //                       ' ',
+                   //                       style: TextStyle(color: Colors.grey),
+                   //                     ),
+                   //                     Spacer(),
+                   //                     Icon(Icons.more_vert),
+                   //                   ],
+                   //                 ),
+                   //                 SizedBox(height: 5),
+                   //                 Text(
+                   //                   characters[index].description.toString(),
+                   //                 ),
+                   //               ],
+                   //             ),
+                   //           ),
+                   //         ],
+                   //       ),
+                   //       SizedBox(height: 10),
+                   //       // Action buttons
+                   //       Row(
+                   //         mainAxisAlignment: MainAxisAlignment.spaceAround,
+                   //         children: [
+                   //           Icon(Icons.chat_bubble_outline),
+                   //           Icon(Icons.repeat),
+                   //           Icon(Icons.favorite_border),
+                   //           Icon(Icons.share),
+                   //         ],
+                   //       ),
+                   //     ],
+                   //   ),
+                   // );
+                 },
+                 cardsCount: characters.length,),
              ),
              // Container(height:Get.height*0.6,child: ShrinkTopListPage()),
             ],
