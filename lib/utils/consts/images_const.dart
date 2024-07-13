@@ -5,9 +5,15 @@ const String intro2 = 'asset/images/intro2.jpg';
 const String intro3 = 'asset/images/intro3.jpg';
 const String intro4 = 'asset/images/intro4.jpg';
 const String intro5 = 'asset/images/intro5.jpg';
+
 const String dummyImage = 'asset/images/dummy_image.png';
 const String errorImage = 'asset/images/error_image.png';
 const String sun1 = 'asset/images/sun1.jpg';
+const String rashi1 = 'asset/images/rashi_cover.jpg';
+const String rashi2 = 'asset/images/rashi_cover2.jpg';
+const String rashi3 = 'asset/images/rashi_3.jpg';
+const String rashi4 = 'asset/images/rashi_4.jpg';
+const String rashi5 = 'asset/images/rashi_5.jpg';
 
 
 ///social login
@@ -26,4 +32,5 @@ const String birthDayWishes = 'asset/images/birthday_wish_image.webp';
 const String congratulationWishes = 'asset/images/congratulations_wish_image.jpg';
 const String marriageWishes = 'asset/images/marriage_wish_image.jpg';
 
-
+//lotties json
+const String giftbox = 'asset/icons/Animation - 1720867208224.json';

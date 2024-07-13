@@ -1,11 +1,15 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_card_swiper/flutter_card_swiper.dart';
 import 'package:get/get.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get_storage/get_storage.dart';
 import '../../../../utils/consts/images_const.dart';
 import '../../../../utils/routes/routes_const.dart';
+import '../../../../utils/widgets/shrink_wrap _top.dart';
+import '../../../../utils/widgets/util_widgets/instagram_post_screen.dart';
+import '../../guest_home/model/temp_guest_receive.dart';
 
 class GuestWishList extends StatefulWidget {
   final String title;
@@ -554,54 +558,155 @@ class _GuestWishListState extends State<GuestWishList>
           ),
         ],
       ),
-      body: Padding(
-        padding: const EdgeInsets.all(16.0),
-        child: Column(
-          children: [
-            Row(
-              children: [
-                CircleAvatar(
-                  backgroundImage: NetworkImage(
-                      'https://your-profile-picture-url.com'),
-                  radius: 24,
-                ),
-                SizedBox(width: 10),
-                Expanded(
-                  child: TextField(
-                    maxLines: null,
-                    decoration: InputDecoration(
-                      hintText: 'What’s happening?',
-                      border: InputBorder.none,
+      body:
+      Container(
+        decoration: BoxDecoration(
+          gradient: LinearGradient(
+              begin: Alignment.topCenter,
+              end: Alignment.bottomCenter,
+              colors: [
+                Color(0xff9467ff),
+                Color(0xffae8bff),
+                Color(0xffc7afff),
+                Color(0xffdfd2ff),
+                Color(0xfff2edff),
+              ]),
+        ),
+        child: Padding(
+          padding: const EdgeInsets.all(16.0),
+          child: Column(
+            children: [
+              Row(
+                children: [
+                  CircleAvatar(
+                    backgroundImage: NetworkImage(
+                        'https://your-profile-picture-url.com'),
+                    radius: 24,
+                  ),
+                  SizedBox(width: 10),
+                  Expanded(
+                    child: TextField(
+                      maxLines: null,
+                      decoration: InputDecoration(
+                        hintText: 'What’s happening?',
+                        border: InputBorder.none,
+                      ),
                     ),
                   ),
-                ),
-              ],
-            ),
-            SizedBox(height: 20),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                IconButton(
-                  icon: SvgPicture.asset('assets/icons/image.svg'),
-                  onPressed: () {
-                    // Action for adding an image
-                  },
-                ),
-                IconButton(
-                  icon: SvgPicture.asset('assets/icons/video.svg'),
-                  onPressed: () {
-                    // Action for adding a video
-                  },
-                ),
-                IconButton(
-                  icon: SvgPicture.asset('assets/icons/location.svg'),
-                  onPressed: () {
-                    // Action for adding location
-                  },
-                ),
-              ],
-            ),
-          ],
+                ],
+              ),
+              SizedBox(height: 20),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  IconButton(
+                    icon: SvgPicture.asset('assets/icons/image.svg'),
+                    onPressed: () {
+                      // Action for adding an image
+                    },
+                  ),
+                  IconButton(
+                    icon: SvgPicture.asset('assets/icons/video.svg'),
+                    onPressed: () {
+                      // Action for adding a video
+                    },
+                  ),
+                  IconButton(
+                    icon: SvgPicture.asset('assets/icons/location.svg'),
+                    onPressed: () {
+                      // Action for adding location
+                    },
+                  ),
+                ],
+              ),
+             Container(
+               // constraints: BoxConstraints(
+               //   maxHeight: Get.height*0.35,
+               //   minHeight: Get.height*.015
+               // ),
+              height:Get.height*0.35,
+               child:    Container(
+                 height: Get.height*.68,
+                 child: CardSwiper(
+                   isLoop: true,
+                   scale: 0.9,
+                   backCardOffset: Offset(25,80,),
+                   cardBuilder: (BuildContext context, int index, int horizontalOffsetPercentage,
+                       int verticalOffsetPercentage) {
+                     return
+                       PostWidget(
+                         username:characters[index].title.toString() ,
+                         profileImageUrl:characters[index].avatar.toString()  ,
+                         likes: 5,
+                         postImageUrl: characters[index].avatar.toString(),
+                         caption: characters[index].description.toString(),
+                       );
+                     //   Container(
+                     //   width: Get.width*0.7,
+                     //   height: Get.height*35,
+                     //   padding: const EdgeInsets.all(8.0),
+                     //   margin: EdgeInsets.all(10),
+                     //   decoration: BoxDecoration(color: Colors.white,borderRadius: BorderRadius.circular(10),),
+                     //   child: Column(
+                     //     children: [
+                     //       // Profile section
+                     //       Row(
+                     //         crossAxisAlignment: CrossAxisAlignment.start,
+                     //         children: [
+                     //           CircleAvatar(
+                     //             radius: 20,
+                     //             backgroundImage: AssetImage(characters[index].avatar??sun1),
+                     //           ),
+                     //           SizedBox(width: 10),
+                     //           Expanded(
+                     //             child: Column(
+                     //               crossAxisAlignment: CrossAxisAlignment.start,
+                     //               children: [
+                     //                 Row(
+                     //                   children: [
+                     //                     Text(
+                     //                       characters[index].title.toString(),
+                     //                       style: TextStyle(fontWeight: FontWeight.bold),
+                     //                     ),
+                     //                     SizedBox(width: 5),
+                     //                     Text(
+                     //                       ' ',
+                     //                       style: TextStyle(color: Colors.grey),
+                     //                     ),
+                     //                     Spacer(),
+                     //                     Icon(Icons.more_vert),
+                     //                   ],
+                     //                 ),
+                     //                 SizedBox(height: 5),
+                     //                 Text(
+                     //                   characters[index].description.toString(),
+                     //                 ),
+                     //               ],
+                     //             ),
+                     //           ),
+                     //         ],
+                     //       ),
+                     //       SizedBox(height: 10),
+                     //       // Action buttons
+                     //       Row(
+                     //         mainAxisAlignment: MainAxisAlignment.spaceAround,
+                     //         children: [
+                     //           Icon(Icons.chat_bubble_outline),
+                     //           Icon(Icons.repeat),
+                     //           Icon(Icons.favorite_border),
+                     //           Icon(Icons.share),
+                     //         ],
+                     //       ),
+                     //     ],
+                     //   ),
+                     // );
+                   },
+                   cardsCount: characters.length,),
+               ),
+             ),
+             // Container(height:Get.height*0.6,child: ShrinkTopListPage()),
+            ],
+          ),
         ),
       ),
     );

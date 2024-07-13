@@ -8,6 +8,7 @@ import 'package:where_hearts_meet/splash_module/util/splash_enum.dart';
 import 'package:where_hearts_meet/utils/consts/shared_pref_const.dart';
 import 'package:where_hearts_meet/utils/routes/routes_const.dart';
 
+import '../../guest/guest_dashboard/view/guest_splash_view.dart';
 import '../../onboarding_module/view/intro_screen.dart';
 import '../../onboarding_module/widgets/intro_widget.dart';
 import '../../onboarding_module/view/onboarding_view.dart';
@@ -33,7 +34,7 @@ class SplashController extends GetxController {
       if( GetStorage().read(onboarding)==true){
       //  Get.offAll(OnboardingScreen());
         if(GetStorage().read(isGuest)==true && login != null && login != ''){
-          Get.offAllNamed(RoutesConst.guestDashboard);
+          Get.offAllNamed(RoutesConst.guestCoverScreen);
         }
         else {
           Get.offAll(OnboardingScreen());

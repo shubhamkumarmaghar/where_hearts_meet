@@ -27,6 +27,7 @@ import '../../guest/guest_dashboard/guest_home/binding/guest_home_binding.dart';
 import '../../guest/guest_dashboard/guest_home/view/guest_home.dart';
 import '../../guest/guest_dashboard/view/guest_dashboard.dart';
 import '../../guest/guest_dashboard/view/guest_dashboard.dart';
+import '../../guest/guest_dashboard/view/guest_splash_view.dart';
 import '../../show_event_module/binding/created_event_list_binding.dart';
 import '../../profile_module/binding/edit_profile_binding.dart';
 import '../../profile_module/screens/add_people_screen.dart';
@@ -125,6 +126,11 @@ class AppRoutes {
         name: RoutesConst.guestDashboard,
         binding: GuestDashboardBinding(),
         page: () => const GuestDashboard(),
+      ),
+      GetPage(
+        name: RoutesConst.guestCoverScreen,
+        binding: GuestDashboardBinding(),
+        page: () => const GuestCoverScreen(),
       ),
     ];
   }
