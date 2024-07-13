@@ -47,7 +47,6 @@ class AuthApiService {
       return LoginResponseModel(message: 'failure');
     } else {
       final loginData = LoginResponseModel.fromJson(data);
-      log('dataaaaavvvv ${loginData.toJson()}');
       return loginData;
     }
   }

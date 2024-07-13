@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:where_hearts_meet/onboarding_module/repository/onboarding_repository.dart';
 
+import '../../utils/consts/color_const.dart';
 import 'onboarding_view.dart';
 import '../../utils/consts/images_const.dart';
 import '../widgets/intro_widget.dart';
@@ -17,41 +18,42 @@ class IntroScreen extends StatefulWidget {
 
 class _IntroScreenState extends State<IntroScreen> {
   RxInt dotIndicator = 0.obs;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: Obx(
-          ()=> Container(
+        () => Container(
           decoration: BoxDecoration(
             gradient: LinearGradient(
-                begin: Alignment.topCenter,
-                end: Alignment.bottomCenter,
-                colors: [
-                  Color(0xff9467ff),
-                  Color(0xffae8bff),
-                  Color(0xffc7afff),
-                  Color(0xffdfd2ff),
-                  Color(0xfff2edff),
-                ]),
+                begin: Alignment.topCenter, end: Alignment.bottomCenter, colors: backgroundGradientColors),
           ),
           child: Column(
             children: [
-              SizedBox(height: 26,),
-              Hero(tag: 'logo',
-              child: Image.asset(logo,height: 130,width: 130,)),
+              SizedBox(
+                height: 26,
+              ),
+              Hero(
+                  tag: 'logo',
+                  child: Image.asset(
+                    logo,
+                    height: 130,
+                    width: 130,
+                  )),
               Container(
-                height: Get.height*0.78,
+                height: Get.height * 0.78,
                 child: PageView.builder(
-                    itemCount: getOnboardingData().length,
-                    itemBuilder: (BuildContext context, index)  {
-                      var data = getOnboardingData()[index];
-                    return IntroWidget(onboardingModel: data,);
+                  itemCount: getOnboardingData().length,
+                  itemBuilder: (BuildContext context, index) {
+                    var data = getOnboardingData()[index];
+                    return IntroWidget(
+                      onboardingModel: data,
+                    );
                   },
-                    onPageChanged: (value) {
-              dotIndicator.value = value;
-              },
+                  onPageChanged: (value) {
+                    dotIndicator.value = value;
+                  },
                 ),
-
               ),
               DotsIndicator(
                 dotsCount: getOnboardingData().length,
@@ -62,8 +64,5 @@ class _IntroScreenState extends State<IntroScreen> {
         ),
       ),
     );
-
   }
-
-
 }

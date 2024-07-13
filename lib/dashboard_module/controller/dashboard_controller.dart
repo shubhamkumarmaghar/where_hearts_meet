@@ -6,6 +6,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:intl/intl.dart';
 import 'package:where_hearts_meet/utils/controller/base_controller.dart';
 
 import '../../auth_module/controller/login_controller.dart';
@@ -14,6 +15,7 @@ import '../../create_event_module/model/add_event_model.dart';
 import '../../profile_module/model/people_model.dart';
 import '../../utils/consts/color_const.dart';
 import '../../utils/dialogs/pop_up_dialogs.dart';
+import '../../utils/model/week_model.dart';
 import '../../utils/services/firebase_auth_controller.dart';
 import '../../utils/services/firebase_firestore_controller.dart';
 import '../../utils/services/firebase_storage_controller.dart';
@@ -31,6 +33,7 @@ class DashboardController extends BaseController {
   List<AddEventModel> currentUserEventList = [];
   final _mainHeight = Get.height;
   final _mainWidth = Get.width;
+  List<WeekModel> currentWeekDates = [];
 
   @override
   void onInit() {
@@ -39,12 +42,19 @@ class DashboardController extends BaseController {
     getEventList();
     eventConfettiController = ConfettiController(duration: const Duration(hours: 1));
     eventConfettiController.play();
+    getDatesForWeek();
   }
 
   Future<void> getPeopleList() async {
     showPeopleView.value = false;
     peopleList = await fireStoreController.getPeopleList();
     showPeopleView.value = true;
+  }
+
+  bool isCurrentDay({required String currentDay}) {
+    DateTime dateTime = DateTime.now();
+    final day = dateTime.day < 10 ? '0${dateTime.day}' : dateTime.day.toString();
+    return day == currentDay;
   }
 
   Future<void> getEventList() async {
@@ -124,8 +134,8 @@ class DashboardController extends BaseController {
       cancelDialog();
       cancelDialog();
       update();
-    }else{
-      showSnackBar(context: Get.context!,message: 'Already deleted...');
+    } else {
+      showSnackBar(context: Get.context!, message: 'Already deleted...');
     }
   }
 
@@ -156,5 +166,32 @@ class DashboardController extends BaseController {
   void onClose() {
     eventConfettiController.dispose();
     super.onClose();
+  }
+
+  void getDatesForWeek() {
+    final DateTime dateTime = DateTime.now();
+
+    int dayOfYear = int.parse(DateFormat("D").format(dateTime));
+    int weekNumber = ((dayOfYear - dateTime.weekday + 10) / 7).floor();
+
+    final DateTime firstDayOfYear = DateTime.utc(dateTime.year, 1, 1);
+    final int firstDayOfWeek = firstDayOfYear.weekday;
+    final int daysToFirstWeek = (8 - firstDayOfWeek) % 7;
+
+    final DateTime firstDayOfGivenWeek = firstDayOfYear.add(Duration(days: daysToFirstWeek + (weekNumber - 1) * 7));
+    List<WeekModel> weekList = [];
+    weekList.add(WeekModel(
+        date: firstDayOfGivenWeek.day < 10
+            ? '0${firstDayOfGivenWeek.day.toString()}'
+            : firstDayOfGivenWeek.day.toString(),
+        day: DateFormat('EEEE').format(firstDayOfGivenWeek)));
+
+    for (int i = 1; i < 7; i++) {
+      final DateTime date = firstDayOfGivenWeek.add(Duration(days: i));
+      weekList.add(WeekModel(
+          date: date.day < 10 ? '0${date.day.toString()}' : date.day.toString(), day: DateFormat('EEEE').format(date)));
+    }
+
+    currentWeekDates = weekList;
   }
 }

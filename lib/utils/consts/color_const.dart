@@ -24,6 +24,15 @@ const Color favColor = Color(0XFFFF0000);
 const Color greenTextColor = Color(0XFF7AB02A);
 const Color yellowColor = Color(0XFFFFF000);
 Color lightBlueGrey = Colors.blueGrey.shade500;
-const Color darkBlueColor =  Color(0xff1C2D3A);
+const Color darkBlueColor = Color(0xff1C2D3A);
 Color hintColor = const Color(0XFFCDCDCD);
 Color lightBgColor = const Color(0XFFEFEFF4);
+const Color contrastColor = Color(0xffFFD700);
+
+List<Color> get backgroundGradientColors => const [
+      Color(0xff9467ff),
+      Color(0xffae8bff),
+      Color(0xffc7afff),
+      Color(0xffdfd2ff),
+      Color(0xfff2edff),
+    ];
