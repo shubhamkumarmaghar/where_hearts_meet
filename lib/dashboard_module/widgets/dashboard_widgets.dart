@@ -1,13 +1,13 @@
-
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:where_hearts_meet/utils/consts/color_const.dart';
 
 Widget getDrawerContentWidget({required IconData icon, required String heading, required Function onTap}) {
   return InkWell(
     onTap: () => onTap(),
     child: Container(
-      height: Get.height*0.05,
+      height: Get.height * 0.05,
       color: whiteColor,
       child: Row(
         children: [
@@ -15,8 +15,8 @@ Widget getDrawerContentWidget({required IconData icon, required String heading, 
             width: Get.width * 0.03,
           ),
           Container(
-            height: Get.height*0.04,
-            width: Get.width*0.09,
+            height: Get.height * 0.04,
+            width: Get.width * 0.09,
             decoration: BoxDecoration(color: appColor1.withOpacity(0.1), borderRadius: BorderRadius.circular(5)),
             padding: const EdgeInsets.all(2),
             child: Icon(
@@ -28,10 +28,10 @@ Widget getDrawerContentWidget({required IconData icon, required String heading, 
           SizedBox(
             width: Get.width * 0.02,
           ),
-          Text(heading,style: const TextStyle(
-            fontSize: 16,
-            fontWeight: FontWeight.w500
-          ),),
+          Text(
+            heading,
+            style: const TextStyle(fontSize: 16, fontWeight: FontWeight.w500),
+          ),
           const Spacer(),
           const Icon(
             Icons.arrow_forward_ios,
@@ -45,4 +45,18 @@ Widget getDrawerContentWidget({required IconData icon, required String heading, 
       ),
     ),
   );
+}
+
+TextStyle get dashboardHeadingStyle {
+  return GoogleFonts.dangrek(
+      decoration: TextDecoration.none, color: Colors.white, fontWeight: FontWeight.w500, fontSize: 22);
+}
+
+LinearGradient get dashboardBackgroundGradient {
+  return const LinearGradient(begin: Alignment.topCenter, end: Alignment.bottomCenter, colors: [
+    primaryColor,
+    appColor1,
+    appColor2,
+    appColor3,
+  ]);
 }

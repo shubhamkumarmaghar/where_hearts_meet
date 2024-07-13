@@ -109,7 +109,8 @@ class LoginController extends BaseController {
   }
 
   Future<void> loginAndSignup({required String uid}) async {
-
+    Get.offAllNamed(RoutesConst.dashboardScreen);
+    return;
     showLoaderDialog(context: Get.context!);
     final response = await _authApiService.fetchLoginUser(phoneNumber: phoneNumberController.text, uid: uid);
     loginResponseModel = response;

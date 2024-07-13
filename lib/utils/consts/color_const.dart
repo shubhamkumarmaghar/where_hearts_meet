@@ -13,6 +13,7 @@ const Color appColor3 = Color(0xffdfd2ff);
 const Color appColor4 = Color(0xfff2edff);
 const Color appColor5 = Color(0XFFF6DAE4);
 const Color appColor6 = Color(0XFFFFCFF1);
+
 const Color goldColor = Color(0xffffbf00);
 const Color redColor = Colors.red;
 const Color whiteColor = Colors.white;
