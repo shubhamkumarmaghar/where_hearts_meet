@@ -6,14 +6,14 @@ import 'package:get/utils.dart';
 class PostWidget extends StatelessWidget {
   final String profileImageUrl;
   final String username;
-  final String postImageUrl;
+  final String? postImageUrl;
   final String caption;
   final int likes;
 
   PostWidget({
     required this.profileImageUrl,
     required this.username,
-    required this.postImageUrl,
+     this.postImageUrl,
     required this.caption,
     required this.likes,
   });
@@ -24,7 +24,7 @@ class PostWidget extends StatelessWidget {
       elevation: 5,
       margin: const EdgeInsets.symmetric(vertical: 10, horizontal: 15),
       child: Container(
-        width: Get.width*0.25,
+       // width: Get.width*0.25,
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -45,14 +45,14 @@ class PostWidget extends StatelessWidget {
                 ],
               ),
             ),
-            // Post image
-            AspectRatio(
-              aspectRatio: 1.5, // Square aspect ratio for the image
-              child: Image.asset(
-                postImageUrl,
-                fit: BoxFit.cover,
-              ),
-            ),
+
+           // if(postImageUrl != '') AspectRatio(
+           //    aspectRatio: 2, // Square aspect ratio for the image
+           //    child: Image.asset(
+           //      postImageUrl!,
+           //      fit: BoxFit.cover,
+           //    ),
+           //  ),
             // Post actions and caption
             Padding(
               padding: const EdgeInsets.all(8.0),
@@ -67,7 +67,11 @@ class PostWidget extends StatelessWidget {
                     ],
                   ),
                   SizedBox(height: 5),
-                  Text(caption),
+                  Container(
+                    constraints: BoxConstraints(
+                      maxHeight: Get.height*0.1
+                    ),
+                      child: Text(caption)),
                 ],
               ),
             ),
