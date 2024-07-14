@@ -26,7 +26,7 @@ class GuestHomeController extends BaseController {
     ),
   );
 
-  DateTime birthday = DateTime(2024, 7, 17); // Set your birthday date here
+  DateTime birthday = DateTime.now(); // Set your birthday date here
   Duration countdownDuration = Duration();
   Timer? countdownTimer;
 

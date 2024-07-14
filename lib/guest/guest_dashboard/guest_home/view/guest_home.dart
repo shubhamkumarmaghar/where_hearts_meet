@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_card_swiper/flutter_card_swiper.dart';
 import 'package:flutter_timer_countdown/flutter_timer_countdown.dart';
 import 'package:get/get.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:lottie/lottie.dart';
 import 'package:motion/motion.dart';
 import 'package:where_hearts_meet/utils/consts/app_screen_size.dart';
@@ -160,7 +161,6 @@ RxBool istrue = false.obs;
           ? Stack(
               children: [
                 Blur(blur: 5,
-
                   child:
                   Container(
                         width: Get.width,
@@ -182,9 +182,10 @@ RxBool istrue = false.obs;
                               Container(
                                 height: Get.height * 0.5,
                                 width: Get.width,
-                                decoration: const BoxDecoration(
+                                decoration: BoxDecoration(
                                     image: DecorationImage(
-                                        image: AssetImage(rashi2),
+                                        image:
+                                        NetworkImage(controller.eventDetails?.coverPic??'https://firebasestorage.googleapis.com/v0/b/where-hearts-meet.appspot.com/o/Black%20Minimalist%20Happy%20Birthday%20Poster%20(1).png?alt=media&token=13bada89-8df2-4c06-b98e-962a08ba929e'),
                                         fit: BoxFit.cover)),
                               ),
                               Positioned(
@@ -612,9 +613,9 @@ RxBool istrue = false.obs;
                           Container(
                             height: Get.height * 0.5,
                             width: Get.width,
-                            decoration: const BoxDecoration(
+                            decoration:  BoxDecoration(
                                 image: DecorationImage(
-                                    image: AssetImage(rashi2),
+                                   image: NetworkImage(controller.eventDetails?.coverPic??'https://firebasestorage.googleapis.com/v0/b/where-hearts-meet.appspot.com/o/Black%20Minimalist%20Happy%20Birthday%20Poster%20(1).png?alt=media&token=13bada89-8df2-4c06-b98e-962a08ba929e'),
                                     fit: BoxFit.cover)),
                           ),
                           Positioned(
@@ -632,19 +633,33 @@ RxBool istrue = false.obs;
                                   ))),
                           Positioned(
                               bottom: 10,
-                              left: Get.width * 0.23,
+                             // left: Get.width * 0.23,
+                              width: screenWidth,
                               child: Container(
+                                alignment: Alignment.bottomCenter,
                                 // height: MediaQuery.of(context).size.height * 0.5,
                                 // color: Colors.black.withOpacity(0.5),
-                                child: Center(
-                                  child: Text(
-                                    '${controller.countdownDuration.inDays}d ${controller.countdownDuration.inHours % 24}h ${controller.countdownDuration.inMinutes % 60}m ${controller.countdownDuration.inSeconds % 60}s',
-                                    style: TextStyle(
-                                      fontSize: 30,
-                                      color: Colors.white,
-                                      fontWeight: FontWeight.bold,
+                                child: Column(
+                                  children: [
+                                    Text(
+                                     'Time Left', style: GoogleFonts.dancingScript(
+                                        decoration: TextDecoration.none,
+                                        color: Colors.white,
+                                        fontWeight: FontWeight.w500,
+                                        fontSize: Get.height*0.03,
+                                      ),
                                     ),
-                                  ),
+                                    Text(
+                                      '${controller.countdownDuration.inDays}d ${controller.countdownDuration.inHours % 24}h ${controller.countdownDuration.inMinutes % 60}m ${controller.countdownDuration.inSeconds % 60}s',
+                                      style: GoogleFonts.dancingScript(
+                                        decoration: TextDecoration.none,
+                                        color: Colors.white,
+                                        fontWeight: FontWeight.w500,
+                                        fontSize: Get.height*0.03,
+
+                                      ),
+                                    ),
+                                  ],
                                 ),
                               )),
                         ],

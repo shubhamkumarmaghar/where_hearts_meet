@@ -1,6 +1,3 @@
-import 'dart:async';
-import 'dart:developer';
-
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -29,7 +26,7 @@ class _GuestDashboardState extends State<GuestDashboard> with TickerProviderStat
  @override
   void initState() {
     super.initState();
-    controller.getEventDetails('57_Birthday of my love Sunanda arya');
+
     _motionTabBarController = MotionTabBarController(
       initialIndex: 1,
       length: 3,
