@@ -5,6 +5,7 @@ import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:where_hearts_meet/utils/consts/app_screen_size.dart';
+import 'package:where_hearts_meet/utils/consts/images_const.dart';
 import 'package:where_hearts_meet/utils/widgets/circular_dotted_border.dart';
 
 import '../../utils/buttons/buttons.dart';
@@ -82,25 +83,29 @@ class CreateTimelineScreen extends StatelessWidget {
                                 padding: const EdgeInsets.all(5),
                                 child: ClipRRect(
                                   borderRadius: BorderRadius.circular(50),
-                                  child: Image.network(
-                                    controller.imagesList.first.fileUrl ?? '',
-                                    fit: BoxFit.cover,
-                                  ),
+                                  child: controller.imagesList.isNotEmpty
+                                      ? Image.network(
+                                          controller.imagesList.first.fileUrl ?? '',
+                                          fit: BoxFit.cover,
+                                        )
+                                      : Image.asset(dummyImage),
                                 ),
                               ),
                               radius: screenWidth * 0.11,
                             ),
-                            SizedBox(height: screenHeight*0.01,),
-                            const Text('Photos',style: TextStyle(
-                              fontSize: 16,
-                              fontWeight: FontWeight.w500,
-                              color: Colors.white
-                            ),),
+                            SizedBox(
+                              height: screenHeight * 0.01,
+                            ),
+                            const Text(
+                              'Photos',
+                              style: TextStyle(fontSize: 16, fontWeight: FontWeight.w500, color: Colors.white),
+                            ),
                           ],
                         ),
                       ),
-                      SizedBox(width: screenWidth*0.05,),
-
+                      SizedBox(
+                        width: screenWidth * 0.05,
+                      ),
                       Visibility(
                         visible: controller.videosList.isNotEmpty,
                         replacement: const SizedBox.shrink(),
@@ -123,12 +128,13 @@ class CreateTimelineScreen extends StatelessWidget {
                               ),
                               radius: screenWidth * 0.11,
                             ),
-                            SizedBox(height: screenHeight*0.01,),
-                            const Text('Videos',style: TextStyle(
-                                fontSize: 16,
-                                fontWeight: FontWeight.w500,
-                                color: Colors.white
-                            ),),
+                            SizedBox(
+                              height: screenHeight * 0.01,
+                            ),
+                            const Text(
+                              'Videos',
+                              style: TextStyle(fontSize: 16, fontWeight: FontWeight.w500, color: Colors.white),
+                            ),
                           ],
                         ),
                       )

@@ -6,6 +6,7 @@ import 'package:otp_text_field/otp_field_style.dart';
 import 'package:otp_text_field/style.dart';
 import 'package:where_hearts_meet/auth_module/controller/login_controller.dart';
 import 'package:where_hearts_meet/utils/consts/app_screen_size.dart';
+import 'package:where_hearts_meet/utils/util_functions/decoration_functions.dart';
 import '../../utils/consts/color_const.dart';
 import '../../utils/widgets/gradient_button.dart';
 
@@ -20,7 +21,10 @@ class LoginOtpScreen extends StatelessWidget {
       body: Container(
         height: screenHeight,
         width: screenWidth,
-        color: appColor3,
+
+        decoration: BoxDecoration(
+          gradient: backgroundGradient
+        ),
         padding: EdgeInsets.only(left: 16, right: 16, top: screenHeight * 0.08),
         child: SingleChildScrollView(
           child: Column(

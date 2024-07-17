@@ -44,7 +44,7 @@ class DottedCircularBorder extends StatelessWidget {
             ]
           : [
               //multiple status
-              colorWidth(radius + 2, totalNumber+1, separation(totalNumber)),
+              colorWidth(radius + 2, totalNumber, separation(totalNumber)),
               separation(totalNumber),
             ],
       strokeWidth: 3,

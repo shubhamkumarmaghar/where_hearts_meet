@@ -41,7 +41,7 @@ class CreateEventSplashScreen extends StatelessWidget {
                       Color(0xfff2edff),
                     ]),
                     image: controller.backgroundImage != null
-                        ? DecorationImage(image: NetworkImage(controller.backgroundImage!),fit: BoxFit.cover)
+                        ? DecorationImage(image: NetworkImage(controller.backgroundImage!), fit: BoxFit.cover)
                         : null,
                   ),
                 ),
@@ -63,24 +63,19 @@ class CreateEventSplashScreen extends StatelessWidget {
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.start,
                     children: [
-                      heightSpace(screenHeight * 0.05),
-                      InkWell(
-                        onTap: () async {
-                          final eventName =
-                              await showTextDialog(dialogTitle: 'Event Name', hintText: 'Enter event name');
-                          controller.eventModel.eventName = eventName;
-                          controller.update();
-                        },
-                        child: Container(
-                          //   color: Colors.amber,
-                          child: Text(
-                            controller.eventModel.eventName ?? 'Add Event Name',
-                            style: GoogleFonts.dancingScript(
-                                decoration: TextDecoration.none,
-                                color: Colors.black,
-                                fontWeight: FontWeight.w500,
-                                fontSize: 60),
-                          ),
+                      heightSpace(screenHeight * 0.08),
+                      Container(
+                        padding: EdgeInsets.symmetric(
+                          horizontal: 20
+                        ),
+                        //   color: Colors.amber,
+                        child: Text(
+                          controller.eventModel.eventName ?? 'Add Event Name',
+                          style: GoogleFonts.dancingScript(
+                              decoration: TextDecoration.none,
+                              color: Colors.black,
+                              fontWeight: FontWeight.w500,
+                              fontSize: 60),textAlign: TextAlign.center,
                         ),
                       ),
                       InkWell(
@@ -104,7 +99,7 @@ class CreateEventSplashScreen extends StatelessWidget {
                         ),
                       ),
                       heightSpace(
-                        screenHeight * 0.1,
+                        screenHeight * 0.05,
                       ),
                       InkWell(
                         onTap: () {
@@ -132,7 +127,7 @@ class CreateEventSplashScreen extends StatelessWidget {
                         ),
                       ),
                       heightSpace(
-                        screenHeight * 0.1,
+                        screenHeight * 0.06,
                       ),
                       GestureDetector(
                         onTap: () {

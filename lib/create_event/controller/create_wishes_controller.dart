@@ -5,7 +5,9 @@ import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:where_hearts_meet/create_event/model/event_response_model.dart';
+import 'package:where_hearts_meet/utils/consts/color_const.dart';
 import 'package:where_hearts_meet/utils/controller/base_controller.dart';
+import 'package:where_hearts_meet/utils/widgets/util_widgets/app_widgets.dart';
 
 import '../../utils/dialogs/pop_up_dialogs.dart';
 import '../../utils/model/image_response_model.dart';
@@ -100,6 +102,11 @@ class CreateWishesController extends BaseController {
     }
   }
   void navigateToCreateTimelineScreen(){
-    Get.toNamed(RoutesConst.createTimelineScreen, arguments: eventResponseModel);
+    if(wishesList.isNotEmpty){
+      Get.toNamed(RoutesConst.createTimelineScreen, arguments: eventResponseModel);
+    }else{
+      AppWidgets.getToast(message: 'Please add at least 1 wish',color: redColor);
+    }
+
   }
 }

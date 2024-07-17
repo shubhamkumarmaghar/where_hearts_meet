@@ -50,13 +50,11 @@ class CreateEventScreen extends StatelessWidget {
                     SizedBox(
                       height: screenHeight * 0.03,
                     ),
-                    Container(
-                      child: DesignerTextField(
-                          title: 'Person Name*',
-                          hint: 'enter name',
-                          onChanged: (text) {},
-                          controller: controller.nameController),
-                    ),
+                    DesignerTextField(
+                        title: 'Person Name*',
+                        hint: 'Enter name',
+                        onChanged: (text) {},
+                        controller: controller.nameController),
                     SizedBox(
                       height: screenHeight * 0.03,
                     ),
@@ -102,7 +100,11 @@ class CreateEventScreen extends StatelessWidget {
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
                             const Spacer(),
-                            Text(controller.selectedEventType.eventName ?? ''),
+                            Text(controller.selectedEventType.eventName ?? '',style: TextStyle(
+                              fontWeight: FontWeight.w500,
+                              fontSize: 16,
+                              color: primaryColor
+                            ),),
                             const Spacer(),
                             const Icon(Icons.arrow_drop_down),
                             SizedBox(

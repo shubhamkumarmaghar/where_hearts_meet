@@ -69,7 +69,7 @@ class CreateEventService {
     );
     final data = response;
 
-    if (data['message'].toString().toLowerCase().contains('Timeline created')) {
+    if (data['message'].toString().toLowerCase().contains('timeline created')) {
       AppWidgets.getToast(message: data['message'], color: greenTextColor);
       return data['message'];
     }
@@ -77,7 +77,7 @@ class CreateEventService {
   }
 
   Future<String> uploadVideoToAws({required File videoFile}) async {
-    final url = await FunctionsService.uploadFileToAWSS3(file: videoFile);
+    final url = await FunctionsService.uploadFileToAWS(file: videoFile);
     return url;
   }
 }

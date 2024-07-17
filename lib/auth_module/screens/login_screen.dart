@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:where_hearts_meet/auth_module/controller/login_controller.dart';
 import 'package:where_hearts_meet/utils/consts/app_screen_size.dart';
+import 'package:where_hearts_meet/utils/util_functions/decoration_functions.dart';
 import 'package:where_hearts_meet/utils/widgets/util_widgets/app_widgets.dart';
 import '../../utils/consts/color_const.dart';
 import '../../utils/consts/images_const.dart';
@@ -19,13 +20,14 @@ class LoginScreen extends StatelessWidget {
       body: GestureDetector(
         onTap: () => FocusScope.of(context).requestFocus(FocusNode()),
         child: Container(
-          decoration: const BoxDecoration(
+          decoration:  BoxDecoration(
               image: DecorationImage(
             image: NetworkImage(
               'https://i.pinimg.com/736x/f3/92/36/f39236b33a8c21d6dd704299af0146b7.jpg',
             ),
             fit: BoxFit.cover,
-          )),
+          ),
+        ),
           height: screenHeight,
           width: screenWidth,
           child: SingleChildScrollView(
@@ -34,21 +36,19 @@ class LoginScreen extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 SizedBox(
-                  height: screenHeight*0.15,
+                  height: screenHeight * 0.15,
                 ),
                 Image.asset(
                   logo,
-                  height: screenHeight*0.2,
-                  width: screenWidth*0.4,
+                  height: screenHeight * 0.2,
+                  width: screenWidth * 0.4,
                 ),
                 Container(
-                  height: screenHeight*0.4,
+                  height: screenHeight * 0.4,
                   margin: EdgeInsets.only(left: screenWidth * 0.07, right: screenWidth * 0.07),
                   width: screenWidth,
                   decoration: BoxDecoration(
-                    border: Border.all(
-                      color: Colors.grey.shade200
-                    ),
+                    border: Border.all(color: Colors.grey.shade200),
                     color: Colors.white,
                     borderRadius: BorderRadius.circular(20),
                     boxShadow: [
@@ -120,20 +120,19 @@ class LoginScreen extends StatelessWidget {
                             textAlign: TextAlign.center,
                             style: TextStyle(fontSize: 14, fontWeight: FontWeight.w600, color: Colors.black),
                           )),
-                       SizedBox(
-                        height: screenHeight*0.05,
+                      SizedBox(
+                        height: screenHeight * 0.05,
                       ),
                       InkWell(
                         onTap: controller.verifyPhoneNumber,
                         child: Container(
                           height: 55,
-                          width: screenWidth*0.7,
+                          width: screenWidth * 0.7,
                           alignment: Alignment.center,
                           decoration: BoxDecoration(
                             color: primaryColor,
                             borderRadius: BorderRadius.circular(10),
                             boxShadow: [
-
                               BoxShadow(
                                 color: primaryColor.withOpacity(0.8),
                                 offset: Offset(6.0, 6.0),
@@ -141,18 +140,17 @@ class LoginScreen extends StatelessWidget {
                               ),
                             ],
                           ),
-                          child: Text('Submit',style: TextStyle(
-                            color: Colors.white,
-                            fontSize: 16,
-                            fontWeight: FontWeight.w600
-                          ),),
+                          child: Text(
+                            'Submit',
+                            style: TextStyle(color: Colors.white, fontSize: 16, fontWeight: FontWeight.w600),
+                          ),
                         ),
                       )
                     ],
                   ),
                 ),
                 SizedBox(
-                  height: screenHeight*0.12,
+                  height: screenHeight * 0.12,
                 ),
                 GestureDetector(
                   onTap: () {
@@ -162,7 +160,7 @@ class LoginScreen extends StatelessWidget {
                     height: 55,
                     width: 280,
                     decoration: BoxDecoration(
-                     border: Border.all(color: Colors.grey.shade200),
+                      border: Border.all(color: Colors.grey.shade200),
                       color: Colors.white,
                       borderRadius: BorderRadius.circular(50),
                       boxShadow: [
@@ -201,17 +199,6 @@ class LoginScreen extends StatelessWidget {
             ),
           ),
         ),
-      ),
-    );
-  }
-
-  Widget getLoginBackground() {
-    return SizedBox(
-      height: screenHeight,
-      width: screenWidth,
-      child: Image.network(
-        'https://i.pinimg.com/736x/f3/92/36/f39236b33a8c21d6dd704299af0146b7.jpg',
-        fit: BoxFit.cover,
       ),
     );
   }

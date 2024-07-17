@@ -26,22 +26,17 @@ class SplashController extends GetxController {
 
     final String? login = GetStorage().read(token);
 
-
     if (login != null && login != '' && GetStorage().read(isGuest) != true) {
-
       Get.offAllNamed(RoutesConst.dashboardScreen);
     } else {
-      if( GetStorage().read(onboarding)==true){
-      //  Get.offAll(OnboardingScreen());
-        if(GetStorage().read(isGuest)==true && login != null && login != ''){
-          Get.offAllNamed(RoutesConst.guestCoverScreen);
-        }
-        else {
-          Get.offAllNamed(RoutesConst.dashboardScreen);
+      if (GetStorage().read(onboarding) == true) {
         //  Get.offAll(OnboardingScreen());
+        if (GetStorage().read(isGuest) == true && login != null && login != '') {
+          Get.offAllNamed(RoutesConst.guestCoverScreen);
+        } else {
+          Get.offAll(OnboardingScreen());
         }
-      }
-      else {
+      } else {
         Get.offAll(const IntroScreen());
       }
     }
