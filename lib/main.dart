@@ -55,9 +55,9 @@ class MyApp extends StatelessWidget {
         fontFamily: 'PlusJakartaSans',
         primarySwatch: getMaterialColor(primaryColor),
       ),
-     initialRoute: RoutesConst.dashboardScreen,
-     //  home:
-     // const SplashScreen(),
+     //initialRoute: RoutesConst.dashboardScreen,
+      home:
+     const SplashScreen(),
     );
   }
   MaterialColor getMaterialColor(Color color) {
