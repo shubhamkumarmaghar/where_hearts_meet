@@ -3,6 +3,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get/utils.dart';
+import 'package:where_hearts_meet/utils/widgets/custom_photo_view.dart';
 
 import '../video_player.dart';
 
@@ -38,10 +39,15 @@ class PostWidget extends StatelessWidget {
               padding: const EdgeInsets.all(8.0),
               child: Row(
                 children: [
-                  CircleAvatar(
-                    backgroundImage:
-                    NetworkImage(profileImageUrl),
-                    radius: 20,
+                  GestureDetector(
+                    onTap: (){
+                      Get.to(CustomPhotoView(imageUrl: profileImageUrl));
+                    },
+                    child: CircleAvatar(
+                      backgroundImage:
+                      NetworkImage(profileImageUrl),
+                      radius: 20,
+                    ),
                   ),
                   SizedBox(width: 10),
                   Text(
@@ -54,30 +60,29 @@ class PostWidget extends StatelessWidget {
 
          if(postImageUrl != null) Visibility(
             visible: postImageUrl!.isNotEmpty,
-            child: AspectRatio(
-                aspectRatio: 2, // Square aspect ratio for the image
-                child: CarouselSlider(
-                  items: postImageUrl?.map((url) => Container(
-                    width: Get.width,
-                    child: Image.network(
-                      url,
-                      fit: BoxFit.cover,
-                    ),
-                  ), ).toList(),
-                  options: CarouselOptions(
-                      //height: Get.height * 0.295,
-
-                      // enlargeCenterPage: true,
-                      autoPlay: false,
-                      //aspectRatio: 16 / 9,
-                      autoPlayCurve: Curves.fastOutSlowIn,
-                      enableInfiniteScroll: false,
-                      autoPlayAnimationDuration:
-                      Duration(milliseconds: 800),
-                      viewportFraction: 1),
+            child: CarouselSlider(
+              items: postImageUrl?.map((url) => AspectRatio(
+                aspectRatio: 4,
+                child: Container(
+                  width: Get.width,
+                  child: Image.network(
+                    url,
+                    fit: BoxFit.cover,
+                  ),
                 ),
+              ), ).toList(),
+              options: CarouselOptions(
+                  height: Get.height * 0.4,
 
-              ),
+                  // enlargeCenterPage: true,
+                  autoPlay: false,
+                  //aspectRatio: 16 / 9,
+                  autoPlayCurve: Curves.fastOutSlowIn,
+                  enableInfiniteScroll: false,
+                  autoPlayAnimationDuration:
+                  Duration(milliseconds: 800),
+                  viewportFraction: 1),
+            ),
           ),
           // Post actions and caption
             Padding(

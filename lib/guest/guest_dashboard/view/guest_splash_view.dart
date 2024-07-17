@@ -65,8 +65,9 @@ class _GuestCoverScreenState extends State<GuestCoverScreen> {
   }
 
   Future<void> getData() async {
-    await controller.getEventDetails('69_Happy Birthday');
-    await controller.getEventWishes('69_Happy Birthday');
+    await controller.getEventDetails('80_Happy Birthday');
+    await controller.getEventWishes('80_Happy Birthday');
+    await controller.getTimelineWishes('80_Happy Birthday');
     await textAnimation();
     controller.birthday = DateTime.parse(controller.eventDetails?.eventHostDay??'2024-10-30 18:30:00.000Z');
   }
@@ -95,7 +96,7 @@ class _GuestCoverScreenState extends State<GuestCoverScreen> {
                     Color(0xfff2edff),
                   ]),
               image: DecorationImage(
-              image:  NetworkImage(controller.eventDetails?.splashDisplayImage??'https://firebasestorage.googleapis.com/v0/b/where-hearts-meet.appspot.com/o/Black%20Minimalist%20Happy%20Birthday%20Poster%20(1).png?alt=media&token=13bada89-8df2-4c06-b98e-962a08ba929e'),
+              image:  NetworkImage(controller.eventDetails?.splashBackgroundImage??'https://firebasestorage.googleapis.com/v0/b/where-hearts-meet.appspot.com/o/Black%20Minimalist%20Happy%20Birthday%20Poster%20(1).png?alt=media&token=13bada89-8df2-4c06-b98e-962a08ba929e'),
 
                 fit: BoxFit.cover,
               ),
@@ -127,18 +128,18 @@ class _GuestCoverScreenState extends State<GuestCoverScreen> {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.start,
             children: [
-              heightSpace(screenHeight*0.02),
+              heightSpace(screenHeight*0.04),
               FittedBox(
                 child: Container(
                  width: Get.width,
-                  height: Get.height*0.15,
+                  height: Get.height*0.13,
                   child: Text(
                     ' $textTitle ',
                     style: GoogleFonts.dancingScript(
                         decoration: TextDecoration.none,
                         color: Colors.black,
                         fontWeight: FontWeight.w500,
-                      fontSize: Get.height*0.05,
+                      fontSize: Get.height*0.06,
 
                         ),
                     maxLines: 2,
@@ -156,12 +157,12 @@ class _GuestCoverScreenState extends State<GuestCoverScreen> {
                       color: Colors.pinkAccent.shade200,
                       fontWeight: FontWeight.w800,
                       height: 0.8,
-                      fontSize: 80),
+                      fontSize: Get.height*0.1,),
                   textAlign: TextAlign.start,
                 ),
               ),
               heightSpace(
-                screenHeight * 0.3,
+                screenHeight * 0.28,
               ),
               Container(
                 alignment: Alignment.center,
@@ -228,9 +229,23 @@ class _GuestCoverScreenState extends State<GuestCoverScreen> {
           ),
         ),
       ],
-    ):Center(
-          child: CircularProgressIndicator(
-            color: primaryColor,
-          ));
+    ):Container(
+        decoration: BoxDecoration(
+          gradient: LinearGradient(
+              begin: Alignment.topCenter,
+              end: Alignment.bottomCenter,
+              colors: [
+                Color(0xff9467ff),
+                Color(0xffae8bff),
+                Color(0xffc7afff),
+                Color(0xffdfd2ff),
+                Color(0xfff2edff),
+              ]),
+        ),
+      child: Center(
+            child: CircularProgressIndicator(
+              color: primaryColor,
+            )),
+    );
   }
 }

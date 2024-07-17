@@ -8,8 +8,8 @@ import '../../../../utils/widgets/util_widgets/instagram_post_screen.dart';
 import '../../guest_home/controller/guest_home_controller.dart';
 
 class GuestWishList extends StatefulWidget {
-  final String title;
-   GuestWishList({Key? key, required this.title}) : super(key: key);
+
+   GuestWishList({Key? key,}) : super(key: key);
 
 
   @override
@@ -42,7 +42,7 @@ class _GuestWishListState extends State<GuestWishList>
              Center(
                child: Text('Wishes', style: GoogleFonts.dancingScript(
                   decoration: TextDecoration.none,
-                  color: Colors.black,
+                  color: Colors.white,
                   fontWeight: FontWeight.w700,
                   fontSize: 50),),
              ),

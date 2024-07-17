@@ -4,14 +4,17 @@ import 'package:clay_containers/clay_containers.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:get_storage/get_storage.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:where_hearts_meet/create_event/model/event_response_model.dart';
 import 'package:where_hearts_meet/dashboard_module/controller/dashboard_controller.dart';
+import 'package:where_hearts_meet/onboarding_module/view/onboarding_view.dart';
 import 'package:where_hearts_meet/profile_module/model/people_model.dart';
 import 'package:where_hearts_meet/utils/consts/color_const.dart';
 import 'package:where_hearts_meet/utils/consts/images_const.dart';
 import 'package:where_hearts_meet/utils/model/dropdown_model.dart';
 import 'package:where_hearts_meet/utils/repository/wishes_card_data.dart';
+import 'package:where_hearts_meet/utils/routes/app_routes.dart';
 import 'package:where_hearts_meet/utils/routes/routes_const.dart';
 import 'package:where_hearts_meet/utils/widgets/event_card.dart';
 import '../../utils/consts/app_screen_size.dart';
@@ -51,10 +54,16 @@ class DashboardScreen extends StatelessWidget {
                   Row(
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
-                      Container(
-                        height: screenHeight * 0.08,
-                        child: Image.asset(
-                          logo,
+                      GestureDetector(
+                        onTap: (){
+                          GetStorage().erase();
+                          Get.offAll(OnboardingScreen());
+                        },
+                        child: Container(
+                          height: screenHeight * 0.08,
+                          child: Image.asset(
+                            logo,
+                          ),
                         ),
                       ),
                       SizedBox(

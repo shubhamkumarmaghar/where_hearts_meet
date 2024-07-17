@@ -4,6 +4,7 @@ import 'dart:developer';
 import '../../../../show_event_module/model/event_details_model.dart';
 import '../../../../utils/consts/api_urls.dart';
 import '../../../../utils/services/api_service.dart';
+import '../../model/timeline_model.dart';
 import '../../model/wisheh_model.dart';
 
 class GuestReceiveService {
@@ -46,6 +47,26 @@ class GuestReceiveService {
       return WishesModel.fromJson(data);
     } else {
       return WishesModel();
+    }
+
+  }
+
+  Future<TimeLineModel>getTimeline({required String eventId}) async {
+    String url = AppUrls.eventTimelineUrl;
+
+    final response = await _apiService.getApiCall(
+      url: url,
+      queryParams:{
+        'event_id': eventId,
+      } ,
+
+    );
+    final data = response;
+
+    if (data['message'].toString().toLowerCase().contains('timeline found successfully')) {
+      return TimeLineModel.fromJson(data);
+    } else {
+      return TimeLineModel(message: 'Failure');
     }
 
   }

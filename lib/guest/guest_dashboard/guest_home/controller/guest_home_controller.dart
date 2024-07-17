@@ -12,6 +12,7 @@ import 'package:youtube_player_flutter/youtube_player_flutter.dart';
 
 import '../../../../show_event_module/model/event_details_model.dart';
 import '../../../../utils/controller/base_controller.dart';
+import '../../model/timeline_model.dart';
 import '../service/guest_receive_event.dart';
 
 class GuestHomeController extends BaseController {
@@ -35,6 +36,7 @@ class GuestHomeController extends BaseController {
   late ConfettiController homeConfettiController;
   EventDetailsModel? eventDetails;
   Rx<WishesModel> guestwishesModel = WishesModel().obs;
+  Rx<TimeLineModel> timeLineModel = TimeLineModel().obs;
   RxBool isLoading = true.obs;
   RxString infoText = RxString('');
   GuestReceiveService _guestReceiveService = GuestReceiveService();
@@ -51,7 +53,7 @@ class GuestHomeController extends BaseController {
 
   Future<void> getEventDetails(String eventId) async {
     setBusy(true);
-    eventDetails = await _guestReceiveService.getEventDetails(eventId: eventId, mobileNo: '9986142678');
+    eventDetails = await _guestReceiveService.getEventDetails(eventId: eventId, mobileNo: '8853583188');
     setBusy(false);
     showDescription();
     update();
@@ -60,6 +62,11 @@ class GuestHomeController extends BaseController {
   Future<void> getEventWishes(String eventId) async{
     guestwishesModel.value = await _guestReceiveService.getWishesList(eventId: eventId);
     log('Data ${guestwishesModel.value?.data?.length}');
+    update();
+  }
+  Future<void> getTimelineWishes(String eventId) async{
+    timeLineModel.value = await _guestReceiveService.getTimeline(eventId: eventId);
+    log('timeline Data ${timeLineModel.value?.data?.length}');
     update();
   }
 

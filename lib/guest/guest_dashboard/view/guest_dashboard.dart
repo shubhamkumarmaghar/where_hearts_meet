@@ -44,14 +44,15 @@ class _GuestDashboardState extends State<GuestDashboard> with TickerProviderStat
       controller: _motionTabBarController,
       children: <Widget>[
          Center(
-          child: VideoPlayerWidget(url: 'https://media.geeksforgeeks.org/wp-content/uploads/20230924220731/video.mp4'),
+          child:GuestTimeLine(),
+          //VideoPlayerWidget(url: 'https://media.geeksforgeeks.org/wp-content/uploads/20230924220731/video.mp4'),
 
         ),
         const Center(
           child:GuestHome(),
         ),
          Center(
-          child:GuestWishList(title: '',),
+          child:GuestWishList(),
         ),
       ],
     ),
