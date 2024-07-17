@@ -1,8 +1,10 @@
-import 'package:get_storage/get_storage.dart';
+
+import 'dart:developer';
 
 import '../../../../show_event_module/model/event_details_model.dart';
 import '../../../../utils/consts/api_urls.dart';
 import '../../../../utils/services/api_service.dart';
+import '../../model/wisheh_model.dart';
 
 class GuestReceiveService {
   final ApiService _apiService = ApiService();
@@ -26,5 +28,25 @@ class GuestReceiveService {
     } else {
       return EventDetailsModel(eventid: '-1');
     }
+  }
+
+  Future<WishesModel>getWishesList({required String eventId}) async {
+    String url = AppUrls.receiveWishsUrl;
+
+    final response = await _apiService.getApiCall(
+      url: url,
+      queryParams:{
+        'event_id': eventId,
+      } ,
+
+    );
+    final data = response;
+
+    if (data['message'].toString().toLowerCase().contains('wishes found successfully')) {
+      return WishesModel.fromJson(data);
+    } else {
+      return WishesModel();
+    }
+
   }
 }

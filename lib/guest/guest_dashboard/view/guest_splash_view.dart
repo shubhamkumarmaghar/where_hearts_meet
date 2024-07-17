@@ -65,7 +65,8 @@ class _GuestCoverScreenState extends State<GuestCoverScreen> {
   }
 
   Future<void> getData() async {
-    await controller.getEventDetails('57_Birthday of my love Sunanda arya');
+    await controller.getEventDetails('69_Happy Birthday');
+    await controller.getEventWishes('69_Happy Birthday');
     await textAnimation();
     controller.birthday = DateTime.parse(controller.eventDetails?.eventHostDay??'2024-10-30 18:30:00.000Z');
   }

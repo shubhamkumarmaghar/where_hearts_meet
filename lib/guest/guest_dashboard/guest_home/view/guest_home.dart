@@ -1,24 +1,20 @@
 import 'dart:async';
+import 'dart:developer';
 
 import 'package:blur/blur.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_card_swiper/flutter_card_swiper.dart';
-import 'package:flutter_timer_countdown/flutter_timer_countdown.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:lottie/lottie.dart';
-import 'package:motion/motion.dart';
 import 'package:where_hearts_meet/utils/consts/app_screen_size.dart';
 import 'package:where_hearts_meet/utils/consts/color_const.dart';
 import 'package:where_hearts_meet/utils/consts/images_const.dart';
-
 import '../../../../utils/consts/confetti_shape_enum.dart';
-import '../../../../utils/dialogs/pop_up_dialogs.dart';
 import '../../../../utils/widgets/confetti_view.dart';
 import '../../../../utils/widgets/util_widgets/instagram_post_screen.dart';
+
 import '../controller/guest_home_controller.dart';
-import '../model/temp_guest_receive.dart';
 
 class GuestHome extends StatefulWidget {
   const GuestHome({super.key});
@@ -28,8 +24,6 @@ class GuestHome extends StatefulWidget {
 }
 
 class _GuestHomeState extends State<GuestHome> with TickerProviderStateMixin {
-  final _mainHeight = Get.height;
-  final _mainWidth = Get.width;
   final controller = Get.find<GuestHomeController>();
 RxBool istrue = false.obs;
   late AnimationController firstController;
@@ -64,7 +58,7 @@ RxBool istrue = false.obs;
       });
 
     secondController = AnimationController(
-        vsync: this, duration: Duration(milliseconds: 1500));
+        vsync: this, duration: const Duration(milliseconds: 1500));
     secondAnimation = Tween<double>(begin: 1.8, end: 2.4).animate(
         CurvedAnimation(parent: secondController, curve: Curves.easeInOut))
       ..addListener(() {
@@ -94,7 +88,7 @@ RxBool istrue = false.obs;
       });
 
     fourthController = AnimationController(
-        vsync: this, duration: Duration(milliseconds: 1500));
+        vsync: this, duration: const Duration(milliseconds: 1500));
     fourthAnimation = Tween<double>(begin: 1.9, end: 2.1).animate(
         CurvedAnimation(parent: fourthController, curve: Curves.easeInOut))
       ..addListener(() {
@@ -121,6 +115,7 @@ RxBool istrue = false.obs;
     });
 
     fourthController.forward();
+    log('${controller.guestwishesModel.value!.data?[0].senderMessage}');
   }
 
   @override
@@ -136,24 +131,31 @@ RxBool istrue = false.obs;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      floatingActionButton: GestureDetector(
-        onTap: () {},
-        child: GestureDetector(
-          onTap: (){
-            istrue.value = istrue.value != true ?true:false;
-            controller.update();
-          },
-          child: Padding(
-            padding: const EdgeInsets.all(16.0),
-            child: CircleAvatar(
-                backgroundColor: Colors.red.withOpacity(0.3),
-                child: Icon(
-                  Icons.favorite,
-                  color: Colors.red,
-                  size: 24,
-                )),
+      extendBody: true,
+      floatingActionButton: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          Padding(
+            padding: const EdgeInsets.only(left: 16.0),
+            child: Lottie.asset(giftbox,
+              height: screenHeight*0.12,
+              width: screenHeight*0.12, ),
           ),
-        ),
+          GestureDetector(
+            onTap: (){
+              log('${controller.guestwishesModel.value!.data?[0].senderMessage}');
+              istrue.value = istrue.value != true ?true:false;
+              controller.update();
+            },
+            child: Padding(
+              padding: const EdgeInsets.all(1.0),
+              child: Lottie.network(
+                  height: screenHeight*0.14,
+                  width: screenHeight*0.14,
+                  'https://lottie.host/1b6d706a-c23b-418b-b200-c6c0fa0f77dd/Fcls9Pt6Vo.json'),
+            ),
+          ),
+        ],
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.endTop,
       floatingActionButtonAnimator: FloatingActionButtonAnimator.scaling,
@@ -682,7 +684,7 @@ RxBool istrue = false.obs;
                                     child: Container(
                                       width: screenWidth*0.4,
                                       padding: EdgeInsets.all(15.0),
-                                      child:   Column(
+                                      child:   const Column(
                                         crossAxisAlignment:
                                         CrossAxisAlignment.start,
                                         children: <Widget>[
@@ -1050,80 +1052,21 @@ RxBool istrue = false.obs;
                     child:    CardSwiper(
                       isLoop: true,
                       scale: 0.9,
-                      numberOfCardsDisplayed: 5,
-                      backCardOffset: Offset(0,-50,),
-
+                      numberOfCardsDisplayed: controller.guestwishesModel.value.data!.length >5 ?5:controller.guestwishesModel.value.data!.length,
+                      backCardOffset: const Offset(0,-50,),
                       cardBuilder: (BuildContext context, int index, int horizontalOffsetPercentage,
                           int verticalOffsetPercentage) {
+                        var data = controller.guestwishesModel.value.data?[index];
                         return
                           PostWidget(
-                            username:characters[index].title.toString() ,
-                            profileImageUrl:characters[index].avatar.toString()  ,
+                            username:data!.senderName??"" ,
+                            profileImageUrl:data.senderProfileImage??""  ,
                             likes: 5,
-                            postImageUrl: characters[index].avatar.toString(),
-                            caption: characters[index].description.toString(),
+                            //postImageUrl: data.imageUrls??[],
+                            caption: data.senderMessage??"",
                           );
-                        //   Container(
-                        //   width: Get.width*0.7,
-                        //   height: Get.height*35,
-                        //   padding: const EdgeInsets.all(8.0),
-                        //   margin: EdgeInsets.all(10),
-                        //   decoration: BoxDecoration(color: Colors.white,borderRadius: BorderRadius.circular(10),),
-                        //   child: Column(
-                        //     children: [
-                        //       // Profile section
-                        //       Row(
-                        //         crossAxisAlignment: CrossAxisAlignment.start,
-                        //         children: [
-                        //           CircleAvatar(
-                        //             radius: 20,
-                        //             backgroundImage: AssetImage(characters[index].avatar??sun1),
-                        //           ),
-                        //           SizedBox(width: 10),
-                        //           Expanded(
-                        //             child: Column(
-                        //               crossAxisAlignment: CrossAxisAlignment.start,
-                        //               children: [
-                        //                 Row(
-                        //                   children: [
-                        //                     Text(
-                        //                       characters[index].title.toString(),
-                        //                       style: TextStyle(fontWeight: FontWeight.bold),
-                        //                     ),
-                        //                     SizedBox(width: 5),
-                        //                     Text(
-                        //                       ' ',
-                        //                       style: TextStyle(color: Colors.grey),
-                        //                     ),
-                        //                     Spacer(),
-                        //                     Icon(Icons.more_vert),
-                        //                   ],
-                        //                 ),
-                        //                 SizedBox(height: 5),
-                        //                 Text(
-                        //                   characters[index].description.toString(),
-                        //                 ),
-                        //               ],
-                        //             ),
-                        //           ),
-                        //         ],
-                        //       ),
-                        //       SizedBox(height: 10),
-                        //       // Action buttons
-                        //       Row(
-                        //         mainAxisAlignment: MainAxisAlignment.spaceAround,
-                        //         children: [
-                        //           Icon(Icons.chat_bubble_outline),
-                        //           Icon(Icons.repeat),
-                        //           Icon(Icons.favorite_border),
-                        //           Icon(Icons.share),
-                        //         ],
-                        //       ),
-                        //     ],
-                        //   ),
-                        // );
                       },
-                      cardsCount: characters.length,),
+                      cardsCount: controller.guestwishesModel.value.data!.length??1),
                   ),
                 ):Container(),
                 ConfettiView(
