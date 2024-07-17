@@ -21,6 +21,9 @@ import '../../utils/dialogs/pop_up_dialogs.dart';
 import '../../utils/util_functions/decoration_functions.dart';
 import '../../utils/widgets/mini_user_card.dart';
 import '../widgets/dashboard_widgets.dart';
+import 'dashboard_drawer_screen.dart';
+
+final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
 
 class DashboardScreen extends StatelessWidget {
   final controller = DashboardController();
@@ -33,16 +36,14 @@ class DashboardScreen extends StatelessWidget {
       init: DashboardController(),
       builder: (controller) {
         return Scaffold(
-          // drawer: DashboardDrawerScreen(dashboardController: controller),
+          key: _scaffoldKey,
+          endDrawer: DashboardDrawerScreen(dashboardController: controller),
+
           body: Container(
             height: screenHeight,
             width: screenWidth,
             decoration: BoxDecoration(
               gradient: backgroundGradient,
-              // image: DecorationImage(
-              //   image: AssetImage(dashboardBackground),
-              //   fit: BoxFit.cover,
-              // ),
             ),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -70,18 +71,23 @@ class DashboardScreen extends StatelessWidget {
                           fontWeight: FontWeight.w500,
                           fontSize: 22),
                     ),
-                    Spacer(),
-                    Container(
-                      margin: EdgeInsets.only(right: screenWidth * 0.04),
-                      child: const ClayContainer(
-                        borderRadius: 50,
-                        color: primaryColor,
-                        height: 45,
-                        width: 45,
-                        child: Icon(
-                          Icons.dashboard,
-                          color: Colors.white,
-                          size: 24,
+                    const Spacer(),
+                    GestureDetector(
+                      onTap: () {
+                        _scaffoldKey.currentState!.openEndDrawer();
+                      },
+                      child: Container(
+                        margin: EdgeInsets.only(right: screenWidth * 0.04),
+                        child: const ClayContainer(
+                          borderRadius: 50,
+                          color: primaryColor,
+                          height: 45,
+                          width: 45,
+                          child: Icon(
+                            Icons.dashboard,
+                            color: Colors.white,
+                            size: 24,
+                          ),
                         ),
                       ),
                     ),
@@ -190,7 +196,24 @@ class DashboardScreen extends StatelessWidget {
                         SizedBox(
                             height: screenHeight * 0.4,
                             width: screenWidth,
-                            child: getEventCard(context: context, eventsList: controller.eventListCreatedBySelf)),
+                            child: getEventCard(context: context, eventsList: controller.eventListCreatedByUser)),
+                        SizedBox(
+                          height: screenHeight * 0.04,
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.symmetric(horizontal: 16),
+                          child: Text(
+                            "Wishes created for you",
+                            style: dashboardHeadingStyle,
+                          ),
+                        ),
+                        SizedBox(
+                          height: screenHeight * 0.02,
+                        ),
+                        SizedBox(
+                            height: screenHeight * 0.4,
+                            width: screenWidth,
+                            child: getEventCard(context: context, eventsList: controller.eventListCreatedForUser)),
                       ],
                     ),
                   ),

@@ -32,7 +32,7 @@ class ShowEventApiService {
     final response = await _apiService.getApiCall(
       url: url,
       queryParams: {
-        "receiver_phone_number": 9889617848
+        "receiver_phone_number": '9794562047'
       }
     );
     final data = response;

@@ -13,7 +13,7 @@ Widget getDrawerContentWidget({required IconData icon, required String heading, 
     onTap: () => onTap(),
     child: Container(
       height: Get.height * 0.05,
-      color: whiteColor,
+      //color: whiteColor,
       child: Row(
         children: [
           SizedBox(

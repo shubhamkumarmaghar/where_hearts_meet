@@ -26,13 +26,15 @@ import '../../utils/util_functions/app_pickers.dart';
 class DashboardController extends BaseController {
   List<WeekModel> currentWeekDates = [];
   final service = DashboardService();
-  List<EventResponseModel> eventListCreatedBySelf = [];
+  List<EventResponseModel> eventListCreatedByUser = [];
+  List<EventResponseModel> eventListCreatedForUser = [];
 
   @override
   void onInit() {
     super.onInit();
     getDatesForWeek();
-    getEventsCreatedBySelf();
+    getEventsCreatedByUser();
+    getEventsCreatedForUser();
   }
 
   bool isCurrentDay({required String currentDay}) {
@@ -113,12 +115,23 @@ class DashboardController extends BaseController {
     }
   }
 
-  Future<void> getEventsCreatedBySelf() async {
+  Future<void> getEventsCreatedByUser() async {
     setBusy(true);
-    final res = await service.getAllEvents();
+    final res = await service.getAllEventsCreatedByUserApi();
     cancelDialog();
     if (res.isNotEmpty) {
-      eventListCreatedBySelf = res;
+      eventListCreatedByUser = res;
+      update();
+    }
+    setBusy(false);
+  }
+
+  Future<void> getEventsCreatedForUser() async {
+    setBusy(true);
+    final res = await service.getAllEventsCreatedForUserApi();
+    cancelDialog();
+    if (res.isNotEmpty) {
+      eventListCreatedForUser = res;
       update();
     }
     setBusy(false);

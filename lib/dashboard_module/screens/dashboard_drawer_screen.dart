@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
+import 'package:where_hearts_meet/utils/consts/app_screen_size.dart';
 import 'package:where_hearts_meet/utils/consts/shared_pref_const.dart';
 import 'package:where_hearts_meet/utils/routes/routes_const.dart';
 import 'package:where_hearts_meet/utils/services/firebase_auth_controller.dart';
+import 'package:where_hearts_meet/utils/util_functions/decoration_functions.dart';
 import '../../utils/consts/color_const.dart';
 import '../../utils/dialogs/pop_up_dialogs.dart';
 import '../controller/dashboard_controller.dart';
@@ -19,77 +21,110 @@ class DashboardDrawerScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Drawer(
-      width: _mainWidth * 0.65,
-      child: Column(
-        children: [
-          getUserAccountHeader(context: context),
-          SizedBox(
-            height: _mainHeight * 0.01,
+    return Padding(
+      padding: EdgeInsets.fromLTRB(0, screenHeight * 0.06, 5, screenHeight * 0.03),
+      child: Drawer(
+        width: _mainWidth * 0.65,
+        child: Container(
+          decoration: BoxDecoration(gradient: backgroundGradient),
+          child: Column(
+            children: [
+              SizedBox(
+                height: screenHeight*0.04,
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  ClipRRect(
+                      borderRadius: BorderRadius.circular(50),
+                      child: Image.network(
+                        'https://cdn-icons-png.flaticon.com/512/5231/5231019.png',
+                        // GetStorage().read(profileUrl) ?? '',
+                        fit: BoxFit.fitWidth,
+                        width: _mainWidth * 0.2,
+                      )),
+                  Container(
+                    padding: EdgeInsets.only(right: screenWidth*0.05),
+                    child: InkWell(
+                      onTap: () {
+                        Get.toNamed(RoutesConst.editProfileScreen);
+                      },
+                      child: const CircleAvatar(
+                          backgroundColor: blackColor,
+                          child: Icon(
+                            Icons.edit,
+                            color: whiteColor,
+                            size: 25,
+                          )),
+                    ),
+                  ),
+                ],
+              ),
+              Text(
+                'Deepak',
+                style: const TextStyle(fontSize: 20, fontWeight: FontWeight.w700),
+              ),
+              SizedBox(
+                height: _mainHeight * 0.01,
+              ),
+              getDrawerContentWidget(
+                  icon: Icons.list,
+                  heading: "Created Events",
+                  onTap: () {
+                    Get.toNamed(RoutesConst.eventListScreen);
+                  }),
+              SizedBox(
+                height: _mainHeight * 0.01,
+              ),
+              getDrawerContentWidget(
+                  icon: Icons.wallet_giftcard,
+                  heading: "Received Events",
+                  onTap: () {
+                    // Get.toNamed(RoutesConst.eventListScreen);
+                  }),
+              SizedBox(
+                height: _mainHeight * 0.01,
+              ),
+              getDrawerContentWidget(icon: Icons.settings, heading: "Settings", onTap: () {}),
+              SizedBox(
+                height: _mainHeight * 0.01,
+              ),
+              getDrawerContentWidget(icon: Icons.help_outline, heading: "Help & Support", onTap: () async {}),
+              SizedBox(
+                height: _mainHeight * 0.01,
+              ),
+              getDrawerContentWidget(
+                  icon: Icons.logout,
+                  heading: "Logout",
+                  onTap: () async {
+                    showLogoutAlertDialog(
+                        context: Get.context!,
+                        logOutFunction: () async {
+                          showLoaderDialog(context: Get.context!);
+                          await GetStorage().erase();
+                          cancelDialog();
+                          Get.offAllNamed(RoutesConst.loginScreen);
+                        });
+                  }),
+              const Spacer(),
+              Container(
+                  margin: EdgeInsets.only(bottom: _mainHeight * 0.01, right: _mainWidth * 0.025),
+                  alignment: Alignment.centerRight,
+                  child: const Text(
+                    'v1.0',
+                  )),
+            ],
           ),
-          getDrawerContentWidget(
-              icon: Icons.list,
-              heading: "Created Events",
-              onTap: () {
-                Get.toNamed(RoutesConst.eventListScreen);
-              }),
-          SizedBox(
-            height: _mainHeight * 0.01,
-          ),
-          getDrawerContentWidget(
-              icon: Icons.person,
-              heading: "People's List",
-              onTap: () {
-                Get.toNamed(RoutesConst.peopleListScreen);
-              }),
-          SizedBox(
-            height: _mainHeight * 0.01,
-          ),
-          getDrawerContentWidget(
-              icon: Icons.wallet_giftcard,
-              heading: "Received Events",
-              onTap: () {
-               // Get.toNamed(RoutesConst.eventListScreen);
-              }),
-          SizedBox(
-            height: _mainHeight * 0.01,
-          ),
-          getDrawerContentWidget(icon: Icons.settings, heading: "Settings", onTap: () {}),
-          SizedBox(
-            height: _mainHeight * 0.01,
-          ),
-          getDrawerContentWidget(icon: Icons.help_outline, heading: "Help & Support", onTap: () async {}),
-          SizedBox(
-            height: _mainHeight * 0.01,
-          ),
-          getDrawerContentWidget(
-              icon: Icons.logout,
-              heading: "Logout",
-              onTap: () async {
-                showLogoutAlertDialog(
-                    context: Get.context!,
-                    logOutFunction: () async {
-                      showLoaderDialog(context: Get.context!);
-                      await GetStorage().erase();
-                      cancelDialog();
-                      Get.offAllNamed(RoutesConst.loginScreen);
-                    });
-              }),
-          const Spacer(),
-          Container(
-              margin: EdgeInsets.only(bottom: _mainHeight * 0.01, right: _mainWidth * 0.025),
-              alignment: Alignment.centerRight,
-              child: const Text(
-                'v1.0',
-              )),
-        ],
+        ),
       ),
     );
   }
 
   UserAccountsDrawerHeader getUserAccountHeader({required BuildContext context}) {
     return UserAccountsDrawerHeader(
-      decoration: const BoxDecoration(color: appColor3),
+      decoration: const BoxDecoration(
+        color: appColor1,
+      ),
       accountName: Text(
         (GetStorage().read(firstName))?.toString().capitalizeFirst ?? '',
         style: const TextStyle(fontSize: 20, fontWeight: FontWeight.w700),
@@ -113,9 +148,7 @@ class DashboardDrawerScreen extends StatelessWidget {
         style: const TextStyle(color: Colors.white, fontSize: 16),
       ),
       currentAccountPicture: InkWell(
-        onTap: () {
-
-        },
+        onTap: () {},
         child: CircleAvatar(
             backgroundColor: whiteColor,
             child: firebaseAuthController.getCurrentUser()?.photoURL == ''

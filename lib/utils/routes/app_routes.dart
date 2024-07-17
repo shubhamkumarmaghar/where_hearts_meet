@@ -11,7 +11,6 @@ import 'package:where_hearts_meet/create_event_module/screens/add_timeline_scree
 import 'package:where_hearts_meet/create_event_module/screens/add_wishes_screen.dart';
 import 'package:where_hearts_meet/dashboard_module/screens/dashboard_screen.dart';
 import 'package:where_hearts_meet/show_event_module/binding/event_details_binding.dart';
-import 'package:where_hearts_meet/show_event_module/view/created_event_list_screen.dart';
 import 'package:where_hearts_meet/show_event_module/view/event_details_screen.dart';
 import 'package:where_hearts_meet/show_event_module/view/events_list_screen.dart';
 import 'package:where_hearts_meet/utils/routes/routes_const.dart';
@@ -33,7 +32,6 @@ import '../../guest/guest_dashboard/guest_home/view/guest_home.dart';
 import '../../guest/guest_dashboard/view/guest_dashboard.dart';
 import '../../guest/guest_dashboard/view/guest_dashboard.dart';
 import '../../guest/guest_dashboard/view/guest_splash_view.dart';
-import '../../show_event_module/binding/created_event_list_binding.dart';
 import '../../profile_module/binding/edit_profile_binding.dart';
 
 import '../../profile_module/screens/edit_profile_screen.dart';
@@ -76,11 +74,6 @@ class AppRoutes {
         name: RoutesConst.eventListScreen,
         binding: EventListBinding(),
         page: () => EventListScreen(),
-      ),
-      GetPage(
-        name: RoutesConst.createdEventListScreen,
-        binding: CreatedEventListBinding(),
-        page: () => CreatedEventListScreen(),
       ),
       GetPage(
         name: RoutesConst.eventDetailsScreen,
