@@ -7,7 +7,6 @@ import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 
 import 'package:where_hearts_meet/create_event/controller/create_wishes_controller.dart';
-import 'package:where_hearts_meet/utils/widgets/gradient_button.dart';
 
 import '../../utils/buttons/buttons.dart';
 import '../../utils/consts/app_screen_size.dart';
@@ -315,7 +314,7 @@ class CreateWishesScreen extends StatelessWidget {
                       ),
                     ),
                     decoration: BoxDecoration(color: Colors.white, borderRadius: BorderRadius.circular(10)),
-                    exitDuration: Duration(seconds: 30),
+                    showDuration: Duration(seconds: 30),
                     waitDuration: Duration(seconds: 30),
                     child: Container(
                       width: screenWidth * 0.16,

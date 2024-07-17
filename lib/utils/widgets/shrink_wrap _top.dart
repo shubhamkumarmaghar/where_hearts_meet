@@ -5,7 +5,7 @@ import 'package:get/get_core/src/get_main.dart';
 import 'package:where_hearts_meet/utils/consts/color_const.dart';
 import 'package:where_hearts_meet/utils/consts/images_const.dart';
 
-import '../../guest/guest_dashboard/guest_home/model/temp_guest_receive.dart';
+import '../../guest/guest_dashboard/model/temp_guest_receive.dart';
 
 const itemSize = 150.0;
 

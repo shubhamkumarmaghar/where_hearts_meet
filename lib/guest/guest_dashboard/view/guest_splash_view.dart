@@ -30,13 +30,13 @@ class _GuestCoverScreenState extends State<GuestCoverScreen> {
   String textTitle = '';
   String nameText = '';
 
-  void textAnimation() async {
-    String text = 'Happy Birthday';
-    String name = 'Rashi';
-    List<String> wordsList = text.split('');
+  Future<void> textAnimation() async {
+    String? text = controller.eventDetails?.eventName;
 
-    for (var word in wordsList) {
-      await Future.delayed(Duration(milliseconds: 200));
+    List<String>? wordsList = text?.split('');
+
+    for (var word in wordsList!) {
+      await Future.delayed(const Duration(milliseconds: 200));
       setState(() {
         textTitle = textTitle + word;
       });
@@ -45,10 +45,10 @@ class _GuestCoverScreenState extends State<GuestCoverScreen> {
   }
 
   void nameAnimation() async {
-    String name = 'Rashi';
-    List<String> wordsList = name.split('');
+    String? name = controller.eventDetails?.receiverName;
+    List<String>? wordsList = name?.split('');
 
-    for (var word in wordsList) {
+    for (var word in wordsList!) {
       await Future.delayed(Duration(milliseconds: 200));
       setState(() {
         nameText = nameText + word;
@@ -58,14 +58,24 @@ class _GuestCoverScreenState extends State<GuestCoverScreen> {
 
   @override
   void initState() {
+    getData();
    controller.startCountdown();
     super.initState();
-    textAnimation();
+
   }
 
+  Future<void> getData() async {
+    await controller.getEventDetails('80_Happy Birthday');
+    await controller.getEventWishes('80_Happy Birthday');
+    await controller.getTimelineWishes('80_Happy Birthday');
+    await textAnimation();
+    controller.birthday = DateTime.parse(controller.eventDetails?.eventHostDay??'2024-10-30 18:30:00.000Z');
+  }
   @override
   Widget build(BuildContext context) {
-    return Stack(
+    return
+      controller.isBusy != true
+          ? Stack(
       children: [
         Blur(
           blur: 0.1,
@@ -74,7 +84,7 @@ class _GuestCoverScreenState extends State<GuestCoverScreen> {
             width: screenWidth,
             height: screenHeight,
             alignment: Alignment.center,
-            decoration: const BoxDecoration(
+            decoration:  BoxDecoration(
               gradient: LinearGradient(
                   begin: Alignment.topCenter,
                   end: Alignment.bottomCenter,
@@ -86,9 +96,8 @@ class _GuestCoverScreenState extends State<GuestCoverScreen> {
                     Color(0xfff2edff),
                   ]),
               image: DecorationImage(
-                image: AssetImage(
-                  rashi1,
-                ),
+              image:  NetworkImage(controller.eventDetails?.splashBackgroundImage??'https://firebasestorage.googleapis.com/v0/b/where-hearts-meet.appspot.com/o/Black%20Minimalist%20Happy%20Birthday%20Poster%20(1).png?alt=media&token=13bada89-8df2-4c06-b98e-962a08ba929e'),
+
                 fit: BoxFit.cover,
               ),
             ),
@@ -119,16 +128,24 @@ class _GuestCoverScreenState extends State<GuestCoverScreen> {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.start,
             children: [
-              heightSpace(screenHeight*0.02),
-              Container(
-                //   color: Colors.amber,
-                child: Text(
-                  ' $textTitle ',
-                  style: GoogleFonts.dancingScript(
-                      decoration: TextDecoration.none,
-                      color: Colors.black,
-                      fontWeight: FontWeight.w500,
-                      fontSize: 90),
+              heightSpace(screenHeight*0.04),
+              FittedBox(
+                child: Container(
+                 width: Get.width,
+                  height: Get.height*0.13,
+                  child: Text(
+                    ' $textTitle ',
+                    style: GoogleFonts.dancingScript(
+                        decoration: TextDecoration.none,
+                        color: Colors.black,
+                        fontWeight: FontWeight.w500,
+                      fontSize: Get.height*0.06,
+
+                        ),
+                    maxLines: 2,
+                    textAlign: TextAlign.center,
+                  
+                  ),
                 ),
               ),
               Container(
@@ -140,26 +157,23 @@ class _GuestCoverScreenState extends State<GuestCoverScreen> {
                       color: Colors.pinkAccent.shade200,
                       fontWeight: FontWeight.w800,
                       height: 0.8,
-                      fontSize: 80),
+                      fontSize: Get.height*0.1,),
                   textAlign: TextAlign.start,
                 ),
               ),
               heightSpace(
-                screenHeight * 0.3,
+                screenHeight * 0.28,
               ),
-              GestureDetector(
-                onTap: () {
-                  textAnimation();
-                },
-                child: Container(
-                  alignment: Alignment.center,
-                  height: screenHeight * 0.2,
-                  width: screenHeight * 0.2,
-                  decoration: BoxDecoration(
-                      image: DecorationImage(image: AssetImage(rashi4),fit: BoxFit.cover),
-                      border: Border.all(width: 5,color: Colors.white),
-                      borderRadius: BorderRadius.circular(10)
-                  ),
+              Container(
+                alignment: Alignment.center,
+                height: screenHeight * 0.2,
+                width: screenHeight * 0.2,
+                decoration: BoxDecoration(
+                    image: DecorationImage(image:
+                    NetworkImage(controller.eventDetails?.splashDisplayImage??'https://firebasestorage.googleapis.com/v0/b/where-hearts-meet.appspot.com/o/Black%20Minimalist%20Happy%20Birthday%20Poster%20(1).png?alt=media&token=13bada89-8df2-4c06-b98e-962a08ba929e'),
+                        fit: BoxFit.cover),
+                    border: Border.all(width: 5,color: Colors.white),
+                    borderRadius: BorderRadius.circular(10)
                 ),
               ),
               heightSpace(
@@ -182,6 +196,11 @@ class _GuestCoverScreenState extends State<GuestCoverScreen> {
                   ),
                 ),
               ),
+              Text('Created by: ${controller.eventDetails?.hostName}',style: GoogleFonts.dancingScript(
+                  decoration: TextDecoration.none,
+                  color: Colors.black,
+                  fontWeight: FontWeight.w700,
+                  fontSize: 14)),
 
             ],
           ),
@@ -210,6 +229,23 @@ class _GuestCoverScreenState extends State<GuestCoverScreen> {
           ),
         ),
       ],
+    ):Container(
+        decoration: BoxDecoration(
+          gradient: LinearGradient(
+              begin: Alignment.topCenter,
+              end: Alignment.bottomCenter,
+              colors: [
+                Color(0xff9467ff),
+                Color(0xffae8bff),
+                Color(0xffc7afff),
+                Color(0xffdfd2ff),
+                Color(0xfff2edff),
+              ]),
+        ),
+      child: Center(
+            child: CircularProgressIndicator(
+              color: primaryColor,
+            )),
     );
   }
 }

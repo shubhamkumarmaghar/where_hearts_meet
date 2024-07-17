@@ -14,9 +14,7 @@ import 'package:where_hearts_meet/show_event_module/binding/event_details_bindin
 import 'package:where_hearts_meet/show_event_module/view/event_details_screen.dart';
 import 'package:where_hearts_meet/show_event_module/view/events_list_screen.dart';
 import 'package:where_hearts_meet/utils/routes/routes_const.dart';
-import '../../auth_module/binding/guest_login_binding.dart';
 import '../../auth_module/binding/login_binding.dart';
-import '../../auth_module/screens/guest_login.dart';
 import '../../auth_module/screens/login_screen.dart';
 import '../../create_event/binding/create_wishes_binding.dart';
 import '../../create_event/view/create_event_screen.dart';
@@ -55,11 +53,7 @@ class AppRoutes {
         binding: LoginBinding(),
         page: () => LoginScreen(),
       ),
-      GetPage(
-        name: RoutesConst.guestLogin,
-        binding: GuestLoginBinding(),
-        page: () => GuestLogin(),
-      ),
+
       GetPage(
         name: RoutesConst.profileSetUpScreen,
         binding: ProfileSetupBinding(),

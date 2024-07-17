@@ -1,22 +1,40 @@
 import 'dart:async';
 
+import 'package:carousel_slider/carousel_slider.dart';
+import 'package:confetti/confetti.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
+import 'package:google_fonts/google_fonts.dart';
+import 'package:where_hearts_meet/utils/consts/app_screen_size.dart';
+import 'package:where_hearts_meet/utils/consts/images_const.dart';
+import 'package:where_hearts_meet/utils/widgets/custom_photo_view.dart';
 import 'package:youtube_player_flutter/youtube_player_flutter.dart';
 
 import '../guest_home/controller/guest_home_controller.dart';
 
-class BirthdayWishes extends StatefulWidget {
+class GuestTimeLine extends StatefulWidget {
   @override
-  _BirthdayWishesState createState() => _BirthdayWishesState();
+  _GuestTimeLineState createState() => _GuestTimeLineState();
 }
 
-class _BirthdayWishesState extends State<BirthdayWishes> {
+class _GuestTimeLineState extends State<GuestTimeLine> {
+  String message = '''Happy Birthday rashi🎉
+              
+                    I wanted to take a moment to celebrate not only your special day but also the incredible year we’ve shared together. It’s hard to believe it’s been a whole year since we started this journey as roommates, lab partners, and “sukh dukh ka saathi.”
+              
+                  From the countless lab sessions to the spontaneous adventures and heartfelt conversations, every moment has been amazing. Your kindness, support, and genuine heart have made this past year truly special. You’ve been a rock in times of stress and a joy in times of celebration.
+              
+                  I’m grateful for your friendship and the beautiful memories we’ve created together. I sincerely hope that our bond continues to grow stronger with each passing year. Here’s to many more adventures, laughs, and unforgettable moments together!
+              
+                    Wishing you all the happiness, love, and success in the world on your birthday and always.''';
+  String showMessage="";
   final controller = Get.find<GuestHomeController>();
+
   void listener() {
-    if (controller.isPlayerReady && mounted && !controller.youtubePlayerController.value.isFullScreen) {
+    if (controller.isPlayerReady && mounted &&
+        !controller.youtubePlayerController.value.isFullScreen) {
       setState(() {
         controller.playerState = controller.youtubePlayerController
             .value.playerState;
@@ -24,12 +42,12 @@ class _BirthdayWishesState extends State<BirthdayWishes> {
       });
     }
   }
+
   @override
   void initState() {
+    textAnimation();
     super.initState();
-
   }
-
 
 
   @override
@@ -38,154 +56,143 @@ class _BirthdayWishesState extends State<BirthdayWishes> {
     super.dispose();
   }
 
+  Future<void> textAnimation() async {
+    String? text = message;
+
+    List<String>? wordsList = text?.split('');
+
+    for (var word in wordsList!) {
+      await Future.delayed(const Duration(milliseconds: 80));
+      setState(() {
+        showMessage = showMessage + word;
+      });
+    }
+
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Column(
+      body: Stack(
         children: [
-          // Cover photo with countdown
-          Stack(
-            children: [
-              Container(
-                height: MediaQuery.of(context).size.height * 0.5,
-                decoration: BoxDecoration(
-                  image: DecorationImage(
-                    image: NetworkImage('${controller.eventDetails!.coverPic}'),
-                    fit: BoxFit.cover,
-                  ),
-                ),
+          SingleChildScrollView(
+            child: Container(
+              decoration: BoxDecoration(
+                gradient: LinearGradient(
+                    begin: Alignment.topCenter,
+                    end: Alignment.bottomCenter,
+                    colors: [
+                      Color(0xff9467ff),
+                      Color(0xffae8bff),
+                      Color(0xffc7afff),
+                      Color(0xffdfd2ff),
+                      Color(0xfff2edff),
+                    ]),
               ),
-              Container(
-                height: MediaQuery.of(context).size.height * 0.5,
-                color: Colors.black.withOpacity(0.5),
-                child: Center(
-                  child: Text(
-                    '${controller.countdownDuration.inDays}d ${controller.countdownDuration.inHours % 24}h ${controller.countdownDuration.inMinutes % 60}m ${controller.countdownDuration.inSeconds % 60}s',
-                    style: TextStyle(
-                      fontSize: 30,
-                      color: Colors.white,
-                      fontWeight: FontWeight.bold,
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  heightSpace(30),
+                  Padding(
+                    padding: const EdgeInsets.all(16.0),
+                    child: Row(
+                      children: [
+                        CircleAvatar(
+                          radius: 40,
+                          backgroundImage: AssetImage(rashi1),
+                        ),
+                        widthSpace(20),
+                        Column(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              'Sunanda',
+                              style: GoogleFonts.abel(
+                                  decoration: TextDecoration.none,
+                                  color: Colors.white,
+                                  fontWeight: FontWeight.w800,
+                                  fontSize: 24),
+                            ),
+                            Text(
+                              '@sunandaaryan',
+                              style: TextStyle(fontSize: 14, fontWeight: FontWeight.w400,color: Colors.white70),
+                            ),
+                          ],
+                        ),
+                      ],
                     ),
                   ),
-                ),
+                  SizedBox(height: 10),
+
+                  Text(
+                    showMessage,
+                    textAlign: TextAlign.center,
+                    style: TextStyle(fontSize: 18),
+                  ),
+                  SizedBox(height: 20),
+                  CarouselSlider(
+                    options: CarouselOptions(
+                      height: 400.0,
+                      enlargeCenterPage: true,
+                      autoPlay: true,
+                      aspectRatio: 16 / 9,
+                      autoPlayCurve: Curves.fastOutSlowIn,
+                      enableInfiniteScroll: true,
+                      autoPlayAnimationDuration: Duration(milliseconds: 800),
+                      viewportFraction: 0.8,
+                    ),
+                    items:controller.timeLineModel.value.data?[0].images?.map((imagePath) {
+                      return Builder(
+                        builder: (BuildContext context) {
+                          return GestureDetector(
+                            onTap: (){
+                              Get.to(CustomPhotoView(imageUrl: imagePath,));
+                            },
+                            child: Container(
+                              width: MediaQuery
+                                  .of(context)
+                                  .size
+                                  .width,
+                              margin: EdgeInsets.symmetric(horizontal: 5.0),
+                              decoration: BoxDecoration(
+                                image: DecorationImage(
+                                  image: NetworkImage(imagePath),
+                                  fit: BoxFit.cover,
+                                ),
+                                borderRadius: BorderRadius.circular(20),
+
+                              ),
+                            ),
+                          );
+                        },
+                      );
+                    }).toList(),
+                  ),
+                ],
               ),
-            ],
+            ),
           ),
-          Expanded(
-            child: ListView(
-              children: [
-                // Birthday wish widgets
-                imageCardWidget(
-                  'Happy Birthday!',
-                  controller.eventDetails!.imageUrls!.first,
-                  controller.eventDetails!.eventSubtext.toString(),
-                  //'Wishing you all the best on your special day!',
-                ),
-                imageCard( 'Happy Birthday!',
-                  controller.eventDetails!.imageUrls![1],
-                  controller.eventDetails!.eventDescription.toString(),),
-                 // 'Wishing you all the best on your special day!',),
-                textCardWidget(
-                  'Special Day!',
-                  'May your birthday be filled with joy and happiness.',
-                ),
-                quoteCardWidget(
-                  'Birthday Quote',
-                  '"Count your life by smiles, not tears. Count your age by friends, not years."',
-                ),
-                // Video play widget
-                videoPlayWidget('https://via.placeholder.com/150'),
-               // youtubeVideoPlayWidget('nPt8bK2gbaU'),
+          Align(
+            alignment: Alignment.topCenter,
+            child: ConfettiWidget(
+              confettiController: controller.homeConfettiController,
+              blastDirectionality: BlastDirectionality.explosive,
+              shouldLoop: true,
+              colors: [
+                Colors.green,
+                Colors.blue,
+                Colors.pink,
+                Colors.red,
+                Colors.purple,
               ],
             ),
           ),
         ],
       ),
+
     );
   }
-
-  Widget imageCardWidget(String title, String imageUrl, String message) {
-    return Card(
-      margin: EdgeInsets.all(10),
-      child: Column(
-        children: [
-          Image.network(imageUrl),
-          Padding(
-            padding: EdgeInsets.all(10),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(title, style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16)),
-                SizedBox(height: 5),
-                Text(message),
-              ],
-            ),
-          ),
-        ],
-      ),
-    );
-  }
-
-  Widget textCardWidget(String title, String message) {
-    return Card(
-      margin: EdgeInsets.all(10),
-      child: Padding(
-        padding: EdgeInsets.all(10),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Text(title, style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16)),
-            SizedBox(height: 5),
-            Text(message),
-          ],
-        ),
-      ),
-    );
-  }
-
-  Widget quoteCardWidget(String title, String quote) {
-    return Card(
-      margin: EdgeInsets.all(10),
-      child: Padding(
-        padding: EdgeInsets.all(10),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Text(title, style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16)),
-            SizedBox(height: 5),
-            Text(quote, style: TextStyle(fontStyle: FontStyle.italic)),
-          ],
-        ),
-      ),
-    );
-  }
-
-  Widget videoPlayWidget(String videoUrl) {
-    return Card(
-      margin: EdgeInsets.all(10),
-      child: Padding(
-        padding: EdgeInsets.all(10),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Text(
-              'Birthday Video',
-              style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
-            ),
-            SizedBox(height: 10),
-            Container(
-              height: 200,
-              color: Colors.black12,
-              child: Center(
-                child: Icon(Icons.play_circle_fill, size: 50, color: Colors.grey),
-              ),
-            ),
-          ],
-        ),
-      ),
-    );
-  }
-
   Widget youtubeVideoPlayWidget(String videoUrl) {
     return Card(
       margin: EdgeInsets.all(10),
@@ -282,4 +289,7 @@ class _BirthdayWishesState extends State<BirthdayWishes> {
       ),
     );
   }
+
 }
+
+

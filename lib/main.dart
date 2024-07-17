@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get/get_navigation/src/root/get_material_app.dart';
 import 'package:get_storage/get_storage.dart';
-import 'package:motion/motion.dart';
 import 'package:where_hearts_meet/splash_module/screens/splash_screen.dart';
 import 'package:where_hearts_meet/utils/consts/color_const.dart';
 import 'package:where_hearts_meet/utils/consts/service_const.dart';
@@ -18,11 +17,7 @@ import 'onboarding_module/view/onboarding_view.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  /// Initialize the plugin to determine gyroscope availability.
-  await Motion.instance.initialize();
 
-  /// Globally set Motion's update interval to 60 frames per second.
-  Motion.instance.setUpdateInterval(60.fps);
   await GetStorage.init();
   await Firebase.initializeApp();
   await setUp();

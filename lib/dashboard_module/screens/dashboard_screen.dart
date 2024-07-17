@@ -5,7 +5,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
-import 'package:get_storage/get_storage.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:where_hearts_meet/create_event/model/event_response_model.dart';
 import 'package:where_hearts_meet/dashboard_module/controller/dashboard_controller.dart';

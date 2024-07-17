@@ -12,6 +12,10 @@ class EventDetailsModel {
   List<String>? imageUrls;
   bool? globalEvent;
   String? coverPic;
+  String? splashDisplayImage;
+  String? splashBackgroundImage;
+
+
 
   EventDetailsModel(
       {this.eventName,
@@ -26,7 +30,9 @@ class EventDetailsModel {
       this.receiverName,
       this.imageUrls,
         this.globalEvent,
-        this.coverPic
+        this.coverPic,
+        this.splashBackgroundImage,
+        this.splashDisplayImage
       });
 
   EventDetailsModel.fromJson(Map<String, dynamic> json) {
@@ -42,7 +48,9 @@ class EventDetailsModel {
     receiverName = json['receiver_name'];
     imageUrls = json['image_urls'].cast<String>();
     globalEvent = json['global_event'];
-    coverPic=json['cover_pic'];
+    coverPic=json['cover_image'];
+    splashDisplayImage=json['splash_display_image'];
+    splashBackgroundImage=json['splash_background_image'];
 
 
   }
@@ -61,7 +69,10 @@ class EventDetailsModel {
     data['receiver_name'] = this.receiverName;
     data['image_urls'] = this.imageUrls;
     data['global_event'] = this.globalEvent;
-    data['cover_pic'] = this.coverPic;
+    data['cover_image'] = this.coverPic;
+    data['splash_background_image'] = this.splashBackgroundImage;
+    data['splash_display_image'] = this.splashDisplayImage;
+
     return data;
   }
 }

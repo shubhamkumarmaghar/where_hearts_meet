@@ -1,6 +1,3 @@
-import 'dart:async';
-import 'dart:developer';
-
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -10,6 +7,7 @@ import 'package:motion_tab_bar/MotionTabBarController.dart';
 import 'package:where_hearts_meet/guest/guest_dashboard/view/wishes.dart';
 import 'package:where_hearts_meet/utils/consts/color_const.dart';
 
+import '../../../utils/widgets/video_player.dart';
 import '../guest_home/controller/guest_home_controller.dart';
 import '../guest_home/view/guest_home.dart';
 import '../guest_wishlist/view/guest_wishlist.dart';
@@ -29,7 +27,7 @@ class _GuestDashboardState extends State<GuestDashboard> with TickerProviderStat
  @override
   void initState() {
     super.initState();
-    controller.getEventDetails('57_Birthday of my love Sunanda arya');
+
     _motionTabBarController = MotionTabBarController(
       initialIndex: 1,
       length: 3,
@@ -46,13 +44,15 @@ class _GuestDashboardState extends State<GuestDashboard> with TickerProviderStat
       controller: _motionTabBarController,
       children: <Widget>[
          Center(
-          child: BirthdayWishes(),
+          child:GuestTimeLine(),
+          //VideoPlayerWidget(url: 'https://media.geeksforgeeks.org/wp-content/uploads/20230924220731/video.mp4'),
+
         ),
         const Center(
           child:GuestHome(),
         ),
          Center(
-          child:GuestWishList(title: 'Testing'),
+          child:GuestWishList(),
         ),
       ],
     ),

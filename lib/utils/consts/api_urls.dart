@@ -17,6 +17,7 @@ class AppUrls {
 
   ///for guest
   static const String receiveEventUrl = 'eventApp/get_event_receiver/';
+  static const String receiveWishsUrl = 'wishesApp/wishes/';
 
   static const String uploadFileUrl = 'userPolls/upload_file/';
 
