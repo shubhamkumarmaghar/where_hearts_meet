@@ -12,7 +12,7 @@ class TextStyles {
 
   static TextStyle errorStyle = const TextStyle(fontWeight: FontWeight.w400, fontSize: 12.0, color: Colors.red);
 
-  static TextStyle hintStyle = const TextStyle(color: Colors.white, fontSize: 14.0, fontWeight: FontWeight.w500);
+  static TextStyle hintStyle = const TextStyle(color: primaryColor, fontSize: 14.0, fontWeight: FontWeight.w500);
 }
 
 class BorderStyles {

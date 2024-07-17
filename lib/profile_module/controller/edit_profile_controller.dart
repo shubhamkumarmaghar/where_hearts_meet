@@ -98,31 +98,6 @@ class EditProfileController extends BaseController {
     Get.offAllNamed(RoutesConst.dashboardScreen);
   }
 
-  Future<void> deletePeople({required String uid}) async {
-    final dashboardController = Get.find<DashboardController>();
-    showLoaderDialog(context: Get.context!);
-    await firestoreController.deletePeople(uid: uid);
-    await getUserData(initial: false);
-    await dashboardController.getPeopleList();
-    cancelDialog();
-    update();
-  }
-
-  // List<DropDownModel> getRelationDropdownList() {
-  //   List<DropDownModel> list = [];
-  //   list.add(DropDownModel(title: 'None', value: '0'));
-  //  // list.add(DropDownModel(title: 'Father', value: '1'));
-  //  // list.add(DropDownModel(title: 'Mother', value: '2'));
-  //  // list.add(DropDownModel(title: 'Brother', value: '3'));
-  //  // list.add(DropDownModel(title: 'Sister', value: '4'));
-  //   list.add(DropDownModel(title: 'Friend', value: '5'));
-  //   list.add(DropDownModel(title: 'Girl-friend', value: '6'));
-  //   list.add(DropDownModel(title: 'boy-friend', value: '7'));
-  //   list.add(DropDownModel(title: 'Wife', value: '8'));
-  //   list.add(DropDownModel(title: 'Not-Specified', value: '9'));
-  //   return list;
-  // }
-
   @override
   void onClose() {
     nameTextController.dispose();

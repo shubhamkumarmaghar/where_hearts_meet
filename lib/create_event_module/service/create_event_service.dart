@@ -47,6 +47,7 @@ class EventApiService {
       return EventDetailsModel(eventid: '-1');
     }
   }
+
   Future<dynamic> submitEventWishes(
       {required String eventId,
         required List<MultipartFile> imageFiles,

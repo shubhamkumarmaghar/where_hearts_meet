@@ -9,7 +9,6 @@ import 'package:where_hearts_meet/utils/widgets/gradient_button.dart';
 
 import '../../utils/widgets/app_bar_widget.dart';
 import '../controller/edit_profile_controller.dart';
-import '../model/people_model.dart';
 
 class EditProfileScreen extends StatelessWidget {
   final _mainHeight = Get.height;
@@ -142,10 +141,6 @@ class EditProfileScreen extends StatelessWidget {
                           SizedBox(
                             height: _mainHeight * 0.02,
                           ),
-                          getPeopleListView(list: controller.userPeopleList),
-                          SizedBox(
-                            height: _mainHeight * 0.03,
-                          ),
                         ],
                       ),
                     ),
@@ -165,125 +160,4 @@ class EditProfileScreen extends StatelessWidget {
       ),
     );
   }
-
-  Widget getPeopleListView({required List<PeopleModel> list}) {
-    return ListView.separated(
-        physics: const NeverScrollableScrollPhysics(),
-        shrinkWrap: true,
-        itemBuilder: (context, index) {
-          var data = list[index];
-          return Container(
-            height: _mainHeight * 0.09,
-            decoration: BoxDecoration(color: greyColor.withOpacity(0.2), borderRadius: BorderRadius.circular(10)),
-            padding: const EdgeInsets.all(10),
-            child: Row(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                SizedBox(
-                  height: _mainHeight * 0.06,
-                  width: _mainWidth * 0.14,
-                  child: ClipRRect(
-                    borderRadius: const BorderRadius.all(Radius.circular(100)),
-                    child: data.imageUrl != null && data.imageUrl != ''
-                        ? Image.network(
-                            data.imageUrl ?? '',
-                            fit: BoxFit.fill,
-                          )
-                        : const Icon(Icons.person),
-                  ),
-                ),
-                SizedBox(
-                  width: _mainWidth * 0.04,
-                ),
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(data.name ?? '', style: const TextStyle(fontSize: 18, fontWeight: FontWeight.w700)),
-                    SizedBox(
-                      height: _mainHeight * 0.001,
-                    ),
-                    Text(data.email ?? '', style: const TextStyle(fontSize: 14, fontWeight: FontWeight.w500)),
-                  ],
-                ),
-                const Spacer(),
-                InkWell(
-                  onTap: () async {
-                    await controller.deletePeople(uid: data.uid ?? '');
-                  },
-                  child: const CircleAvatar(
-                      backgroundColor: errorColor,
-                      child: Icon(
-                        Icons.delete,
-                        color: whiteColor,
-                      )),
-                )
-              ],
-            ),
-          );
-        },
-        separatorBuilder: (context, index) => const SizedBox(
-              height: 10,
-            ),
-        itemCount: list.length);
-  }
-// Widget getRelationView({required EditProfileController controller}) {
-//   return Column(
-//     children: [
-//       const Text(
-//         'Choose Relation',
-//         style: TextStyle(fontWeight: FontWeight.w700, fontSize: 18),
-//       ),
-//       SizedBox(
-//         height: _mainHeight * 0.02,
-//       ),
-//       Obx(
-//             () => Container(
-//           height: _mainHeight * 0.055,
-//           decoration: BoxDecoration(
-//             border: Border.all(color: primaryColor, width: 0.3),
-//             borderRadius: BorderRadius.circular(50),
-//           ),
-//           padding: EdgeInsets.only(right: _mainWidth * 0.05, left: _mainWidth * 0.03),
-//           child: DropdownButton<String>(
-//             borderRadius: const BorderRadius.all(Radius.circular(20.0)),
-//             icon: const Icon(
-//               Icons.arrow_drop_down_sharp,
-//               color: primaryColor,
-//               size: 25,
-//             ),
-//             iconEnabledColor: primaryColor,
-//             iconDisabledColor: primaryColor,
-//             underline: const SizedBox.shrink(),
-//             isExpanded: true,
-//             items: controller
-//                 .getRelationDropdownList()
-//                 .map((e) => DropdownMenuItem(
-//                 value: e.value,
-//                 child: Center(
-//                   child: Text(
-//                     e.title,
-//                     style: const TextStyle(
-//                       fontSize: 15,
-//                       fontWeight: FontWeight.w500,
-//                       color: blackColor,
-//                     ),
-//                     overflow: TextOverflow.ellipsis,
-//                   ),
-//                 )))
-//                 .toList(),
-//             onChanged: (String? val) {
-//               if (val != null) {
-//                 controller.relationValue.value = val;
-//               }
-//             },
-//             value: controller.relationValue.value,
-//           ),
-//         ),
-//       ),
-//       SizedBox(
-//         height: _mainHeight * 0.03,
-//       ),
-//     ],
-//   );
-// }
 }

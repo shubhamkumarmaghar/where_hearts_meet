@@ -55,7 +55,6 @@ class AddEventController extends BaseController {
 
     if (image != null) {
       showLoaderDialog(context: Get.context!);
-
       imageFiles.add(imageFile);
       cancelDialog();
       update();

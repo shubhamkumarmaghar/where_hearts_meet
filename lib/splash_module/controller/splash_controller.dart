@@ -37,7 +37,8 @@ class SplashController extends GetxController {
           Get.offAllNamed(RoutesConst.guestCoverScreen);
         }
         else {
-          Get.offAll(OnboardingScreen());
+          Get.offAllNamed(RoutesConst.dashboardScreen);
+        //  Get.offAll(OnboardingScreen());
         }
       }
       else {

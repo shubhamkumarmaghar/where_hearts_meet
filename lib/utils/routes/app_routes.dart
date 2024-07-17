@@ -1,6 +1,10 @@
 import 'package:get/get.dart';
 import 'package:where_hearts_meet/auth_module/binding/profile_setup_binding.dart';
 import 'package:where_hearts_meet/auth_module/screens/profile_setup_screen.dart';
+import 'package:where_hearts_meet/create_event/binding/create_event_binding.dart';
+import 'package:where_hearts_meet/create_event/binding/create_timeline_binding.dart';
+import 'package:where_hearts_meet/create_event/controller/create_event_controller.dart';
+import 'package:where_hearts_meet/create_event/view/create_event_splash_screen.dart';
 import 'package:where_hearts_meet/create_event_module/screens/add_giftcard_screen.dart';
 import 'package:where_hearts_meet/create_event_module/screens/add_secret_wishes_screen.dart';
 import 'package:where_hearts_meet/create_event_module/screens/add_timeline_screen.dart';
@@ -10,14 +14,15 @@ import 'package:where_hearts_meet/show_event_module/binding/event_details_bindin
 import 'package:where_hearts_meet/show_event_module/view/created_event_list_screen.dart';
 import 'package:where_hearts_meet/show_event_module/view/event_details_screen.dart';
 import 'package:where_hearts_meet/show_event_module/view/events_list_screen.dart';
-import 'package:where_hearts_meet/profile_module/binding/add_people_binding.dart';
-import 'package:where_hearts_meet/profile_module/binding/people_list_binding.dart';
-import 'package:where_hearts_meet/profile_module/screens/people_list_screen.dart';
 import 'package:where_hearts_meet/utils/routes/routes_const.dart';
 import '../../auth_module/binding/guest_login_binding.dart';
 import '../../auth_module/binding/login_binding.dart';
 import '../../auth_module/screens/guest_login.dart';
 import '../../auth_module/screens/login_screen.dart';
+import '../../create_event/binding/create_wishes_binding.dart';
+import '../../create_event/view/create_event_screen.dart';
+import '../../create_event/view/create_timeline_screen.dart';
+import '../../create_event/view/create_wishes_screen.dart';
 import '../../create_event_module/binding/add_event_binding.dart';
 import '../../create_event_module/binding/add_event_specials_binding.dart';
 import '../../create_event_module/screens/add_event_screen.dart';
@@ -30,7 +35,7 @@ import '../../guest/guest_dashboard/view/guest_dashboard.dart';
 import '../../guest/guest_dashboard/view/guest_splash_view.dart';
 import '../../show_event_module/binding/created_event_list_binding.dart';
 import '../../profile_module/binding/edit_profile_binding.dart';
-import '../../profile_module/screens/add_people_screen.dart';
+
 import '../../profile_module/screens/edit_profile_screen.dart';
 import '../../show_event_module/binding/event_list_binding.dart';
 
@@ -63,19 +68,9 @@ class AppRoutes {
         page: () => ProfileSetupScreen(),
       ),
       GetPage(
-        name: RoutesConst.addPeopleScreen,
-        binding: AddPeopleBinding(),
-        page: () => AddPeopleScreen(),
-      ),
-      GetPage(
         name: RoutesConst.addEventScreen,
         binding: AddEventBinding(),
         page: () => AddEventScreen(),
-      ),
-      GetPage(
-        name: RoutesConst.peopleListScreen,
-        binding: PeopleListBinding(),
-        page: () => PeopleListScreen(),
       ),
       GetPage(
         name: RoutesConst.eventListScreen,
@@ -131,6 +126,26 @@ class AppRoutes {
         name: RoutesConst.guestCoverScreen,
         binding: GuestDashboardBinding(),
         page: () => const GuestCoverScreen(),
+      ),
+      GetPage(
+        name: RoutesConst.createEventScreen,
+        binding: CreateEventBinding(),
+        page: () => CreateEventScreen(),
+      ),
+      GetPage(
+        name: RoutesConst.createEventSplashScreen,
+        binding: CreateEventBinding(),
+        page: () => CreateEventSplashScreen(),
+      ),
+      GetPage(
+        name: RoutesConst.createWishesScreen,
+        binding: CreateWishesBinding(),
+        page: () => CreateWishesScreen(),
+      ),
+      GetPage(
+        name: RoutesConst.createTimelineScreen,
+        binding: CreateTimelineBinding(),
+        page: () => CreateTimelineScreen(),
       ),
     ];
   }
