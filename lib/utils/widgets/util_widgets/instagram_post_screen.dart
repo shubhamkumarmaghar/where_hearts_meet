@@ -52,7 +52,7 @@ class PostWidget extends StatelessWidget {
                   SizedBox(width: 10),
                   Text(
                     username,
-                    style: TextStyle(fontWeight: FontWeight.bold),
+                    style: TextStyle(fontWeight: FontWeight.w500,fontSize: 18),
                   ),
                 ],
               ),
@@ -61,13 +61,18 @@ class PostWidget extends StatelessWidget {
          if(postImageUrl != null) Visibility(
             visible: postImageUrl!.isNotEmpty,
             child: CarouselSlider(
-              items: postImageUrl?.map((url) => AspectRatio(
-                aspectRatio: 4,
-                child: Container(
-                  width: Get.width,
-                  child: Image.network(
-                    url,
-                    fit: BoxFit.cover,
+              items: postImageUrl?.map((url) => GestureDetector(
+                onTap: () {
+                  Get.to(CustomPhotoView(imageUrl: url,));
+                },
+                child: AspectRatio(
+                  aspectRatio: 4,
+                  child: Container(
+                    width: Get.width,
+                    child: Image.network(
+                      url,
+                      fit: BoxFit.cover,
+                    ),
                   ),
                 ),
               ), ).toList(),

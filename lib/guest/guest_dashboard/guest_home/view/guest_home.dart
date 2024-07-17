@@ -694,7 +694,7 @@ RxBool istrue = false.obs;
                         return
                           GestureDetector(
                             onTap: (){
-                              Get.off(GuestWishList());
+                              Get.to(GuestWishList());
                             },
                             child: PostWidget(
                               username:data!.senderName??"" ,

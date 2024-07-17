@@ -37,6 +37,7 @@ class _GuestWishListState extends State<GuestWishList>
               ]),
         ),
         child: ListView(
+          physics: BouncingScrollPhysics(),
           children: [
             heightSpace(screenHeight*0.02),
              Center(
@@ -51,6 +52,7 @@ class _GuestWishListState extends State<GuestWishList>
              height:Get.height*0.9,
               width: Get.width,
               child:    ListView.builder(
+                physics: BouncingScrollPhysics(),
               itemCount: controller.guestwishesModel.value.data?.length,
                 itemBuilder: (context,index) {
                   var data = controller.guestwishesModel.value.data?[index];

@@ -14,7 +14,7 @@
 
 
    <application
-        android:label="where_hearts_meet"
+        android:label="Heart-e-Homies"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher">
         <activity
