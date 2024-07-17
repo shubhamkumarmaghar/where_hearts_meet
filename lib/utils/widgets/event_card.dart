@@ -1,19 +1,14 @@
-import 'package:flutter/cupertino.dart';
-import 'package:flutter/material.dart';
-import 'package:get/get.dart';
-import 'package:where_hearts_meet/utils/consts/color_const.dart';
-import 'package:where_hearts_meet/utils/model/event_info_model.dart';
 
-import '../../create_event_module/model/add_event_model.dart';
+import 'package:flutter/material.dart';
+import 'package:where_hearts_meet/create_event/model/event_response_model.dart';
+import 'package:where_hearts_meet/utils/consts/app_screen_size.dart';
+import 'package:where_hearts_meet/utils/consts/color_const.dart';
 
 class EventCard extends StatelessWidget {
-  final AddEventModel eventInfoModel;
+  final EventResponseModel eventResponseModel;
   final Function onCardTap;
-  final Color eventColor;
-  final _mainHeight = Get.height;
-  final _mainWidth = Get.width;
 
-  EventCard({Key? key, required this.eventInfoModel, required this.onCardTap,required this.eventColor}) : super(key: key);
+  EventCard({Key? key, required this.eventResponseModel, required this.onCardTap}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -22,10 +17,10 @@ class EventCard extends StatelessWidget {
         onCardTap();
       },
       child: Container(
-        width: _mainWidth*0.85,
+        width: screenWidth*0.85,
         padding: const EdgeInsets.only(left: 7, top: 0, bottom: 7, right: 0),
         decoration: BoxDecoration(
-            color: eventColor,
+            color: primaryColor,
             borderRadius: const BorderRadius.only(
                 topLeft: Radius.circular(20), topRight: Radius.circular(20), bottomRight: Radius.circular(20))),
         child: Container(
@@ -40,8 +35,8 @@ class EventCard extends StatelessWidget {
             child: Column(
               children: [
                 SizedBox(
-                    height: _mainHeight * 0.2,
-                    width: _mainWidth * 0.75,
+                    height:screenHeight * 0.2,
+                    width: screenWidth * 0.75,
                     child: ClipRRect(
                         borderRadius: const BorderRadius.only(
                           topLeft: Radius.circular(20),
@@ -49,13 +44,13 @@ class EventCard extends StatelessWidget {
                           bottomRight: Radius.circular(20),
                         ),
                         child: Image.network(
-                          eventInfoModel.imageUrl ?? '',
+                          eventResponseModel.splashBackgroundImage ?? '',
                           fit: BoxFit.fill,
                         ))),
                 SizedBox(
-                  height: _mainHeight*0.01,
+                  height: screenHeight*0.01,
                 ),
-                Text(eventInfoModel.eventName ??'')
+                Text(eventResponseModel.eventName ??'')
               ],
             )),
       ),

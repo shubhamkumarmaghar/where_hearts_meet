@@ -114,7 +114,6 @@ class AddEventSpecialsController extends BaseController {
 
     var path = videoFile.path.split('/');
     final url = await FunctionsService.uploadFileToAWS(
-        eventKey: getAwsEventKey(pageIndex: pageIndex, eventId: eventDetailsModel.eventid ?? '', fileName: path.last),
         file: videoFile);
 
     cancelDialog();

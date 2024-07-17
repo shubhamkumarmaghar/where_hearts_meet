@@ -8,6 +8,7 @@ import 'package:where_hearts_meet/splash_module/screens/splash_screen.dart';
 import 'package:where_hearts_meet/utils/consts/color_const.dart';
 import 'package:where_hearts_meet/utils/consts/service_const.dart';
 import 'package:where_hearts_meet/utils/routes/app_routes.dart';
+import 'package:where_hearts_meet/utils/routes/routes_const.dart';
 import 'package:where_hearts_meet/utils/services/dio_injector.dart';
 import 'package:where_hearts_meet/utils/services/firebase_auth_controller.dart';
 import 'package:where_hearts_meet/utils/services/firebase_firestore_controller.dart';
@@ -54,8 +55,9 @@ class MyApp extends StatelessWidget {
         fontFamily: 'PlusJakartaSans',
         primarySwatch: getMaterialColor(primaryColor),
       ),
-      home:
-     const SplashScreen(),
+     initialRoute: RoutesConst.dashboardScreen,
+     //  home:
+     // const SplashScreen(),
     );
   }
   MaterialColor getMaterialColor(Color color) {

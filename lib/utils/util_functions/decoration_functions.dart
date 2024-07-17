@@ -1,4 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
+
+import '../consts/app_screen_size.dart';
+import '../consts/color_const.dart';
+import '../consts/images_const.dart';
 
 Color getColorBasedOnIndex(int index) {
   int temp = index % 6;
@@ -23,4 +28,42 @@ Color getColorBasedOnIndex(int index) {
     default:
       return Colors.purple;
   }
+}
+
+LinearGradient get backgroundGradient {
+  return const LinearGradient(begin: Alignment.topCenter, end: Alignment.bottomCenter, colors: [
+    primaryColor,
+    appColor1,
+    appColor2,
+    appColor3,
+  ]);
+}
+
+Widget get appHeader {
+  return Row(
+    crossAxisAlignment: CrossAxisAlignment.center,
+    children: [
+      SizedBox(
+        height: screenHeight * 0.08,
+        child: Image.asset(
+          logo,
+        ),
+      ),
+      SizedBox(
+        width: screenWidth * 0.01,
+      ),
+      Text(
+        'Heart-e-homies',
+        style: GoogleFonts.aclonica(
+            decoration: TextDecoration.none, color: Colors.white, fontWeight: FontWeight.w500, fontSize: 22),
+      ),
+    ],
+  );
+}
+
+TextStyle headingStyle({double? fontSize, Color? color}) {
+  return GoogleFonts.dangrek(
+      color: color ?? Colors.white,
+      fontWeight: FontWeight.w500,
+      fontSize: fontSize ?? 22);
 }

@@ -58,7 +58,6 @@ class AddEventScreen extends StatelessWidget {
                     SizedBox(
                       height: _mainHeight * 0.03,
                     ),
-
                     CustomTextField(
                         title: 'Description*',
                         hint: 'Enter Info',
@@ -67,7 +66,6 @@ class AddEventScreen extends StatelessWidget {
                     SizedBox(
                       height: _mainHeight * 0.03,
                     ),
-
                     CustomTextField(
                         title: 'Guest mobile number*',
                         hint: 'Mobile number',
@@ -88,10 +86,9 @@ class AddEventScreen extends StatelessWidget {
                       height: 50,
                       padding: const EdgeInsets.only(left: 15, right: 5),
                       decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(50),
-                        color: Colors.white,
-                        border: Border.all(color: Colors.grey,width: 0.4)
-                      ),
+                          borderRadius: BorderRadius.circular(50),
+                          color: Colors.white,
+                          border: Border.all(color: Colors.grey, width: 0.4)),
                       child: InkWell(
                         onTap: controller.onSelectDate,
                         child: Row(
@@ -107,7 +104,7 @@ class AddEventScreen extends StatelessWidget {
                                 child: Text(
                                   DateFormat.yMMMd().format(controller.selectedDate.value),
                                   style:
-                                  const TextStyle(fontSize: 14, fontWeight: FontWeight.w500, color: Colors.black),
+                                      const TextStyle(fontSize: 14, fontWeight: FontWeight.w500, color: Colors.black),
                                 ),
                               );
                             })
@@ -179,7 +176,6 @@ class AddEventScreen extends StatelessWidget {
                       height: 8,
                     ),
                     SizedBox(height: screenHeight * 0.1, child: getImagesListWidget(controller: controller)),
-
                     SizedBox(
                       height: _mainHeight * 0.1,
                     ),
@@ -207,6 +203,7 @@ class AddEventScreen extends StatelessWidget {
       ),
     );
   }
+
   Widget getImagesListWidget({required AddEventController controller}) {
     return RawScrollbar(
       padding: const EdgeInsets.only(bottom: -7),
@@ -226,42 +223,38 @@ class AddEventScreen extends StatelessWidget {
               alignment: Alignment.center,
               child: controller.imageFiles.length == index
                   ? getElevatedButton(
-                onPressed: () async {
-                  showImagePickerDialog(
-                    context: Get.context!,
-                    onCamera: () => controller.onCaptureMediaClick(
-                        source: ImageSource.camera),
-                    onGallery: () => controller.onCaptureMediaClick(
-                        source: ImageSource.gallery),
-                  );
-                },
-                child: Icon(
-                  Icons.add_photo_alternate,
-                  size: screenHeight * 0.05,
-                  color: primaryColor,
-                ),
-              )
+                      onPressed: () async {
+                        showImagePickerDialog(
+                          context: Get.context!,
+                          onCamera: () => controller.onCaptureMediaClick(source: ImageSource.camera),
+                          onGallery: () => controller.onCaptureMediaClick(source: ImageSource.gallery),
+                        );
+                      },
+                      child: Icon(
+                        Icons.add_photo_alternate,
+                        size: screenHeight * 0.05,
+                        color: primaryColor,
+                      ),
+                    )
                   : InkWell(
-                onTap: () {
-                  showImagePickerDialog(
-                    context: Get.context!,
-                    onCamera: () => controller.onCaptureMediaClick(
-                        source: ImageSource.camera),
-                    onGallery: () => controller.onCaptureMediaClick(
-                        source: ImageSource.gallery),
-                  );
-                },
-                child: SizedBox(
-                  width: screenWidth * 0.27,
-                  height: screenHeight * 0.1,
-                  child: ClipRRect(
-                      borderRadius: const BorderRadius.all(Radius.circular(20)),
-                      child: Image.file(
-                        controller.imageFiles[index],
-                        fit: BoxFit.cover,
-                      )),
-                ),
-              ),
+                      onTap: () {
+                        showImagePickerDialog(
+                          context: Get.context!,
+                          onCamera: () => controller.onCaptureMediaClick(source: ImageSource.camera),
+                          onGallery: () => controller.onCaptureMediaClick(source: ImageSource.gallery),
+                        );
+                      },
+                      child: SizedBox(
+                        width: screenWidth * 0.27,
+                        height: screenHeight * 0.1,
+                        child: ClipRRect(
+                            borderRadius: const BorderRadius.all(Radius.circular(20)),
+                            child: Image.file(
+                              controller.imageFiles[index],
+                              fit: BoxFit.cover,
+                            )),
+                      ),
+                    ),
             );
           }),
     );

@@ -114,7 +114,7 @@ class DashboardDrawerScreen extends StatelessWidget {
       ),
       currentAccountPicture: InkWell(
         onTap: () {
-          dashboardController.showLogoutAlertDialog(context: context, logOutFunction: () {});
+
         },
         child: CircleAvatar(
             backgroundColor: whiteColor,

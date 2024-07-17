@@ -15,6 +15,7 @@ class ApiService {
   Map<String, dynamic> getHeaders() {
     String userToken = GetStorage().read(token) ??'';
     log('Authorization Bearer $userToken');
+    userToken = 'NKUowMIYafIQYfrhZyzV54gEx2mkFG';
     return {
       'Authorization':'Bearer $userToken'
 

@@ -1,4 +1,3 @@
-
 import 'dart:developer';
 
 import 'package:get_storage/get_storage.dart';
@@ -14,11 +13,8 @@ class ShowEventApiService {
 
   Future<List<EventsListModel>> getAllEvents() async {
     String url = AppUrls.allEventsUrl;
-    final String userName = GetStorage().read(username);
     final response = await _apiService.getApiCall(
       url: url,
-      queryParams:{'username': userName} ,
-
     );
     final data = response;
 
@@ -30,13 +26,32 @@ class ShowEventApiService {
       return [];
     }
   }
+
+  Future<List<EventsListModel>> getAllEventsCreatedForMe() async {
+    String url = AppUrls.getAllEventsCreatedForUserUrl;
+    final response = await _apiService.getApiCall(
+      url: url,
+      queryParams: {
+        "receiver_phone_number": 9889617848
+      }
+    );
+    final data = response;
+
+    if (data['message'].toString().toLowerCase().contains('events found')) {
+      Iterable iterable = data['data'];
+      final list = iterable.map((event) => EventsListModel.fromJson(event)).toList();
+      return list;
+    } else {
+      return [];
+    }
+  }
+
   Future<EventDetailsModel> getEventDetails({required String eventId}) async {
     String url = AppUrls.createEventUrl;
 
     final response = await _apiService.getApiCall(
       url: url,
-      queryParams:{'eventid': eventId} ,
-
+      queryParams: {'eventid': eventId},
     );
     final data = response;
 
