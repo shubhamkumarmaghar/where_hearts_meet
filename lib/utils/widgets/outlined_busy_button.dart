@@ -1,14 +1,12 @@
 import 'package:flutter/material.dart';
-
 import '../consts/color_const.dart';
 
-class GradientButton extends StatelessWidget {
+class OutlinedBusyButton extends StatelessWidget {
   final bool busy;
   final String title;
   final TextStyle? titleTextStyle;
   final Function()? onPressed;
   final bool enabled;
-  final Color buttonColor;
   final Color splashColor;
   final double width;
   final double? buttonCorner;
@@ -17,7 +15,7 @@ class GradientButton extends StatelessWidget {
   final double? borderWidth;
   final Gradient? gradient;
 
-  const GradientButton({
+  const OutlinedBusyButton({
     super.key,
     required this.title,
     this.gradient,
@@ -29,35 +27,28 @@ class GradientButton extends StatelessWidget {
     this.borderWidth,
     this.borderColor,
     this.height = 50,
-    this.buttonColor = primaryColor,
     this.splashColor = greyColor,
     this.enabled = true,
   });
 
   @override
   Widget build(BuildContext context) {
-    return Container(
+    return SizedBox(
       height: height,
       width: width,
-      decoration: enabled
-          ? BoxDecoration(
-              color: buttonColor,
-              borderRadius: BorderRadius.circular(50),
-            )
-          : BoxDecoration(
-              color: greyColor,
-              borderRadius: BorderRadius.circular(50),
-            ),
       child: ElevatedButton(
         style: ButtonStyle(
           shape: MaterialStateProperty.all<RoundedRectangleBorder>(
             RoundedRectangleBorder(
+              side: enabled
+                  ? BorderSide(color: borderColor ?? primaryColor, width: borderWidth ?? 1.5)
+                  : const BorderSide(color: Colors.transparent, width: 0.0),
               borderRadius: BorderRadius.circular(buttonCorner ?? 50.0),
             ),
           ),
           minimumSize: MaterialStateProperty.all(Size(width, 50)),
-          backgroundColor: enabled ? MaterialStateProperty.all(buttonColor) : MaterialStateProperty.all(greyColor),
-          // elevation: MaterialStateProperty.all(3),
+          backgroundColor:
+              enabled ? MaterialStateProperty.all(Colors.white) : MaterialStateProperty.all(greyColor.withOpacity(0.4)),
           shadowColor: MaterialStateProperty.all(Colors.transparent),
         ),
         onPressed: busy || enabled == false ? () {} : onPressed,
@@ -72,8 +63,9 @@ class GradientButton extends StatelessWidget {
               )
             : Text(
                 title,
-                style:
-                    titleTextStyle ?? const TextStyle(color: Colors.white, fontWeight: FontWeight.w700, fontSize: 19),
+                style: enabled
+                    ? titleTextStyle ?? const TextStyle(color: primaryColor, fontWeight: FontWeight.w700, fontSize: 19)
+                    : const TextStyle(color: Colors.white54, fontWeight: FontWeight.w700, fontSize: 19),
               ),
       ),
     );

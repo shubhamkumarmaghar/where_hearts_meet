@@ -14,7 +14,7 @@ class FunctionsService {
         accessKey: awsAccessKey,
         secretKey: awsSecretKey,
         file: file,
-        key: 'hehbucket.s3.ap-south-1.amazonaws.com/birthday12_video.mp4',
+        key: path.last,
         bucket: awsBucket,
 
         region: awsRegion,

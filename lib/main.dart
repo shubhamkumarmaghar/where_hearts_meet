@@ -8,6 +8,7 @@ import 'package:get_storage/get_storage.dart';
 import 'package:where_hearts_meet/splash_module/screens/splash_screen.dart';
 import 'package:where_hearts_meet/utils/consts/color_const.dart';
 import 'package:where_hearts_meet/utils/consts/service_const.dart';
+import 'package:where_hearts_meet/utils/repository/created_event_repo.dart';
 import 'package:where_hearts_meet/utils/routes/app_routes.dart';
 import 'package:where_hearts_meet/utils/routes/routes_const.dart';
 import 'package:where_hearts_meet/utils/services/dio_injector.dart';
@@ -30,6 +31,7 @@ Future<void> setUp() async {
   Get.put(FirebaseAuthController());
   Get.put(FirebaseStorageController());
   locator.registerSingleton<DioInjector>(DioInjector());
+  locator.registerSingleton<CreatedEventRepo>(CreatedEventRepo());
 }
 
 class MyApp extends StatelessWidget {
@@ -41,8 +43,7 @@ class MyApp extends StatelessWidget {
       title: 'Heart-e-homies',
       builder: (context, child) {
         return MediaQuery(
-            data: MediaQuery.of(context).copyWith(textScaler: const TextScaler.linear(0.9)),
-            child: child ?? Text(''));
+            data: MediaQuery.of(context).copyWith(textScaler: const TextScaler.linear(0.9)), child: child ?? Text(''));
       },
       getPages: AppRoutes.getRoutes(),
       themeMode: ThemeMode.system,
@@ -51,7 +52,6 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         fontFamily: 'PlusJakartaSans',
         primarySwatch: getMaterialColor(primaryColor),
-
       ),
       home: const SplashScreen(),
     );

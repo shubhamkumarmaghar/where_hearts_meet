@@ -32,6 +32,8 @@ import '../../guest/guest_dashboard/guest_wishlist/binding/guest_wishlist.dart';
 import '../../guest/guest_dashboard/view/guest_dashboard.dart';
 import '../../guest/guest_dashboard/view/guest_dashboard.dart';
 import '../../guest/guest_dashboard/view/guest_splash_view.dart';
+import '../../preview_event/binding/created_wishes_preview_binding.dart';
+import '../../preview_event/view/created_wishes_preview_screen.dart';
 import '../../profile_module/binding/edit_profile_binding.dart';
 
 import '../../profile_module/screens/edit_profile_screen.dart';
@@ -49,13 +51,11 @@ class AppRoutes {
         binding: EditProfileBinding(),
         page: () => EditProfileScreen(),
       ),
-
       GetPage(
         name: RoutesConst.loginScreen,
         binding: LoginBinding(),
         page: () => LoginScreen(),
       ),
-
       GetPage(
         name: RoutesConst.profileSetUpScreen,
         binding: ProfileSetupBinding(),
@@ -103,7 +103,7 @@ class AppRoutes {
       ),
       GetPage(
         name: RoutesConst.guestHomeScreen,
-         binding: GuestHomeBinding(),
+        binding: GuestHomeBinding(),
         page: () => const GuestHome(),
       ),
       GetPage(
@@ -114,7 +114,7 @@ class AppRoutes {
       GetPage(
         name: RoutesConst.guestWishlist,
         binding: GuestWishlistBinding(),
-        page: () =>  GuestWishList(),
+        page: () => GuestWishList(),
       ),
       GetPage(
         name: RoutesConst.guestCoverScreen,
@@ -140,6 +140,11 @@ class AppRoutes {
         name: RoutesConst.createTimelineScreen,
         binding: CreateTimelineBinding(),
         page: () => CreateTimelineScreen(),
+      ),
+      GetPage(
+        name: RoutesConst.createdWishesPreviewScreen,
+        binding: CreatedWishesPreviewBinding(),
+        page: () => CreatedWishesPreviewScreen(),
       ),
     ];
   }

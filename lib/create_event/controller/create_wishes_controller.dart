@@ -7,10 +7,13 @@ import 'package:image_picker/image_picker.dart';
 import 'package:where_hearts_meet/create_event/model/event_response_model.dart';
 import 'package:where_hearts_meet/utils/consts/color_const.dart';
 import 'package:where_hearts_meet/utils/controller/base_controller.dart';
+import 'package:where_hearts_meet/utils/util_functions/decoration_functions.dart';
 import 'package:where_hearts_meet/utils/widgets/util_widgets/app_widgets.dart';
 
+import '../../utils/consts/service_const.dart';
 import '../../utils/dialogs/pop_up_dialogs.dart';
 import '../../utils/model/image_response_model.dart';
+import '../../utils/repository/created_event_repo.dart';
 import '../../utils/routes/routes_const.dart';
 import '../../utils/services/functions_service.dart';
 import '../model/wishes_model.dart';
@@ -27,30 +30,35 @@ class CreateWishesController extends BaseController {
 
   final createEventService = CreateEventService();
 
-
   @override
   void onInit() {
     super.onInit();
-    eventResponseModel = Get.arguments as EventResponseModel;
+    var createdEvent = locator<CreatedEventRepo>();
+    if (createdEvent.getCurrentEvent != null) {
+      eventResponseModel = createdEvent.getCurrentEvent!;
+    }
   }
 
   void onCaptureMediaClick({required ImageSource source, bool? forProfile}) async {
     final ImagePicker picker = ImagePicker();
 
-    var image = await picker.pickImage(source: source, maxHeight: 800, maxWidth: 800, imageQuality: 70);
+    var image = await picker.pickImage(source: source, maxHeight: 800, maxWidth: 800, imageQuality: 40);
 
     if (image != null) {
-      showLoaderDialog(context: Get.context!);
-      final imageResponse = await createEventService.uploadImageApi(imageFile: image);
-      cancelDialog();
-      if (imageResponse != null) {
-        if (forProfile != null && forProfile) {
-          profileImage = imageResponse;
-        } else {
-          imagesList.add(imageResponse);
-        }
+      final croppedImage = await cropImage(filePath: image.path, isProfileImage: forProfile);
+      if (croppedImage != null) {
+        showLoaderDialog(context: Get.context!);
+        final imageResponse = await createEventService.uploadImageApi(imageFile: croppedImage);
+        cancelDialog();
+        if (imageResponse != null) {
+          if (forProfile != null && forProfile) {
+            profileImage = imageResponse;
+          } else {
+            imagesList.add(imageResponse);
+          }
 
-        update();
+          update();
+        }
       }
     }
   }
@@ -101,12 +109,21 @@ class CreateWishesController extends BaseController {
       update();
     }
   }
-  void navigateToCreateTimelineScreen(){
-    if(wishesList.isNotEmpty){
-      Get.toNamed(RoutesConst.createTimelineScreen, arguments: eventResponseModel);
-    }else{
-      AppWidgets.getToast(message: 'Please add at least 1 wish',color: redColor);
-    }
 
+  void navigateToCreatedWishesPreviewScreen(WishesModel wishesModel) {
+    Get.toNamed(
+      RoutesConst.createdWishesPreviewScreen,
+      arguments: wishesModel,
+    );
+  }
+
+  void navigateToCreateTimelineScreen() {
+    if (wishesList.isNotEmpty) {
+      Get.offNamed(
+        RoutesConst.createTimelineScreen,
+      );
+    } else {
+      AppWidgets.getToast(message: 'Please add at least 1 wish', color: redColor);
+    }
   }
 }

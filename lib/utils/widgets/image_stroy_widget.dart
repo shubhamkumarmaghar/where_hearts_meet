@@ -24,7 +24,9 @@ class ImageStoryWidget extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.black,
-        leading: const Icon(Icons.arrow_back_ios_new,color: Colors.white,size: 20,),
+        leading: GestureDetector(
+            onTap: ()=>Get.back(),
+            child: const Icon(Icons.arrow_back_ios_new,color: Colors.white,size: 20,)),
       ),
       body: Container(
         height: screenHeight,

@@ -75,7 +75,7 @@ class DesignerTextField extends StatelessWidget {
             decoration: InputDecoration(
               prefixIcon: prefixIcon,
               suffixIcon: suffixIcon,
-              contentPadding: const EdgeInsets.symmetric(horizontal: 12.0,),
+              contentPadding: EdgeInsets.symmetric(horizontal: 12.0,vertical: maxLines != null && maxLines! > 2 ? 10:1),
               border: BorderStyles.auctionTextFieldBorderStyle,
               enabledBorder: cornerRadius == null ? BorderStyles.auctionTextFieldBorderStyle : BorderStyles
                   .auctionTextFieldBorderStyleCustom(cornerRadius: cornerRadius!, color: borderColor),

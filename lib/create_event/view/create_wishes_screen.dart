@@ -1,18 +1,20 @@
+import 'dart:developer';
+
+import 'package:carousel_slider/carousel_slider.dart';
 import 'package:clay_containers/widgets/clay_container.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/painting.dart';
-import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 
 import 'package:where_hearts_meet/create_event/controller/create_wishes_controller.dart';
+import 'package:where_hearts_meet/utils/widgets/gradient_button.dart';
+import 'package:where_hearts_meet/utils/widgets/outlined_busy_button.dart';
 
-import '../../utils/buttons/buttons.dart';
 import '../../utils/consts/app_screen_size.dart';
 import '../../utils/consts/color_const.dart';
 import '../../utils/util_functions/app_pickers.dart';
 import '../../utils/util_functions/decoration_functions.dart';
+import '../../utils/widgets/custom_photo_view.dart';
 import '../../utils/widgets/designer_text_field.dart';
 
 class CreateWishesScreen extends StatelessWidget {
@@ -24,7 +26,6 @@ class CreateWishesScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return GetBuilder<CreateWishesController>(
       builder: (controller) {
-        
         return Scaffold(
           bottomNavigationBar: Container(
             color: appColor3,
@@ -36,25 +37,19 @@ class CreateWishesScreen extends StatelessWidget {
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                getElevatedButton(
-                  width: screenWidth*0.4,
-                  borderRadius: 30,
-                  child: Text(
-                    'Submit',
-                    style: headingStyle(fontSize: 22),
-                  ),
-                  buttonColor: appColor1,
+                GradientButton(
+                  title: 'Submit',
+                  width: screenWidth * 0.4,
                   onPressed: controller.addWishes,
+                  buttonColor: appColor1,
+                  titleTextStyle: headingStyle(fontSize: 22),
                 ),
-                getOutlinedButton(
-                  width: screenWidth*0.4,
-                  borderRadius: 30,
-                  child: Text(
-                    'Next',
-                    style: headingStyle(fontSize: 22,color: primaryColor),
-                  ),
-
+                OutlinedBusyButton(
+                  title: 'Next',
+                  width: screenWidth * 0.4,
+                  titleTextStyle: headingStyle(fontSize: 22, color: primaryColor),
                   onPressed: controller.navigateToCreateTimelineScreen,
+                  enabled: controller.wishesList.isNotEmpty,
                 ),
               ],
             ),
@@ -87,7 +82,7 @@ class CreateWishesScreen extends StatelessWidget {
                   Visibility(
                     visible: controller.wishesList.isNotEmpty,
                     replacement: const SizedBox.shrink(),
-                    child: addWish(),
+                    child: showWish(),
                   ),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -272,70 +267,43 @@ class CreateWishesScreen extends StatelessWidget {
         });
   }
 
-  Widget addWish() {
-    return Container(
+  Widget showWish() {
+    return SizedBox(
       height: screenHeight * 0.1,
       //color: Colors.amber,
       child: ListView.separated(
           scrollDirection: Axis.horizontal,
           itemBuilder: (context, index) {
             var data = controller.wishesList[index];
-            return Column(
-              children: [
-                Container(
-                  decoration: BoxDecoration(
-                      borderRadius: const BorderRadius.all(Radius.circular(60)),
-                      border: Border.all(color: appColor2, width: 1.5)),
-                  child: Tooltip(
 
-                    triggerMode: TooltipTriggerMode.tap,
-                    margin: EdgeInsets.only(top: 10),
-                    richMessage: WidgetSpan(
-                      alignment: PlaceholderAlignment.baseline,
-                      baseline: TextBaseline.alphabetic,
-                      child: Container(
-                        padding: const EdgeInsets.all(10),
-                        constraints:  BoxConstraints(maxWidth: screenWidth*0.85),
-                        child: Row(
-                          children: [
-                            ClipRRect(
-                              borderRadius: const BorderRadius.all(Radius.circular(60)),
-                              child: Image.network(
-                                data.senderProfileImage ?? '',
-                                fit: BoxFit.scaleDown,
-                              ),
-                            ),
-                            const SizedBox(width: 20),
-                            Text(
-                              data.senderMessage ??'',
-                            ),
-                          ],
-                        ),
-                      ),
-                    ),
-                    decoration: BoxDecoration(color: Colors.white, borderRadius: BorderRadius.circular(10)),
-                    showDuration: Duration(seconds: 30),
-                    waitDuration: Duration(seconds: 30),
-                    child: Container(
-                      width: screenWidth * 0.16,
-                      height: screenHeight * 0.07,
-                      child: ClipRRect(
+            return GestureDetector(
+              onTap: () {
+                controller.navigateToCreatedWishesPreviewScreen(data);
+              },
+              child: Column(
+                children: [
+                  Container(
+                    width: screenHeight * 0.07,
+                    height: screenHeight * 0.07,
+                    decoration: BoxDecoration(
                         borderRadius: const BorderRadius.all(Radius.circular(60)),
-                        child: Image.network(
-                          data.senderProfileImage ?? '',
-                          fit: BoxFit.cover,
-                        ),
+                        border: Border.all(color: appColor2, width: 1.5)),
+                    child: ClipRRect(
+                      borderRadius: const BorderRadius.all(Radius.circular(60)),
+                      child: Image.network(
+                        data.senderProfileImage ?? '',
+                        fit: BoxFit.cover,
                       ),
                     ),
                   ),
-                ),
-                Text(
-                  data.senderName != null && data.senderName!.isNotEmpty
-                      ? data.senderName.toString().capitalizeFirst.toString()
-                      : '',
-                  style: const TextStyle(fontSize: 14, fontWeight: FontWeight.w600, color: Colors.white),
-                ),
-              ],
+                  Text(
+                    data.senderName != null && data.senderName!.isNotEmpty
+                        ? data.senderName.toString().capitalizeFirst.toString()
+                        : '',
+                    style: const TextStyle(fontSize: 14, fontWeight: FontWeight.w600, color: Colors.white),
+                  ),
+                ],
+              ),
             );
           },
           separatorBuilder: (context, index) => const SizedBox(

@@ -1,5 +1,8 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:image_cropper/image_cropper.dart';
 
 import '../consts/app_screen_size.dart';
 import '../consts/color_const.dart';
@@ -60,16 +63,51 @@ Widget get appHeader {
     ],
   );
 }
-
-TextStyle headingStyle({double? fontSize, Color? color,FontWeight? fontWeight}) {
-  return GoogleFonts.dangrek(
-      color: color ?? Colors.white,
-      fontWeight:fontWeight ?? FontWeight.w500,
-      fontSize: fontSize ?? 22);
+String getYearTime(String date) {
+  if (date.isEmpty) {
+    return '';
+  }
+  final dateTime = DateTime.parse(date);
+  final time = '${addZero(dateTime.day)}/${addZero(dateTime.month)}/${dateTime.year}';
+  return time;
 }
-TextStyle textStyleAbel({double? fontSize, Color? color,FontWeight? fontWeight}) {
+
+String addZero(int value) {
+  return value > 9 ? value.toString() : '0$value';
+}
+
+TextStyle headingStyle({double? fontSize, Color? color, FontWeight? fontWeight}) {
+  return GoogleFonts.dangrek(
+      color: color ?? Colors.white, fontWeight: fontWeight ?? FontWeight.w500, fontSize: fontSize ?? 22);
+}
+
+TextStyle textStyleAbel({double? fontSize, Color? color, FontWeight? fontWeight}) {
   return GoogleFonts.abel(
-      color: color ?? Colors.white,
-      fontWeight:fontWeight ?? FontWeight.w500,
-      fontSize: fontSize ?? 22);
+      color: color ?? Colors.white, fontWeight: fontWeight ?? FontWeight.w500, fontSize: fontSize ?? 22);
+}
+
+Future<File?> cropImage({required String filePath, bool? isProfileImage}) async {
+  CroppedFile? croppedImage = await ImageCropper().cropImage(
+    sourcePath: filePath,
+    cropStyle: isProfileImage != null && isProfileImage ? CropStyle.circle : CropStyle.rectangle,
+    uiSettings: [
+      AndroidUiSettings(
+          toolbarTitle: 'Cropper',
+          toolbarColor: Colors.black,
+          toolbarWidgetColor: Colors.white,
+          initAspectRatio: CropAspectRatioPreset.square,
+          lockAspectRatio: true),
+      IOSUiSettings(
+        title: 'Cropper',
+        minimumAspectRatio: 1.0,
+        aspectRatioLockEnabled: true,
+      ),
+    ],
+  );
+
+  if (croppedImage != null) {
+    return File(croppedImage.path);
+  }
+
+  return null;
 }

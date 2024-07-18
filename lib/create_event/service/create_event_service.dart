@@ -18,7 +18,7 @@ import '../../utils/services/functions_service.dart';
 class CreateEventService {
   final ApiService _apiService = ApiService();
 
-  Future<ImageResponseModel?> uploadImageApi({required XFile imageFile}) async {
+  Future<ImageResponseModel?> uploadImageApi({required File imageFile}) async {
     final img = await dio.MultipartFile.fromFile(imageFile.path,
         filename: (imageFile.path.split('/')).last, contentType: MediaType('image', (imageFile.path.split('.')).last));
 

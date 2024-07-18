@@ -13,6 +13,7 @@ import '../../utils/consts/color_const.dart';
 import '../../utils/util_functions/app_pickers.dart';
 import '../../utils/util_functions/decoration_functions.dart';
 
+import '../../utils/widgets/image_stroy_widget.dart';
 import '../controller/create_timeline_controller.dart';
 
 class CreateTimelineScreen extends StatelessWidget {
@@ -74,24 +75,31 @@ class CreateTimelineScreen extends StatelessWidget {
                         replacement: const SizedBox.shrink(),
                         child: Column(
                           children: [
-                            DottedCircularBorder(
-                              totalNumber: controller.imagesList.length,
-                              dotsColor: Colors.white,
-                              widget: Container(
-                                height: screenHeight * 0.12,
-                                width: screenWidth * 0.22,
-                                padding: const EdgeInsets.all(5),
-                                child: ClipRRect(
-                                  borderRadius: BorderRadius.circular(50),
-                                  child: controller.imagesList.isNotEmpty
-                                      ? Image.network(
-                                          controller.imagesList.first.fileUrl ?? '',
-                                          fit: BoxFit.cover,
-                                        )
-                                      : Image.asset(dummyImage),
+                            GestureDetector(
+                              onTap: () {
+                                Get.to(() => ImageStoryWidget(
+                                      images: controller.imagesList.map((e) => e.fileUrl ?? '').toList(),
+                                    ));
+                              },
+                              child: DottedCircularBorder(
+                                totalNumber: controller.imagesList.length,
+                                dotsColor: Colors.white,
+                                widget: Container(
+                                  height: screenHeight * 0.12,
+                                  width: screenWidth * 0.22,
+                                  padding: const EdgeInsets.all(5),
+                                  child: ClipRRect(
+                                    borderRadius: BorderRadius.circular(50),
+                                    child: controller.imagesList.isNotEmpty
+                                        ? Image.network(
+                                            controller.imagesList.first.fileUrl ?? '',
+                                            fit: BoxFit.cover,
+                                          )
+                                        : Image.asset(dummyImage),
+                                  ),
                                 ),
+                                radius: screenWidth * 0.1,
                               ),
-                              radius: screenWidth * 0.11,
                             ),
                             SizedBox(
                               height: screenHeight * 0.01,
@@ -126,7 +134,7 @@ class CreateTimelineScreen extends StatelessWidget {
                                   ),
                                 ),
                               ),
-                              radius: screenWidth * 0.11,
+                              radius: screenWidth * 0.1,
                             ),
                             SizedBox(
                               height: screenHeight * 0.01,
@@ -218,7 +226,7 @@ class CreateTimelineScreen extends StatelessWidget {
           width: screenWidth * 0.18,
           height: screenHeight * 0.08,
           borderRadius: 15,
-          color: appColor2,
+          color: appColor1,
           child: Icon(
             Icons.switch_video,
             size: screenHeight * 0.03,

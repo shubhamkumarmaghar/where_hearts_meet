@@ -131,16 +131,4 @@ class EventCard extends StatelessWidget {
     );
   }
 
-  String getYearTime(String date) {
-    if (date.isEmpty) {
-      return '';
-    }
-    final dateTime = DateTime.parse(date);
-    final time = '${addZero(dateTime.day)}/${addZero(dateTime.month)}/${dateTime.year}';
-    return time;
-  }
-
-  String addZero(int value) {
-    return value > 9 ? value.toString() : '0$value';
-  }
 }

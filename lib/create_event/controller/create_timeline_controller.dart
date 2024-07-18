@@ -3,9 +3,11 @@ import 'dart:io';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 
+import '../../utils/consts/service_const.dart';
 import '../../utils/controller/base_controller.dart';
 import '../../utils/dialogs/pop_up_dialogs.dart';
 import '../../utils/model/image_response_model.dart';
+import '../../utils/repository/created_event_repo.dart';
 import '../../utils/routes/routes_const.dart';
 import '../model/event_response_model.dart';
 import '../service/create_event_service.dart';
@@ -20,7 +22,10 @@ class CreateTimelineController extends BaseController {
   @override
   void onInit() {
     super.onInit();
-    eventResponseModel = Get.arguments as EventResponseModel;
+    var createdEvent = locator<CreatedEventRepo>();
+    if (createdEvent.getCurrentEvent != null) {
+      eventResponseModel = createdEvent.getCurrentEvent!;
+    }
   }
 
   void onCaptureMediaClick({
@@ -32,7 +37,7 @@ class CreateTimelineController extends BaseController {
 
     if (image != null) {
       showLoaderDialog(context: Get.context!);
-      final imageResponse = await createEventService.uploadImageApi(imageFile: image);
+      final imageResponse = await createEventService.uploadImageApi(imageFile: File(image.path));
       cancelDialog();
       if (imageResponse != null) {
         imagesList.add(imageResponse);

@@ -8,8 +8,11 @@ import 'package:where_hearts_meet/create_event/service/create_event_service.dart
 import 'package:where_hearts_meet/utils/consts/color_const.dart';
 import 'package:where_hearts_meet/utils/controller/base_controller.dart';
 import 'package:where_hearts_meet/utils/model/week_model.dart';
+import 'package:where_hearts_meet/utils/repository/created_event_repo.dart';
 import 'package:where_hearts_meet/utils/routes/app_routes.dart';
 import 'package:where_hearts_meet/utils/routes/routes_const.dart';
+import 'package:where_hearts_meet/utils/util_functions/decoration_functions.dart';
+import '../../utils/consts/service_const.dart';
 import '../../utils/dialogs/pop_up_dialogs.dart';
 import '../../utils/model/event_type_model.dart';
 import '../../utils/widgets/util_widgets/app_widgets.dart';
@@ -93,24 +96,27 @@ class CreateEventController extends BaseController {
   void onCaptureMediaClick({required ImageSource source, required EventImageType imageType}) async {
     final ImagePicker picker = ImagePicker();
 
-    var image = await picker.pickImage(source: source, maxHeight: 800, maxWidth: 800, imageQuality: 50);
+    var image = await picker.pickImage(source: source, maxHeight: 800, maxWidth: 800, imageQuality: 60);
     if (image != null) {
-      showLoaderDialog(context: Get.context!);
-      final imageResponse = await createEventService.uploadImageApi(imageFile: image);
-      cancelDialog();
-      if (imageResponse != null) {
-        if (imageType == EventImageType.backgroundImage) {
-          eventModel.splashBackgroundImage = imageResponse.fileId;
-          backgroundImage = imageResponse.fileUrl;
-        } else if (imageType == EventImageType.displayImage) {
-          eventModel.splashDisplayImage = imageResponse.fileId;
-          displayImage = imageResponse.fileUrl;
-        } else if (imageType == EventImageType.coverImage) {
-          eventModel.coverImage = imageResponse.fileId;
-          coverImage = imageResponse.fileUrl;
-        }
+      final croppedImage = await cropImage(filePath: image.path);
+      if (croppedImage != null) {
+        showLoaderDialog(context: Get.context!);
+        final imageResponse = await createEventService.uploadImageApi(imageFile: croppedImage);
+        cancelDialog();
+        if (imageResponse != null) {
+          if (imageType == EventImageType.backgroundImage) {
+            eventModel.splashBackgroundImage = imageResponse.fileId;
+            backgroundImage = imageResponse.fileUrl;
+          } else if (imageType == EventImageType.displayImage) {
+            eventModel.splashDisplayImage = imageResponse.fileId;
+            displayImage = imageResponse.fileUrl;
+          } else if (imageType == EventImageType.coverImage) {
+            eventModel.coverImage = imageResponse.fileId;
+            coverImage = imageResponse.fileUrl;
+          }
 
-        update();
+          update();
+        }
       }
     }
   }
@@ -120,7 +126,9 @@ class CreateEventController extends BaseController {
     final response = await createEventService.createEventApi(eventModel: eventModel);
     cancelDialog();
     if (response != null) {
-      Get.toNamed(RoutesConst.createWishesScreen, arguments: response);
+      var createdEvent = locator<CreatedEventRepo>();
+      createdEvent.setEvent(response);
+      Get.offNamed(RoutesConst.createWishesScreen);
     }
   }
 

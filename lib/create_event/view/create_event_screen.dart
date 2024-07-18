@@ -1,17 +1,12 @@
 import 'package:clay_containers/clay_containers.dart';
 import 'package:clay_containers/widgets/clay_container.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:where_hearts_meet/utils/widgets/app_bar_widget.dart';
 import '../../utils/consts/app_screen_size.dart';
 import '../../utils/consts/color_const.dart';
-import '../../utils/consts/images_const.dart';
 import '../../utils/util_functions/app_pickers.dart';
 import '../../utils/util_functions/decoration_functions.dart';
-import '../../utils/widgets/custom_text_field.dart';
 import '../../utils/widgets/designer_text_field.dart';
 import '../../utils/widgets/gradient_button.dart';
 import '../controller/create_event_controller.dart';
@@ -25,6 +20,21 @@ class CreateEventScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      bottomNavigationBar: Container(
+        color: appColor3,
+        padding: EdgeInsets.only(left: screenWidth * 0.08, right: screenWidth * 0.08, bottom: screenHeight * 0.02),
+        child: GradientButton(
+          title: 'Submit',
+          buttonCorner: 20,
+          height: screenHeight * 0.06,
+          buttonColor: primaryColor,
+          width: screenWidth * 0.8,
+          onPressed: () async {
+            FocusScope.of(context).requestFocus(FocusNode());
+            controller.navigateToCreateEventSplashScreen();
+          },
+        ),
+      ),
       body: GestureDetector(
         onTap: () => FocusScope.of(context).requestFocus(FocusNode()),
         child: GetBuilder<CreateEventController>(
@@ -100,11 +110,10 @@ class CreateEventScreen extends StatelessWidget {
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
                             const Spacer(),
-                            Text(controller.selectedEventType.eventName ?? '',style: TextStyle(
-                              fontWeight: FontWeight.w500,
-                              fontSize: 16,
-                              color: primaryColor
-                            ),),
+                            Text(
+                              controller.selectedEventType.eventName ?? '',
+                              style: TextStyle(fontWeight: FontWeight.w500, fontSize: 16, color: primaryColor),
+                            ),
                             const Spacer(),
                             const Icon(Icons.arrow_drop_down),
                             SizedBox(
@@ -125,7 +134,7 @@ class CreateEventScreen extends StatelessWidget {
                       ),
                     ),
                     SizedBox(
-                      height: screenHeight * 0.03,
+                      height: screenHeight * 0.02,
                     ),
                     InkWell(
                       onTap: () {
@@ -137,40 +146,29 @@ class CreateEventScreen extends StatelessWidget {
                               source: ImageSource.gallery, imageType: EventImageType.coverImage),
                         );
                       },
-                      child: ClayContainer(
-                          height: screenHeight * 0.12,
-                          width: screenWidth * 0.5,
-                          borderRadius: 20,
-                          color: appColor2,
-                          child: controller.coverImage != null && controller.coverImage!.isNotEmpty
-                              ? Image.network(
+                      child: controller.coverImage != null && controller.coverImage!.isNotEmpty
+                          ? ClayContainer(
+                              height: screenHeight * 0.24,
+                              width: screenWidth * 0.85,
+                              borderRadius: 20,
+                              color: appColor2,
+                              child: ClipRRect(
+                                borderRadius: BorderRadius.circular(20),
+                                child: Image.network(
                                   controller.coverImage!,
-                                  fit: BoxFit.scaleDown,
-                                )
-                              : Icon(
-                                  Icons.upload,
-                                  size: screenHeight * 0.06,
-                                  color: Colors.white,
-                                )),
-                    ),
-                    SizedBox(
-                      height: screenHeight * 0.06,
-                    ),
-                    Center(
-                      child: ClayContainer(
-                        borderRadius: 50,
-                        color: appColor2,
-                        child: GradientButton(
-                          title: 'Submit',
-                          height: screenHeight * 0.06,
-                          buttonColor: primaryColor,
-                          width: screenWidth * 0.8,
-                          onPressed: () async {
-                            FocusScope.of(context).requestFocus(FocusNode());
-                            controller.navigateToCreateEventSplashScreen();
-                          },
-                        ),
-                      ),
+                                  fit: BoxFit.cover,
+                                ),
+                              ))
+                          : ClayContainer(
+                              height: screenHeight * 0.12,
+                              width: screenWidth * 0.3,
+                              borderRadius: 20,
+                              color: appColor2,
+                              child: Icon(
+                                Icons.upload,
+                                size: screenHeight * 0.06,
+                                color: Colors.white,
+                              )),
                     ),
                     SizedBox(
                       height: screenHeight * 0.02,
