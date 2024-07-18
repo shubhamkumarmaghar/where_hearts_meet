@@ -1,7 +1,9 @@
+import 'package:clay_containers/widgets/clay_container.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:where_hearts_meet/utils/consts/app_screen_size.dart';
+import 'package:where_hearts_meet/utils/consts/images_const.dart';
 import 'package:where_hearts_meet/utils/consts/shared_pref_const.dart';
 import 'package:where_hearts_meet/utils/routes/routes_const.dart';
 import 'package:where_hearts_meet/utils/services/firebase_auth_controller.dart';
@@ -26,46 +28,70 @@ class DashboardDrawerScreen extends StatelessWidget {
       child: Drawer(
         width: _mainWidth * 0.65,
         child: Container(
+          padding: EdgeInsets.only(left: screenWidth * 0.05),
           decoration: BoxDecoration(gradient: backgroundGradient),
           child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               SizedBox(
-                height: screenHeight*0.04,
+                height: screenHeight * 0.03,
               ),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   ClipRRect(
                       borderRadius: BorderRadius.circular(50),
-                      child: Image.network(
-                        'https://cdn-icons-png.flaticon.com/512/5231/5231019.png',
-                        // GetStorage().read(profileUrl) ?? '',
-                        fit: BoxFit.fitWidth,
-                        width: _mainWidth * 0.2,
-                      )),
-                  Container(
-                    padding: EdgeInsets.only(right: screenWidth*0.05),
-                    child: InkWell(
-                      onTap: () {
-                        Get.toNamed(RoutesConst.editProfileScreen);
-                      },
-                      child: const CircleAvatar(
-                          backgroundColor: blackColor,
-                          child: Icon(
-                            Icons.edit,
-                            color: whiteColor,
-                            size: 25,
-                          )),
+                      child: dashboardController.userImage != null && dashboardController.userImage.isNotEmpty
+                          ? Image.network(
+                              dashboardController.userImage,
+                              fit: BoxFit.fitWidth,
+                              width: _mainWidth * 0.15,
+                            )
+                          : Image.asset(
+                              dummyImage,
+                              fit: BoxFit.fitWidth,
+                              width: _mainWidth * 0.15,
+                            )),
+                  GestureDetector(
+                    onTap: () {
+                      Get.toNamed(RoutesConst.editProfileScreen);
+                    },
+                    child: Container(
+                      margin: EdgeInsets.only(right: screenWidth * 0.05),
+                      child: ClayContainer(
+                        borderRadius: 10,
+                        color: primaryColor,
+                        height: screenHeight * 0.04,
+                        width: screenWidth * 0.2,
+                        child: Center(
+                            child: Text(
+                          'Edit',
+                          style: headingStyle(fontSize: 20),
+                          textAlign: TextAlign.center,
+                        )),
+                      ),
                     ),
                   ),
                 ],
               ),
-              Text(
-                'Deepak',
-                style: const TextStyle(fontSize: 20, fontWeight: FontWeight.w700),
-              ),
               SizedBox(
-                height: _mainHeight * 0.01,
+                height: _mainHeight * 0.02,
+              ),
+              Text(
+                  dashboardController.userName != null && dashboardController.userName.isNotEmpty
+                      ? dashboardController.userName
+                      : "User",
+                  style: headingStyle(fontSize: 20)),
+              SizedBox(
+                height: _mainHeight * 0.005,
+              ),
+              Text(
+                  dashboardController.userPhone != null && dashboardController.userPhone.isNotEmpty
+                      ? dashboardController.userPhone
+                      : "+91",
+                  style: headingStyle(fontSize: 20)),
+              SizedBox(
+                height: _mainHeight * 0.03,
               ),
               getDrawerContentWidget(
                   icon: Icons.list,
@@ -109,7 +135,7 @@ class DashboardDrawerScreen extends StatelessWidget {
               const Spacer(),
               Container(
                   margin: EdgeInsets.only(bottom: _mainHeight * 0.01, right: _mainWidth * 0.025),
-                  alignment: Alignment.centerRight,
+                  alignment: Alignment.centerLeft,
                   child: const Text(
                     'v1.0',
                   )),

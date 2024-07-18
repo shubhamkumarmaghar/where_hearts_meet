@@ -37,7 +37,6 @@ class DashboardScreen extends StatelessWidget {
         return Scaffold(
           key: _scaffoldKey,
           endDrawer: DashboardDrawerScreen(dashboardController: controller),
-
           body: Container(
             height: screenHeight,
             width: screenWidth,
@@ -111,20 +110,10 @@ class DashboardScreen extends StatelessWidget {
                                 children: [
                                   Text(
                                     'Hello, Deepak !',
-                                    style: GoogleFonts.abel(
-                                        decoration: TextDecoration.none,
-                                        color: Colors.white,
-                                        fontWeight: FontWeight.w600,
-                                        fontSize: 20),
+                                    style: textStyleAbel(fontSize: 20, fontWeight: FontWeight.w600),
                                   ),
-                                  Text(
-                                    "Wish your loved ones.",
-                                    style: GoogleFonts.abel(
-                                        decoration: TextDecoration.none,
-                                        color: Colors.white,
-                                        fontWeight: FontWeight.w500,
-                                        fontSize: 16),
-                                  ),
+                                  Text("Wish your loved ones.",
+                                      style: textStyleAbel(fontSize: 16, fontWeight: FontWeight.w500)),
                                 ],
                               ),
                               GestureDetector(
@@ -182,37 +171,45 @@ class DashboardScreen extends StatelessWidget {
                         SizedBox(
                           height: screenHeight * 0.02,
                         ),
-                        Padding(
-                          padding: const EdgeInsets.symmetric(horizontal: 16),
-                          child: Text(
-                            "Wishes created by you",
-                            style: dashboardHeadingStyle,
+                        Visibility(
+                          visible: controller.eventListCreatedByUser.isNotEmpty,
+                          replacement: const SizedBox.shrink(),
+                          child: Padding(
+                            padding: EdgeInsets.only(left: 16, right: 16, bottom: screenHeight * 0.02),
+                            child: Text(
+                              "Wishes created by you",
+                              style: dashboardHeadingStyle,
+                            ),
                           ),
                         ),
-                        SizedBox(
-                          height: screenHeight * 0.02,
+                        Visibility(
+                          visible: controller.eventListCreatedByUser.isNotEmpty,
+                          replacement: const SizedBox.shrink(),
+                          child: Container(
+                              height: screenHeight * 0.44,
+                              width: screenWidth,
+                              padding: EdgeInsets.only(bottom: screenHeight * 0.04),
+                              child: getEventCard(context: context, eventsList: controller.eventListCreatedByUser)),
                         ),
-                        SizedBox(
-                            height: screenHeight * 0.4,
-                            width: screenWidth,
-                            child: getEventCard(context: context, eventsList: controller.eventListCreatedByUser)),
-                        SizedBox(
-                          height: screenHeight * 0.04,
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.symmetric(horizontal: 16),
-                          child: Text(
-                            "Wishes created for you",
-                            style: dashboardHeadingStyle,
+                        Visibility(
+                          visible: controller.eventListCreatedForUser.isNotEmpty,
+                          replacement: const SizedBox.shrink(),
+                          child: Padding(
+                            padding: EdgeInsets.only(left: 16, right: 16, bottom: screenHeight * 0.02),
+                            child: Text(
+                              "Wishes created for you",
+                              style: dashboardHeadingStyle,
+                            ),
                           ),
                         ),
-                        SizedBox(
-                          height: screenHeight * 0.02,
+                        Visibility(
+                          visible: controller.eventListCreatedForUser.isNotEmpty,
+                          replacement: const SizedBox.shrink(),
+                          child: SizedBox(
+                              height: screenHeight * 0.4,
+                              width: screenWidth,
+                              child: getEventCard(context: context, eventsList: controller.eventListCreatedForUser)),
                         ),
-                        SizedBox(
-                            height: screenHeight * 0.4,
-                            width: screenWidth,
-                            child: getEventCard(context: context, eventsList: controller.eventListCreatedForUser)),
                       ],
                     ),
                   ),

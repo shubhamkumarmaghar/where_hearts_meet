@@ -66,7 +66,7 @@ class GuestReceiveService {
     if (data['message'].toString().toLowerCase().contains('timeline found successfully')) {
       return TimeLineModel.fromJson(data);
     } else {
-      return TimeLineModel(message: 'Failure');
+      return TimeLineModel();
     }
 
   }

@@ -5,9 +5,11 @@ import 'package:confetti/confetti.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:get_storage/get_storage.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:intl/intl.dart';
 import 'package:where_hearts_meet/dashboard_module/service/dashboard_service.dart';
+import 'package:where_hearts_meet/utils/consts/shared_pref_const.dart';
 import 'package:where_hearts_meet/utils/controller/base_controller.dart';
 
 import '../../auth_module/controller/login_controller.dart';
@@ -28,6 +30,9 @@ class DashboardController extends BaseController {
   final service = DashboardService();
   List<EventResponseModel> eventListCreatedByUser = [];
   List<EventResponseModel> eventListCreatedForUser = [];
+  String userName = '';
+  String userPhone = '';
+  String userImage = '';
 
   @override
   void onInit() {
@@ -35,6 +40,11 @@ class DashboardController extends BaseController {
     getDatesForWeek();
     getEventsCreatedByUser();
     getEventsCreatedForUser();
+    final storage = GetStorage();
+    userPhone = storage.read(userMobile) ?? '';
+    userImage = storage.read(profileUrl) ?? '';
+    userName = storage.read(fullName) ?? '';
+    log('mobile ${storage.read(userMobile)}');
   }
 
   bool isCurrentDay({required String currentDay}) {

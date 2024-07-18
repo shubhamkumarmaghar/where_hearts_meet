@@ -61,9 +61,15 @@ Widget get appHeader {
   );
 }
 
-TextStyle headingStyle({double? fontSize, Color? color}) {
+TextStyle headingStyle({double? fontSize, Color? color,FontWeight? fontWeight}) {
   return GoogleFonts.dangrek(
       color: color ?? Colors.white,
-      fontWeight: FontWeight.w500,
+      fontWeight:fontWeight ?? FontWeight.w500,
+      fontSize: fontSize ?? 22);
+}
+TextStyle textStyleAbel({double? fontSize, Color? color,FontWeight? fontWeight}) {
+  return GoogleFonts.abel(
+      color: color ?? Colors.white,
+      fontWeight:fontWeight ?? FontWeight.w500,
       fontSize: fontSize ?? 22);
 }

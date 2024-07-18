@@ -142,7 +142,7 @@ class _GuestTimeLineState extends State<GuestTimeLine> {
                       autoPlayAnimationDuration: Duration(milliseconds: 800),
                       viewportFraction: 0.8,
                     ),
-                    items:controller.timeLineModel.value.data?[0].images?.map((imagePath) {
+                    items:controller.timeLineModel.value.images?.map((imagePath) {
                       return Builder(
                         builder: (BuildContext context) {
                           return GestureDetector(

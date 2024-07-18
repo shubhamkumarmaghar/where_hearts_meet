@@ -3,6 +3,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:where_hearts_meet/onboarding_module/repository/onboarding_repository.dart';
+import 'package:where_hearts_meet/utils/consts/app_screen_size.dart';
 
 import '../../utils/consts/color_const.dart';
 import 'onboarding_view.dart';
@@ -31,15 +32,17 @@ class _IntroScreenState extends State<IntroScreen> {
           child: Column(
             children: [
               SizedBox(
-                height: 26,
+                height: screenHeight*0.04,
               ),
-              Hero(
-                  tag: 'logo',
-                  child: Image.asset(
-                    logo,
-                    height: 130,
-                    width: 130,
-                  )),
+              Container(
+                height: screenHeight*0.15,
+                width: screenWidth*0.35,
+                child: Image.asset(
+                  logo,
+                  fit: BoxFit.cover,
+
+                ),
+              ),
               Container(
                 height: Get.height * 0.78,
                 child: PageView.builder(

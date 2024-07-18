@@ -66,7 +66,6 @@ class GuestHomeController extends BaseController {
   }
   Future<void> getTimelineWishes(String eventId) async{
     timeLineModel.value = await _guestReceiveService.getTimeline(eventId: eventId);
-    log('timeline Data ${timeLineModel.value?.data?.length}');
     update();
   }
 
