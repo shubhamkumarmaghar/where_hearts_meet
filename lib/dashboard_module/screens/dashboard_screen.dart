@@ -176,11 +176,23 @@ class DashboardScreen extends StatelessWidget {
                           replacement: const SizedBox.shrink(),
                           child: Padding(
                             padding: EdgeInsets.only(left: 16, right: 16, bottom: screenHeight * 0.02),
-                            child: Text(
-                              "Wishes created by you",
-                              style: dashboardHeadingStyle,
+                            child: Row(
+                              children: [
+                                Text(
+                                  "Wishes created by you",
+                                  style: dashboardHeadingStyle,
+                                ),
+                                const Spacer(),
+                                Text(
+                                  "See all",
+                                  style: textStyleAbel(fontSize: 14,fontWeight: FontWeight.w600),
+                                ),
+                                SizedBox(width: screenWidth*0.01,),
+
+                                const Icon(Icons.arrow_forward_outlined,size: 18,color: Colors.white,),
+                              ],
                             ),
-                          ),
+                          )
                         ),
                         Visibility(
                           visible: controller.eventListCreatedByUser.isNotEmpty,
@@ -196,9 +208,21 @@ class DashboardScreen extends StatelessWidget {
                           replacement: const SizedBox.shrink(),
                           child: Padding(
                             padding: EdgeInsets.only(left: 16, right: 16, bottom: screenHeight * 0.02),
-                            child: Text(
-                              "Wishes created for you",
-                              style: dashboardHeadingStyle,
+                            child: Row(
+                              children: [
+                                Text(
+                                  "Wishes created for you",
+                                  style: dashboardHeadingStyle,
+                                ),
+                                const Spacer(),
+                                Text(
+                                  "See all",
+                                  style: textStyleAbel(fontSize: 14,fontWeight: FontWeight.w600),
+                                ),
+                                SizedBox(width: screenWidth*0.01,),
+
+                                const Icon(Icons.arrow_forward_outlined,size: 18,color: Colors.white,),
+                              ],
                             ),
                           ),
                         ),
