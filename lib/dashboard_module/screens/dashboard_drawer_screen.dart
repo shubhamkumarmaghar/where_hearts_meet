@@ -2,6 +2,7 @@ import 'package:clay_containers/widgets/clay_container.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
+import 'package:where_hearts_meet/splash_module/screens/splash_screen.dart';
 import 'package:where_hearts_meet/utils/consts/app_screen_size.dart';
 import 'package:where_hearts_meet/utils/consts/images_const.dart';
 import 'package:where_hearts_meet/utils/consts/shared_pref_const.dart';
@@ -129,7 +130,8 @@ class DashboardDrawerScreen extends StatelessWidget {
                           showLoaderDialog(context: Get.context!);
                           await GetStorage().erase();
                           cancelDialog();
-                          Get.offAllNamed(RoutesConst.loginScreen);
+                         // Get.offAllNamed(RoutesConst.loginScreen);
+                          Get.offAll(SplashScreen());
                         });
                   }),
               const Spacer(),
