@@ -18,6 +18,8 @@ class RoutesConst{
   static String secretWishesScreen='/secretWishesScreen';
   static String guestHomeScreen='/guestHomeScreen';
   static String guestDashboard='/GuestDashboard';
+  static String guestWishlist='/GuestWishlist';
+
   static String guestCoverScreen='/GuestCoverScreen';
 
   static String createEventScreen='/createEventScreen';

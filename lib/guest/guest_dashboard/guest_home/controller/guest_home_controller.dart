@@ -76,10 +76,16 @@ class GuestHomeController extends BaseController {
   }
 
   void startCountdown() {
+    if(birthday.isAfter(DateTime.now())){
     countdownDuration = birthday.difference(DateTime.now());
     countdownTimer = Timer.periodic(Duration(seconds: 1), (_) {
       countdownDuration = birthday.difference(DateTime.now());
-    });
+    });}
+    else{
+      countdownDuration = birthday.difference(birthday);
+    }
+     // countdownTimer = Timer.periodic(Duration(seconds: 1), (_) {
+       // countdownDuration = birthday.difference(birthday);
     update();
   }
 
