@@ -71,7 +71,7 @@ class OnboardingController extends BaseController {
       final User? user = (await _auth.signInWithCredential(credential)).user;
 
       if (user != null) {
-        AppWidgets.getToast(message: 'Mobile number is successfully verified');
+        AppWidgets.getToast(message: 'Mobile number is successfully verified',color: greenTextColor);
         loginAndSignup(uid: user.uid);
       } else {
         log("Failed to sign in");

@@ -8,7 +8,6 @@ import 'package:get/get_core/src/get_main.dart';
 import 'package:get/get_rx/src/rx_types/rx_types.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:where_hearts_meet/guest/guest_dashboard/model/wisheh_model.dart';
-import 'package:youtube_player_flutter/youtube_player_flutter.dart';
 
 import '../../../../show_event_module/model/event_details_model.dart';
 import '../../../../utils/controller/base_controller.dart';
@@ -16,18 +15,11 @@ import '../../model/timeline_model.dart';
 import '../service/guest_receive_event.dart';
 
 class GuestHomeController extends BaseController {
-  late PlayerState playerState;
-  late YoutubeMetaData videoMetaData;
   double volume = 100;
   bool muted = false;
   bool isPlayerReady = false;
-  YoutubePlayerController youtubePlayerController = YoutubePlayerController(
-    initialVideoId: 'iLnmTe5Q2Qw',
-    flags: YoutubePlayerFlags(
-      autoPlay: true,
-      mute: true,
-    ),
-  );
+
+  String videoUrl = 'https://hehbucket.s3.ap-south-1.amazonaws.com/112233344412.mp4';
 
   DateTime birthday = DateTime.now(); // Set your birthday date here
   Duration countdownDuration = Duration();
@@ -40,6 +32,7 @@ class GuestHomeController extends BaseController {
   RxBool isLoading = true.obs;
   RxString infoText = RxString('');
   GuestReceiveService _guestReceiveService = GuestReceiveService();
+
   @override
   void onInit() {
     super.onInit();
@@ -59,16 +52,17 @@ class GuestHomeController extends BaseController {
     update();
   }
 
-  Future<void> getEventWishes(String eventId) async{
+  Future<void> getEventWishes(String eventId) async {
     guestwishesModel.value = await _guestReceiveService.getWishesList(eventId: eventId);
     log('Data ${guestwishesModel.value?.data?.length}');
     update();
   }
-  Future<void> getTimelineWishes(String eventId) async{
+
+  Future<void> getTimelineWishes(String eventId) async {
     timeLineModel.value = await _guestReceiveService.getTimeline(eventId: eventId);
+    log('zzzz ${timeLineModel.value.toJson()}');
     update();
   }
-
 
   void showDescription() async {
     final info = eventDetails?.eventDescription ?? '';
@@ -84,10 +78,11 @@ class GuestHomeController extends BaseController {
   void startCountdown() {
     countdownDuration = birthday.difference(DateTime.now());
     countdownTimer = Timer.periodic(Duration(seconds: 1), (_) {
-        countdownDuration = birthday.difference(DateTime.now());
+      countdownDuration = birthday.difference(DateTime.now());
     });
     update();
   }
+
   @override
   void onClose() {
     homeConfettiController.dispose();

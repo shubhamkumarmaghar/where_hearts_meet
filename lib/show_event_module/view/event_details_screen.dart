@@ -70,7 +70,7 @@ class EventDetailsScreen extends StatelessWidget {
                                 height: _mainHeight * 0.35,
                                 width: _mainWidth,
                                 child: ImageStoryWidget(
-                                    controller: StoryController(),
+
                                     images: controller.eventDetails!.imageUrls!),
                               ),
                               SizedBox(

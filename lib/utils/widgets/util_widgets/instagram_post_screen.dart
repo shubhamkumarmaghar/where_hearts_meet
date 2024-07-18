@@ -5,8 +5,6 @@ import 'package:get/get.dart';
 import 'package:get/utils.dart';
 import 'package:where_hearts_meet/utils/widgets/custom_photo_view.dart';
 
-import '../video_player.dart';
-
 class PostWidget extends StatelessWidget {
   final String profileImageUrl;
   final String username;
@@ -28,8 +26,9 @@ class PostWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return Card(
       elevation: 5,
-      margin: const EdgeInsets.symmetric(vertical: 10,
-         // horizontal: 10
+      margin: const EdgeInsets.symmetric(
+        vertical: 10,
+        // horizontal: 10
       ),
       child: Container(
         child: Column(
@@ -40,56 +39,61 @@ class PostWidget extends StatelessWidget {
               child: Row(
                 children: [
                   GestureDetector(
-                    onTap: (){
+                    onTap: () {
                       Get.to(CustomPhotoView(imageUrl: profileImageUrl));
                     },
                     child: CircleAvatar(
-                      backgroundImage:
-                      NetworkImage(profileImageUrl),
+                      backgroundImage: NetworkImage(profileImageUrl),
                       radius: 20,
                     ),
                   ),
                   SizedBox(width: 10),
                   Text(
                     username,
-                    style: TextStyle(fontWeight: FontWeight.w500,fontSize: 18),
+                    style: TextStyle(fontWeight: FontWeight.w500, fontSize: 18),
                   ),
                 ],
               ),
             ),
 
-         if(postImageUrl != null) Visibility(
-            visible: postImageUrl!.isNotEmpty,
-            child: CarouselSlider(
-              items: postImageUrl?.map((url) => GestureDetector(
-                onTap: () {
-                  Get.to(CustomPhotoView(imageUrl: url,));
-                },
-                child: AspectRatio(
-                  aspectRatio: 4,
-                  child: Container(
-                    width: Get.width,
-                    child: Image.network(
-                      url,
-                      fit: BoxFit.cover,
-                    ),
-                  ),
-                ),
-              ), ).toList(),
-              options: CarouselOptions(
-                  height: Get.height * 0.4,
+            if (postImageUrl != null)
+              Visibility(
+                visible: postImageUrl!.isNotEmpty,
+                child: CarouselSlider(
+                  items: postImageUrl
+                      ?.map(
+                        (url) => GestureDetector(
+                          onTap: () {
+                            Get.to(CustomPhotoView(
+                              imageUrl: url,
+                            ));
+                          },
+                          child: AspectRatio(
+                            aspectRatio: 4,
+                            child: Container(
+                              width: Get.width,
+                              child: Image.network(
+                                url,
+                                fit: BoxFit.cover,
+                              ),
+                            ),
+                          ),
+                        ),
+                      )
+                      .toList(),
+                  options: CarouselOptions(
+                      height: Get.height * 0.4,
 
-                  // enlargeCenterPage: true,
-                  autoPlay: false,
-                  //aspectRatio: 16 / 9,
-                  autoPlayCurve: Curves.fastOutSlowIn,
-                  enableInfiniteScroll: false,
-                  autoPlayAnimationDuration:
-                  Duration(milliseconds: 800),
-                  viewportFraction: 1),
-            ),
-          ),
-          // Post actions and caption
+                      // enlargeCenterPage: true,
+                      autoPlay: false,
+                      //aspectRatio: 16 / 9,
+                      autoPlayCurve: Curves.fastOutSlowIn,
+                      enableInfiniteScroll: false,
+                      autoPlayAnimationDuration: Duration(milliseconds: 800),
+                      viewportFraction: 1),
+                ),
+              ),
+            // Post actions and caption
             Padding(
               padding: const EdgeInsets.all(8.0),
               child: Column(
@@ -97,17 +101,13 @@ class PostWidget extends StatelessWidget {
                 children: [
                   Row(
                     children: [
-                       Icon(Icons.favorite_border),
+                      Icon(Icons.favorite_border),
                       SizedBox(width: 10),
                       Text('$likes likes'),
                     ],
                   ),
                   SizedBox(height: 5),
-                  Container(
-                    constraints: BoxConstraints(
-                      maxHeight: Get.height*0.1
-                    ),
-                      child: Text(caption)),
+                  Container(constraints: BoxConstraints(maxHeight: Get.height * 0.1), child: Text(caption)),
                 ],
               ),
             ),

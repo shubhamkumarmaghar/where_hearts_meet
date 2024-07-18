@@ -4,10 +4,8 @@ import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:motion_tab_bar/MotionTabBar.dart';
 import 'package:motion_tab_bar/MotionTabBarController.dart';
-import 'package:where_hearts_meet/guest/guest_dashboard/view/wishes.dart';
+import 'package:where_hearts_meet/guest/guest_dashboard/view/timeline_screen.dart';
 import 'package:where_hearts_meet/utils/consts/color_const.dart';
-
-import '../../../utils/widgets/video_player.dart';
 import '../guest_home/controller/guest_home_controller.dart';
 import '../guest_home/view/guest_home.dart';
 import '../guest_wishlist/view/guest_wishlist.dart';
@@ -44,7 +42,7 @@ class _GuestDashboardState extends State<GuestDashboard> with TickerProviderStat
       controller: _motionTabBarController,
       children: <Widget>[
          Center(
-          child:GuestTimeLine(),
+          child:TimelineStoriesSreen(),
           //VideoPlayerWidget(url: 'https://media.geeksforgeeks.org/wp-content/uploads/20230924220731/video.mp4'),
 
         ),

@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -17,6 +19,7 @@ import 'onboarding_module/view/onboarding_view.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  HttpOverrides.global = MyHttpOverrides();
 
   await GetStorage.init();
   await Firebase.initializeApp();
@@ -74,5 +77,13 @@ class MyApp extends StatelessWidget {
     };
 
     return MaterialColor(color.value, shades);
+  }
+}
+class MyHttpOverrides extends HttpOverrides{
+
+  @override
+  HttpClient createHttpClient(SecurityContext? context){
+    return super.createHttpClient(context)
+      ..badCertificateCallback = (X509Certificate cert, String host, int port)=> true;
   }
 }

@@ -63,9 +63,12 @@ class GuestReceiveService {
     );
     final data = response;
 
+
     if (data['message'].toString().toLowerCase().contains('timeline found successfully')) {
-      return TimeLineModel.fromJson(data);
+      log('shubham');
+      return TimeLineModel.fromJson(data['data']);
     } else {
+      log('shubhamk');
       return TimeLineModel();
     }
 
