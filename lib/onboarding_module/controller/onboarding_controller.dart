@@ -133,7 +133,7 @@ class OnboardingController extends BaseController {
       contentPadding: EdgeInsets.zero,
       shape: const RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(10.0))),
       content: SizedBox(
-        height: screenHeight * 0.42,
+        height: screenHeight * 0.45,
         child: Container(
           height: screenHeight * 0.38,
           width: screenWidth,

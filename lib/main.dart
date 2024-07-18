@@ -39,6 +39,11 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return GetMaterialApp(
       title: 'Heart-e-homies',
+      builder: (context, child) {
+        return MediaQuery(
+            data: MediaQuery.of(context).copyWith(textScaler: const TextScaler.linear(0.9)),
+            child: child ?? Text(''));
+      },
       getPages: AppRoutes.getRoutes(),
       themeMode: ThemeMode.system,
       debugShowCheckedModeBanner: false,
@@ -46,6 +51,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         fontFamily: 'PlusJakartaSans',
         primarySwatch: getMaterialColor(primaryColor),
+
       ),
       home: const SplashScreen(),
     );
