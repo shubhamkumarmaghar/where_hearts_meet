@@ -1,24 +1,15 @@
-import 'dart:developer';
-
 import 'package:clay_containers/clay_containers.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:where_hearts_meet/create_event/model/event_response_model.dart';
 import 'package:where_hearts_meet/dashboard_module/controller/dashboard_controller.dart';
-import 'package:where_hearts_meet/profile_module/model/people_model.dart';
 import 'package:where_hearts_meet/utils/consts/color_const.dart';
 import 'package:where_hearts_meet/utils/consts/images_const.dart';
-import 'package:where_hearts_meet/utils/model/dropdown_model.dart';
 import 'package:where_hearts_meet/utils/repository/wishes_card_data.dart';
-import 'package:where_hearts_meet/utils/routes/routes_const.dart';
 import 'package:where_hearts_meet/utils/widgets/event_card.dart';
 import '../../utils/consts/app_screen_size.dart';
-import '../../utils/dialogs/pop_up_dialogs.dart';
 import '../../utils/util_functions/decoration_functions.dart';
-import '../../utils/widgets/mini_user_card.dart';
 import '../widgets/dashboard_widgets.dart';
 import 'dashboard_drawer_screen.dart';
 
@@ -109,7 +100,9 @@ class DashboardScreen extends StatelessWidget {
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
                                   Text(
-                                    'Hello, Deepak !',
+                                    controller.userName != null && controller.userName.isNotEmpty
+                                        ? 'Hello, ${controller.userName} !'
+                                        : "Hello User !",
                                     style: textStyleAbel(fontSize: 20, fontWeight: FontWeight.w600),
                                   ),
                                   Text("Wish your loved ones.",
@@ -120,13 +113,20 @@ class DashboardScreen extends StatelessWidget {
                                 onTap: () async {},
                                 child: Container(
                                   height: screenHeight * 0.065,
-                                  padding: const EdgeInsets.all(10),
-                                  decoration: const BoxDecoration(
-                                    color: Colors.white,
-                                    shape: BoxShape.circle,
-                                  ),
-                                  child: Image.network(
-                                    'https://cdn-icons-png.flaticon.com/512/5231/5231019.png',
+                                  padding: const EdgeInsets.only(right: 10),
+                                  child: ClipRRect(
+                                    borderRadius: BorderRadius.circular(50),
+                                    child: controller.userImage != null && controller.userImage.isNotEmpty
+                                        ? Image.network(
+                                            controller.userImage,
+                                            fit: BoxFit.fitWidth,
+                                            width: screenWidth * 0.15,
+                                          )
+                                        : Image.asset(
+                                            profileIcon,
+                                            fit: BoxFit.fitWidth,
+                                            width: screenWidth * 0.15,
+                                          ),
                                   ),
                                 ),
                               ),

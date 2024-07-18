@@ -6,13 +6,11 @@ import 'package:where_hearts_meet/utils/consts/color_const.dart';
 import 'package:where_hearts_meet/utils/util_functions/app_pickers.dart';
 import 'package:where_hearts_meet/utils/widgets/custom_text_field.dart';
 import 'package:where_hearts_meet/utils/widgets/gradient_button.dart';
-
+import '../../utils/consts/app_screen_size.dart';
 import '../../utils/widgets/app_bar_widget.dart';
 import '../controller/edit_profile_controller.dart';
 
 class EditProfileScreen extends StatelessWidget {
-  final _mainHeight = Get.height;
-  final _mainWidth = Get.width;
   final controller = Get.find<EditProfileController>();
 
   EditProfileScreen({Key? key}) : super(key: key);
@@ -26,8 +24,8 @@ class EditProfileScreen extends StatelessWidget {
           return GestureDetector(
             onTap: () => FocusScope.of(context).requestFocus(FocusNode()),
             child: Container(
-              height: _mainHeight,
-              width: _mainWidth,
+              height: screenHeight,
+              width: screenWidth,
               color: whiteColor,
               padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
               child: controller.isBusy
@@ -37,12 +35,12 @@ class EditProfileScreen extends StatelessWidget {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           SizedBox(
-                            height: _mainHeight * 0.02,
+                            height: screenHeight * 0.02,
                           ),
                           Center(
                             child: SizedBox(
-                                width: _mainWidth * 0.26,
-                                height: _mainHeight * 0.12,
+                                width: screenWidth * 0.26,
+                                height: screenHeight * 0.12,
                                 child: getElevatedButton(
                                   buttonColor: whiteColor,
                                   onPressed: () async {
@@ -52,23 +50,23 @@ class EditProfileScreen extends StatelessWidget {
                                       onGallery: () => controller.onCaptureMediaClick(source: ImageSource.gallery),
                                     );
                                   },
-                                  child: controller.userInfoModel.imageUrl != null &&
-                                          controller.userInfoModel.imageUrl != ''
-                                      ? ClipRRect(
-                                          borderRadius: const BorderRadius.all(Radius.circular(100)),
-                                          child: Image.network(
-                                            controller.userInfoModel.imageUrl ?? '',
-                                            fit: BoxFit.cover,
-                                          ))
-                                      : Icon(
-                                          Icons.image_rounded,
-                                          size: _mainHeight * 0.06,
-                                          color: blackColor,
-                                        ),
+                                  child:
+                                      controller.userModel.profilePic != null && controller.userModel.profilePic != ''
+                                          ? ClipRRect(
+                                              borderRadius: const BorderRadius.all(Radius.circular(100)),
+                                              child: Image.network(
+                                                controller.userModel.profilePic ?? '',
+                                                fit: BoxFit.cover,
+                                              ))
+                                          : Icon(
+                                              Icons.image_rounded,
+                                              size: screenHeight * 0.06,
+                                              color: blackColor,
+                                            ),
                                 )),
                           ),
                           SizedBox(
-                            height: _mainHeight * 0.03,
+                            height: screenHeight * 0.03,
                           ),
                           Obx(
                             () => CustomTextField(
@@ -79,7 +77,7 @@ class EditProfileScreen extends StatelessWidget {
                                 controller: controller.nameTextController),
                           ),
                           SizedBox(
-                            height: _mainHeight * 0.03,
+                            height: screenHeight * 0.03,
                           ),
                           CustomTextField(
                               title: 'Email',
@@ -88,14 +86,14 @@ class EditProfileScreen extends StatelessWidget {
                               onChanged: (email) {},
                               controller: controller.emailController),
                           SizedBox(
-                            height: _mainHeight * 0.03,
+                            height: screenHeight * 0.03,
                           ),
                           const Text(
                             'Date of Birth',
                             style: TextStyle(fontWeight: FontWeight.w700, fontSize: 18),
                           ),
                           SizedBox(
-                            height: _mainHeight * 0.02,
+                            height: screenHeight * 0.02,
                           ),
                           InkWell(
                             onTap: () async {
@@ -105,18 +103,18 @@ class EditProfileScreen extends StatelessWidget {
                               }
                             },
                             child: Container(
-                              height: _mainHeight * 0.055,
-                              width: _mainWidth,
+                              height: screenHeight * 0.055,
+                              width: screenWidth,
                               decoration: BoxDecoration(
                                 border: Border.all(color: primaryColor, width: 0.3),
                                 borderRadius: BorderRadius.circular(50),
                               ),
-                              padding: EdgeInsets.only(right: _mainWidth * 0.05, left: _mainWidth * 0.03),
+                              padding: EdgeInsets.only(right: screenWidth * 0.05, left: screenWidth * 0.03),
                               child: Row(
                                 children: [
                                   const Spacer(),
                                   Text(
-                                    controller.userInfoModel.dateOfBirth ?? '',
+                                    controller.userModel.dateOfBirth ?? '',
                                     style: const TextStyle(
                                       fontSize: 15,
                                       fontWeight: FontWeight.w500,
@@ -132,14 +130,8 @@ class EditProfileScreen extends StatelessWidget {
                                 ],
                               ),
                             ),
-                          ),
-                          SizedBox(
-                            height: _mainHeight * 0.03,
-                          ),
-                          const Text("People's List",
-                              style: TextStyle(color: blackColor, fontSize: 18.0, fontWeight: FontWeight.w700)),
-                          SizedBox(
-                            height: _mainHeight * 0.02,
+                          ), SizedBox(
+                            height: screenHeight * 0.02,
                           ),
                         ],
                       ),
@@ -149,8 +141,8 @@ class EditProfileScreen extends StatelessWidget {
         },
       ),
       bottomNavigationBar: Container(
-        padding: EdgeInsets.only(bottom: _mainHeight * 0.02, left: 16, right: 16),
-        height: _mainHeight * 0.08,
+        padding: EdgeInsets.only(bottom: screenHeight * 0.02, left: 16, right: 16),
+        height: screenHeight * 0.08,
         child: GradientButton(
           title: 'Save',
           onPressed: () async {

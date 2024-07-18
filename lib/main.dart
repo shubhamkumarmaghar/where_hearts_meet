@@ -12,7 +12,6 @@ import 'package:where_hearts_meet/utils/routes/app_routes.dart';
 import 'package:where_hearts_meet/utils/routes/routes_const.dart';
 import 'package:where_hearts_meet/utils/services/dio_injector.dart';
 import 'package:where_hearts_meet/utils/services/firebase_auth_controller.dart';
-import 'package:where_hearts_meet/utils/services/firebase_firestore_controller.dart';
 import 'package:where_hearts_meet/utils/services/firebase_storage_controller.dart';
 
 import 'onboarding_module/view/onboarding_view.dart';
@@ -25,21 +24,16 @@ void main() async {
   await Firebase.initializeApp();
   await setUp();
   runApp(const MyApp());
-
-
 }
 
-Future<void> setUp()async{
-
+Future<void> setUp() async {
   Get.put(FirebaseAuthController());
-  Get.put(FirebaseFireStoreController());
   Get.put(FirebaseStorageController());
- locator.registerSingleton<DioInjector>(DioInjector());
+  locator.registerSingleton<DioInjector>(DioInjector());
 }
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
-
 
   @override
   Widget build(BuildContext context) {
@@ -53,10 +47,10 @@ class MyApp extends StatelessWidget {
         fontFamily: 'PlusJakartaSans',
         primarySwatch: getMaterialColor(primaryColor),
       ),
-      home:
-     const SplashScreen(),
+      home: const SplashScreen(),
     );
   }
+
   MaterialColor getMaterialColor(Color color) {
     final int red = color.red;
     final int green = color.green;
@@ -79,11 +73,11 @@ class MyApp extends StatelessWidget {
     return MaterialColor(color.value, shades);
   }
 }
-class MyHttpOverrides extends HttpOverrides{
 
+class MyHttpOverrides extends HttpOverrides {
   @override
-  HttpClient createHttpClient(SecurityContext? context){
+  HttpClient createHttpClient(SecurityContext? context) {
     return super.createHttpClient(context)
-      ..badCertificateCallback = (X509Certificate cert, String host, int port)=> true;
+      ..badCertificateCallback = (X509Certificate cert, String host, int port) => true;
   }
 }

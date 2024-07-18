@@ -14,7 +14,6 @@ import 'package:where_hearts_meet/utils/services/firebase_auth_controller.dart';
 import 'package:where_hearts_meet/utils/services/firebase_storage_controller.dart';
 import '../../utils/consts/shared_pref_const.dart';
 import '../../utils/routes/routes_const.dart';
-import '../../utils/services/firebase_firestore_controller.dart';
 
 import '../auth_model/login_response_model.dart';
 import '../auth_services/Auth_api_service.dart';

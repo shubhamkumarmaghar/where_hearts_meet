@@ -1,8 +1,8 @@
-
 import 'package:flutter/material.dart';
 import 'package:where_hearts_meet/create_event/model/event_response_model.dart';
 import 'package:where_hearts_meet/utils/consts/app_screen_size.dart';
 import 'package:where_hearts_meet/utils/consts/color_const.dart';
+import 'package:where_hearts_meet/utils/widgets/cached_image.dart';
 
 import '../util_functions/decoration_functions.dart';
 
@@ -32,14 +32,14 @@ class EventCard extends StatelessWidget {
         child: Column(
           children: [
             SizedBox(
-                height: screenHeight * 0.25,
-                width: screenWidth * 0.6,
-                child: ClipRRect(
-                    borderRadius: BorderRadius.circular(200),
-                    child: Image.network(
-                      eventResponseModel.coverImage ?? '',
-                      fit: BoxFit.cover,
-                    ))),
+              height: screenHeight * 0.25,
+              width: screenWidth * 0.6,
+              child: ClipRRect(
+                borderRadius: BorderRadius.circular(200),
+                child: cachedImage(
+                    imageUrl: eventResponseModel.coverImage, height: screenHeight * 0.25, width: screenWidth * 0.6),
+              ),
+            ),
             SizedBox(
               height: screenHeight * 0.005,
             ),

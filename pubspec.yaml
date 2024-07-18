@@ -46,6 +46,7 @@ dependencies:
   clay_containers: ^0.3.4
   dotted_border: ^2.1.0
   simple_s3: ^0.3.2
+  image_cropper: ^4.0.1
 
 
   google_fonts:

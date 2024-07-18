@@ -1,9 +1,5 @@
 import 'dart:developer';
 import 'dart:io';
-
-import 'package:confetti/confetti.dart';
-import 'package:flutter/cupertino.dart';
-import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:image_picker/image_picker.dart';
@@ -11,19 +7,10 @@ import 'package:intl/intl.dart';
 import 'package:where_hearts_meet/dashboard_module/service/dashboard_service.dart';
 import 'package:where_hearts_meet/utils/consts/shared_pref_const.dart';
 import 'package:where_hearts_meet/utils/controller/base_controller.dart';
-
-import '../../auth_module/controller/login_controller.dart';
-import '../../auth_module/controller/profile_setup_controller.dart';
 import '../../create_event/model/event_response_model.dart';
-import '../../create_event_module/model/add_event_model.dart';
-import '../../profile_module/model/people_model.dart';
-import '../../utils/consts/color_const.dart';
 import '../../utils/dialogs/pop_up_dialogs.dart';
 import '../../utils/model/week_model.dart';
-import '../../utils/services/firebase_auth_controller.dart';
-import '../../utils/services/firebase_firestore_controller.dart';
-import '../../utils/services/firebase_storage_controller.dart';
-import '../../utils/util_functions/app_pickers.dart';
+
 
 class DashboardController extends BaseController {
   List<WeekModel> currentWeekDates = [];

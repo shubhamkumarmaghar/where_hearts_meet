@@ -14,7 +14,6 @@ Widget cachedImage({String? imageUrl, double height = 90, double width = 120}) {
           imageUrl: imageUrl,
           imageBuilder: (context, imageProvider) => Container(
             decoration: BoxDecoration(
-              shape: BoxShape.rectangle,
               image: DecorationImage(image: imageProvider, fit: BoxFit.cover),
             ),
           ),
@@ -30,14 +29,12 @@ Widget cachedImage({String? imageUrl, double height = 90, double width = 120}) {
           ),
           errorWidget: (context, url, error) => Container(
             decoration: const BoxDecoration(
-              shape: BoxShape.rectangle,
               image: DecorationImage(image: AssetImage(errorImage), fit: BoxFit.contain),
             ),
           ),
         )
       : Container(
           decoration: const BoxDecoration(
-          shape: BoxShape.rectangle,
-          image: DecorationImage(image: AssetImage(errorImage), fit: BoxFit.contain),
+          image: DecorationImage(image: AssetImage(dummyImage), fit: BoxFit.cover),
         ));
 }

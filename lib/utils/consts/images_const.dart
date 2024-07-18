@@ -20,6 +20,8 @@ const String rashi5 = 'asset/images/rashi_5.jpg';
 const String googleIcon = 'asset/icons/google_icon.jpeg';
 const String otpIcon = 'asset/icons/otp_icon.png';
 
+const String profileIcon = 'asset/icons/profile_placeholder.jpeg';
+
 
 ///app background
 const String appBackground2 = 'asset/images/app_background_2.jpg';
@@ -34,3 +36,5 @@ const String marriageWishes = 'asset/images/marriage_wish_image.jpg';
 
 //lotties json
 const String giftbox = 'asset/icons/Animation - 1720867208224.json';
+
+

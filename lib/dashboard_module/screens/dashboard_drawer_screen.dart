@@ -2,7 +2,6 @@ import 'package:clay_containers/widgets/clay_container.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
-import 'package:where_hearts_meet/utils/consts/app_screen_size.dart';
 import 'package:where_hearts_meet/utils/consts/images_const.dart';
 import 'package:where_hearts_meet/utils/consts/shared_pref_const.dart';
 import 'package:where_hearts_meet/utils/routes/routes_const.dart';
@@ -14,8 +13,8 @@ import '../controller/dashboard_controller.dart';
 import '../widgets/dashboard_widgets.dart';
 
 class DashboardDrawerScreen extends StatelessWidget {
-  final _mainHeight = Get.height;
-  final _mainWidth = Get.width;
+  final screenHeight = Get.height;
+  final screenWidth = Get.width;
   final firebaseAuthController = Get.find<FirebaseAuthController>();
   final DashboardController dashboardController;
 
@@ -26,7 +25,7 @@ class DashboardDrawerScreen extends StatelessWidget {
     return Padding(
       padding: EdgeInsets.fromLTRB(0, screenHeight * 0.06, 5, screenHeight * 0.03),
       child: Drawer(
-        width: _mainWidth * 0.65,
+        width: screenWidth * 0.65,
         child: Container(
           padding: EdgeInsets.only(left: screenWidth * 0.05),
           decoration: BoxDecoration(gradient: backgroundGradient),
@@ -45,12 +44,12 @@ class DashboardDrawerScreen extends StatelessWidget {
                           ? Image.network(
                               dashboardController.userImage,
                               fit: BoxFit.fitWidth,
-                              width: _mainWidth * 0.15,
+                              width: screenWidth * 0.15,
                             )
                           : Image.asset(
-                              dummyImage,
+                              profileIcon,
                               fit: BoxFit.fitWidth,
-                              width: _mainWidth * 0.15,
+                              width: screenWidth * 0.15,
                             )),
                   GestureDetector(
                     onTap: () {
@@ -75,7 +74,7 @@ class DashboardDrawerScreen extends StatelessWidget {
                 ],
               ),
               SizedBox(
-                height: _mainHeight * 0.02,
+                height: screenHeight * 0.02,
               ),
               Text(
                   dashboardController.userName != null && dashboardController.userName.isNotEmpty
@@ -83,7 +82,7 @@ class DashboardDrawerScreen extends StatelessWidget {
                       : "User",
                   style: headingStyle(fontSize: 20)),
               SizedBox(
-                height: _mainHeight * 0.005,
+                height: screenHeight * 0.005,
               ),
               Text(
                   dashboardController.userPhone != null && dashboardController.userPhone.isNotEmpty
@@ -91,7 +90,7 @@ class DashboardDrawerScreen extends StatelessWidget {
                       : "+91",
                   style: headingStyle(fontSize: 20)),
               SizedBox(
-                height: _mainHeight * 0.03,
+                height: screenHeight * 0.03,
               ),
               getDrawerContentWidget(
                   icon: Icons.list,
@@ -100,7 +99,7 @@ class DashboardDrawerScreen extends StatelessWidget {
                     Get.toNamed(RoutesConst.eventListScreen);
                   }),
               SizedBox(
-                height: _mainHeight * 0.01,
+                height: screenHeight * 0.01,
               ),
               getDrawerContentWidget(
                   icon: Icons.wallet_giftcard,
@@ -109,15 +108,15 @@ class DashboardDrawerScreen extends StatelessWidget {
                     // Get.toNamed(RoutesConst.eventListScreen);
                   }),
               SizedBox(
-                height: _mainHeight * 0.01,
+                height: screenHeight * 0.01,
               ),
               getDrawerContentWidget(icon: Icons.settings, heading: "Settings", onTap: () {}),
               SizedBox(
-                height: _mainHeight * 0.01,
+                height: screenHeight * 0.01,
               ),
               getDrawerContentWidget(icon: Icons.help_outline, heading: "Help & Support", onTap: () async {}),
               SizedBox(
-                height: _mainHeight * 0.01,
+                height: screenHeight * 0.01,
               ),
               getDrawerContentWidget(
                   icon: Icons.logout,
@@ -134,7 +133,7 @@ class DashboardDrawerScreen extends StatelessWidget {
                   }),
               const Spacer(),
               Container(
-                  margin: EdgeInsets.only(bottom: _mainHeight * 0.01, right: _mainWidth * 0.025),
+                  margin: EdgeInsets.only(bottom: screenHeight * 0.01, right: screenWidth * 0.025),
                   alignment: Alignment.centerLeft,
                   child: const Text(
                     'v1.0',
@@ -188,7 +187,7 @@ class DashboardDrawerScreen extends StatelessWidget {
                       'https://cdn-icons-png.flaticon.com/512/5231/5231019.png',
                       // GetStorage().read(profileUrl) ?? '',
                       fit: BoxFit.fitWidth,
-                      width: _mainWidth * 0.2,
+                      width: screenWidth * 0.2,
                     ))),
       ),
     );
