@@ -29,13 +29,14 @@ class VideoScreenController extends BaseController {
         zoomAndPan: true,
         looping: true,
         autoInitialize: true,
-        overlay: overlayWidget
+       // overlay: overlayWidget
       );
 
-      overlayWidget =chewieController.isPlaying?Container():Container(
-        width: screenWidth,
-        height: 200,
-        decoration: BoxDecoration(image: DecorationImage(image: AssetImage(rashi4,),fit: BoxFit.cover)),);
+      // overlayWidget =chewieController.isPlaying?Container():Container(
+      //   width: screenWidth,
+      //   height: 200,
+      //   decoration: BoxDecoration(image: DecorationImage(image: AssetImage(rashi4,),fit: BoxFit.cover)),
+      // );
 
       setBusy(false);
       update();

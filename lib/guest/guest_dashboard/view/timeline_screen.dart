@@ -82,7 +82,7 @@ class _TimelineStoriesSreenState extends State<TimelineStoriesSreen> {
                       children: [
                         CircleAvatar(
                           radius: screenWidth * 0.07,
-                          backgroundImage: AssetImage(rashi1),
+                          backgroundImage: NetworkImage("https://firebasestorage.googleapis.com/v0/b/where-hearts-meet.appspot.com/o/WhatsApp%20Image%202024-07-17%20at%2023.36.03_5909fd2b.jpg?alt=media&token=ef1eb0ea-8b8b-43a0-921a-a9e5ae4c12eb"),
                         ),
                         widthSpace(20),
                         Column(

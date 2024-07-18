@@ -19,7 +19,6 @@ class GuestDashboard extends StatefulWidget {
 class _GuestDashboardState extends State<GuestDashboard> with TickerProviderStateMixin {
 
   MotionTabBarController? _motionTabBarController;
-  int _selectedIndex = 0;
   final controller = Get.find<GuestHomeController>();
 
  @override
@@ -50,7 +49,8 @@ class _GuestDashboardState extends State<GuestDashboard> with TickerProviderStat
           child:GuestHome(),
         ),
          Center(
-          child:GuestWishList(),
+          child:
+          GuestWishList(),
         ),
       ],
     ),

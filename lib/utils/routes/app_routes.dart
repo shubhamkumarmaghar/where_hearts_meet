@@ -10,6 +10,7 @@ import 'package:where_hearts_meet/create_event_module/screens/add_secret_wishes_
 import 'package:where_hearts_meet/create_event_module/screens/add_timeline_screen.dart';
 import 'package:where_hearts_meet/create_event_module/screens/add_wishes_screen.dart';
 import 'package:where_hearts_meet/dashboard_module/screens/dashboard_screen.dart';
+import 'package:where_hearts_meet/guest/guest_dashboard/guest_wishlist/view/guest_wishlist.dart';
 import 'package:where_hearts_meet/show_event_module/binding/event_details_binding.dart';
 import 'package:where_hearts_meet/show_event_module/view/event_details_screen.dart';
 import 'package:where_hearts_meet/show_event_module/view/events_list_screen.dart';
@@ -27,6 +28,7 @@ import '../../create_event_module/screens/add_event_specials_screen.dart';
 import '../../guest/guest_dashboard/binding/guest_dashboard_binding.dart';
 import '../../guest/guest_dashboard/guest_home/binding/guest_home_binding.dart';
 import '../../guest/guest_dashboard/guest_home/view/guest_home.dart';
+import '../../guest/guest_dashboard/guest_wishlist/binding/guest_wishlist.dart';
 import '../../guest/guest_dashboard/view/guest_dashboard.dart';
 import '../../guest/guest_dashboard/view/guest_dashboard.dart';
 import '../../guest/guest_dashboard/view/guest_splash_view.dart';
@@ -108,6 +110,11 @@ class AppRoutes {
         name: RoutesConst.guestDashboard,
         binding: GuestDashboardBinding(),
         page: () => const GuestDashboard(),
+      ),
+      GetPage(
+        name: RoutesConst.guestWishlist,
+        binding: GuestWishlistBinding(),
+        page: () =>  GuestWishList(),
       ),
       GetPage(
         name: RoutesConst.guestCoverScreen,

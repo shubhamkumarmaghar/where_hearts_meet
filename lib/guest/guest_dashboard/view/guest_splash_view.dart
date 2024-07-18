@@ -199,7 +199,8 @@ class _GuestCoverScreenState extends State<GuestCoverScreen> {
               ),
               GestureDetector(
                 onTap: () {
-                  Get.toNamed(RoutesConst.guestDashboard);
+                  Get.toNamed(RoutesConst.guestHomeScreen);
+                 // Get.toNamed(RoutesConst.guestDashboard);
                 },
                 child: Align(
                   alignment: Alignment.bottomCenter,
