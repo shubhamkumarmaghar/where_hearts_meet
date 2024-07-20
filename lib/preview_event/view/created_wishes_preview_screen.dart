@@ -32,14 +32,10 @@ class CreatedWishesPreviewScreen extends StatelessWidget {
               SizedBox(
                 height: screenHeight * 0.06,
               ),
-              SizedBox(
-                height: screenHeight * 0.02,
-              ),
               Row(
-                crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   InkWell(
-                    onTap: (){
+                    onTap: () {
                       Get.back();
                     },
                     child: const Icon(
@@ -48,12 +44,41 @@ class CreatedWishesPreviewScreen extends StatelessWidget {
                       size: 24,
                     ),
                   ),
-                  SizedBox(width: screenWidth * 0.04,),
+                  SizedBox(width: screenWidth*0.02,),
+                  Text(
+                    'Wish',
+                    style: headingStyle(fontSize: 20),
+                  ),
+                ],
+              ),
+              SizedBox(
+                height: screenHeight * 0.03,
+              ),
+              Row(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  InkWell(
+                    onTap: () {
+                      Get.to(CustomPhotoView(
+                        imageUrl: controller.wishesModel.senderProfileImage,
+                      ));
+                    },
+                    child: Container(
+                      height: screenHeight * 0.06,
+                      width: screenHeight * 0.06,
+                      child: ClipRRect(
+                          borderRadius: BorderRadius.circular(50),
+                          child: cachedImage(imageUrl: controller.wishesModel.senderProfileImage)),
+                    ),
+                  ),
+                  SizedBox(
+                    width: screenWidth * 0.04,
+                  ),
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        'Wish from ${controller.wishesModel.senderName ?? ''}',
+                        controller.wishesModel.senderName ?? '',
                         style: headingStyle(fontSize: 20),
                       ),
                       Text(
@@ -63,20 +88,12 @@ class CreatedWishesPreviewScreen extends StatelessWidget {
                     ],
                   ),
                   Spacer(),
-                  InkWell(
-                    onTap: () {
-                      Get.to(CustomPhotoView(
-                        imageUrl: controller.wishesModel.senderProfileImage,
-                      ));
-                    },
-                    child: Container(
-                      height: screenHeight * 0.065,
-                      width: screenHeight * 0.065,
-                      child: ClipRRect(
-                          borderRadius: BorderRadius.circular(50),
-                          child: cachedImage(imageUrl: controller.wishesModel.senderProfileImage)),
-                    ),
-                  ),
+                  const Icon(
+                    Icons.more_vert_rounded,
+                    color: Colors.white,
+                    size: 24,
+                  )
+
                 ],
               ),
               SizedBox(
@@ -88,6 +105,7 @@ class CreatedWishesPreviewScreen extends StatelessWidget {
                   enlargeCenterPage: false,
                   autoPlay: true,
                   aspectRatio: 16 / 9,
+
                   autoPlayCurve: Curves.fastOutSlowIn,
                   enableInfiniteScroll: true,
                   autoPlayAnimationDuration: const Duration(milliseconds: 1200),
@@ -104,13 +122,12 @@ class CreatedWishesPreviewScreen extends StatelessWidget {
                         },
                         child: Container(
                           width: screenWidth,
-                          margin: EdgeInsets.symmetric(horizontal: 5.0),
                           decoration: BoxDecoration(
                             image: DecorationImage(
                               image: NetworkImage(imagePath),
                               fit: BoxFit.cover,
                             ),
-                            borderRadius: BorderRadius.only(
+                            borderRadius: const BorderRadius.only(
                               topLeft: Radius.circular(20),
                               topRight: Radius.circular(20),
                             ),

@@ -156,8 +156,8 @@ Widget getDateView({required DashboardController controller}) {
           );
         },
         separatorBuilder: (context, index) => SizedBox(
-          width: screenWidth * 0.025,
-        ),
+              width: screenWidth * 0.025,
+            ),
         itemCount: controller.currentWeekDates.length),
   );
 }
@@ -192,4 +192,3 @@ Widget getWishesCard(
         }),
   );
 }
-

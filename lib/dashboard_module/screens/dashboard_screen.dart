@@ -4,9 +4,11 @@ import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:where_hearts_meet/create_event/model/event_response_model.dart';
 import 'package:where_hearts_meet/dashboard_module/controller/dashboard_controller.dart';
+import 'package:where_hearts_meet/guest/guest_dashboard/view/guest_splash_view.dart';
 import 'package:where_hearts_meet/utils/consts/color_const.dart';
 import 'package:where_hearts_meet/utils/consts/images_const.dart';
 import 'package:where_hearts_meet/utils/repository/wishes_card_data.dart';
+import 'package:where_hearts_meet/utils/routes/routes_const.dart';
 import 'package:where_hearts_meet/utils/widgets/event_card.dart';
 import '../../utils/consts/app_screen_size.dart';
 import '../../utils/util_functions/decoration_functions.dart';
@@ -172,28 +174,32 @@ class DashboardScreen extends StatelessWidget {
                           height: screenHeight * 0.02,
                         ),
                         Visibility(
-                          visible: controller.eventListCreatedByUser.isNotEmpty,
-                          replacement: const SizedBox.shrink(),
-                          child: Padding(
-                            padding: EdgeInsets.only(left: 16, right: 16, bottom: screenHeight * 0.02),
-                            child: Row(
-                              children: [
-                                Text(
-                                  "Wishes created by you",
-                                  style: dashboardHeadingStyle,
-                                ),
-                                const Spacer(),
-                                Text(
-                                  "See all",
-                                  style: textStyleAbel(fontSize: 14,fontWeight: FontWeight.w600),
-                                ),
-                                SizedBox(width: screenWidth*0.01,),
-
-                                const Icon(Icons.arrow_forward_outlined,size: 18,color: Colors.white,),
-                              ],
-                            ),
-                          )
-                        ),
+                            visible: controller.eventListCreatedByUser.isNotEmpty,
+                            replacement: const SizedBox.shrink(),
+                            child: Padding(
+                              padding: EdgeInsets.only(left: 16, right: 16, bottom: screenHeight * 0.02),
+                              child: Row(
+                                children: [
+                                  Text(
+                                    "Wishes created by you",
+                                    style: dashboardHeadingStyle,
+                                  ),
+                                  const Spacer(),
+                                  Text(
+                                    "See all",
+                                    style: textStyleAbel(fontSize: 14, fontWeight: FontWeight.w600),
+                                  ),
+                                  SizedBox(
+                                    width: screenWidth * 0.01,
+                                  ),
+                                  const Icon(
+                                    Icons.arrow_forward_outlined,
+                                    size: 18,
+                                    color: Colors.white,
+                                  ),
+                                ],
+                              ),
+                            )),
                         Visibility(
                           visible: controller.eventListCreatedByUser.isNotEmpty,
                           replacement: const SizedBox.shrink(),
@@ -217,11 +223,16 @@ class DashboardScreen extends StatelessWidget {
                                 const Spacer(),
                                 Text(
                                   "See all",
-                                  style: textStyleAbel(fontSize: 14,fontWeight: FontWeight.w600),
+                                  style: textStyleAbel(fontSize: 14, fontWeight: FontWeight.w600),
                                 ),
-                                SizedBox(width: screenWidth*0.01,),
-
-                                const Icon(Icons.arrow_forward_outlined,size: 18,color: Colors.white,),
+                                SizedBox(
+                                  width: screenWidth * 0.01,
+                                ),
+                                const Icon(
+                                  Icons.arrow_forward_outlined,
+                                  size: 18,
+                                  color: Colors.white,
+                                ),
                               ],
                             ),
                           ),
@@ -254,7 +265,11 @@ Widget getEventCard({required BuildContext context, required List<EventResponseM
         scrollDirection: Axis.horizontal,
         itemBuilder: (BuildContext context, int index) {
           var data = eventsList[index];
-          return EventCard(eventResponseModel: data, onCardTap: () {});
+          return EventCard(
+              eventResponseModel: data,
+              onCardTap: () {
+                Get.toNamed(RoutesConst.guestCoverScreen, arguments: data.eventid);
+              });
         },
         separatorBuilder: (context, index) => const SizedBox(
               width: 10,
