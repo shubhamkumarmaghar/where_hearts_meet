@@ -6,15 +6,9 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:where_hearts_meet/routes/routes_const.dart';
 import 'package:where_hearts_meet/utils/consts/app_screen_size.dart';
 import 'package:where_hearts_meet/utils/consts/color_const.dart';
-import 'package:where_hearts_meet/utils/consts/font_const.dart';
-import 'package:where_hearts_meet/utils/consts/images_const.dart';
-import 'package:where_hearts_meet/utils/routes/app_routes.dart';
-import 'package:where_hearts_meet/utils/routes/routes_const.dart';
-import 'package:where_hearts_meet/utils/text_styles/custom_text_styles.dart';
-
-import '../../../utils/widgets/swipe_button.dart';
 import '../guest_home/controller/guest_home_controller.dart';
 
 class GuestCoverScreen extends StatefulWidget {

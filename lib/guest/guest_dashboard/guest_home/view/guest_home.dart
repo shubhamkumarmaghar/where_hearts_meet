@@ -7,10 +7,11 @@ import 'package:flutter_card_swiper/flutter_card_swiper.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:lottie/lottie.dart';
+import 'package:where_hearts_meet/routes/routes_const.dart';
 import 'package:where_hearts_meet/utils/consts/app_screen_size.dart';
 import 'package:where_hearts_meet/utils/consts/color_const.dart';
 import 'package:where_hearts_meet/utils/consts/images_const.dart';
-import 'package:where_hearts_meet/utils/routes/routes_const.dart';
+
 import 'package:where_hearts_meet/utils/widgets/util_widgets/app_widgets.dart';
 import '../../../../utils/consts/confetti_shape_enum.dart';
 import '../../../../utils/widgets/confetti_view.dart';

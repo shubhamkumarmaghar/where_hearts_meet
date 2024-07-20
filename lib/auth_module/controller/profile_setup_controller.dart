@@ -7,13 +7,13 @@ import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:where_hearts_meet/auth_module/auth_model/login_response_model.dart';
+import 'package:where_hearts_meet/routes/routes_const.dart';
 import 'package:where_hearts_meet/utils/controller/base_controller.dart';
 import 'package:where_hearts_meet/utils/dialogs/pop_up_dialogs.dart';
 import 'package:where_hearts_meet/utils/model/user_info_model.dart';
 import 'package:where_hearts_meet/utils/services/firebase_auth_controller.dart';
 import 'package:where_hearts_meet/utils/services/firebase_storage_controller.dart';
 import '../../utils/consts/shared_pref_const.dart';
-import '../../utils/routes/routes_const.dart';
 
 import '../auth_model/login_response_model.dart';
 import '../auth_services/Auth_api_service.dart';

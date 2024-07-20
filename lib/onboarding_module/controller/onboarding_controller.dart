@@ -7,6 +7,7 @@ import 'package:get_storage/get_storage.dart';
 import 'package:otp_text_field/otp_field.dart';
 import 'package:otp_text_field/otp_field_style.dart';
 import 'package:otp_text_field/style.dart';
+import 'package:where_hearts_meet/routes/routes_const.dart';
 import 'package:where_hearts_meet/utils/controller/base_controller.dart';
 
 import '../../auth_module/auth_services/Auth_api_service.dart';
@@ -17,7 +18,6 @@ import '../../utils/consts/images_const.dart';
 import '../../utils/consts/shared_pref_const.dart';
 import '../../utils/consts/widget_styles.dart';
 import '../../utils/dialogs/pop_up_dialogs.dart';
-import '../../utils/routes/routes_const.dart';
 import '../../utils/widgets/gradient_button.dart';
 import '../../utils/widgets/util_widgets/app_widgets.dart';
 

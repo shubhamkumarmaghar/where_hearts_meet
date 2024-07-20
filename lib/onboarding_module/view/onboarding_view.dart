@@ -4,11 +4,11 @@ import 'package:flutter_card_swiper/flutter_card_swiper.dart';
 import 'package:get/get.dart';
 import 'package:where_hearts_meet/onboarding_module/controller/onboarding_controller.dart';
 import 'package:where_hearts_meet/onboarding_module/repository/onboarding_repository.dart';
+import 'package:where_hearts_meet/routes/routes_const.dart';
 import 'package:where_hearts_meet/utils/buttons/buttons.dart';
 import 'package:where_hearts_meet/utils/consts/app_screen_size.dart';
 import 'package:where_hearts_meet/utils/consts/color_const.dart';
 import '../../utils/consts/images_const.dart';
-import '../../utils/routes/routes_const.dart';
 import '../../utils/widgets/gradient_button.dart';
 
 class OnboardingScreen extends StatelessWidget {

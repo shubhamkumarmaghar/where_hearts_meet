@@ -7,6 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:dio/dio.dart' as dio;
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:where_hearts_meet/routes/routes_const.dart';
 import 'package:where_hearts_meet/utils/consts/app_screen_size.dart';
 import 'package:where_hearts_meet/utils/consts/shared_pref_const.dart';
 import 'package:where_hearts_meet/utils/controller/base_controller.dart';
@@ -14,7 +15,6 @@ import 'package:where_hearts_meet/utils/model/event_type_model.dart';
 import '../../utils/consts/color_const.dart';
 import '../../utils/consts/screen_const.dart';
 import '../../utils/dialogs/pop_up_dialogs.dart';
-import '../../utils/routes/routes_const.dart';
 import '../service/create_event_service.dart';
 
 class AddEventController extends BaseController {

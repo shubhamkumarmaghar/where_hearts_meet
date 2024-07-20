@@ -5,7 +5,6 @@ import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:where_hearts_meet/profile_module/service/profile_serice.dart';
 import 'package:where_hearts_meet/utils/controller/base_controller.dart';
-import 'package:where_hearts_meet/utils/routes/routes_const.dart';
 import '../../utils/dialogs/pop_up_dialogs.dart';
 import '../model/user_model.dart';
 
