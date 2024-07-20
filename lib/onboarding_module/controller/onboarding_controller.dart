@@ -95,7 +95,7 @@ class OnboardingController extends BaseController {
         GetStorage().write(token, response.data?.accessToken);
     GetStorage().write(userMobile, response.data?.phoneNumber);
     GetStorage().write(username, response.data?.username);
-    GetStorage().write(profileUrl, response.data?.profilePicUrl);
+    GetStorage().write(profileUrl, response.data?.profilePic);
     GetStorage().write(isGuest, true);
     Get.offAllNamed(RoutesConst.guestCoverScreen);
       }

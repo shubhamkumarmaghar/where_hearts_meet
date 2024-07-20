@@ -53,7 +53,7 @@ class DesignerTextField extends StatelessWidget {
         if (title != null)
           Text(
             '$title',
-            style: headingStyle(fontSize: 18),
+            style: textStyleDangrek(fontSize: 18),
           ),
          SizedBox(
           height: screenHeight*0.01,

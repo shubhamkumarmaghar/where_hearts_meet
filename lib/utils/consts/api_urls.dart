@@ -10,13 +10,13 @@ class AppUrls {
   static const String createEventUrl = 'eventApp/events/';
 
   ///created by me
-  static const String allEventsUrl = 'eventApp/get_events_list/';
+  static const String eventsCreatedByUserUrl = 'eventApp/get_events_list/';
 
   ///for guest
   static const String receiveEventUrl = 'eventApp/get_event_receiver/';
 
   ///created for me
-  static const String getAllEventsCreatedForUserUrl = 'eventApp/get_events_list_receiver/';
+  static const String eventsCreatedForUserUrl = 'eventApp/get_events_list_receiver/';
 
   static const String eventWishesUrl = 'wishesApp/wishes/';
 

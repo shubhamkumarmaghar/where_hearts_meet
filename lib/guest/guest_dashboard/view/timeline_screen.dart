@@ -145,7 +145,7 @@ class _TimelineStoriesSreenState extends State<TimelineStoriesSreen> {
                       showMessage,
                       textAlign: TextAlign.center,
 
-                      style: headingStyle(fontSize: 18,fontWeight: FontWeight.w300),
+                      style: textStyleDangrek(fontSize: 18,fontWeight: FontWeight.w300),
                     ),
                   ),
 

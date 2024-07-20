@@ -69,10 +69,21 @@ class EditProfileController extends BaseController {
       showSnackBar(context: Get.context!, message: 'Please select date of birth');
       return;
     }
+    return;
     userModel.firstName = nameTextController.text;
 
     showLoaderDialog(context: Get.context!);
-    final response = await profileService.updateUserDataApi(firstName: 'Shubham',email: 'sktech9@gmail.com');
+
+    final response = await profileService.updateUserDataApi(
+      firstName: 'SkTech',
+      email: 'sktech@gmail.com',
+      gender: 'Male',
+      lastName: 'Kumar',
+      address: 'Delhi',
+      dateOfBirth: '27/04/2000',
+      martialStatus: 'Unmarried',
+      profilePic: '',
+    );
     if (response != null) {
       userModel = response;
       update();

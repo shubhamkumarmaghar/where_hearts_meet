@@ -11,7 +11,6 @@ import 'package:where_hearts_meet/create_event_module/screens/add_timeline_scree
 import 'package:where_hearts_meet/create_event_module/screens/add_wishes_screen.dart';
 import 'package:where_hearts_meet/dashboard_module/screens/dashboard_screen.dart';
 import 'package:where_hearts_meet/guest/guest_dashboard/guest_wishlist/view/guest_wishlist.dart';
-import 'package:where_hearts_meet/show_event_module/view/events_list_screen.dart';
 import 'package:where_hearts_meet/utils/routes/routes_const.dart';
 import '../../auth_module/binding/login_binding.dart';
 import '../../auth_module/screens/login_screen.dart';
@@ -23,6 +22,8 @@ import '../../create_event_module/binding/add_event_binding.dart';
 import '../../create_event_module/binding/add_event_specials_binding.dart';
 import '../../create_event_module/screens/add_event_screen.dart';
 import '../../create_event_module/screens/add_event_specials_screen.dart';
+import '../../event_list/binding/event_list_binding.dart';
+import '../../event_list/view/event_list_screen.dart';
 import '../../guest/guest_dashboard/binding/guest_dashboard_binding.dart';
 import '../../guest/guest_dashboard/guest_home/binding/guest_home_binding.dart';
 import '../../guest/guest_dashboard/guest_home/view/guest_home.dart';
@@ -35,7 +36,6 @@ import '../../preview_event/view/created_wishes_preview_screen.dart';
 import '../../profile_module/binding/edit_profile_binding.dart';
 
 import '../../profile_module/screens/edit_profile_screen.dart';
-import '../../show_event_module/binding/event_list_binding.dart';
 
 class AppRoutes {
   static List<GetPage> getRoutes() {
@@ -64,11 +64,7 @@ class AppRoutes {
         binding: AddEventBinding(),
         page: () => AddEventScreen(),
       ),
-      GetPage(
-        name: RoutesConst.eventListScreen,
-        binding: EventListBinding(),
-        page: () => EventListScreen(),
-      ),
+
       GetPage(
         name: RoutesConst.addEventSpecialsScreen,
         binding: AddEventSpecialsBinding(),
@@ -138,6 +134,11 @@ class AppRoutes {
         name: RoutesConst.createdWishesPreviewScreen,
         binding: CreatedWishesPreviewBinding(),
         page: () => CreatedWishesPreviewScreen(),
+      ),
+      GetPage(
+        name: RoutesConst.eventListScreen,
+        binding: EventListBinding(),
+        page: () => EventListScreen(),
       ),
     ];
   }

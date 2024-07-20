@@ -1,3 +1,4 @@
+/*
 class CreateEventResponseModel {
   String? message;
   Data? data;
@@ -66,4 +67,4 @@ class Data {
     data['phone_number'] = this.phoneNumber;
     return data;
   }
-}
+}*/

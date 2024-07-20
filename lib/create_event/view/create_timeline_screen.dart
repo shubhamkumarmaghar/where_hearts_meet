@@ -38,7 +38,7 @@ class CreateTimelineScreen extends StatelessWidget {
               borderRadius: 30,
               child: Text(
                 'Submit',
-                style: headingStyle(fontSize: 22),
+                style: textStyleDangrek(fontSize: 22),
               ),
               buttonColor: appColor1,
               onPressed: controller.addTimelineStories,
@@ -62,7 +62,7 @@ class CreateTimelineScreen extends StatelessWidget {
                   Center(
                     child: Text(
                       'Add Timeline Stories',
-                      style: headingStyle(fontSize: 24),
+                      style: textStyleDangrek(fontSize: 24),
                     ),
                   ),
                   SizedBox(
@@ -158,7 +158,7 @@ class CreateTimelineScreen extends StatelessWidget {
                     alignment: Alignment.centerLeft,
                     child: Text(
                       'Upload timeline images*',
-                      style: headingStyle(fontSize: 18),
+                      style: textStyleDangrek(fontSize: 18),
                     ),
                   ),
                   SizedBox(
@@ -172,7 +172,7 @@ class CreateTimelineScreen extends StatelessWidget {
                     alignment: Alignment.centerLeft,
                     child: Text(
                       'Upload timeline videos*',
-                      style: headingStyle(fontSize: 18),
+                      style: textStyleDangrek(fontSize: 18),
                     ),
                   ),
                   SizedBox(

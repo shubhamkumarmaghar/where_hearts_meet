@@ -30,8 +30,8 @@ class DashboardController extends BaseController {
     final storage = GetStorage();
     userPhone = storage.read(userMobile) ?? '';
     userImage = storage.read(profileUrl) ?? '';
-    userName = storage.read(fullName) ?? '';
-    log('mobile ${storage.read(userMobile)}');
+    userName = storage.read(firstName) ?? '';
+    log('profile :: ${storage.read(profileUrl)}');
   }
 
   bool isCurrentDay({required String currentDay}) {

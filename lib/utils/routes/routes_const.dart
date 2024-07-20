@@ -7,7 +7,7 @@ class RoutesConst{
   static String profileSetUpScreen='/profileSetUpScreen';
   static String addPeopleScreen='/addPeopleScreen';
   static String addEventScreen='/addEventScreen';
-  static String eventListScreen='/eventListScreen';
+
   static String createdEventListScreen='/createdEventListScreen';
   static String eventDetailsScreen='/eventDetailsScreen';
   static String peopleListScreen='/peopleListScreen';
@@ -28,4 +28,6 @@ class RoutesConst{
   static String createTimelineScreen='/createTimelineScreen';
 
   static String createdWishesPreviewScreen='/createdWishesPreviewScreen';
+  static String eventListScreen='/eventListScreen';
+
 }

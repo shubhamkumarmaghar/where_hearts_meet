@@ -47,7 +47,7 @@ class CreatedWishesPreviewScreen extends StatelessWidget {
                   SizedBox(width: screenWidth*0.02,),
                   Text(
                     'Wish',
-                    style: headingStyle(fontSize: 20),
+                    style: textStyleDangrek(fontSize: 20),
                   ),
                 ],
               ),
@@ -79,7 +79,7 @@ class CreatedWishesPreviewScreen extends StatelessWidget {
                     children: [
                       Text(
                         controller.wishesModel.senderName ?? '',
-                        style: headingStyle(fontSize: 20),
+                        style: textStyleDangrek(fontSize: 20),
                       ),
                       Text(
                         getYearTime(controller.eventResponseModel.eventHostDay ?? ''),

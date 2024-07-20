@@ -7,8 +7,11 @@ import 'package:where_hearts_meet/dashboard_module/controller/dashboard_controll
 import 'package:where_hearts_meet/guest/guest_dashboard/view/guest_splash_view.dart';
 import 'package:where_hearts_meet/utils/consts/color_const.dart';
 import 'package:where_hearts_meet/utils/consts/images_const.dart';
+import 'package:where_hearts_meet/utils/consts/screen_const.dart';
 import 'package:where_hearts_meet/utils/repository/wishes_card_data.dart';
 import 'package:where_hearts_meet/utils/routes/routes_const.dart';
+import 'package:where_hearts_meet/utils/widgets/cached_image.dart';
+import 'package:where_hearts_meet/utils/widgets/custom_photo_view.dart';
 import 'package:where_hearts_meet/utils/widgets/event_card.dart';
 import '../../utils/consts/app_screen_size.dart';
 import '../../utils/util_functions/decoration_functions.dart';
@@ -29,7 +32,9 @@ class DashboardScreen extends StatelessWidget {
       builder: (controller) {
         return Scaffold(
           key: _scaffoldKey,
-          endDrawer: DashboardDrawerScreen(dashboardController: controller),
+          endDrawer: DashboardDrawerScreen(dashboardController: controller,onDrawerClose: (){
+            _scaffoldKey.currentState!.closeEndDrawer();
+          },),
           body: Container(
             height: screenHeight,
             width: screenWidth,
@@ -112,24 +117,17 @@ class DashboardScreen extends StatelessWidget {
                                 ],
                               ),
                               GestureDetector(
-                                onTap: () async {},
+                                onTap: () async {
+                                  Get.to(()=> CustomPhotoView(imageUrl:controller.userImage ,));
+                                },
                                 child: Container(
-                                  height: screenHeight * 0.065,
                                   padding: const EdgeInsets.only(right: 10),
                                   child: ClipRRect(
-                                    borderRadius: BorderRadius.circular(50),
-                                    child: controller.userImage != null && controller.userImage.isNotEmpty
-                                        ? Image.network(
-                                            controller.userImage,
-                                            fit: BoxFit.fitWidth,
-                                            width: screenWidth * 0.15,
-                                          )
-                                        : Image.asset(
-                                            profileIcon,
-                                            fit: BoxFit.fitWidth,
-                                            width: screenWidth * 0.15,
-                                          ),
-                                  ),
+                                      borderRadius: BorderRadius.circular(50),
+                                      child: cachedImage(
+                                          imageUrl: controller.userImage,
+                                          height: screenHeight * 0.065,
+                                          width: screenHeight * 0.065)),
                                 ),
                               ),
                             ],
@@ -146,7 +144,7 @@ class DashboardScreen extends StatelessWidget {
                           padding: const EdgeInsets.symmetric(horizontal: 16),
                           child: Text(
                             'Schedule an Event',
-                            style: dashboardHeadingStyle,
+                            style: dashboardtextStyleDangrek,
                           ),
                         ),
                         SizedBox(
@@ -163,7 +161,7 @@ class DashboardScreen extends StatelessWidget {
                           padding: const EdgeInsets.symmetric(horizontal: 16),
                           child: Text(
                             "Wish your loved one's on",
-                            style: dashboardHeadingStyle,
+                            style: dashboardtextStyleDangrek,
                           ),
                         ),
                         SizedBox(
@@ -176,13 +174,58 @@ class DashboardScreen extends StatelessWidget {
                         Visibility(
                             visible: controller.eventListCreatedByUser.isNotEmpty,
                             replacement: const SizedBox.shrink(),
+                            child: GestureDetector(
+                              onTap: () {
+                                Get.toNamed(RoutesConst.eventListScreen,arguments: EventsCreated.byUser);
+                              },
+                              child: Padding(
+                                padding: EdgeInsets.only(left: 16, right: 16, bottom: screenHeight * 0.02),
+                                child: Row(
+                                  children: [
+                                    Text(
+                                      "Wishes created by you",
+                                      style: dashboardtextStyleDangrek,
+                                    ),
+                                    const Spacer(),
+                                    Text(
+                                      "See all",
+                                      style: textStyleAbel(fontSize: 14, fontWeight: FontWeight.w600),
+                                    ),
+                                    SizedBox(
+                                      width: screenWidth * 0.01,
+                                    ),
+                                    const Icon(
+                                      Icons.arrow_forward_outlined,
+                                      size: 18,
+                                      color: Colors.white,
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            )),
+                        Visibility(
+                          visible: controller.eventListCreatedByUser.isNotEmpty,
+                          replacement: const SizedBox.shrink(),
+                          child: Container(
+                              height: screenHeight * 0.44,
+                              width: screenWidth,
+                              padding: EdgeInsets.only(bottom: screenHeight * 0.04),
+                              child: getEventCard(context: context, eventsList: controller.eventListCreatedByUser)),
+                        ),
+                        Visibility(
+                          visible: controller.eventListCreatedForUser.isNotEmpty,
+                          replacement: const SizedBox.shrink(),
+                          child: GestureDetector(
+                            onTap: () {
+                              Get.toNamed(RoutesConst.eventListScreen,arguments: EventsCreated.forUser);
+                            },
                             child: Padding(
                               padding: EdgeInsets.only(left: 16, right: 16, bottom: screenHeight * 0.02),
                               child: Row(
                                 children: [
                                   Text(
-                                    "Wishes created by you",
-                                    style: dashboardHeadingStyle,
+                                    "Wishes created for you",
+                                    style: dashboardtextStyleDangrek,
                                   ),
                                   const Spacer(),
                                   Text(
@@ -199,41 +242,6 @@ class DashboardScreen extends StatelessWidget {
                                   ),
                                 ],
                               ),
-                            )),
-                        Visibility(
-                          visible: controller.eventListCreatedByUser.isNotEmpty,
-                          replacement: const SizedBox.shrink(),
-                          child: Container(
-                              height: screenHeight * 0.44,
-                              width: screenWidth,
-                              padding: EdgeInsets.only(bottom: screenHeight * 0.04),
-                              child: getEventCard(context: context, eventsList: controller.eventListCreatedByUser)),
-                        ),
-                        Visibility(
-                          visible: controller.eventListCreatedForUser.isNotEmpty,
-                          replacement: const SizedBox.shrink(),
-                          child: Padding(
-                            padding: EdgeInsets.only(left: 16, right: 16, bottom: screenHeight * 0.02),
-                            child: Row(
-                              children: [
-                                Text(
-                                  "Wishes created for you",
-                                  style: dashboardHeadingStyle,
-                                ),
-                                const Spacer(),
-                                Text(
-                                  "See all",
-                                  style: textStyleAbel(fontSize: 14, fontWeight: FontWeight.w600),
-                                ),
-                                SizedBox(
-                                  width: screenWidth * 0.01,
-                                ),
-                                const Icon(
-                                  Icons.arrow_forward_outlined,
-                                  size: 18,
-                                  color: Colors.white,
-                                ),
-                              ],
                             ),
                           ),
                         ),

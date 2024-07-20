@@ -1,8 +1,7 @@
-enum ScreenName{
-  fromDashboard,
-  fromAddPeople
-}
+enum ScreenName { fromDashboard, fromAddPeople }
 
-enum EventType{
+enum EventType {
   birthday,
 }
+
+enum EventsCreated { forUser, byUser }

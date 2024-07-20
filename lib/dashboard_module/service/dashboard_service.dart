@@ -9,7 +9,7 @@ class DashboardService {
   final ApiService _apiService = ApiService();
 
   Future<List<EventResponseModel>> getAllEventsCreatedByUserApi() async {
-    String url = AppUrls.allEventsUrl;
+    String url = AppUrls.eventsCreatedByUserUrl;
     final response = await _apiService.getApiCall(
       url: url,
     );
@@ -23,7 +23,7 @@ class DashboardService {
     }
   }
   Future<List<EventResponseModel>> getAllEventsCreatedForUserApi() async {
-    String url = AppUrls.getAllEventsCreatedForUserUrl;
+    String url = AppUrls.eventsCreatedForUserUrl;
     var phoneNumber = GetStorage().read(userMobile) ??'';
     final response = await _apiService.getApiCall(
         url: url,

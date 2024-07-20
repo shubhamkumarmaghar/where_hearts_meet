@@ -48,7 +48,7 @@ class EventCard extends StatelessWidget {
               padding: EdgeInsets.symmetric(horizontal: screenWidth * 0.02),
               child: Text(
                 eventResponseModel.eventName ?? '',
-                style: headingStyle(fontSize: screenWidth * 0.055),
+                style: textStyleDangrek(fontSize: screenWidth * 0.055),
                 textAlign: TextAlign.center,
                 maxLines: 1,
                 overflow: TextOverflow.ellipsis,
@@ -59,7 +59,7 @@ class EventCard extends StatelessWidget {
               padding: EdgeInsets.symmetric(horizontal: screenWidth * 0.02),
               child: Text(
                 getYearTime(eventResponseModel.eventHostDay ?? ''),
-                style: headingStyle(fontSize: screenWidth * 0.046),
+                style: textStyleDangrek(fontSize: screenWidth * 0.046),
                 textAlign: TextAlign.center,
                 maxLines: 2,
                 overflow: TextOverflow.ellipsis,
@@ -120,7 +120,7 @@ class EventCard extends StatelessWidget {
                   decoration: BoxDecoration(color: Colors.white, borderRadius: BorderRadius.circular(40)),
                   child: Text(
                     'See',
-                    style: headingStyle(fontSize: screenWidth * 0.04, color: primaryColor),
+                    style: textStyleDangrek(fontSize: screenWidth * 0.04, color: primaryColor),
                   ),
                 )
               ],

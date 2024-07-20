@@ -117,7 +117,7 @@ class LoginController extends BaseController {
         GetStorage().write(token, loginResponseModel.data?.accessToken),
         GetStorage().write(userMobile, loginResponseModel.data?.phoneNumber),
         GetStorage().write(username, loginResponseModel.data?.username),
-        GetStorage().write(profileUrl, loginResponseModel.data?.profilePicUrl),
+        GetStorage().write(profileUrl, loginResponseModel.data?.profilePic),
         GetStorage().write(firstName, loginResponseModel.data?.firstName),
       ]);
       cancelDialog();

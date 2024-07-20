@@ -76,14 +76,14 @@ String addZero(int value) {
   return value > 9 ? value.toString() : '0$value';
 }
 
-TextStyle headingStyle({double? fontSize, Color? color, FontWeight? fontWeight}) {
+TextStyle textStyleDangrek({double? fontSize, Color? color, FontWeight? fontWeight,TextDecoration? textDecoration}) {
   return GoogleFonts.dangrek(
-      color: color ?? Colors.white, fontWeight: fontWeight ?? FontWeight.w500, fontSize: fontSize ?? 22);
+      color: color ?? Colors.white, fontWeight: fontWeight ?? FontWeight.w500, fontSize: fontSize ?? 22,decoration: textDecoration);
 }
 
-TextStyle textStyleAbel({double? fontSize, Color? color, FontWeight? fontWeight}) {
+TextStyle textStyleAbel({double? fontSize, Color? color, FontWeight? fontWeight,TextDecoration? textDecoration}) {
   return GoogleFonts.abel(
-      color: color ?? Colors.white, fontWeight: fontWeight ?? FontWeight.w500, fontSize: fontSize ?? 22);
+      color: color ?? Colors.white, fontWeight: fontWeight ?? FontWeight.w500, fontSize: fontSize ?? 22,decoration: textDecoration,decorationColor: color ??Colors.white);
 }
 
 Future<File?> cropImage({required String filePath, bool? isProfileImage}) async {

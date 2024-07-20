@@ -42,12 +42,12 @@ class CreateWishesScreen extends StatelessWidget {
                   width: screenWidth * 0.4,
                   onPressed: controller.addWishes,
                   buttonColor: appColor1,
-                  titleTextStyle: headingStyle(fontSize: 22),
+                  titleTextStyle: textStyleDangrek(fontSize: 22),
                 ),
                 OutlinedBusyButton(
                   title: 'Next',
                   width: screenWidth * 0.4,
-                  titleTextStyle: headingStyle(fontSize: 22, color: primaryColor),
+                  titleTextStyle: textStyleDangrek(fontSize: 22, color: primaryColor),
                   onPressed: controller.navigateToCreateTimelineScreen,
                   enabled: controller.wishesList.isNotEmpty,
                 ),
@@ -70,7 +70,7 @@ class CreateWishesScreen extends StatelessWidget {
                   appHeader,
                   Text(
                     'Add Wishes',
-                    style: headingStyle(fontSize: 24),
+                    style: textStyleDangrek(fontSize: 24),
                   ),
                   Visibility(
                     visible: controller.wishesList.isNotEmpty,
@@ -147,7 +147,7 @@ class CreateWishesScreen extends StatelessWidget {
                     alignment: Alignment.centerLeft,
                     child: Text(
                       'Upload wishing images*',
-                      style: headingStyle(fontSize: 18),
+                      style: textStyleDangrek(fontSize: 18),
                     ),
                   ),
                   Align(
@@ -160,7 +160,7 @@ class CreateWishesScreen extends StatelessWidget {
                     alignment: Alignment.centerLeft,
                     child: Text(
                       'Upload wishing videos*',
-                      style: headingStyle(fontSize: 18),
+                      style: textStyleDangrek(fontSize: 18),
                     ),
                   ),
                   getVideosListWidget()

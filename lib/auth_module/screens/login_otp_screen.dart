@@ -1,9 +1,7 @@
-
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:otp_text_field/otp_field.dart';
-import 'package:otp_text_field/otp_field_style.dart';
-import 'package:otp_text_field/style.dart';
+import 'package:pinput/pinput.dart';
+
 import 'package:where_hearts_meet/auth_module/controller/login_controller.dart';
 import 'package:where_hearts_meet/utils/consts/app_screen_size.dart';
 import 'package:where_hearts_meet/utils/util_functions/decoration_functions.dart';
@@ -21,10 +19,7 @@ class LoginOtpScreen extends StatelessWidget {
       body: Container(
         height: screenHeight,
         width: screenWidth,
-
-        decoration: BoxDecoration(
-          gradient: backgroundGradient
-        ),
+        decoration: BoxDecoration(gradient: backgroundGradient),
         padding: EdgeInsets.only(left: 16, right: 16, top: screenHeight * 0.08),
         child: SingleChildScrollView(
           child: Column(
@@ -36,16 +31,15 @@ class LoginOtpScreen extends StatelessWidget {
                     child: const Icon(
                       Icons.arrow_back,
                       size: 24,
-                      color: blackColor,
+                      color: Colors.white,
                     ),
                   ),
                   const SizedBox(
                     width: 20,
                   ),
-                  const Text(
-                    'OTP Verification',
-                    style: TextStyle(fontWeight: FontWeight.w600, fontSize: 18, color: blackColor),
-                  ),
+                  Text('OTP Verification', style: textStyleDangrek(fontSize: 20)
+                      // style: TextStyle(fontWeight: FontWeight.w600, fontSize: 18, color: blackColor),
+                      ),
                 ],
               ),
               SizedBox(
@@ -56,55 +50,32 @@ class LoginOtpScreen extends StatelessWidget {
               SizedBox(
                 height: screenHeight * 0.05,
               ),
-              OTPTextField(
-                controller: OtpFieldController(),
-                keyboardType: TextInputType.number,
-                isDense: false,
-                margin: const EdgeInsets.all(5),
-                length: 6,
-                width: screenWidth * 0.85,
-                fieldWidth: screenWidth*0.1,
-                fieldStyle: FieldStyle.underline,
-                outlineBorderRadius: 10,
-                contentPadding: const EdgeInsets.all(12),
-                otpFieldStyle: OtpFieldStyle(
-                  backgroundColor: Colors.white,
-                  focusBorderColor: primaryColor,
-                  enabledBorderColor: primaryColor,
-                ),
-                style: const TextStyle(
-                  color: Colors.black,
-                ),
-                onChanged: (pin) {
-                  controller.otpController.text = pin;
-                },
-                onCompleted: (pin) {
-                  controller.otpController.text = pin;
-                },
+              otpFieldWidget(),
+              SizedBox(
+                height: screenHeight * 0.02,
               ),
-              const SizedBox(height: 15),
               GestureDetector(
                 onTap: () {
                   controller.resendOTP();
                 },
-                child: const Text.rich(
+                child: Text.rich(
                   TextSpan(
                     children: [
                       TextSpan(
                         text: 'Don\'t receive the ',
-                        style: TextStyle(color: Colors.black),
+                        style: textStyleAbel(),
                       ),
                       TextSpan(
                         text: 'OTP',
-                        style: TextStyle(color: Colors.black),
+                        style: textStyleAbel(),
                       ),
                       TextSpan(
                         text: ' ?',
-                        style: TextStyle(color: Colors.black),
+                        style: textStyleAbel(),
                       ),
                       TextSpan(
                         text: ' RESEND OTP',
-                        style: TextStyle(color: primaryColor),
+                        style: textStyleAbel(fontWeight: FontWeight.w600, textDecoration: TextDecoration.underline),
                       ),
                     ],
                   ),
@@ -122,7 +93,7 @@ class LoginOtpScreen extends StatelessWidget {
                     title: 'Submit',
                     height: screenHeight * 0.06,
                     width: screenWidth * 0.8,
-                    onPressed:controller.signInWithPhoneNumber,
+                    onPressed: controller.signInWithPhoneNumber,
                   ),
                 ),
               ),
@@ -132,24 +103,39 @@ class LoginOtpScreen extends StatelessWidget {
       ),
     );
   }
-}
 
-class AnimatedLogo extends AnimatedWidget {
-  final Widget child;
-  final Animation<double> animation;
-
-  const AnimatedLogo({Key? key, required this.animation, required this.child}) : super(key: key, listenable: animation);
-
-  @override
-  Widget build(BuildContext context) {
-    final animation = listenable as Animation<double>;
-    return Center(
-      child: Container(
-        margin: const EdgeInsets.symmetric(vertical: 10),
-        height: animation.value,
-        width: animation.value,
-        child: child,
+  Widget otpFieldWidget() {
+    final defaultPinTheme = PinTheme(
+      width: screenHeight * 0.06,
+      height: screenHeight * 0.06,
+      textStyle: const TextStyle(fontSize: 20, color:Colors.black54, fontWeight: FontWeight.w600),
+      decoration: BoxDecoration(
+        border: Border.all(color: primaryColor, width: 0.5),
+        borderRadius: BorderRadius.circular(15),
       ),
+    );
+
+    final focusedPinTheme = defaultPinTheme.copyDecorationWith(
+      border: Border.all(color: Colors.white),
+      borderRadius: BorderRadius.circular(15),
+    );
+
+    final submittedPinTheme = defaultPinTheme.copyWith(
+      textStyle: TextStyle(fontSize: 20, color: primaryColor, fontWeight: FontWeight.w600),
+      decoration: defaultPinTheme.decoration?.copyWith(
+        color: Colors.white,
+
+      ),
+    );
+
+    return Pinput(
+      defaultPinTheme: defaultPinTheme,
+      focusedPinTheme: focusedPinTheme,
+      length: 6,
+      submittedPinTheme: submittedPinTheme,
+      pinputAutovalidateMode: PinputAutovalidateMode.onSubmit,
+      showCursor: true,
+      controller: controller.otpController,
     );
   }
 }

@@ -29,7 +29,7 @@ Widget cachedImage({String? imageUrl, double height = 90, double width = 120}) {
           ),
           errorWidget: (context, url, error) => Container(
             decoration: const BoxDecoration(
-              image: DecorationImage(image: AssetImage(errorImage), fit: BoxFit.contain),
+              image: DecorationImage(image: AssetImage(errorImage), fit: BoxFit.cover),
             ),
           ),
         )

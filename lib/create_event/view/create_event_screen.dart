@@ -55,7 +55,7 @@ class CreateEventScreen extends StatelessWidget {
                     appHeader,
                     Text(
                       'Schedule Event',
-                      style: headingStyle(fontSize: 24),
+                      style: textStyleDangrek(fontSize: 24),
                     ),
                     SizedBox(
                       height: screenHeight * 0.03,
@@ -89,7 +89,7 @@ class CreateEventScreen extends StatelessWidget {
                       alignment: Alignment.centerLeft,
                       child: Text(
                         'Select Event Type*',
-                        style: headingStyle(fontSize: 18),
+                        style: textStyleDangrek(fontSize: 18),
                       ),
                     ),
                     const SizedBox(
@@ -130,7 +130,7 @@ class CreateEventScreen extends StatelessWidget {
                       alignment: Alignment.centerLeft,
                       child: Text(
                         'Upload cover image*',
-                        style: headingStyle(fontSize: 18),
+                        style: textStyleDangrek(fontSize: 18),
                       ),
                     ),
                     SizedBox(

@@ -37,7 +37,7 @@ Widget getDrawerContentWidget({required IconData icon, required String heading, 
           ),
           Text(
             heading,
-            style: headingStyle(fontSize: 18),
+            style: textStyleDangrek(fontSize: 18),
           ),
           const Spacer(),
           const Icon(
@@ -162,7 +162,7 @@ Widget getDateView({required DashboardController controller}) {
   );
 }
 
-TextStyle get dashboardHeadingStyle {
+TextStyle get dashboardtextStyleDangrek {
   return GoogleFonts.dangrek(
       decoration: TextDecoration.none, color: Colors.white, fontWeight: FontWeight.w500, fontSize: 22);
 }
