@@ -21,6 +21,7 @@ class LoginScreen extends StatelessWidget {
         onTap: () => FocusScope.of(context).requestFocus(FocusNode()),
         child: Container(
           decoration:  BoxDecoration(
+            gradient: backgroundGradient,
               image: DecorationImage(
             image: NetworkImage(
               'https://i.pinimg.com/736x/f3/92/36/f39236b33a8c21d6dd704299af0146b7.jpg',

@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:where_hearts_meet/utils/consts/app_screen_size.dart';
 import 'package:where_hearts_meet/utils/util_functions/decoration_functions.dart';
@@ -7,32 +6,14 @@ import '../consts/color_const.dart';
 import '../consts/widget_styles.dart';
 
 class DesignerTextField extends StatelessWidget {
-  DesignerTextField({super.key, this.hint,
-    this.inputAction,
-    this.onTap,
-    this.inputType = TextInputType.text,
-    this.error,
-    required this.onChanged,
-    this.obscureText = false,
-    this.enabled = true,
-    this.prefixIcon,
-    this.suffixIcon,
-    this.textAlign,
-    required this.controller,
-    this.maxLines,
-    this.suffix,
-    this.borderColor,
-    this.cornerRadius,
-    this.title});
-
   final Function(String) onChanged;
   final Function? onTap;
   final String? hint;
   final String? title;
   final int? maxLines;
   final Widget? suffix;
-  Color? borderColor;
-  double? cornerRadius;
+  final Color? borderColor;
+  final double? cornerRadius;
   final TextInputAction? inputAction;
   final TextInputType? inputType;
   final String? error;
@@ -42,6 +23,26 @@ class DesignerTextField extends StatelessWidget {
   final Widget? suffixIcon;
   final TextAlign? textAlign;
   final TextEditingController controller;
+
+  DesignerTextField(
+      {super.key,
+      this.hint,
+      this.inputAction,
+      this.onTap,
+      this.inputType = TextInputType.text,
+      this.error,
+      required this.onChanged,
+      this.obscureText = false,
+      this.enabled = true,
+      this.prefixIcon,
+      this.suffixIcon,
+      this.textAlign,
+      required this.controller,
+      this.maxLines,
+      this.suffix,
+      this.borderColor,
+      this.cornerRadius,
+      this.title});
 
   @override
   Widget build(BuildContext context) {
@@ -55,8 +56,8 @@ class DesignerTextField extends StatelessWidget {
             '$title',
             style: textStyleDangrek(fontSize: 18),
           ),
-         SizedBox(
-          height: screenHeight*0.01,
+        SizedBox(
+          height: screenHeight * 0.01,
         ),
         GestureDetector(
           onTap: () {
@@ -69,16 +70,18 @@ class DesignerTextField extends StatelessWidget {
             textAlign: textAlign == null ? TextAlign.start : textAlign!,
             textInputAction: inputAction,
             maxLines: maxLines == null || maxLines == 0 ? 1 : maxLines,
-            style:  TextStyle(color:enabled? blackColor:greyColor, fontSize: 14.0, fontWeight: FontWeight.w600),
+            style: TextStyle(color: enabled ? blackColor : greyColor, fontSize: 14.0, fontWeight: FontWeight.w600),
             onChanged: onChanged,
             obscureText: obscureText ?? false,
             decoration: InputDecoration(
               prefixIcon: prefixIcon,
               suffixIcon: suffixIcon,
-              contentPadding: EdgeInsets.symmetric(horizontal: 12.0,vertical: maxLines != null && maxLines! > 2 ? 10:1),
+              contentPadding:
+                  EdgeInsets.symmetric(horizontal: 12.0, vertical: maxLines != null && maxLines! > 2 ? 10 : 1),
               border: BorderStyles.auctionTextFieldBorderStyle,
-              enabledBorder: cornerRadius == null ? BorderStyles.auctionTextFieldBorderStyle : BorderStyles
-                  .auctionTextFieldBorderStyleCustom(cornerRadius: cornerRadius!, color: borderColor),
+              enabledBorder: cornerRadius == null
+                  ? BorderStyles.auctionTextFieldBorderStyle
+                  : BorderStyles.auctionTextFieldBorderStyleCustom(cornerRadius: cornerRadius ?? 50, color: borderColor),
               disabledBorder: BorderStyles.auctionTextFieldBorderStyle,
               focusedBorder: BorderStyles.auctionTextFieldBorderStyleCustom(cornerRadius: cornerRadius ?? 50),
               errorText: error,

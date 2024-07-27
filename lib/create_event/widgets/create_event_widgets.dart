@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:where_hearts_meet/utils/widgets/gradient_button.dart';
+import 'package:where_hearts_meet/utils/widgets/outlined_busy_button.dart';
 
 import '../../utils/consts/app_screen_size.dart';
 import '../../utils/consts/color_const.dart';
@@ -18,20 +20,37 @@ Future<String?> showTextDialog({required String dialogTitle, required String hin
                 decoration: TextDecoration.none, color: primaryColor, fontWeight: FontWeight.w500, fontSize: 22)),
         content: TextField(
           controller: textController,
+          maxLines: 2,
           decoration: InputDecoration(
             hintText: hintText,
             hintStyle: TextStyle(fontWeight: FontWeight.w500, fontSize: 14, color: Colors.grey.shade500),
           ),
         ),
         actions: [
-          TextButton(
-            onPressed: () => Get.back(),
-            child: Text('Cancel'),
+          Row(
+            children: [
+              OutlinedBusyButton(
+                height: screenHeight*0.04,
+                width: screenWidth*0.3,
+                titleTextStyle: TextStyle(fontSize: 14,color: primaryColor,fontWeight: FontWeight.w500),
+                buttonCorner: 15,
+
+                title: 'Cancel',
+                onPressed: () => Get.back() ,
+              ),
+              SizedBox(width: screenWidth*0.02,),
+              GradientButton(
+                height: screenHeight*0.04,
+                width: screenWidth*0.3,
+                titleTextStyle: TextStyle(fontSize: 14,color: Colors.white,fontWeight: FontWeight.w500),
+                title: 'Submit',
+                buttonCorner: 15,
+                onPressed: () => Get.back(result: textController.text),
+
+              ),
+            ],
           ),
-          TextButton(
-            onPressed: () => Get.back(result: textController.text),
-            child: Text('Submit'),
-          ),
+
         ],
       );
     },

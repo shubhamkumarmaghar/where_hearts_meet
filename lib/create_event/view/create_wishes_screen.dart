@@ -150,9 +150,7 @@ class CreateWishesScreen extends StatelessWidget {
                       style: textStyleDangrek(fontSize: 18),
                     ),
                   ),
-                  Align(
-                      //alignment: Alignment.centerLeft,
-                      child: getImagesListWidget()),
+                  getImagesListWidget(),
                   SizedBox(
                     height: screenHeight * 0.01,
                   ),
@@ -163,7 +161,10 @@ class CreateWishesScreen extends StatelessWidget {
                       style: textStyleDangrek(fontSize: 18),
                     ),
                   ),
-                  getVideosListWidget()
+                  getVideosListWidget(),
+                  SizedBox(
+                    height: screenHeight * 0.02,
+                  ),
                 ],
               ),
             ),

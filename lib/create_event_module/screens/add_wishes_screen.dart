@@ -2,7 +2,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:unicons/unicons.dart';
 import 'package:where_hearts_meet/create_event_module/controller/add_event_specials_controller.dart';
 import 'package:where_hearts_meet/utils/consts/app_screen_size.dart';
 import 'package:where_hearts_meet/utils/consts/color_const.dart';
@@ -200,7 +199,7 @@ class AddWishesScreen extends StatelessWidget {
                         );
                       },
                       child: Icon(
-                        UniconsLine.video,
+                        Icons.video_collection,
                         size: screenHeight * 0.05,
                         color: primaryColor,
                       ),

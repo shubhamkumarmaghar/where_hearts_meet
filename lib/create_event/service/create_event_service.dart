@@ -1,11 +1,11 @@
 import 'dart:developer';
 import 'dart:io';
 
-import 'package:image_picker/image_picker.dart';
 import 'package:dio/dio.dart' as dio;
 import 'package:http_parser/http_parser.dart';
 import 'package:where_hearts_meet/create_event/model/event_model.dart';
 import 'package:where_hearts_meet/create_event/model/event_response_model.dart';
+import 'package:where_hearts_meet/create_event/model/personal_wishes_model.dart';
 import 'package:where_hearts_meet/create_event/model/wishes_model.dart';
 import 'package:where_hearts_meet/utils/consts/color_const.dart';
 import 'package:where_hearts_meet/utils/model/image_response_model.dart';
@@ -72,6 +72,32 @@ class CreateEventService {
     if (data['message'].toString().toLowerCase().contains('timeline created')) {
       AppWidgets.getToast(message: data['message'], color: greenTextColor);
       return data['message'];
+    }
+    return null;
+  }
+
+  Future<PersonalWishesModel?> addPersonalWishesEventApi(
+      {required String eventId,
+      required List<String> imagesList,
+      required List<String> videosList,
+      required List<String> messagesList}) async {
+    String url = AppUrls.personalWishesUrl;
+
+    PersonalWishesModel model = PersonalWishesModel();
+    model.eventId = '81_Happy birthday';
+    model.personalWishes = messagesList;
+    model.images = imagesList;
+    model.videos = videosList;
+
+    final response = await _apiService.postApiCall(
+      url: url,
+      data: model.toJson(),
+    );
+    final data = response;
+
+    if (data['message'].toString().toLowerCase().contains('created')) {
+      AppWidgets.getToast(message: data['message'], color: greenTextColor);
+      return PersonalWishesModel.fromJson(data['data']);
     }
     return null;
   }

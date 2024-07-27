@@ -56,7 +56,7 @@ class GradientButton extends StatelessWidget {
             ),
           ),
           minimumSize: MaterialStateProperty.all(Size(width, 50)),
-          backgroundColor: enabled ? MaterialStateProperty.all(buttonColor) : MaterialStateProperty.all(greyColor),
+          backgroundColor: enabled ? MaterialStateProperty.all(buttonColor) : MaterialStateProperty.all(Colors.grey.shade400),
           // elevation: MaterialStateProperty.all(3),
           shadowColor: MaterialStateProperty.all(Colors.transparent),
         ),

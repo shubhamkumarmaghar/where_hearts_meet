@@ -1,4 +1,4 @@
-import 'dart:developer';
+
 import 'dart:io';
 
 import 'package:flutter/cupertino.dart';
@@ -41,7 +41,8 @@ class CreateWishesController extends BaseController {
   void onCaptureMediaClick({required ImageSource source, bool? forProfile}) async {
     final ImagePicker picker = ImagePicker();
 
-    var image = await picker.pickImage(source: source, maxHeight: 800, maxWidth: 800, imageQuality: 40);
+    var image = await picker.pickImage(
+        source: source, maxHeight: 800, maxWidth: 800, imageQuality: forProfile != null && forProfile ? 40 : 75);
 
     if (image != null) {
       final croppedImage = await cropImage(filePath: image.path, isProfileImage: forProfile);
@@ -124,5 +125,11 @@ class CreateWishesController extends BaseController {
     } else {
       AppWidgets.getToast(message: 'Please add at least 1 wish', color: redColor);
     }
+  }
+  @override
+  void onClose() {
+    nameTextController.dispose();
+    messageTextController.dispose();
+    super.onClose();
   }
 }

@@ -36,6 +36,8 @@ import '../../preview_event/view/created_wishes_preview_screen.dart';
 import '../../profile_module/binding/edit_profile_binding.dart';
 
 import '../../profile_module/screens/edit_profile_screen.dart';
+import '../create_event/binding/create_personal_wishes_binding.dart';
+import '../create_event/view/create_personal_wishes_screen.dart';
 
 
 class AppRoutes {
@@ -131,6 +133,12 @@ class AppRoutes {
         binding: CreateTimelineBinding(),
         page: () => CreateTimelineScreen(),
       ),
+      GetPage(
+        name: RoutesConst.createPersonalWishesScreen,
+        binding: CreatePersonalWishesBinding(),
+        page: () => CreatePersonalWishesScreen(),
+      ),
+
       GetPage(
         name: RoutesConst.createdWishesPreviewScreen,
         binding: CreatedWishesPreviewBinding(),

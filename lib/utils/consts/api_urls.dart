@@ -7,8 +7,6 @@ class AppUrls {
   static const String userAccountUrl = 'userPolls/get_user/';
   static const String uploadFileUrl = 'userPolls/upload_file/';
 
-  static const String createEventUrl = 'eventApp/events/';
-
   ///created by me
   static const String eventsCreatedByUserUrl = 'eventApp/get_events_list/';
 
@@ -18,9 +16,8 @@ class AppUrls {
   ///created for me
   static const String eventsCreatedForUserUrl = 'eventApp/get_events_list_receiver/';
 
+  static const String createEventUrl = 'eventApp/events/';
   static const String eventWishesUrl = 'wishesApp/wishes/';
-
   static const String eventTimelineUrl = 'wishesApp/timeline/';
-
-  static const String receiveWishsUrl = 'wishesApp/wishes/';
+  static const String personalWishesUrl = 'wishesApp/personal_wishes/';
 }

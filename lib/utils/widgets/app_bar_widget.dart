@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:clay_containers/clay_containers.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -57,19 +59,10 @@ Widget backIcon() {
     onTap: () {
       Get.back();
     },
-    child: SizedBox(
-        height: 50,
-        width: 50,
-        child: const ClayContainer(
-          borderRadius: 50,
-          color: primaryColor,
-          depth: 60,
-
-          child: Icon(
-            Icons.arrow_back_ios_new_rounded,
-            size: 24,
-            color: Colors.white,
-          ),
-        )),
+    child: Icon(
+      Platform.isIOS ? Icons.arrow_back_ios_new_rounded : Icons.arrow_back,
+      size: 24,
+      color: Colors.white,
+    ),
   );
 }

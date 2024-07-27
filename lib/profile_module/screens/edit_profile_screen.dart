@@ -1,9 +1,12 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:where_hearts_meet/utils/buttons/buttons.dart';
 import 'package:where_hearts_meet/utils/consts/color_const.dart';
 import 'package:where_hearts_meet/utils/util_functions/app_pickers.dart';
+import 'package:where_hearts_meet/utils/util_functions/decoration_functions.dart';
+import 'package:where_hearts_meet/utils/widgets/cached_image.dart';
 import 'package:where_hearts_meet/utils/widgets/custom_text_field.dart';
 import 'package:where_hearts_meet/utils/widgets/gradient_button.dart';
 import '../../utils/consts/app_screen_size.dart';
@@ -18,6 +21,151 @@ class EditProfileScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      bottomNavigationBar: Container(
+        padding: EdgeInsets.only(
+          bottom: 14,
+          left: screenWidth * 0.06,
+          right: screenWidth * 0.06,
+        ),
+        child: GradientButton(
+            title: 'Update',
+            width: screenWidth * 0.8,
+            enabled: true,
+            onPressed: (){},
+            buttonColor: appColor1,
+            titleTextStyle: textStyleDangrek(fontSize: 22)
+
+        ),
+      ),
+      body: Container(
+        height: screenHeight,
+        width: screenWidth,
+        decoration: BoxDecoration(
+            //gradient: backgroundGradient
+            ),
+        padding: const EdgeInsets.symmetric(
+            //horizontal: 20
+            ),
+        child: SingleChildScrollView(
+          child: Column(
+            children: [
+              //https://cdn.wallpapersafari.com/90/1/9BTVDQ.jpg
+              Stack(
+                children: [
+
+                  Column(
+                    children: [
+                      Container(
+                        height: screenHeight * 0.3,
+                        width: screenWidth,
+                        color: primaryColor,
+                        child: cachedImage(imageUrl: 'https://cdn.wallpapersafari.com/90/1/9BTVDQ.jpg'),
+                      ),
+                      Container(
+                        height: screenHeight * 0.7,
+                        width: screenWidth,
+                        color: Colors.white,
+                      ),
+                    ],
+                  ),
+                  Positioned(
+                    top: screenHeight * 0.23,
+                    child: Container(
+                      padding: const EdgeInsets.symmetric(horizontal: 20),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Container(
+                            width: screenWidth,
+                            child: Row(
+                              children: [
+                                Container(
+                                  height: 100,
+                                  width: 100,
+                                  child: ClipRRect(
+                                    borderRadius: BorderRadius.circular(50),
+                                    child: cachedImage(imageUrl: 'https://cdn.wallpapersafari.com/90/1/9BTVDQ.jpg'),
+                                  ),
+                                ),
+                                SizedBox(
+                                  width: screenWidth * 0.04,
+                                ),
+
+                                Spacer(),
+                                Container(
+                                    margin: EdgeInsets.only(right: screenWidth * 0.1),
+                                    child: Icon(
+                                      Icons.edit,
+                                      color: Colors.white,
+                                      size: 24,
+                                    )),
+                              ],
+                            ),
+                          ),
+                          SizedBox(
+                            height: screenHeight * 0.02,
+                          ),
+                          textField(textController: controller.firstNameController, label: 'First Name'),
+                          SizedBox(
+                            height: screenHeight * 0.02,
+                          ),
+                          textField(textController: controller.lastNameController, label: 'Last Name'),
+                          SizedBox(
+                            height: screenHeight * 0.02,
+                          ),
+                          textField(textController: controller.mobileController, label: 'Phone Number', enable: false),
+                          SizedBox(
+                            height: screenHeight * 0.02,
+                          ),
+                          textField(textController: controller.emailController, label: 'Email'),
+                          SizedBox(
+                            height: screenHeight * 0.02,
+                          ),
+                          textField(textController: controller.addressController, label: 'Address'),
+                        ],
+                      ),
+                    ),
+                  ),
+                ],
+              )
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+Widget textField({required TextEditingController textController, required String label, bool? enable}) {
+  return Container(
+    height: 50,
+    width: screenWidth * 0.87,
+    //color: Colors.amber,
+    child: TextField(
+      enabled: enable,
+      style: textStyleAbel(color: Colors.black,fontSize: 18,fontWeight: FontWeight.w600),
+
+      controller: textController,
+      decoration: InputDecoration(
+        contentPadding: EdgeInsets.only(
+          top: 10,
+        ),
+        focusedBorder: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(15),
+            borderSide: BorderSide(
+              color: primaryColor.withOpacity(0.4),
+            )),
+        label: Text(
+          label,
+          style: textStyleDangrek(color: Colors.grey.shade400, fontSize: 18,fontWeight: FontWeight.w300),
+        ),
+
+      ),
+    ),
+  );
+}
+/*
+return Scaffold(
       appBar: appBarWidget(title: 'Profile'),
       body: GetBuilder<EditProfileController>(
         builder: (controller) {
@@ -151,5 +299,4 @@ class EditProfileScreen extends StatelessWidget {
         ),
       ),
     );
-  }
-}
+    */

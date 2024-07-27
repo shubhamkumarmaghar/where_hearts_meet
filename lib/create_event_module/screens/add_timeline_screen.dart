@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:unicons/unicons.dart';
 
 import '../../utils/buttons/buttons.dart';
 import '../../utils/consts/app_screen_size.dart';
@@ -212,7 +211,7 @@ class AddTimelineScreen extends StatelessWidget {
                         );
                       },
                       child: Icon(
-                        UniconsLine.video,
+                        Icons.video_collection,
                         size: screenHeight * 0.05,
                         color: primaryColor,
                       ),

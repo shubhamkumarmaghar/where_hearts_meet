@@ -9,8 +9,11 @@ import '../../utils/dialogs/pop_up_dialogs.dart';
 import '../model/user_model.dart';
 
 class EditProfileController extends BaseController {
-  final nameTextController = TextEditingController();
+  final firstNameController = TextEditingController();
+  final lastNameController = TextEditingController();
+  final addressController = TextEditingController();
   final emailController = TextEditingController();
+  final mobileController = TextEditingController();
   RxnString errorNameText = RxnString(null);
   UserModel userModel = UserModel();
   final profileService = ProfileService();
@@ -19,6 +22,11 @@ class EditProfileController extends BaseController {
   void onInit() {
     super.onInit();
     getUserData(initial: true);
+    firstNameController.text  = 'Deepak';
+    lastNameController.text = 'Rockx';
+    addressController.text = 'New Delhi';
+    emailController.text = 'deepak424@gmail.com';
+    mobileController.text ='9889617848';
   }
 
   void onNameChanged(String name) {
@@ -68,8 +76,8 @@ class EditProfileController extends BaseController {
       showSnackBar(context: Get.context!, message: 'Please select date of birth');
       return;
     }
-    return;
-    userModel.firstName = nameTextController.text;
+
+    userModel.firstName = firstNameController.text;
 
     showLoaderDialog(context: Get.context!);
 
@@ -93,8 +101,11 @@ class EditProfileController extends BaseController {
 
   @override
   void onClose() {
-    nameTextController.dispose();
+    firstNameController.dispose();
     emailController.dispose();
+    lastNameController.dispose();
+    addressController.dispose();
+    mobileController.dispose();
     super.onClose();
   }
 }
