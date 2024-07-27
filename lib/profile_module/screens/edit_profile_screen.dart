@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:where_hearts_meet/utils/buttons/buttons.dart';
@@ -11,6 +12,7 @@ import 'package:where_hearts_meet/utils/widgets/custom_text_field.dart';
 import 'package:where_hearts_meet/utils/widgets/gradient_button.dart';
 import '../../utils/consts/app_screen_size.dart';
 import '../../utils/widgets/app_bar_widget.dart';
+import '../../utils/widgets/designer_text_field.dart';
 import '../controller/edit_profile_controller.dart';
 
 class EditProfileScreen extends StatelessWidget {
@@ -21,28 +23,9 @@ class EditProfileScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      bottomNavigationBar: Container(
-        padding: EdgeInsets.only(
-          bottom: 14,
-          left: screenWidth * 0.06,
-          right: screenWidth * 0.06,
-        ),
-        child: GradientButton(
-            title: 'Update',
-            width: screenWidth * 0.8,
-            enabled: true,
-            onPressed: (){},
-            buttonColor: appColor1,
-            titleTextStyle: textStyleDangrek(fontSize: 22)
-
-        ),
-      ),
       body: Container(
         height: screenHeight,
         width: screenWidth,
-        decoration: BoxDecoration(
-            //gradient: backgroundGradient
-            ),
         padding: const EdgeInsets.symmetric(
             //horizontal: 20
             ),
@@ -52,34 +35,32 @@ class EditProfileScreen extends StatelessWidget {
               //https://cdn.wallpapersafari.com/90/1/9BTVDQ.jpg
               Stack(
                 children: [
-
                   Column(
                     children: [
                       Container(
-                        height: screenHeight * 0.3,
+                        height: screenHeight * 0.35,
                         width: screenWidth,
-                        color: primaryColor,
                         child: cachedImage(imageUrl: 'https://cdn.wallpapersafari.com/90/1/9BTVDQ.jpg'),
                       ),
                       Container(
-                        height: screenHeight * 0.7,
+                        height: screenHeight * 0.65,
                         width: screenWidth,
-                        color: Colors.white,
+                        //  decoration: BoxDecoration(gradient: backgroundGradient),
                       ),
                     ],
                   ),
                   Positioned(
-                    top: screenHeight * 0.23,
+                    top: screenHeight * 0.28,
                     child: Container(
                       padding: const EdgeInsets.symmetric(horizontal: 20),
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Container(
+                          SizedBox(
                             width: screenWidth,
                             child: Row(
                               children: [
-                                Container(
+                                SizedBox(
                                   height: 100,
                                   width: 100,
                                   child: ClipRRect(
@@ -90,11 +71,10 @@ class EditProfileScreen extends StatelessWidget {
                                 SizedBox(
                                   width: screenWidth * 0.04,
                                 ),
-
-                                Spacer(),
+                                const Spacer(),
                                 Container(
                                     margin: EdgeInsets.only(right: screenWidth * 0.1),
-                                    child: Icon(
+                                    child: const Icon(
                                       Icons.edit,
                                       color: Colors.white,
                                       size: 24,
@@ -105,6 +85,7 @@ class EditProfileScreen extends StatelessWidget {
                           SizedBox(
                             height: screenHeight * 0.02,
                           ),
+
                           textField(textController: controller.firstNameController, label: 'First Name'),
                           SizedBox(
                             height: screenHeight * 0.02,
@@ -126,6 +107,19 @@ class EditProfileScreen extends StatelessWidget {
                       ),
                     ),
                   ),
+                  Positioned.fill(
+                    bottom: screenHeight * 0.02,
+                    child: Align(
+                      alignment: Alignment.bottomCenter,
+                      child: GradientButton(
+                          title: 'Update',
+                          width: screenWidth * 0.8,
+                          enabled: true,
+                          onPressed: () {},
+                          buttonColor: appColor1,
+                          titleTextStyle: textStyleDangrek(fontSize: 22)),
+                    ),
+                  )
                 ],
               )
             ],
@@ -137,29 +131,43 @@ class EditProfileScreen extends StatelessWidget {
 }
 
 Widget textField({required TextEditingController textController, required String label, bool? enable}) {
+  return  Container(
+    height: 80,
+    width: screenWidth,
+    child: DesignerTextField(
+        title: label,
+        titleTextStyle: textStyleDangrek(fontSize: 16,color: Colors.black),
+        hint: '',
+        enabled: enable ?? false,
+        onChanged: (text) {},
+        controller: textController),
+  );
   return Container(
     height: 50,
     width: screenWidth * 0.87,
     //color: Colors.amber,
     child: TextField(
       enabled: enable,
-      style: textStyleAbel(color: Colors.black,fontSize: 18,fontWeight: FontWeight.w600),
-
+      style: textStyleAbel(color: Colors.black, fontSize: 18, fontWeight: FontWeight.w600),
       controller: textController,
       decoration: InputDecoration(
         contentPadding: EdgeInsets.only(
           top: 10,
         ),
+        border: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(15),
+            borderSide: BorderSide(
+              color: Colors.grey.shade400,
+            )),
         focusedBorder: OutlineInputBorder(
             borderRadius: BorderRadius.circular(15),
             borderSide: BorderSide(
-              color: primaryColor.withOpacity(0.4),
+              color: Colors.grey.shade400,
             )),
         label: Text(
           label,
-          style: textStyleDangrek(color: Colors.grey.shade400, fontSize: 18,fontWeight: FontWeight.w300),
+          style: textStyleDangrek(color: Colors.grey.shade400, fontSize: 18, fontWeight: FontWeight.w200),
         ),
-
       ),
     ),
   );

@@ -58,8 +58,8 @@ Widget scheduleEventView() {
   return GestureDetector(
     onTap: () {
 
-     Get.toNamed(RoutesConst.createEventScreen);
-      //Get.toNamed(RoutesConst.createPersonalWishesScreen);
+     //Get.toNamed(RoutesConst.createEventScreen);
+      Get.toNamed(RoutesConst.createPersonalWishesScreen);
     },
     child: Stack(
       children: [

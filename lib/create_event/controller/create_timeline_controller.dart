@@ -80,7 +80,7 @@ class CreateTimelineController extends BaseController {
         videosList: videosList);
     cancelDialog();
     if (response != null) {
-      Get.offAllNamed(RoutesConst.dashboardScreen);
+      Get.offAllNamed(RoutesConst.createPersonalWishesScreen);
     }
   }
 }

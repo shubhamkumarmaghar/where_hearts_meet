@@ -80,6 +80,7 @@ class CreateEventScreen extends StatelessWidget {
                         title: "Person's mobile number*",
                         hint: 'Mobile number',
                         inputType: TextInputType.phone,
+
                         onChanged: (text) {},
                         controller: controller.personMobileController),
                     SizedBox(
@@ -92,7 +93,7 @@ class CreateEventScreen extends StatelessWidget {
                         hint: 'Say something about him/her',
                         inputType: TextInputType.text,
                         onChanged: (text) {},
-                        controller: controller.personMobileController),
+                        controller: controller.descriptionController),
                     SizedBox(
                       height: screenHeight * 0.02,
                     ),

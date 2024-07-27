@@ -5,6 +5,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:where_hearts_meet/create_event/widgets/create_event_widgets.dart';
+import 'package:where_hearts_meet/splash_module/screens/splash_screen.dart';
 import 'package:where_hearts_meet/utils/controller/base_controller.dart';
 
 import '../../routes/routes_const.dart';
@@ -29,7 +30,7 @@ class CreatePersonalWishesController extends BaseController {
     super.onInit();
     var createdEvent = locator<CreatedEventRepo>();
     if (createdEvent.getCurrentEvent != null) {
-        eventResponseModel = createdEvent.getCurrentEvent!;
+      eventResponseModel = createdEvent.getCurrentEvent!;
     }
   }
 
@@ -92,20 +93,22 @@ class CreatePersonalWishesController extends BaseController {
   void addPersonalWishes() async {
     showLoaderDialog(context: Get.context!);
     final response = await createEventService.addPersonalWishesEventApi(
-        eventId: eventResponseModel.eventid ??'',
-        imagesList: imagesList.map((e) => e.fileUrl ?? '').toList(),
+        eventId: eventResponseModel.eventid ?? '',
+        imagesList: imagesList.map((e) => e.fileId ?? '').toList(),
         videosList: videosList,
         messagesList: messagesList);
     cancelDialog();
     if (response != null) {
-      //  navigateToCreateGiftsScreen();
+      navigateToCreateGiftsScreen();
     }
   }
 
   void navigateToCreateGiftsScreen() {
-    Get.offNamed(
-      RoutesConst.createTimelineScreen,
-    );
+    Get.offAll(() => const SplashScreen());
+
+    // Get.offNamed(
+    //   RoutesConst.createTimelineScreen,
+    // );
   }
 
   @override

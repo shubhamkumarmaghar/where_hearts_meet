@@ -1,6 +1,6 @@
 class PersonalWishesModel {
   String? eventId;
-  String? id;
+  int? id;
   List<String>? personalWishes;
   List<String>? images;
   List<String>? videos;

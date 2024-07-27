@@ -21,6 +21,7 @@ class DesignerTextField extends StatelessWidget {
   final bool enabled;
   final Widget? prefixIcon;
   final Widget? suffixIcon;
+  final TextStyle? titleTextStyle;
   final TextAlign? textAlign;
   final TextEditingController controller;
 
@@ -29,6 +30,7 @@ class DesignerTextField extends StatelessWidget {
       this.hint,
       this.inputAction,
       this.onTap,
+      this.titleTextStyle,
       this.inputType = TextInputType.text,
       this.error,
       required this.onChanged,
@@ -54,7 +56,7 @@ class DesignerTextField extends StatelessWidget {
         if (title != null)
           Text(
             '$title',
-            style: textStyleDangrek(fontSize: 18),
+            style: titleTextStyle ?? textStyleDangrek(fontSize: 18),
           ),
         SizedBox(
           height: screenHeight * 0.01,
@@ -81,7 +83,8 @@ class DesignerTextField extends StatelessWidget {
               border: BorderStyles.auctionTextFieldBorderStyle,
               enabledBorder: cornerRadius == null
                   ? BorderStyles.auctionTextFieldBorderStyle
-                  : BorderStyles.auctionTextFieldBorderStyleCustom(cornerRadius: cornerRadius ?? 50, color: borderColor),
+                  : BorderStyles.auctionTextFieldBorderStyleCustom(
+                      cornerRadius: cornerRadius ?? 50, color: borderColor),
               disabledBorder: BorderStyles.auctionTextFieldBorderStyle,
               focusedBorder: BorderStyles.auctionTextFieldBorderStyleCustom(cornerRadius: cornerRadius ?? 50),
               errorText: error,

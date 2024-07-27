@@ -84,7 +84,7 @@ class CreateEventService {
     String url = AppUrls.personalWishesUrl;
 
     PersonalWishesModel model = PersonalWishesModel();
-    model.eventId = '81_Happy birthday';
+    model.eventId = eventId;
     model.personalWishes = messagesList;
     model.images = imagesList;
     model.videos = videosList;
