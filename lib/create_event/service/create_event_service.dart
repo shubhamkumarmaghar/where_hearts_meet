@@ -14,6 +14,7 @@ import 'package:where_hearts_meet/utils/widgets/util_widgets/app_widgets.dart';
 import '../../utils/consts/api_urls.dart';
 import '../../utils/services/api_service.dart';
 import '../../utils/services/functions_service.dart';
+import '../model/timeline_model.dart';
 
 class CreateEventService {
   final ApiService _apiService = ApiService();
@@ -60,7 +61,7 @@ class CreateEventService {
     return null;
   }
 
-  Future<String?> addTimelineStoriesEventApi(
+  Future<TimelineModel?> addTimelineStoriesEventApi(
       {required String eventId, required List<String> imagesList, required List<String> videosList}) async {
     String url = AppUrls.eventTimelineUrl;
     final response = await _apiService.postApiCall(
@@ -71,7 +72,7 @@ class CreateEventService {
 
     if (data['message'].toString().toLowerCase().contains('timeline created')) {
       AppWidgets.getToast(message: data['message'], color: greenTextColor);
-      return data['message'];
+      return TimelineModel.fromJson(data['data']);
     }
     return null;
   }
