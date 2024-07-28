@@ -35,6 +35,7 @@ class CreateEventController extends BaseController {
   final eventNameController = TextEditingController();
   final eventTypeController = TextEditingController();
   final personMobileController = TextEditingController();
+  final descriptionController = TextEditingController();
 
   EventTypeModel selectedEventType =
       EventTypeModel(eventName: 'Select Event', eventTypeId: '0', eventIcon: Icons.select_all);
@@ -136,6 +137,7 @@ class CreateEventController extends BaseController {
     eventModel.eventName = eventNameController.text;
     eventModel.receiverPhoneNumber = personMobileController.text;
     eventModel.eventType = eventTypeController.text;
+    eventModel.eventDescription = descriptionController.text;
 
     if (eventModel.receiverName == null || eventModel.receiverName!.isEmpty) {
       AppWidgets.showSnackBar(context: Get.context!, message: "Enter person's name", color: errorColor);

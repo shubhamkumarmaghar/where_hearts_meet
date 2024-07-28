@@ -44,7 +44,9 @@ class CreatedWishesPreviewScreen extends StatelessWidget {
                       size: 24,
                     ),
                   ),
-                  SizedBox(width: screenWidth*0.02,),
+                  SizedBox(
+                    width: screenWidth * 0.02,
+                  ),
                   Text(
                     'Wish',
                     style: textStyleDangrek(fontSize: 20),
@@ -93,7 +95,6 @@ class CreatedWishesPreviewScreen extends StatelessWidget {
                     color: Colors.white,
                     size: 24,
                   )
-
                 ],
               ),
               SizedBox(
@@ -105,7 +106,6 @@ class CreatedWishesPreviewScreen extends StatelessWidget {
                   enlargeCenterPage: false,
                   autoPlay: true,
                   aspectRatio: 16 / 9,
-
                   autoPlayCurve: Curves.fastOutSlowIn,
                   enableInfiniteScroll: true,
                   autoPlayAnimationDuration: const Duration(milliseconds: 1200),
@@ -142,8 +142,7 @@ class CreatedWishesPreviewScreen extends StatelessWidget {
                 height: screenHeight * 0.02,
               ),
               Text(
-                // controller.wishesModel.senderMessage ?? '',
-                'The Lord of the Rings is a trilogy of epic fantasy adventure films directed by Peter Jackson, based on the novel The Lord of the Rings by British author J. R. R. Tolkien. The films are subtitled The Fellowship of the Ring (2001), The Two Towers (2002), and The Return of the King (2003). Produced and distributed by New Line Cinema with the co-production of WingNut Films, the films feature an ensemble cast including Elijah Wood, Ian McKellen, Liv Tyler, Viggo Mortensen, Sean Astin, Cate Blanchett, John Rhys-Davies, Christopher Lee, Billy Boyd, Dominic Monaghan, Orlando Bloom, Hugo Weaving, Andy Serkis, and Sean Bean.',
+                controller.wishesModel.senderMessage ?? '',
                 style: textStyleAbel(fontSize: 18),
               ),
               SizedBox(

@@ -1,11 +1,11 @@
 import 'dart:developer';
 import 'dart:io';
 
-import 'package:image_picker/image_picker.dart';
 import 'package:dio/dio.dart' as dio;
 import 'package:http_parser/http_parser.dart';
 import 'package:where_hearts_meet/create_event/model/event_model.dart';
 import 'package:where_hearts_meet/create_event/model/event_response_model.dart';
+import 'package:where_hearts_meet/create_event/model/personal_wishes_model.dart';
 import 'package:where_hearts_meet/create_event/model/wishes_model.dart';
 import 'package:where_hearts_meet/utils/consts/color_const.dart';
 import 'package:where_hearts_meet/utils/model/image_response_model.dart';
@@ -14,6 +14,7 @@ import 'package:where_hearts_meet/utils/widgets/util_widgets/app_widgets.dart';
 import '../../utils/consts/api_urls.dart';
 import '../../utils/services/api_service.dart';
 import '../../utils/services/functions_service.dart';
+import '../model/timeline_model.dart';
 
 class CreateEventService {
   final ApiService _apiService = ApiService();
@@ -60,7 +61,7 @@ class CreateEventService {
     return null;
   }
 
-  Future<String?> addTimelineStoriesEventApi(
+  Future<TimelineModel?> addTimelineStoriesEventApi(
       {required String eventId, required List<String> imagesList, required List<String> videosList}) async {
     String url = AppUrls.eventTimelineUrl;
     final response = await _apiService.postApiCall(
@@ -71,7 +72,33 @@ class CreateEventService {
 
     if (data['message'].toString().toLowerCase().contains('timeline created')) {
       AppWidgets.getToast(message: data['message'], color: greenTextColor);
-      return data['message'];
+      return TimelineModel.fromJson(data['data']);
+    }
+    return null;
+  }
+
+  Future<PersonalWishesModel?> addPersonalWishesEventApi(
+      {required String eventId,
+      required List<String> imagesList,
+      required List<String> videosList,
+      required List<String> messagesList}) async {
+    String url = AppUrls.personalWishesUrl;
+
+    PersonalWishesModel model = PersonalWishesModel();
+    model.eventId = eventId;
+    model.personalWishes = messagesList;
+    model.images = imagesList;
+    model.videos = videosList;
+
+    final response = await _apiService.postApiCall(
+      url: url,
+      data: model.toJson(),
+    );
+    final data = response;
+
+    if (data['message'].toString().toLowerCase().contains('created')) {
+      AppWidgets.getToast(message: data['message'], color: greenTextColor);
+      return PersonalWishesModel.fromJson(data['data']);
     }
     return null;
   }

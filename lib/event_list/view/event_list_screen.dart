@@ -4,6 +4,7 @@ import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 import 'package:where_hearts_meet/event_list/controller/event_list_controller.dart';
 import 'package:where_hearts_meet/utils/extensions/string_extension.dart';
+import 'package:where_hearts_meet/utils/widgets/app_bar_widget.dart';
 import 'package:where_hearts_meet/utils/widgets/cached_image.dart';
 import '../../create_event/model/event_response_model.dart';
 import '../../utils/consts/app_screen_size.dart';
@@ -33,9 +34,18 @@ class EventListScreen extends StatelessWidget {
                   SizedBox(
                     height: screenHeight * 0.07,
                   ),
-                  Text(
-                    controller.pageTitle,
-                    style: textStyleDangrek(fontSize: 24),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    children: [
+                      backIcon(),
+
+                      Spacer(),
+                      Text(
+                        controller.pageTitle,
+                        style: textStyleDangrek(fontSize: 24),
+                      ),
+                     Spacer(),
+                    ],
                   ),
                   SizedBox(
                     height: screenHeight * 0.02,
@@ -55,7 +65,7 @@ class EventListScreen extends StatelessWidget {
 
   Widget _eventInfoCardsWidget({required List<EventResponseModel> eventsList}) {
     return SizedBox(
-      height: screenHeight * 0.83,
+      height: screenHeight * 0.85,
       width: screenWidth,
       child: ListView.separated(
         shrinkWrap: true,

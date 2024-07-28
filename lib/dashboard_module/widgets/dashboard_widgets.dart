@@ -57,7 +57,9 @@ Widget getDrawerContentWidget({required IconData icon, required String heading, 
 Widget scheduleEventView() {
   return GestureDetector(
     onTap: () {
-      Get.toNamed(RoutesConst.createEventScreen);
+
+     //Get.toNamed(RoutesConst.createEventScreen);
+      Get.toNamed(RoutesConst.createPersonalWishesScreen);
     },
     child: Stack(
       children: [

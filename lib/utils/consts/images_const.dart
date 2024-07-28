@@ -27,7 +27,7 @@ const String dashboardBackground = 'asset/images/dashboard_background.png';
 const String anniversaryWishes = 'asset/images/anniversary_wish_image.webp';
 const String birthDayWishes = 'asset/images/birthday_wish_image.webp';
 const String congratulationWishes = 'asset/images/congratulations_wish_image.jpg';
-const String marriageWishes = 'asset/images/marriage_wish_image.jpg';
+const String marriageWishes = 'asset/images/marriage_wish_image.webp';
 
 //lotties json
 const String giftbox = 'asset/icons/Animation - 1720867208224.json';

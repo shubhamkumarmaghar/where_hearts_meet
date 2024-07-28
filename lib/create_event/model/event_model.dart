@@ -4,22 +4,25 @@ class EventModel {
   String? eventType;
   String? eventHostDay;
   String? coverImage;
+  String? eventDescription;
   String? receiverPhoneNumber;
   String? receiverName;
   bool? globalEvent;
   String? splashBackgroundImage;
   String? splashDisplayImage;
 
-  EventModel({this.eventName,
-    this.hostName,
-    this.eventType,
-    this.eventHostDay,
-    this.receiverPhoneNumber,
-    this.receiverName,
-    this.coverImage,
-    this.globalEvent,
-    this.splashBackgroundImage,
-    this.splashDisplayImage});
+  EventModel(
+      {this.eventName,
+      this.hostName,
+      this.eventType,
+      this.eventHostDay,
+      this.eventDescription,
+      this.receiverPhoneNumber,
+      this.receiverName,
+      this.coverImage,
+      this.globalEvent,
+      this.splashBackgroundImage,
+      this.splashDisplayImage});
 
   EventModel.fromJson(Map<String, dynamic> json) {
     eventName = json['event_name'];
@@ -29,6 +32,7 @@ class EventModel {
     receiverPhoneNumber = json['receiver_phone_number'];
     receiverName = json['receiver_name'];
     globalEvent = json['global_event'];
+    eventDescription = json['event_description'];
     coverImage = json['cover_image'];
     splashBackgroundImage = json['splash_background_image'];
     splashDisplayImage = json['splash_display_image'];
@@ -43,6 +47,7 @@ class EventModel {
     data['event_host_day'] = this.eventHostDay;
     data['receiver_phone_number'] = this.receiverPhoneNumber;
     data['receiver_name'] = this.receiverName;
+    data['event_description'] = this.eventDescription;
     data['global_event'] = this.globalEvent;
     data['cover_image'] = this.coverImage;
     data['splash_background_image'] = this.splashBackgroundImage;

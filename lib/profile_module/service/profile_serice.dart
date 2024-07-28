@@ -47,7 +47,7 @@ class ProfileService {
     });
     final data = response;
 
-    if (data['message'].toString().toLowerCase().contains('events found') && data['data'] != null) {
+    if (data['message'].toString().toLowerCase().contains('found') && data['data'] != null) {
       return UserModel.fromJson(data['data']);
     } else {
       return null;

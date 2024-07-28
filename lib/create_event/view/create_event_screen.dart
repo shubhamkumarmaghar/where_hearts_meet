@@ -58,7 +58,7 @@ class CreateEventScreen extends StatelessWidget {
                       style: textStyleDangrek(fontSize: 24),
                     ),
                     SizedBox(
-                      height: screenHeight * 0.03,
+                      height: screenHeight * 0.02,
                     ),
                     DesignerTextField(
                         title: 'Person Name*',
@@ -66,7 +66,7 @@ class CreateEventScreen extends StatelessWidget {
                         onChanged: (text) {},
                         controller: controller.nameController),
                     SizedBox(
-                      height: screenHeight * 0.03,
+                      height: screenHeight * 0.02,
                     ),
                     DesignerTextField(
                         title: 'Event Name*',
@@ -74,16 +74,28 @@ class CreateEventScreen extends StatelessWidget {
                         onChanged: (text) {},
                         controller: controller.eventNameController),
                     SizedBox(
-                      height: screenHeight * 0.03,
+                      height: screenHeight * 0.02,
                     ),
                     DesignerTextField(
                         title: "Person's mobile number*",
                         hint: 'Mobile number',
                         inputType: TextInputType.phone,
+
                         onChanged: (text) {},
                         controller: controller.personMobileController),
                     SizedBox(
-                      height: screenHeight * 0.03,
+                      height: screenHeight * 0.02,
+                    ),
+                    DesignerTextField(
+                        title: "Description",
+                        maxLines: 5,
+                        cornerRadius: 15,
+                        hint: 'Say something about him/her',
+                        inputType: TextInputType.text,
+                        onChanged: (text) {},
+                        controller: controller.descriptionController),
+                    SizedBox(
+                      height: screenHeight * 0.02,
                     ),
                     Align(
                       alignment: Alignment.centerLeft,
@@ -124,7 +136,7 @@ class CreateEventScreen extends StatelessWidget {
                       ),
                     ),
                     SizedBox(
-                      height: screenHeight * 0.03,
+                      height: screenHeight * 0.02,
                     ),
                     Align(
                       alignment: Alignment.centerLeft,

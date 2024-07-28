@@ -1,7 +1,5 @@
 import 'package:clay_containers/widgets/clay_container.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:where_hearts_meet/utils/consts/app_screen_size.dart';
@@ -13,6 +11,7 @@ import '../../utils/consts/color_const.dart';
 import '../../utils/util_functions/app_pickers.dart';
 import '../../utils/util_functions/decoration_functions.dart';
 
+import '../../utils/widgets/gradient_button.dart';
 import '../../utils/widgets/image_stroy_widget.dart';
 import '../controller/create_timeline_controller.dart';
 
@@ -33,15 +32,14 @@ class CreateTimelineScreen extends StatelessWidget {
               left: screenWidth * 0.06,
               right: screenWidth * 0.06,
             ),
-            child: getElevatedButton(
-              width: screenWidth * 0.4,
-              borderRadius: 30,
-              child: Text(
-                'Submit',
-                style: textStyleDangrek(fontSize: 22),
-              ),
-              buttonColor: appColor1,
+            child: GradientButton(
+              title: 'Submit',
+              width: screenWidth * 0.8,
+              enabled: controller.imagesList.isNotEmpty || controller.videosList.isNotEmpty,
               onPressed: controller.addTimelineStories,
+              buttonColor: appColor1,
+              titleTextStyle: textStyleDangrek(fontSize: 22)
+
             ),
           ),
           body: Container(

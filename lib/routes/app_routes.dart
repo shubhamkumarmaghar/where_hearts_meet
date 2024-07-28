@@ -35,6 +35,8 @@ import '../guest_dashboard/guest_wishlist/binding/guest_wishlist.dart';
 import '../guest_dashboard/guest_wishlist/view/guest_wishlist.dart';
 import '../guest_dashboard/view/guest_dashboard.dart';
 import '../guest_dashboard/view/guest_splash_view.dart';
+import '../create_event/binding/create_personal_wishes_binding.dart';
+import '../create_event/view/create_personal_wishes_screen.dart';
 
 
 class AppRoutes {
@@ -130,6 +132,12 @@ class AppRoutes {
         binding: CreateTimelineBinding(),
         page: () => CreateTimelineScreen(),
       ),
+      GetPage(
+        name: RoutesConst.createPersonalWishesScreen,
+        binding: CreatePersonalWishesBinding(),
+        page: () => CreatePersonalWishesScreen(),
+      ),
+
       GetPage(
         name: RoutesConst.createdWishesPreviewScreen,
         binding: CreatedWishesPreviewBinding(),
