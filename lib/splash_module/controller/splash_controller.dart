@@ -1,18 +1,11 @@
-import 'dart:developer';
 
-import 'package:confetti/confetti.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
-import 'package:where_hearts_meet/dashboard_module/screens/dashboard_screen.dart';
-import 'package:where_hearts_meet/splash_module/util/splash_enum.dart';
 import 'package:where_hearts_meet/utils/consts/shared_pref_const.dart';
-
-import '../../guest/guest_dashboard/view/guest_splash_view.dart';
 import '../../onboarding_module/view/intro_screen.dart';
-import '../../onboarding_module/widgets/intro_widget.dart';
 import '../../onboarding_module/view/onboarding_view.dart';
 import '../../routes/routes_const.dart';
-import '../../utils/services/firebase_auth_controller.dart';
+
 
 class SplashController extends GetxController {
   @override
@@ -30,15 +23,14 @@ class SplashController extends GetxController {
       Get.offAllNamed(RoutesConst.dashboardScreen);
     } else {
       if (GetStorage().read(onboarding) == true) {
-        //  Get.offAll(OnboardingScreen());
-        if (GetStorage().read(isGuest) == true &&
-            login != null && login != '') {
-          Get.offAllNamed(RoutesConst.guestCoverScreen);
-        } else {
-          Get.offAll(const IntroScreen());
-        //  Get.offAllNamed(RoutesConst.dashboardScreen);
-          //  Get.offAll(OnboardingScreen());
-        }
+        Get.offAll( OnboardingScreen());
+        // if (GetStorage().read(isGuest) == true &&
+        //     login != null && login != '') {
+        //   Get.offAllNamed(RoutesConst.guestCoverScreen);
+        // } else {
+        //   Get.offAll(const IntroScreen());
+        //
+        // }
       } else {
         Get.offAll(const IntroScreen());
       }

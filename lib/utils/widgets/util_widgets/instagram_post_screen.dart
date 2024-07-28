@@ -3,6 +3,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get/utils.dart';
+import 'package:where_hearts_meet/utils/consts/app_screen_size.dart';
 import 'package:where_hearts_meet/utils/widgets/custom_photo_view.dart';
 
 class PostWidget extends StatelessWidget {
@@ -12,6 +13,7 @@ class PostWidget extends StatelessWidget {
   final List<String>? videoUrl;
   final String caption;
   final int likes;
+  final bool? fullDesc;
 
   PostWidget({
     required this.profileImageUrl,
@@ -20,6 +22,8 @@ class PostWidget extends StatelessWidget {
     this.videoUrl,
     required this.caption,
     required this.likes,
+    this.fullDesc
+
   });
 
   @override
@@ -68,14 +72,12 @@ class PostWidget extends StatelessWidget {
                               imageUrl: url,
                             ));
                           },
-                          child: AspectRatio(
-                            aspectRatio: 4,
-                            child: Container(
-                              width: Get.width,
-                              child: Image.network(
-                                url,
-                                fit: BoxFit.cover,
-                              ),
+                          child:
+                          Container(
+                            width: screenWidth,
+                            child: Image.network(
+                              url,
+                              fit: BoxFit.fitWidth,
                             ),
                           ),
                         ),
@@ -107,7 +109,9 @@ class PostWidget extends StatelessWidget {
                     ],
                   ),
                   SizedBox(height: 5),
-                  Container(constraints: BoxConstraints(maxHeight: Get.height * 0.1), child: Text(caption)),
+                  Container(
+                      constraints: fullDesc==true ? null:BoxConstraints(maxHeight: Get.height * 0.1),
+                      child: Text(caption)),
                 ],
               ),
             ),

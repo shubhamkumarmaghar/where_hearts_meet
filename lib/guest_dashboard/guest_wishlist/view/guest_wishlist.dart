@@ -52,15 +52,16 @@ class _GuestWishListState extends State<GuestWishList>
               width: Get.width,
               child:    ListView.builder(
                 physics: BouncingScrollPhysics(),
-              itemCount: controller.guestwishesModel.value.data?.length,
+              itemCount: controller.guestwishesModel.length,
                 itemBuilder: (context,index) {
-                  var data = controller.guestwishesModel.value.data?[index];
+                  var data = controller.guestwishesModel[index];
                   return PostWidget(
                     username:data!.senderName??'' ,
                     profileImageUrl:data.senderProfileImage.toString()  ,
                     likes: 5,
                     postImageUrl: data.imageUrls,
                     caption: data.senderMessage.toString(),
+                    fullDesc: true,
                   );
                 }
               ),

@@ -236,7 +236,8 @@ class OnboardingController extends BaseController {
                       height: screenHeight * 0.05,
                       child: const Text("Verify",
                           style: TextStyle(color: whiteColor, fontWeight: FontWeight.w500, fontSize: 16)),
-                      onPressed:signInWithPhoneNumber),
+                      onPressed:signInWithPhoneNumber
+                  ),
                 ],
               )
             ],

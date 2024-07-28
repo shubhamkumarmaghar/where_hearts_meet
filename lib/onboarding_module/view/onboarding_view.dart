@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_card_swiper/flutter_card_swiper.dart';
 import 'package:get/get.dart';
+import 'package:get_storage/get_storage.dart';
 import 'package:where_hearts_meet/onboarding_module/controller/onboarding_controller.dart';
 import 'package:where_hearts_meet/onboarding_module/repository/onboarding_repository.dart';
 import 'package:where_hearts_meet/routes/routes_const.dart';
@@ -9,6 +10,7 @@ import 'package:where_hearts_meet/utils/buttons/buttons.dart';
 import 'package:where_hearts_meet/utils/consts/app_screen_size.dart';
 import 'package:where_hearts_meet/utils/consts/color_const.dart';
 import '../../utils/consts/images_const.dart';
+import '../../utils/consts/shared_pref_const.dart';
 import '../../utils/widgets/gradient_button.dart';
 
 class OnboardingScreen extends StatelessWidget {
@@ -76,9 +78,18 @@ class OnboardingScreen extends StatelessWidget {
             buttonColor: primaryColor,
             height: screenHeight * 0.065,
             onPressed: () {
-              onboardingController.showGuestLoginDialog(
-                context: context,
-              );
+              final String? login = GetStorage().read(token);
+              if (GetStorage().read(isGuest) == true &&
+                  login != null && login != '') {
+                Get.offAllNamed(RoutesConst.guestCoverScreen);
+              }
+              else{
+                onboardingController.showGuestLoginDialog(
+                  context: context,
+                );
+              }
+
+
             },
           ),
           SizedBox(height: Get.height * 0.02),
@@ -88,6 +99,7 @@ class OnboardingScreen extends StatelessWidget {
               child: const Text("Register/Sign-In",
                   style: TextStyle(color: primaryColor, fontWeight: FontWeight.w700, fontSize: 16)),
               onPressed: () {
+                GetStorage().remove(isGuest);
                 Get.toNamed(RoutesConst.loginScreen);
               }),
         ]),

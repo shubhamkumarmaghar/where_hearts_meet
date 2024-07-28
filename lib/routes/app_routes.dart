@@ -10,7 +10,6 @@ import 'package:where_hearts_meet/create_event_module/screens/add_secret_wishes_
 import 'package:where_hearts_meet/create_event_module/screens/add_timeline_screen.dart';
 import 'package:where_hearts_meet/create_event_module/screens/add_wishes_screen.dart';
 import 'package:where_hearts_meet/dashboard_module/screens/dashboard_screen.dart';
-import 'package:where_hearts_meet/guest/guest_dashboard/guest_wishlist/view/guest_wishlist.dart';
 import 'package:where_hearts_meet/routes/routes_const.dart';
 import '../../auth_module/binding/login_binding.dart';
 import '../../auth_module/screens/login_screen.dart';
@@ -24,18 +23,18 @@ import '../../create_event_module/screens/add_event_screen.dart';
 import '../../create_event_module/screens/add_event_specials_screen.dart';
 import '../../event_list/binding/event_list_binding.dart';
 import '../../event_list/view/event_list_screen.dart';
-import '../../guest/guest_dashboard/binding/guest_dashboard_binding.dart';
-import '../../guest/guest_dashboard/guest_home/binding/guest_home_binding.dart';
-import '../../guest/guest_dashboard/guest_home/view/guest_home.dart';
-import '../../guest/guest_dashboard/guest_wishlist/binding/guest_wishlist.dart';
-import '../../guest/guest_dashboard/view/guest_dashboard.dart';
-import '../../guest/guest_dashboard/view/guest_dashboard.dart';
-import '../../guest/guest_dashboard/view/guest_splash_view.dart';
 import '../../preview_event/binding/created_wishes_preview_binding.dart';
 import '../../preview_event/view/created_wishes_preview_screen.dart';
 import '../../profile_module/binding/edit_profile_binding.dart';
 
 import '../../profile_module/screens/edit_profile_screen.dart';
+import '../guest_dashboard/binding/guest_dashboard_binding.dart';
+import '../guest_dashboard/guest_home/binding/guest_home_binding.dart';
+import '../guest_dashboard/guest_home/view/guest_home.dart';
+import '../guest_dashboard/guest_wishlist/binding/guest_wishlist.dart';
+import '../guest_dashboard/guest_wishlist/view/guest_wishlist.dart';
+import '../guest_dashboard/view/guest_dashboard.dart';
+import '../guest_dashboard/view/guest_splash_view.dart';
 
 
 class AppRoutes {

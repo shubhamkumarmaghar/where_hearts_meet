@@ -11,13 +11,12 @@ import 'package:where_hearts_meet/routes/routes_const.dart';
 import 'package:where_hearts_meet/utils/consts/app_screen_size.dart';
 import 'package:where_hearts_meet/utils/consts/color_const.dart';
 import 'package:where_hearts_meet/utils/consts/images_const.dart';
+import 'package:where_hearts_meet/utils/text_styles/custom_text_styles.dart';
 
-import 'package:where_hearts_meet/utils/widgets/util_widgets/app_widgets.dart';
 import '../../../../utils/consts/confetti_shape_enum.dart';
 import '../../../../utils/widgets/confetti_view.dart';
 import '../../../../utils/widgets/util_widgets/instagram_post_screen.dart';
 
-import '../../guest_wishlist/view/guest_wishlist.dart';
 import '../../view/timeline_screen.dart';
 import '../controller/guest_home_controller.dart';
 
@@ -46,7 +45,7 @@ class _GuestHomeState extends State<GuestHome> with TickerProviderStateMixin {
   @override
   void initState() {
     super.initState();
-    controller.startCountdown();
+    //controller.startCountdown();
     firstController = AnimationController(vsync: this, duration: Duration(milliseconds: 1500));
     firstAnimation =
         Tween<double>(begin: 1.9, end: 2.1).animate(CurvedAnimation(parent: firstController, curve: Curves.easeInOut))
@@ -145,7 +144,6 @@ class _GuestHomeState extends State<GuestHome> with TickerProviderStateMixin {
           // ),
           GestureDetector(
             onTap: () {
-              log('${controller.guestwishesModel.value.data?[0].senderMessage}');
               istrue.value = istrue.value != true ? true : false;
               controller.update();
             },
@@ -406,7 +404,9 @@ class _GuestHomeState extends State<GuestHome> with TickerProviderStateMixin {
                       ? Container(
                           width: Get.width,
                           decoration: BoxDecoration(
-                            gradient: LinearGradient(begin: Alignment.topCenter, end: Alignment.bottomCenter, colors: [
+                            gradient: LinearGradient(begin: Alignment.topCenter,
+                                end: Alignment.bottomCenter,
+                                colors: [
                               Color(0xff9467ff),
                               Color(0xffae8bff),
                               Color(0xffc7afff),
@@ -418,7 +418,7 @@ class _GuestHomeState extends State<GuestHome> with TickerProviderStateMixin {
                             Stack(
                               children: [
                                 Container(
-                                  height: Get.height * 0.45,
+                                  height: Get.height * 0.75,
                                   width: Get.width,
                                   decoration: BoxDecoration(
                                       image: DecorationImage(
@@ -451,7 +451,6 @@ class _GuestHomeState extends State<GuestHome> with TickerProviderStateMixin {
 
                                       Column(
                                         children: [
-
                                           Text(
                                             controller.birthday.isAfter(DateTime.now())? 'Time Left':'Celebrating Now',
                                             style: GoogleFonts.dancingScript(
@@ -475,7 +474,7 @@ class _GuestHomeState extends State<GuestHome> with TickerProviderStateMixin {
                                     )),
                               ],
                             ),
-                            heightSpace(screenHeight * 0.01),
+                            heightSpace(screenHeight * 0.03),
                             Row(
                               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                               children: [
@@ -484,380 +483,284 @@ class _GuestHomeState extends State<GuestHome> with TickerProviderStateMixin {
                                     Get.to(TimelineStoriesSreen());
                                     //Get.toNamed(RoutesConst.guestWishlist);
                                   },
-                                  child: Stack(
-                                    children: <Widget>[
-                                      Column(
-                                        children: <Widget>[
-                                          SizedBox(height: 30),
-                                          Card(
-                                            elevation: 8,
-                                            shape: RoundedRectangleBorder(
-                                              borderRadius: BorderRadius.circular(32),
+                                  child:
+                                  Card(
+                                    elevation: 8,
+                                    shape: RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.circular(180),
+                                    ),
+                                    color: Colors.white,
+                                    child: CircleAvatar(
+                                      radius: 60,
+                                      child: CircleAvatar(
+                                        radius: 55,
+                                        backgroundColor: Colors.white70,
+                                        child: Column(
+                                          mainAxisAlignment: MainAxisAlignment.center,
+                                          children: [
+                                            getPrimaryText(text:
+                                              ' Timeline',
+                                              fontSize: 20,
+                                              fontWeight: FontWeight.w500,
                                             ),
-                                            color: Colors.white,
-                                            child: Container(
-                                              width: screenWidth * 0.4,
-                                              padding: EdgeInsets.all(15.0),
-                                              child: Column(
-                                                crossAxisAlignment: CrossAxisAlignment.start,
-                                                children: <Widget>[
-                                                  SizedBox(height: 40),
-                                                  Text(
-                                                    'TimeLine',
-                                                    style: TextStyle(
-                                                      fontFamily: 'Avenir',
-                                                      fontSize: 24,
-                                                      color: Color(0xff47455f),
-                                                      fontWeight: FontWeight.w600,
-                                                    ),
-                                                    textAlign: TextAlign.left,
-                                                  ),
-                                                  // Text(
-                                                  //   'About Time Line',
-                                                  //   style: TextStyle(
-                                                  //     // fontFamily: 'Avenir',
-                                                  //     fontSize: 18,
-                                                  //     // color: ,
-                                                  //     fontWeight: FontWeight.w500,
-                                                  //   ),
-                                                  //   textAlign: TextAlign.left,
-                                                  // ),
-                                                  SizedBox(height: 26),
-                                                  Row(
-                                                    children: <Widget>[
-                                                      Text(
-                                                        'Know more',
-                                                        style: TextStyle(
-                                                          // fontFamily: 'Avenir',
-                                                          fontSize: 18,
-                                                          //color: secondaryTextColor,
-                                                          fontWeight: FontWeight.w500,
-                                                        ),
-                                                        textAlign: TextAlign.left,
-                                                      ),
-                                                      Icon(
-                                                        Icons.arrow_forward,
-                                                        color: Colors.grey,
-                                                      ),
-                                                    ],
-                                                  ),
-                                                ],
-                                              ),
-                                            ),
-                                          ),
-                                        ],
+                                          ],
+                                        ),
                                       ),
-                                      Positioned(
-                                        right: 5,
-                                        child: Image.network(
-                                            height: screenHeight * 0.12,
-                                            width: screenHeight * 0.12,
-                                            'https://raw.githubusercontent.com/afzalali15/flutter_universe/master/assets/earth.png'),
-                                      ),
-                                      // Positioned(
-                                      //   right: 24,
-                                      //   bottom: 60,
-                                      //   child: Text(
-                                      //     'Earth',
-                                      //     style: TextStyle(
-                                      //       // fontFamily: 'Avenir',
-                                      //       fontSize: 20,
-                                      //       color: primaryColor,
-                                      //       fontWeight: FontWeight.w900,
-                                      //     ),
-                                      //     textAlign: TextAlign.left,
-                                      //   ),
-                                      // ),
-                                    ],
+                                    ),
                                   ),
                                 ),
                                 GestureDetector(
                                   onTap: (){
                                     Get.toNamed(RoutesConst.guestWishlist);
                                   },
-                                  child: Stack(
-                                    children: <Widget>[
-                                      Column(
-                                        children: <Widget>[
-                                          SizedBox(height: 30),
-                                          Card(
-                                            elevation: 8,
-                                            shape: RoundedRectangleBorder(
-                                              borderRadius: BorderRadius.circular(32),
+                                  child: Card(
+                                    elevation: 8,
+                                    shape: RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.circular(180),
+                                    ),
+                                    color: Colors.white,
+                                    child: CircleAvatar(
+                                      radius: 60,
+                                      child: CircleAvatar(
+                                        radius: 55,
+                                        backgroundColor: Colors.white70,
+                                        child: Column(
+                                          mainAxisAlignment: MainAxisAlignment.center,
+                                          children: [
+                                            getPrimaryText(text:
+                                            'Wishes',
+                                              fontSize: 20,
+                                              fontWeight: FontWeight.w500,
                                             ),
-                                            color: Colors.white,
-                                            child: Container(
-                                              width: screenWidth * 0.4,
-                                              padding: EdgeInsets.all(15.0),
-                                              child: Column(
-                                                crossAxisAlignment: CrossAxisAlignment.start,
-                                                children: <Widget>[
-                                                  SizedBox(height: 40),
-                                                  FittedBox(
-                                                    child: Text(
-                                                      ' Wishes',
-                                                      style: TextStyle(
-                                                        fontFamily: 'Avenir',
-                                                        fontSize: 24,
-                                                        color: Color(0xff47455f),
-                                                        fontWeight: FontWeight.w600,
-                                                      ),
-                                                      textAlign: TextAlign.left,
-                                                    ),
-                                                  ),
-                                                  // Text(
-                                                  //   'About Time Line',
-                                                  //   style: TextStyle(
-                                                  //     // fontFamily: 'Avenir',
-                                                  //     fontSize: 18,
-                                                  //     // color: ,
-                                                  //     fontWeight: FontWeight.w500,
-                                                  //   ),
-                                                  //   textAlign: TextAlign.left,
-                                                  // ),
-                                                  SizedBox(height: 26),
-                                                  Row(
-                                                    children: <Widget>[
-                                                      Text(
-                                                        'Know more',
-                                                        style: TextStyle(
-                                                          // fontFamily: 'Avenir',
-                                                          fontSize: 18,
-                                                          //color: secondaryTextColor,
-                                                          fontWeight: FontWeight.w500,
-                                                        ),
-                                                        textAlign: TextAlign.left,
-                                                      ),
-                                                      Icon(
-                                                        Icons.arrow_forward,
-                                                        color: Colors.grey,
-                                                      ),
-                                                    ],
-                                                  ),
-                                                ],
-                                              ),
-                                            ),
-                                          ),
-                                        ],
-                                      ),
-                                      Positioned(
-                                        right: 5,
-                                        child: Image.network(
-                                            height: screenHeight * 0.12,
-                                            width: screenHeight * 0.12,
-                                            'https://raw.githubusercontent.com/afzalali15/flutter_universe/master/assets/earth.png'),
-                                      ),
-                                      // Positioned(
-                                      //   right: 24,
-                                      //   bottom: 60,
-                                      //   child: Text(
-                                      //     'Earth',
-                                      //     style: TextStyle(
-                                      //       // fontFamily: 'Avenir',
-                                      //       fontSize: 20,
-                                      //       color: primaryColor,
-                                      //       fontWeight: FontWeight.w900,
-                                      //     ),
-                                      //     textAlign: TextAlign.left,
-                                      //   ),
-                                      // ),
-                                    ],
-                                  ),
-                                ),
-                              ],
-                            ),
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                              children: [
-                                GestureDetector(
-                                  onTap: (){
-                                    AppWidgets.getToast(message: 'Coming soon!!!',color: primaryColor);
-                                  },
-                                  child: Stack(
-                                    children: <Widget>[
-                                      Column(
-                                        children: <Widget>[
-                                          SizedBox(height: 30),
-                                          Card(
-                                            elevation: 8,
-                                            shape: RoundedRectangleBorder(
-                                              borderRadius: BorderRadius.circular(32),
-                                            ),
-                                            color: Colors.white,
-                                            child: Container(
-                                              width: screenWidth * 0.4,
-                                              padding: EdgeInsets.all(15.0),
-                                              child: Column(
-                                                crossAxisAlignment: CrossAxisAlignment.start,
-                                                children: <Widget>[
-                                                  SizedBox(height: 40),
-                                                  Text(
-                                                    'Gift Cards',
-                                                    style: TextStyle(
-                                                      fontFamily: 'Avenir',
-                                                      fontSize: 24,
-                                                      color: Color(0xff47455f),
-                                                      fontWeight: FontWeight.w600,
-                                                    ),
-                                                    textAlign: TextAlign.left,
-                                                  ),
-                                                  // Text(
-                                                  //   'About Time Line',
-                                                  //   style: TextStyle(
-                                                  //     // fontFamily: 'Avenir',
-                                                  //     fontSize: 18,
-                                                  //     // color: ,
-                                                  //     fontWeight: FontWeight.w500,
-                                                  //   ),
-                                                  //   textAlign: TextAlign.left,
-                                                  // ),
-                                                  SizedBox(height: 26),
-                                                  Row(
-                                                    children: <Widget>[
-                                                      Text(
-                                                        'Know more',
-                                                        style: TextStyle(
-                                                          // fontFamily: 'Avenir',
-                                                          fontSize: 18,
-                                                          //color: secondaryTextColor,
-                                                          fontWeight: FontWeight.w500,
-                                                        ),
-                                                        textAlign: TextAlign.left,
-                                                      ),
-                                                      Icon(
-                                                        Icons.arrow_forward,
-                                                        color: Colors.grey,
-                                                      ),
-                                                    ],
-                                                  ),
-                                                ],
-                                              ),
-                                            ),
-                                          ),
-                                        ],
-                                      ),
-                                      Positioned(
-                                        right: 5,
-                                        top:-20,
-                                        child: Lottie.asset(
-                                          giftbox,
-                                          height: screenHeight * 0.12,
-                                          width: screenHeight * 0.12,
+                                          ],
                                         ),
                                       ),
-                                      // Positioned(
-                                      //   right: 24,
-                                      //   bottom: 60,
-                                      //   child: Text(
-                                      //     'Earth',
-                                      //     style: TextStyle(
-                                      //       // fontFamily: 'Avenir',
-                                      //       fontSize: 20,
-                                      //       color: primaryColor,
-                                      //       fontWeight: FontWeight.w900,
-                                      //     ),
-                                      //     textAlign: TextAlign.left,
-                                      //   ),
-                                      // ),
-                                    ],
+                                    ),
                                   ),
                                 ),
                                 GestureDetector(
                                   onTap: (){
-                                    AppWidgets.getToast(message: 'Coming Soon',color:primaryColor);
-                                   // Get.toNamed(RoutesConst.guestWishlist);
+                                    Get.toNamed(RoutesConst.guestWishlist);
                                   },
-                                  child: Stack(
-                                    children: <Widget>[
-                                      Column(
-                                        children: <Widget>[
-                                          SizedBox(height: 30),
-                                          Card(
-                                            elevation: 8,
-                                            shape: RoundedRectangleBorder(
-                                              borderRadius: BorderRadius.circular(32),
+                                  child: Card(
+                                    elevation: 8,
+                                    shape: RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.circular(180),
+                                    ),
+                                    color: Colors.white,
+                                    child: CircleAvatar(
+                                      radius: 60,
+                                      child: CircleAvatar(
+                                        radius: 55,
+                                        backgroundColor: Colors.white70,
+                                        child: Column(
+                                          mainAxisAlignment: MainAxisAlignment.center,
+                                          children: [
+                                            getPrimaryText(text:
+                                            'About You',
+                                              fontSize: 20,
+                                              fontWeight: FontWeight.w500,
                                             ),
-                                            color: Colors.white,
-                                            child: Container(
-                                              width: screenWidth * 0.4,
-                                              padding: EdgeInsets.all(15.0),
-                                              child: Column(
-                                                crossAxisAlignment: CrossAxisAlignment.start,
-                                                children: <Widget>[
-                                                  SizedBox(height: 40),
-                                                  FittedBox(
-                                                    child: Text(
-                                                      'Personal Wishes',
-                                                      style: TextStyle(
-                                                        fontFamily: 'Avenir',
-                                                        fontSize: 24,
-                                                        color: Color(0xff47455f),
-                                                        fontWeight: FontWeight.w600,
-                                                      ),
-                                                      textAlign: TextAlign.left,
-                                                    ),
-                                                  ),
-                                                  // Text(
-                                                  //   'About Time Line',
-                                                  //   style: TextStyle(
-                                                  //     // fontFamily: 'Avenir',
-                                                  //     fontSize: 18,
-                                                  //     // color: ,
-                                                  //     fontWeight: FontWeight.w500,
-                                                  //   ),
-                                                  //   textAlign: TextAlign.left,
-                                                  // ),
-                                                  SizedBox(height: 26),
-                                                  Row(
-                                                    children: <Widget>[
-                                                      Text(
-                                                        'Know more',
-                                                        style: TextStyle(
-                                                          // fontFamily: 'Avenir',
-                                                          fontSize: 18,
-                                                          //color: secondaryTextColor,
-                                                          fontWeight: FontWeight.w500,
-                                                        ),
-                                                        textAlign: TextAlign.left,
-                                                      ),
-                                                      Icon(
-                                                        Icons.arrow_forward,
-                                                        color: Colors.grey,
-                                                      ),
-                                                    ],
-                                                  ),
-                                                ],
-                                              ),
-                                            ),
-                                          ),
-                                        ],
+                                          ],
+                                        ),
                                       ),
-                                      Positioned(
-                                        right: 5,
-                                        child: Image.network(
-                                            height: screenHeight * 0.12,
-                                            width: screenHeight * 0.12,
-                                            'https://raw.githubusercontent.com/afzalali15/flutter_universe/master/assets/earth.png'),
-                                      ),
-                                      // Positioned(
-                                      //   right: 24,
-                                      //   bottom: 60,
-                                      //   child: Text(
-                                      //     'Earth',
-                                      //     style: TextStyle(
-                                      //       // fontFamily: 'Avenir',
-                                      //       fontSize: 20,
-                                      //       color: primaryColor,
-                                      //       fontWeight: FontWeight.w900,
-                                      //     ),
-                                      //     textAlign: TextAlign.left,
-                                      //   ),
-                                      // ),
-                                    ],
+                                    ),
                                   ),
                                 ),
                               ],
                             ),
+                            // Row(
+                            //   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                            //   children: [
+                            //     GestureDetector(
+                            //       onTap: (){
+                            //         AppWidgets.getToast(message: 'Coming soon!!!',color: primaryColor);
+                            //       },
+                            //       child: Stack(
+                            //         children: <Widget>[
+                            //           Column(
+                            //             children: <Widget>[
+                            //               SizedBox(height: 30),
+                            //               Card(
+                            //                 elevation: 8,
+                            //                 shape: RoundedRectangleBorder(
+                            //                   borderRadius: BorderRadius.circular(32),
+                            //                 ),
+                            //                 color: Colors.white,
+                            //                 child: Container(
+                            //                   width: screenWidth * 0.4,
+                            //                   padding: EdgeInsets.all(15.0),
+                            //                   child: Column(
+                            //                     crossAxisAlignment: CrossAxisAlignment.start,
+                            //                     children: <Widget>[
+                            //                       SizedBox(height: 40),
+                            //                       Text(
+                            //                         'Gift Cards',
+                            //                         style: TextStyle(
+                            //                           fontFamily: 'Avenir',
+                            //                           fontSize: 24,
+                            //                           color: Color(0xff47455f),
+                            //                           fontWeight: FontWeight.w600,
+                            //                         ),
+                            //                         textAlign: TextAlign.left,
+                            //                       ),
+                            //                       // Text(
+                            //                       //   'About Time Line',
+                            //                       //   style: TextStyle(
+                            //                       //     // fontFamily: 'Avenir',
+                            //                       //     fontSize: 18,
+                            //                       //     // color: ,
+                            //                       //     fontWeight: FontWeight.w500,
+                            //                       //   ),
+                            //                       //   textAlign: TextAlign.left,
+                            //                       // ),
+                            //                       SizedBox(height: 26),
+                            //                       Row(
+                            //                         children: <Widget>[
+                            //                           Text(
+                            //                             'Know more',
+                            //                             style: TextStyle(
+                            //                               // fontFamily: 'Avenir',
+                            //                               fontSize: 18,
+                            //                               //color: secondaryTextColor,
+                            //                               fontWeight: FontWeight.w500,
+                            //                             ),
+                            //                             textAlign: TextAlign.left,
+                            //                           ),
+                            //                           Icon(
+                            //                             Icons.arrow_forward,
+                            //                             color: Colors.grey,
+                            //                           ),
+                            //                         ],
+                            //                       ),
+                            //                     ],
+                            //                   ),
+                            //                 ),
+                            //               ),
+                            //             ],
+                            //           ),
+                            //           Positioned(
+                            //             right: 5,
+                            //             top:-20,
+                            //             child: Lottie.asset(
+                            //               giftbox,
+                            //               height: screenHeight * 0.12,
+                            //               width: screenHeight * 0.12,
+                            //             ),
+                            //           ),
+                            //           // Positioned(
+                            //           //   right: 24,
+                            //           //   bottom: 60,
+                            //           //   child: Text(
+                            //           //     'Earth',
+                            //           //     style: TextStyle(
+                            //           //       // fontFamily: 'Avenir',
+                            //           //       fontSize: 20,
+                            //           //       color: primaryColor,
+                            //           //       fontWeight: FontWeight.w900,
+                            //           //     ),
+                            //           //     textAlign: TextAlign.left,
+                            //           //   ),
+                            //           // ),
+                            //         ],
+                            //       ),
+                            //     ),
+                            //     GestureDetector(
+                            //       onTap: (){
+                            //         AppWidgets.getToast(message: 'Coming Soon',color:primaryColor);
+                            //        // Get.toNamed(RoutesConst.guestWishlist);
+                            //       },
+                            //       child: Stack(
+                            //         children: <Widget>[
+                            //           Column(
+                            //             children: <Widget>[
+                            //               SizedBox(height: 30),
+                            //               Card(
+                            //                 elevation: 8,
+                            //                 shape: RoundedRectangleBorder(
+                            //                   borderRadius: BorderRadius.circular(32),
+                            //                 ),
+                            //                 color: Colors.white,
+                            //                 child: Container(
+                            //                   width: screenWidth * 0.4,
+                            //                   padding: EdgeInsets.all(15.0),
+                            //                   child: Column(
+                            //                     crossAxisAlignment: CrossAxisAlignment.start,
+                            //                     children: <Widget>[
+                            //                       SizedBox(height: 40),
+                            //                       FittedBox(
+                            //                         child: Text(
+                            //                           'Personal Wishes',
+                            //                           style: TextStyle(
+                            //                             fontFamily: 'Avenir',
+                            //                             fontSize: 24,
+                            //                             color: Color(0xff47455f),
+                            //                             fontWeight: FontWeight.w600,
+                            //                           ),
+                            //                           textAlign: TextAlign.left,
+                            //                         ),
+                            //                       ),
+                            //                       // Text(
+                            //                       //   'About Time Line',
+                            //                       //   style: TextStyle(
+                            //                       //     // fontFamily: 'Avenir',
+                            //                       //     fontSize: 18,
+                            //                       //     // color: ,
+                            //                       //     fontWeight: FontWeight.w500,
+                            //                       //   ),
+                            //                       //   textAlign: TextAlign.left,
+                            //                       // ),
+                            //                       SizedBox(height: 26),
+                            //                       Row(
+                            //                         children: <Widget>[
+                            //                           Text(
+                            //                             'Know more',
+                            //                             style: TextStyle(
+                            //                               // fontFamily: 'Avenir',
+                            //                               fontSize: 18,
+                            //                               //color: secondaryTextColor,
+                            //                               fontWeight: FontWeight.w500,
+                            //                             ),
+                            //                             textAlign: TextAlign.left,
+                            //                           ),
+                            //                           Icon(
+                            //                             Icons.arrow_forward,
+                            //                             color: Colors.grey,
+                            //                           ),
+                            //                         ],
+                            //                       ),
+                            //                     ],
+                            //                   ),
+                            //                 ),
+                            //               ),
+                            //             ],
+                            //           ),
+                            //           Positioned(
+                            //             right: 5,
+                            //             child: Image.network(
+                            //                 height: screenHeight * 0.12,
+                            //                 width: screenHeight * 0.12,
+                            //                 'https://raw.githubusercontent.com/afzalali15/flutter_universe/master/assets/earth.png'),
+                            //           ),
+                            //           // Positioned(
+                            //           //   right: 24,
+                            //           //   bottom: 60,
+                            //           //   child: Text(
+                            //           //     'Earth',
+                            //           //     style: TextStyle(
+                            //           //       // fontFamily: 'Avenir',
+                            //           //       fontSize: 20,
+                            //           //       color: primaryColor,
+                            //           //       fontWeight: FontWeight.w900,
+                            //           //     ),
+                            //           //     textAlign: TextAlign.left,
+                            //           //   ),
+                            //           // ),
+                            //         ],
+                            //       ),
+                            //     ),
+                            //   ],
+                            // ),
                           ]),
                         )
                       : Container(),
@@ -872,16 +775,16 @@ class _GuestHomeState extends State<GuestHome> with TickerProviderStateMixin {
                           child: CardSwiper(
                               isLoop: true,
                               scale: 0.9,
-                              numberOfCardsDisplayed: controller.guestwishesModel.value.data!.length > 5
+                              numberOfCardsDisplayed: controller.guestwishesModel!.length > 5
                                   ? 5
-                                  : controller.guestwishesModel.value.data!.length,
+                                  : controller.guestwishesModel.length,
                               backCardOffset: const Offset(
                                 0,
                                 -50,
                               ),
                               cardBuilder: (BuildContext context, int index, int horizontalOffsetPercentage,
                                   int verticalOffsetPercentage) {
-                                var data = controller.guestwishesModel.value.data?[index];
+                                var data = controller.guestwishesModel?[index];
                                 return GestureDetector(
                                   onTap: () {
                                     Get.toNamed(RoutesConst.guestWishlist);                                   //Get.to(GuestWishList());
@@ -895,7 +798,7 @@ class _GuestHomeState extends State<GuestHome> with TickerProviderStateMixin {
                                   ),
                                 );
                               },
-                              cardsCount: controller.guestwishesModel.value.data!.length ?? 1),
+                              cardsCount: controller.guestwishesModel!.length ?? 1),
                         ),
                       )
                     : Container(),
