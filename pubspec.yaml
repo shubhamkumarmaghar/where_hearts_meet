@@ -55,6 +55,7 @@ dependencies:
   flutter_svg: ^1.0.0
   url_launcher: ^6.1.7
   carousel_slider: ^4.2.1
+  firebase_core_web:
   chewie: ^1.7.5
   video_player: ^2.9.1
   flutter_launcher_icons: ^0.13.1

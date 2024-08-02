@@ -4,8 +4,9 @@ import 'dart:developer';
 import '../../../../show_event_module/model/event_details_model.dart';
 import '../../../../utils/consts/api_urls.dart';
 import '../../../../utils/services/api_service.dart';
+import '../../../create_event/model/wishes_model.dart';
 import '../../model/timeline_model.dart';
-import '../../model/wisheh_model.dart';
+
 
 class GuestReceiveService {
   final ApiService _apiService = ApiService();
@@ -31,7 +32,7 @@ class GuestReceiveService {
     }
   }
 
-  Future<WishesModel>getWishesList({required String eventId}) async {
+  Future<List<WishesModel>>getWishesList({required String eventId}) async {
     String url = AppUrls.eventWishesUrl;
 
     final response = await _apiService.getApiCall(
@@ -39,14 +40,17 @@ class GuestReceiveService {
       queryParams:{
         'event_id': eventId,
       } ,
-
     );
     final data = response;
-
     if (data['message'].toString().toLowerCase().contains('wishes found successfully')) {
-      return WishesModel.fromJson(data);
+      var wishes = data['data'] as List;
+      List<WishesModel> allWishes = [];
+      wishes.forEach((element) {
+        allWishes.add(WishesModel.fromJson(element));
+      });
+      return allWishes;
     } else {
-      return WishesModel();
+      return [];
     }
 
   }

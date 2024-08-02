@@ -4,7 +4,7 @@ import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:motion_tab_bar/MotionTabBar.dart';
 import 'package:motion_tab_bar/MotionTabBarController.dart';
-import 'package:where_hearts_meet/guest/guest_dashboard/view/timeline_screen.dart';
+import 'package:where_hearts_meet/guest_dashboard/view/timeline_screen.dart';
 import 'package:where_hearts_meet/utils/consts/color_const.dart';
 import '../guest_home/controller/guest_home_controller.dart';
 import '../guest_home/view/guest_home.dart';
