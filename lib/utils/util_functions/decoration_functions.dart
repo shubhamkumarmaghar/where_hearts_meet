@@ -78,7 +78,7 @@ String addZero(int value) {
 
 TextStyle textStyleDangrek({double? fontSize, Color? color, FontWeight? fontWeight,TextDecoration? textDecoration}) {
   return GoogleFonts.dangrek(
-      color: color ?? Colors.white, fontWeight: fontWeight ?? FontWeight.w500, fontSize: fontSize ?? 22,decoration: textDecoration);
+      color: color ?? Colors.white, fontWeight: fontWeight ?? FontWeight.w500, fontSize: fontSize ?? 22,decoration: textDecoration,decorationColor:color ?? Colors.white );
 }
 
 TextStyle textStyleAbel({double? fontSize, Color? color, FontWeight? fontWeight,TextDecoration? textDecoration}) {

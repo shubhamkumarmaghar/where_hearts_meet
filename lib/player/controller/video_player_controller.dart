@@ -18,7 +18,7 @@ class VideoScreenController extends BaseController {
     setBusy(true);
     super.onInit();
     WidgetsBinding.instance.addPostFrameCallback((_) async {
-      playerController = VideoPlayerController.networkUrl(Uri.parse(videoUrl));
+      playerController = VideoPlayerController.networkUrl(Uri.parse(videoUrl),);
 
       await playerController.initialize();
 
@@ -26,6 +26,7 @@ class VideoScreenController extends BaseController {
         videoPlayerController: playerController,
         autoPlay: false,
         allowMuting: true,
+
         zoomAndPan: true,
         looping: true,
         autoInitialize: true,

@@ -5,6 +5,8 @@ import 'package:dio/dio.dart' as dio;
 import 'package:http_parser/http_parser.dart';
 import 'package:where_hearts_meet/create_event/model/event_model.dart';
 import 'package:where_hearts_meet/create_event/model/event_response_model.dart';
+import 'package:where_hearts_meet/create_event/model/gift_model.dart';
+import 'package:where_hearts_meet/create_event/model/gifts_data_model.dart';
 import 'package:where_hearts_meet/create_event/model/personal_wishes_model.dart';
 import 'package:where_hearts_meet/create_event/model/wishes_model.dart';
 import 'package:where_hearts_meet/utils/consts/color_const.dart';
@@ -101,6 +103,68 @@ class CreateEventService {
       return PersonalWishesModel.fromJson(data['data']);
     }
     return null;
+  }
+
+  // Future<PersonalWishesModel?> addGiftsEventApi(
+  //     {required String eventId,
+  //       required String giftTitle,
+  //       required String giftCode,
+  //       required String giftId,
+  //       required String giftPin,
+  //       required  String senderName,
+  //       required List<String> imagesList,
+  //
+  //      }) async {
+  //   String url = AppUrls.personalWishesUrl;
+  //
+  //  GiftModel model = GiftModel();
+  //   model.eventId = eventId;
+  //   model.personalWishes = messagesList;
+  //   model.images = imagesList;
+  //   model.videos = videosList;
+  //
+  //   final response = await _apiService.postApiCall(
+  //     url: url,
+  //     data: model.toJson(),
+  //   );
+  //   final data = response;
+  //
+  //   if (data['message'].toString().toLowerCase().contains('created')) {
+  //     AppWidgets.getToast(message: data['message'], color: greenTextColor);
+  //     return PersonalWishesModel.fromJson(data['data']);
+  //   }
+  //   return null;
+  // }
+  Future<GiftModel?> addGiftsEventApi({required GiftModel giftModel}) async {
+    String url = AppUrls.giftsUrl;
+
+    final response = await _apiService.postApiCall(
+      url: url,
+      data: giftModel.toJson(),
+    );
+    final data = response;
+
+    if (data['message'].toString().toLowerCase().contains('created')) {
+      AppWidgets.getToast(message: data['message'], color: greenTextColor);
+      return GiftModel.fromJson(data['data']);
+    }
+    return null;
+  }
+
+  Future<List<GiftsDataModel>?> getGiftsApi() async {
+    String url = AppUrls.getGiftsUrl;
+    final response = await _apiService.getApiCall(
+      url: url,
+    );
+    final data = response;
+
+    if (data['message'].toString().toLowerCase().contains('gifts') && data['data'] != null) {
+      Iterable iterable = data['data'];
+
+      return iterable.map((gift) => GiftsDataModel.fromJson(gift)).toList();
+    } else {
+      return null;
+    }
   }
 
   Future<String> uploadVideoToAws({required File videoFile}) async {

@@ -2,9 +2,12 @@ import 'package:get/get.dart';
 import 'package:where_hearts_meet/auth_module/binding/profile_setup_binding.dart';
 import 'package:where_hearts_meet/auth_module/screens/profile_setup_screen.dart';
 import 'package:where_hearts_meet/create_event/binding/create_event_binding.dart';
+import 'package:where_hearts_meet/create_event/binding/create_gifts_binding.dart';
 import 'package:where_hearts_meet/create_event/binding/create_timeline_binding.dart';
-import 'package:where_hearts_meet/create_event/controller/create_event_controller.dart';
+import 'package:where_hearts_meet/create_event/controller/create_gifts_controller.dart';
 import 'package:where_hearts_meet/create_event/view/create_event_splash_screen.dart';
+import 'package:where_hearts_meet/create_event/view/create_gifts_screen.dart';
+import 'package:where_hearts_meet/create_event/widgets/select_gift_type_screen.dart';
 import 'package:where_hearts_meet/create_event_module/screens/add_giftcard_screen.dart';
 import 'package:where_hearts_meet/create_event_module/screens/add_secret_wishes_screen.dart';
 import 'package:where_hearts_meet/create_event_module/screens/add_timeline_screen.dart';
@@ -28,7 +31,6 @@ import '../../guest/guest_dashboard/binding/guest_dashboard_binding.dart';
 import '../../guest/guest_dashboard/guest_home/binding/guest_home_binding.dart';
 import '../../guest/guest_dashboard/guest_home/view/guest_home.dart';
 import '../../guest/guest_dashboard/guest_wishlist/binding/guest_wishlist.dart';
-import '../../guest/guest_dashboard/view/guest_dashboard.dart';
 import '../../guest/guest_dashboard/view/guest_dashboard.dart';
 import '../../guest/guest_dashboard/view/guest_splash_view.dart';
 import '../../preview_event/binding/created_wishes_preview_binding.dart';
@@ -137,6 +139,16 @@ class AppRoutes {
         name: RoutesConst.createPersonalWishesScreen,
         binding: CreatePersonalWishesBinding(),
         page: () => CreatePersonalWishesScreen(),
+      ),
+      GetPage(
+        name: RoutesConst.createGiftsScreen,
+        binding: CreateGiftsBinding(),
+        page: () => CreateGiftsScreen(),
+      ),
+      GetPage(
+        name: RoutesConst.selectGiftsScreen,
+        binding: CreateGiftsBinding(),
+        page: () => SelectGiftCardScreen(),
       ),
 
       GetPage(

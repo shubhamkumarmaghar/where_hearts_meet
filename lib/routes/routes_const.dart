@@ -27,6 +27,8 @@ class RoutesConst {
   static String createWishesScreen = '/createWishesScreen';
   static String createTimelineScreen = '/createTimelineScreen';
   static String createPersonalWishesScreen = '/createPersonalWishesScreen';
+  static String createGiftsScreen = '/createGiftsScreen';
+  static String selectGiftsScreen = '/selectGiftsScreen';
 
   static String createdWishesPreviewScreen = '/createdWishesPreviewScreen';
 

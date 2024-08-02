@@ -59,7 +59,7 @@ Widget scheduleEventView() {
     onTap: () {
 
      //Get.toNamed(RoutesConst.createEventScreen);
-      Get.toNamed(RoutesConst.createPersonalWishesScreen);
+      Get.toNamed(RoutesConst.createGiftsScreen);
     },
     child: Stack(
       children: [
