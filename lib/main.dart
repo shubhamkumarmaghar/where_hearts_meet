@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:firebase_core/firebase_core.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get/get_navigation/src/root/get_material_app.dart';
@@ -23,7 +24,31 @@ void main() async {
   HttpOverrides.global = MyHttpOverrides();
 
   await GetStorage.init();
-  await Firebase.initializeApp();
+  print('Initializing Firebase...');
+  if (kIsWeb) { try {
+
+      await Firebase.initializeApp(
+        options: FirebaseOptions(
+            apiKey: "AIzaSyDVQiOZ2uSbDTF8UzZXNEtsCBW-Ro25gt0",
+            authDomain: "where-hearts-meet.firebaseapp.com",
+            projectId: "where-hearts-meet",
+            storageBucket: "where-hearts-meet.appspot.com",
+            messagingSenderId: "996974929233",
+            appId: "1:996974929233:web:079825a07c1530872d1f70",
+            measurementId: "G-Q89KKB6P6B"
+        ),
+      );
+      print('Firebase initialized successfully');
+    } catch (e) {
+    print('Error initializing Firebase: $e');
+  }
+  }
+  else{
+    await Firebase.initializeApp();
+  }
+
+
+
   await setUp();
   runApp(const MyApp());
 }

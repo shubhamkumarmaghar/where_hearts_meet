@@ -33,8 +33,6 @@ class GuestReceiveService {
   }
 
   Future<List<WishesModel>>getWishesList({required String eventId}) async {
-    String url = AppUrls.receiveWishsUrl;
-  Future<WishesModel>getWishesList({required String eventId}) async {
     String url = AppUrls.eventWishesUrl;
 
     final response = await _apiService.getApiCall(
