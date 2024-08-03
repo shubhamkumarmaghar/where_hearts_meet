@@ -10,6 +10,7 @@ import '../../create_event/model/event_response_model.dart';
 import '../../utils/consts/app_screen_size.dart';
 import '../../utils/util_functions/decoration_functions.dart';
 import '../../utils/widgets/custom_photo_view.dart';
+import '../../utils/widgets/pop_up_menus.dart';
 
 class EventListScreen extends StatelessWidget {
   final controller = Get.find<EventListController>();
@@ -38,13 +39,12 @@ class EventListScreen extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.start,
                     children: [
                       backIcon(),
-
                       Spacer(),
                       Text(
                         controller.pageTitle,
                         style: textStyleDangrek(fontSize: 24),
                       ),
-                     Spacer(),
+                      const Spacer(),
                     ],
                   ),
                   SizedBox(
@@ -88,6 +88,14 @@ class EventListScreen extends StatelessWidget {
                             const BorderRadius.only(topRight: Radius.circular(20), topLeft: Radius.circular(20)),
                         child: cachedImage(height: 200, width: screenWidth, imageUrl: data.coverImage ?? "")),
                     Positioned(
+                        right: 10,
+                        top: 10,
+                        child: moreViewPopUpMenu(
+                            onDelete: () {
+                              controller.deleteEvent(eventId: data.eventid ?? "");
+                            },
+                            onView: () {})),
+                    Positioned(
                       right: screenWidth * 0.15,
                       bottom: screenHeight * 0.01,
                       child: GestureDetector(
@@ -102,7 +110,6 @@ class EventListScreen extends StatelessWidget {
                           decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(50),
                               border: Border.all(color: Colors.white, width: 3)),
-                          //padding: EdgeInsets.all(5),
                           child: ClipRRect(
                             borderRadius: BorderRadius.circular(50),
                             child: cachedImage(imageUrl: data.splashBackgroundImage),

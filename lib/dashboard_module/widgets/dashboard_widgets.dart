@@ -5,9 +5,13 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:where_hearts_meet/routes/routes_const.dart';
 import 'package:where_hearts_meet/utils/consts/color_const.dart';
 
+import '../../create_event/model/event_response_model.dart';
 import '../../utils/consts/app_screen_size.dart';
+import '../../utils/consts/images_const.dart';
+import '../../utils/consts/screen_const.dart';
 import '../../utils/model/dropdown_model.dart';
 import '../../utils/util_functions/decoration_functions.dart';
+import '../../utils/widgets/event_card.dart';
 import '../controller/dashboard_controller.dart';
 
 Widget getDrawerContentWidget({required IconData icon, required String heading, required Function onTap}) {
@@ -57,8 +61,7 @@ Widget getDrawerContentWidget({required IconData icon, required String heading, 
 Widget scheduleEventView() {
   return GestureDetector(
     onTap: () {
-
-     //Get.toNamed(RoutesConst.createEventScreen);
+      //Get.toNamed(RoutesConst.createEventScreen);
       Get.toNamed(RoutesConst.createGiftsScreen);
     },
     child: Stack(
@@ -68,8 +71,8 @@ Widget scheduleEventView() {
           width: screenWidth,
           child: ClipRRect(
             borderRadius: BorderRadius.circular(10),
-            child: Image.network(
-              'https://static.vecteezy.com/system/resources/previews/037/335/170/large_2x/ai-generated-pastel-and-aqua-balloons-with-confetti-on-purple-background-free-photo.jpg',
+            child: Image.asset(
+              createEventImage,
               fit: BoxFit.fitWidth,
             ),
           ),
@@ -192,5 +195,35 @@ Widget getWishesCard(
                 image: DecorationImage(image: AssetImage(data.value ?? ''), fit: BoxFit.cover)),
           );
         }),
+  );
+}
+
+Widget getEventCard(
+    {required BuildContext context,
+    required List<EventResponseModel> eventsList,
+      required EventsCreated eventsCreated,
+    required DashboardController controller}) {
+  return Container(
+    padding: const EdgeInsets.symmetric(horizontal: 20),
+    child: ListView.separated(
+        scrollDirection: Axis.horizontal,
+        itemBuilder: (BuildContext context, int index) {
+          var data = eventsList[index];
+          return EventCard(
+              eventResponseModel: data,
+              onDelete: () {
+                controller.deleteEvent(eventId: data.eventid ?? "",eventsCreated: eventsCreated);
+              },
+              onView: () {
+                Get.toNamed(RoutesConst.guestCoverScreen, arguments: data.eventid);
+              },
+              onCardTap: () {
+                Get.toNamed(RoutesConst.guestCoverScreen, arguments: data.eventid);
+              });
+        },
+        separatorBuilder: (context, index) => const SizedBox(
+              width: 10,
+            ),
+        itemCount: eventsList.length > 2 ? 3 : eventsList.length),
   );
 }

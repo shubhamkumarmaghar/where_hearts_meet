@@ -1,31 +1,24 @@
-import 'dart:developer';
-import 'dart:io';
-
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:where_hearts_meet/create_event/model/gift_model.dart';
 import 'package:where_hearts_meet/create_event/model/gifts_data_model.dart';
 import 'package:where_hearts_meet/routes/routes_const.dart';
-import 'package:where_hearts_meet/utils/consts/color_const.dart';
 import 'package:where_hearts_meet/utils/controller/base_controller.dart';
-import 'package:where_hearts_meet/utils/widgets/util_widgets/app_widgets.dart';
-
 import '../../utils/consts/service_const.dart';
 import '../../utils/dialogs/pop_up_dialogs.dart';
 import '../../utils/model/image_response_model.dart';
 import '../../utils/repository/created_event_repo.dart';
 import '../../utils/util_functions/decoration_functions.dart';
-import '../model/event_response_model.dart';
 import '../service/create_event_service.dart';
 
 class CreateGiftsController extends BaseController {
   //late EventResponseModel eventResponseModel;
   RxInt giftCardGroupValue = 0.obs;
   final _createEventService = CreateEventService();
-  List<GiftsDataModel>? giftsDataList;
+  List<GiftsCard>? giftsDataList;
   List<GiftModel> submittedGiftsList = [];
-  GiftsDataModel? selectedGift;
+  GiftsCard? selectedGift;
   final nameTextController = TextEditingController();
   final giftTitleController = TextEditingController();
   final giftCardIdController = TextEditingController();
@@ -74,11 +67,10 @@ class CreateGiftsController extends BaseController {
     Get.back();
   }
 
-  void onCaptureMediaClick({required ImageSource source, bool? forProfile}) async {
+  void onCaptureMediaClick({required ImageSource source}) async {
     final ImagePicker picker = ImagePicker();
 
-    var image = await picker.pickImage(
-        source: source, maxHeight: 800, maxWidth: 800, imageQuality: forProfile != null && forProfile ? 40 : 75);
+    var image = await picker.pickImage(source: source, maxHeight: 800, maxWidth: 800, imageQuality: 100);
 
     if (image != null) {
       final croppedImage = await cropImage(filePath: image.path, isProfileImage: false);
@@ -100,7 +92,7 @@ class CreateGiftsController extends BaseController {
       showLoaderDialog(context: Get.context!);
       GiftModel model = GiftModel();
 
-      model.eventId = '94_Happy happy birthday';
+      model.eventId = '81_Happy birthday';
       model.senderName = nameTextController.text;
       model.giftCode = selectedGift?.code ?? '';
       model.giftTitle = giftTitleController.text;
@@ -114,6 +106,7 @@ class CreateGiftsController extends BaseController {
         submittedGiftsList.add(response);
         nameTextController.clear();
         selectedGift = null;
+        selectGiftText = 'Select Gift*';
         giftTitleController.clear();
         giftCardIdController.clear();
         giftCardPinController.clear();
@@ -125,7 +118,6 @@ class CreateGiftsController extends BaseController {
 
   void navigateToGiftTypeScreen() async {
     await Get.toNamed(RoutesConst.selectGiftsScreen);
-    log('selected gift : ${selectedGift?.toJson()}');
     if (selectedGift != null) {
       selectGiftText = selectedGift?.title ?? "";
       giftTitleController.text = selectedGift?.title ?? '';

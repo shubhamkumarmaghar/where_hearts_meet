@@ -31,6 +31,7 @@ class RoutesConst {
   static String selectGiftsScreen = '/selectGiftsScreen';
 
   static String createdWishesPreviewScreen = '/createdWishesPreviewScreen';
+  static String createdGiftsPreviewScreen = '/createdGiftsPreviewScreen';
 
   static String eventListScreen = '/eventListScreen';
 }

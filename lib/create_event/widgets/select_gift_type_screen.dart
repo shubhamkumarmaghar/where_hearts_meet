@@ -128,7 +128,7 @@ class SelectGiftCardScreen extends StatelessWidget {
                       borderRadius: BorderRadius.circular(30),
                       child: Image.network(
                         data.image ?? '',
-                        fit: BoxFit.contain,
+                        fit: BoxFit.cover,
                       ),
                     )),
               ],

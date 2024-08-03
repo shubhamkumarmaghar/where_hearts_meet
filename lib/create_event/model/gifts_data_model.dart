@@ -1,12 +1,12 @@
-class GiftsDataModel {
+class GiftsCard {
   int? id;
   String? title;
   String? code;
   String? image;
 
-  GiftsDataModel({id, title, code, image});
+  GiftsCard({id, title, code, image});
 
-  GiftsDataModel.fromJson(Map<String, dynamic> json) {
+  GiftsCard.fromJson(Map<String, dynamic> json) {
     id = json['id'];
     title = json['title'];
     code = json['code'];

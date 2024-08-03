@@ -5,12 +5,12 @@ import 'package:get_storage/get_storage.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:intl/intl.dart';
 import 'package:where_hearts_meet/dashboard_module/service/dashboard_service.dart';
+import 'package:where_hearts_meet/utils/consts/screen_const.dart';
 import 'package:where_hearts_meet/utils/consts/shared_pref_const.dart';
 import 'package:where_hearts_meet/utils/controller/base_controller.dart';
 import '../../create_event/model/event_response_model.dart';
 import '../../utils/dialogs/pop_up_dialogs.dart';
 import '../../utils/model/week_model.dart';
-
 
 class DashboardController extends BaseController {
   List<WeekModel> currentWeekDates = [];
@@ -31,7 +31,6 @@ class DashboardController extends BaseController {
     userPhone = storage.read(userMobile) ?? '';
     userImage = storage.read(profileUrl) ?? '';
     userName = storage.read(firstName) ?? '';
-    log('profile :: ${storage.read(profileUrl)}');
   }
 
   bool isCurrentDay({required String currentDay}) {
@@ -40,82 +39,24 @@ class DashboardController extends BaseController {
     return day == currentDay;
   }
 
-  // void showLogoutAlertDialog({String? message, required BuildContext context, required Function logOutFunction}) {
-  //   AlertDialog alert = AlertDialog(
-  //       content: SizedBox(
-  //     height: _mainHeight * 0.14,
-  //     child: Column(
-  //       children: [
-  //         InkWell(
-  //           onTap: () {
-  //             showImagePickerDialog(
-  //               context: Get.context!,
-  //               onCamera: () => onCaptureMediaClick(source: ImageSource.camera),
-  //               onGallery: () => onCaptureMediaClick(source: ImageSource.gallery),
-  //             );
-  //           },
-  //           child: Container(
-  //             height: _mainHeight * 0.06,
-  //             width: _mainWidth * 0.65,
-  //             alignment: Alignment.center,
-  //             decoration: const BoxDecoration(borderRadius: BorderRadius.all(Radius.circular(10)), color: blackColor),
-  //             child: const Text(
-  //               'Update Image',
-  //               style: TextStyle(color: whiteColor, fontSize: 16),
-  //             ),
-  //           ),
-  //         ),
-  //         SizedBox(
-  //           height: _mainHeight * 0.02,
-  //         ),
-  //         InkWell(
-  //           onTap: () {
-  //             onDeleteMediaClick();
-  //           },
-  //           child: Container(
-  //             height: _mainHeight * 0.06,
-  //             width: _mainWidth * 0.65,
-  //             alignment: Alignment.center,
-  //             decoration: const BoxDecoration(borderRadius: BorderRadius.all(Radius.circular(10)), color: blackColor),
-  //             child: const Text(
-  //               'Delete Image',
-  //               style: TextStyle(color: whiteColor, fontSize: 16),
-  //             ),
-  //           ),
-  //         )
-  //       ],
-  //     ),
-  //   ));
-  //   // show the dialog
-  //   showDialog(
-  //     context: context,
-  //     builder: (BuildContext context) {
-  //       return alert;
-  //     },
-  //   );
-  // }
+  void deleteEvent({required String eventId, required EventsCreated eventsCreated}) async {
+    showLoaderDialog(context: Get.context!);
+    final res = await service.deleteEventApi(eventId: eventId);
+    cancelDialog();
+    if (res != null) {
+      if (eventsCreated == EventsCreated.byUser) {
+        eventListCreatedByUser.removeWhere((element) => element.eventid == eventId);
 
-  void onCaptureMediaClick({required ImageSource source}) async {
-    final ImagePicker picker = ImagePicker();
-
-    var image = await picker.pickImage(
-      source: source,
-      maxHeight: 800,
-      maxWidth: 800,
-    );
-    final imageFile = File(image?.path ?? '');
-
-    if (image != null) {
-      showLoaderDialog(context: Get.context!);
-      cancelDialog();
-      update();
+      } else if (eventsCreated == EventsCreated.forUser) {
+        eventListCreatedForUser.removeWhere((element) => element.eventid == eventId);
+      }
     }
+    update();
   }
 
   Future<void> getEventsCreatedByUser() async {
     setBusy(true);
     final res = await service.getAllEventsCreatedByUserApi();
-    cancelDialog();
     if (res.isNotEmpty) {
       eventListCreatedByUser = res;
       update();
@@ -126,7 +67,6 @@ class DashboardController extends BaseController {
   Future<void> getEventsCreatedForUser() async {
     setBusy(true);
     final res = await service.getAllEventsCreatedForUserApi();
-    cancelDialog();
     if (res.isNotEmpty) {
       eventListCreatedForUser = res;
       update();

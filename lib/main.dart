@@ -8,6 +8,7 @@ import 'package:get/get_navigation/src/root/get_material_app.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:where_hearts_meet/routes/app_routes.dart';
 import 'package:where_hearts_meet/routes/routes_const.dart';
+import 'package:where_hearts_meet/splash_module/screens/splash_screen.dart';
 import 'package:where_hearts_meet/utils/consts/color_const.dart';
 import 'package:where_hearts_meet/utils/consts/service_const.dart';
 import 'package:where_hearts_meet/utils/repository/created_event_repo.dart';
@@ -76,8 +77,8 @@ class MyApp extends StatelessWidget {
         fontFamily: 'PlusJakartaSans',
         primarySwatch: getMaterialColor(primaryColor),
       ),
-     // home: const SplashScreen(),
-       initialRoute: RoutesConst.createGiftsScreen,
+      home: const SplashScreen(),
+       //initialRoute: RoutesConst.createGiftsScreen,
     );
   }
 

@@ -9,6 +9,7 @@ class AppUrls {
 
   ///created by me
   static const String eventsCreatedByUserUrl = 'eventApp/get_events_list/';
+
   static const String getGiftsUrl = 'eventApp/gifts_list/';
 
   ///for guest

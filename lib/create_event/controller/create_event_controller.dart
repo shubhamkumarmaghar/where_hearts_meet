@@ -96,7 +96,7 @@ class CreateEventController extends BaseController {
   void onCaptureMediaClick({required ImageSource source, required EventImageType imageType}) async {
     final ImagePicker picker = ImagePicker();
 
-    var image = await picker.pickImage(source: source, maxHeight: 800, maxWidth: 800, imageQuality: 60);
+    var image = await picker.pickImage(source: source, maxHeight: 800, maxWidth: 800, imageQuality: 100);
     if (image != null) {
       final croppedImage = await cropImage(filePath: image.path);
       if (croppedImage != null) {

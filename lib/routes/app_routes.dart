@@ -26,12 +26,7 @@ import '../../create_event_module/screens/add_event_screen.dart';
 import '../../create_event_module/screens/add_event_specials_screen.dart';
 import '../../event_list/binding/event_list_binding.dart';
 import '../../event_list/view/event_list_screen.dart';
-import '../../guest/guest_dashboard/binding/guest_dashboard_binding.dart';
-import '../../guest/guest_dashboard/guest_home/binding/guest_home_binding.dart';
-import '../../guest/guest_dashboard/guest_home/view/guest_home.dart';
-import '../../guest/guest_dashboard/guest_wishlist/binding/guest_wishlist.dart';
-import '../../guest/guest_dashboard/view/guest_dashboard.dart';
-import '../../guest/guest_dashboard/view/guest_splash_view.dart';
+
 import '../../preview_event/binding/created_wishes_preview_binding.dart';
 import '../../preview_event/view/created_wishes_preview_screen.dart';
 import '../../profile_module/binding/edit_profile_binding.dart';
@@ -46,6 +41,8 @@ import '../guest_dashboard/view/guest_dashboard.dart';
 import '../guest_dashboard/view/guest_splash_view.dart';
 import '../create_event/binding/create_personal_wishes_binding.dart';
 import '../create_event/view/create_personal_wishes_screen.dart';
+import '../preview_event/binding/created_gifts_preview_binding.dart';
+import '../preview_event/view/created_gifts_preview_screen.dart';
 
 
 class AppRoutes {
@@ -161,6 +158,11 @@ class AppRoutes {
         name: RoutesConst.createdWishesPreviewScreen,
         binding: CreatedWishesPreviewBinding(),
         page: () => CreatedWishesPreviewScreen(),
+      ),
+      GetPage(
+        name: RoutesConst.createdGiftsPreviewScreen,
+        binding: CreatedGiftsPreviewBinding(),
+        page: () => CreatedGiftsPreviewScreen(),
       ),
       GetPage(
         name: RoutesConst.eventListScreen,

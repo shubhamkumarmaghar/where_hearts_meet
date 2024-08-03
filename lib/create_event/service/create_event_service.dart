@@ -1,4 +1,4 @@
-import 'dart:developer';
+
 import 'dart:io';
 
 import 'package:dio/dio.dart' as dio;
@@ -104,37 +104,6 @@ class CreateEventService {
     }
     return null;
   }
-
-  // Future<PersonalWishesModel?> addGiftsEventApi(
-  //     {required String eventId,
-  //       required String giftTitle,
-  //       required String giftCode,
-  //       required String giftId,
-  //       required String giftPin,
-  //       required  String senderName,
-  //       required List<String> imagesList,
-  //
-  //      }) async {
-  //   String url = AppUrls.personalWishesUrl;
-  //
-  //  GiftModel model = GiftModel();
-  //   model.eventId = eventId;
-  //   model.personalWishes = messagesList;
-  //   model.images = imagesList;
-  //   model.videos = videosList;
-  //
-  //   final response = await _apiService.postApiCall(
-  //     url: url,
-  //     data: model.toJson(),
-  //   );
-  //   final data = response;
-  //
-  //   if (data['message'].toString().toLowerCase().contains('created')) {
-  //     AppWidgets.getToast(message: data['message'], color: greenTextColor);
-  //     return PersonalWishesModel.fromJson(data['data']);
-  //   }
-  //   return null;
-  // }
   Future<GiftModel?> addGiftsEventApi({required GiftModel giftModel}) async {
     String url = AppUrls.giftsUrl;
 
@@ -144,14 +113,14 @@ class CreateEventService {
     );
     final data = response;
 
-    if (data['message'].toString().toLowerCase().contains('created')) {
+    if (data['message'].toString().toLowerCase().contains('gifts created ')) {
       AppWidgets.getToast(message: data['message'], color: greenTextColor);
       return GiftModel.fromJson(data['data']);
     }
     return null;
   }
 
-  Future<List<GiftsDataModel>?> getGiftsApi() async {
+  Future<List<GiftsCard>?> getGiftsApi() async {
     String url = AppUrls.getGiftsUrl;
     final response = await _apiService.getApiCall(
       url: url,
@@ -161,7 +130,7 @@ class CreateEventService {
     if (data['message'].toString().toLowerCase().contains('gifts') && data['data'] != null) {
       Iterable iterable = data['data'];
 
-      return iterable.map((gift) => GiftsDataModel.fromJson(gift)).toList();
+      return iterable.map((gift) => GiftsCard.fromJson(gift)).toList();
     } else {
       return null;
     }

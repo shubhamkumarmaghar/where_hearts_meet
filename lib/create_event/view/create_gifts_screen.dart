@@ -5,6 +5,7 @@ import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:where_hearts_meet/create_event/controller/create_gifts_controller.dart';
 import 'package:where_hearts_meet/utils/consts/color_const.dart';
+import 'package:where_hearts_meet/utils/consts/images_const.dart';
 
 import '../../utils/consts/app_screen_size.dart';
 import '../../utils/util_functions/app_pickers.dart';
@@ -61,7 +62,7 @@ class CreateGiftsScreen extends StatelessWidget {
                     Visibility(
                       visible: controller.submittedGiftsList.isNotEmpty,
                       replacement: const SizedBox.shrink(),
-                      child: SizedBox(height: 50, width: 50, child: _getSubmittedGiftsBadgeView()),
+                      child: _getSubmittedGiftsBadgeView(),
                     ),
                   ],
                 ),
@@ -198,15 +199,18 @@ class CreateGiftsScreen extends StatelessWidget {
   }
 
   Widget _getSubmittedGiftsBadgeView() {
-    return Badge(
-      label: Text(controller.submittedGiftsList.length.toString()),
-      alignment: Alignment.topRight,
-      backgroundColor: greenTextColor,
-      child: const CircleAvatar(
-        backgroundColor: Colors.white,
-        radius: 30,
-        child: Icon(Icons.card_giftcard, color: primaryColor, size: 30),
-      ),
+    return Badge.count(
+      count: controller.submittedGiftsList.length,
+      child: Container(
+          padding: EdgeInsets.all(10),
+          decoration: BoxDecoration(
+            color: Colors.white,
+            shape: BoxShape.circle,
+          ),
+          child: Icon(
+            Icons.card_giftcard,
+            size: 30,
+          )),
     );
   }
 }
