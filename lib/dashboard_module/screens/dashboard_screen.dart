@@ -51,7 +51,7 @@ class DashboardScreen extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
                     GestureDetector(
-                      onTap: () {
+                      onTap: (){
                         Get.toNamed(RoutesConst.guestHomeScreen);
                       },
                       child: SizedBox(
@@ -182,7 +182,7 @@ class DashboardScreen extends StatelessWidget {
                             replacement: const SizedBox.shrink(),
                             child: GestureDetector(
                               onTap: () {
-                                Get.toNamed(RoutesConst.eventListScreen, arguments: EventsCreated.byUser);
+                                Get.toNamed(RoutesConst.eventListScreen,arguments: EventsCreated.byUser);
                               },
                               child: Padding(
                                 padding: EdgeInsets.only(left: 16, right: 16, bottom: screenHeight * 0.02),
@@ -216,7 +216,7 @@ class DashboardScreen extends StatelessWidget {
                               height: screenHeight * 0.44,
                               width: screenWidth,
                               padding: EdgeInsets.only(bottom: screenHeight * 0.04),
-                              child: getEventCard(context: context, eventsList: controller.eventListCreatedByUser,controller: controller,eventsCreated: EventsCreated.byUser)),
+                              child: getEventCard(context: context, eventsList: controller.eventListCreatedByUser,type: true)),
                         ),
                         Visibility(
                           visible: controller.eventListCreatedForUser.isNotEmpty,
@@ -261,6 +261,7 @@ class DashboardScreen extends StatelessWidget {
                         ),
                         SizedBox(
                           height: screenHeight * 0.02,
+                              child: getEventCard(context: context, eventsList: controller.eventListCreatedForUser,type: false)),
                         ),
                       ],
                     ),
@@ -275,5 +276,23 @@ class DashboardScreen extends StatelessWidget {
   }
 }
 
-
+Widget getEventCard({required BuildContext context, required List<EventResponseModel> eventsList, required bool type}) {
+  return Container(
+    padding: const EdgeInsets.symmetric(horizontal: 20),
+    child: ListView.separated(
+        scrollDirection: Axis.horizontal,
+        itemBuilder: (BuildContext context, int index) {
+          var data = eventsList[index];
+          return EventCard(
+              eventResponseModel: data,
+              onCardTap: () {
+                Get.toNamed(RoutesConst.guestCoverScreen, arguments: data.eventid,parameters: {'type':type==false ?'For You':'By You'});
+              });
+        },
+        separatorBuilder: (context, index) => const SizedBox(
+              width: 10,
+            ),
+        itemCount: eventsList.length > 2 ? 3 : eventsList.length),
+  );
+}
 //Event\'s  \u{1F970}

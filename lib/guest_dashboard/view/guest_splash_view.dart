@@ -72,7 +72,9 @@ class _GuestCoverScreenState extends State<GuestCoverScreen> {
           Container(
             width: screenWidth,
             decoration: BoxDecoration(
-                gradient: LinearGradient(begin: Alignment.topCenter, end: Alignment.bottomCenter, colors: [
+                gradient: LinearGradient(
+                    begin: Alignment.topCenter,
+                    end: Alignment.bottomCenter, colors: [
                   Colors.white,
                   Colors.white70,
                   Colors.white24,
