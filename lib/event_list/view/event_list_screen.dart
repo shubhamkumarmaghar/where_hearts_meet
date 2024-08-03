@@ -74,8 +74,9 @@ class EventListScreen extends StatelessWidget {
         itemBuilder: (context, index) {
           var data = eventsList[index];
           return GestureDetector(
-            onTap: (){
-              Get.toNamed(RoutesConst.guestCoverScreen, arguments: data.eventid,parameters: {'type':controller.forSelf==true ?'For You':'By You'});
+            onTap: () {
+              Get.toNamed(RoutesConst.guestCoverScreen,
+                  arguments: data.eventid, parameters: {'type': controller.forSelf == true ? 'For You' : 'By You'});
             },
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -99,7 +100,11 @@ class EventListScreen extends StatelessWidget {
                               onDelete: () {
                                 controller.deleteEvent(eventId: data.eventid ?? "");
                               },
-                              onView: () {})),
+                              onView: () {
+                                Get.toNamed(RoutesConst.guestCoverScreen,
+                                    arguments: data.eventid, parameters: {'type': controller.forSelf == true ? 'For You' : 'By You'});
+
+                              })),
                       Positioned(
                         right: screenWidth * 0.15,
                         bottom: screenHeight * 0.01,

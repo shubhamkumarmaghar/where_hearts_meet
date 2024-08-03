@@ -10,8 +10,10 @@ import 'package:where_hearts_meet/utils/consts/screen_const.dart';
 import 'package:where_hearts_meet/utils/repository/wishes_card_data.dart';
 import 'package:where_hearts_meet/utils/widgets/cached_image.dart';
 import 'package:where_hearts_meet/utils/widgets/custom_photo_view.dart';
+import '../../create_event/model/event_response_model.dart';
 import '../../utils/consts/app_screen_size.dart';
 import '../../utils/util_functions/decoration_functions.dart';
+import '../../utils/widgets/event_card.dart';
 import '../widgets/dashboard_widgets.dart';
 import 'dashboard_drawer_screen.dart';
 
@@ -51,7 +53,7 @@ class DashboardScreen extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
                     GestureDetector(
-                      onTap: (){
+                      onTap: () {
                         Get.toNamed(RoutesConst.guestHomeScreen);
                       },
                       child: SizedBox(
@@ -182,7 +184,7 @@ class DashboardScreen extends StatelessWidget {
                             replacement: const SizedBox.shrink(),
                             child: GestureDetector(
                               onTap: () {
-                                Get.toNamed(RoutesConst.eventListScreen,arguments: EventsCreated.byUser);
+                                Get.toNamed(RoutesConst.eventListScreen, arguments: EventsCreated.byUser);
                               },
                               child: Padding(
                                 padding: EdgeInsets.only(left: 16, right: 16, bottom: screenHeight * 0.02),
@@ -216,7 +218,10 @@ class DashboardScreen extends StatelessWidget {
                               height: screenHeight * 0.44,
                               width: screenWidth,
                               padding: EdgeInsets.only(bottom: screenHeight * 0.04),
-                              child: getEventCard(context: context, eventsList: controller.eventListCreatedByUser,type: true)),
+                              child: getEventCard(
+                                  context: context,
+                                  eventsList: controller.eventListCreatedByUser,
+                                  eventsCreated: EventsCreated.byUser)),
                         ),
                         Visibility(
                           visible: controller.eventListCreatedForUser.isNotEmpty,
@@ -257,16 +262,19 @@ class DashboardScreen extends StatelessWidget {
                           child: SizedBox(
                               height: screenHeight * 0.4,
                               width: screenWidth,
-                              child: getEventCard(context: context, eventsList: controller.eventListCreatedForUser, controller: controller,eventsCreated: EventsCreated.forUser)),
+                              child: getEventCard(
+                                  context: context,
+                                  eventsList: controller.eventListCreatedForUser,
+                                  eventsCreated: EventsCreated.forUser)),
                         ),
-                        SizedBox(
-                          height: screenHeight * 0.02,
-                              child: getEventCard(context: context, eventsList: controller.eventListCreatedForUser,type: false)),
-                        ),
+
                       ],
                     ),
                   ),
-                )
+                ),
+                SizedBox(
+                  height: screenHeight * 0.02,
+                ),
               ],
             ),
           ),
@@ -274,25 +282,42 @@ class DashboardScreen extends StatelessWidget {
       },
     );
   }
-}
 
-Widget getEventCard({required BuildContext context, required List<EventResponseModel> eventsList, required bool type}) {
-  return Container(
-    padding: const EdgeInsets.symmetric(horizontal: 20),
-    child: ListView.separated(
-        scrollDirection: Axis.horizontal,
-        itemBuilder: (BuildContext context, int index) {
-          var data = eventsList[index];
-          return EventCard(
+  Widget getEventCard(
+      {required BuildContext context,
+      required List<EventResponseModel> eventsList,
+      required EventsCreated eventsCreated}) {
+    return Container(
+      padding: const EdgeInsets.symmetric(horizontal: 20),
+      child: ListView.separated(
+          scrollDirection: Axis.horizontal,
+          itemBuilder: (BuildContext context, int index) {
+            var data = eventsList[index];
+            return EventCard(
               eventResponseModel: data,
               onCardTap: () {
-                Get.toNamed(RoutesConst.guestCoverScreen, arguments: data.eventid,parameters: {'type':type==false ?'For You':'By You'});
-              });
-        },
-        separatorBuilder: (context, index) => const SizedBox(
-              width: 10,
-            ),
-        itemCount: eventsList.length > 2 ? 3 : eventsList.length),
-  );
+                Get.toNamed(RoutesConst.guestCoverScreen,
+                    arguments: data.eventid,
+                    parameters: {'type': eventsCreated == EventsCreated.forUser ? 'For You' : 'By You'});
+              },
+              onDelete: () {
+                controller.deleteEvent(eventId: data.eventid ?? '', eventsCreated: eventsCreated);
+              },
+              onView: () {
+                Get.toNamed(
+                  RoutesConst.guestCoverScreen,
+                  arguments: data.eventid,
+                    parameters: {'type': eventsCreated == EventsCreated.forUser ? 'For You' : 'By You'});
+              },
+            );
+          },
+          separatorBuilder: (context, index) => const SizedBox(
+                width: 10,
+              ),
+          itemCount: eventsList.length > 2 ? 3 : eventsList.length),
+    );
+  }
 }
+
 //Event\'s  \u{1F970}
+//parameters: 'For You':'By You'
