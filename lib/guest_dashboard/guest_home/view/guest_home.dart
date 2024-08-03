@@ -603,7 +603,7 @@ class _GuestHomeState extends State<GuestHome> with TickerProviderStateMixin {
                           child: CardSwiper(
                               isLoop: true,
                               scale: 0.9,
-                              numberOfCardsDisplayed: controller.guestwishesModel!.length > 5
+                              numberOfCardsDisplayed: controller.guestwishesModel.length > 5
                                   ? 5
                                   : controller.guestwishesModel.length,
                               backCardOffset: const Offset(
@@ -612,7 +612,7 @@ class _GuestHomeState extends State<GuestHome> with TickerProviderStateMixin {
                               ),
                               cardBuilder: (BuildContext context, int index, int horizontalOffsetPercentage,
                                   int verticalOffsetPercentage) {
-                                var data = controller.guestwishesModel?[index];
+                                var data = controller.guestwishesModel[index];
                                 return GestureDetector(
                                   onTap: () {
                                     Get.toNamed(RoutesConst.guestWishlist);                                   //Get.to(GuestWishList());
@@ -626,7 +626,7 @@ class _GuestHomeState extends State<GuestHome> with TickerProviderStateMixin {
                                   ),
                                 );
                               },
-                              cardsCount: controller.guestwishesModel!.length ?? 1),
+                              cardsCount: controller.guestwishesModel.length ?? 1),
                         ),
                       )
                     : Container(),
