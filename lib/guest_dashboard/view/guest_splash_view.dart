@@ -51,7 +51,7 @@ class _GuestCoverScreenState extends State<GuestCoverScreen> {
             blurColor: Colors.white.withOpacity(0.1),
             child: Container(
               width: screenWidth,
-              height: screenHeight*0.9,
+              height: screenHeight,
               alignment: Alignment.center,
               decoration: BoxDecoration(
                 gradient: LinearGradient(begin: Alignment.topCenter, end: Alignment.bottomCenter, colors: [
