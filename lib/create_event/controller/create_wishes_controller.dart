@@ -76,6 +76,17 @@ class CreateWishesController extends BaseController {
     }
   }
 
+  Future<void> _uploadVideo({required File videoFile}) async {
+    showLoaderDialog(context: Get.context!);
+
+    final url = await createEventService.uploadVideoToAws(videoFile: videoFile);
+
+    cancelDialog();
+    if (url.isNotEmpty) {
+      videosList.add(url);
+      update();
+    }
+  }
   void addWishes() async {
     showLoaderDialog(context: Get.context!);
     final response = await createEventService.addWishesEventApi(
@@ -94,18 +105,6 @@ class CreateWishesController extends BaseController {
       imagesList.clear();
       videosList.clear();
       wishesList.add(response);
-      update();
-    }
-  }
-
-  Future<void> _uploadVideo({required File videoFile}) async {
-    showLoaderDialog(context: Get.context!);
-
-    final url = await createEventService.uploadVideoToAws(videoFile: videoFile);
-
-    cancelDialog();
-    if (url.isNotEmpty) {
-      videosList.add(url);
       update();
     }
   }

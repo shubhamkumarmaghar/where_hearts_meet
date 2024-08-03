@@ -3,14 +3,24 @@ import 'package:where_hearts_meet/create_event/model/event_response_model.dart';
 import 'package:where_hearts_meet/utils/consts/app_screen_size.dart';
 import 'package:where_hearts_meet/utils/consts/color_const.dart';
 import 'package:where_hearts_meet/utils/widgets/cached_image.dart';
+import 'package:where_hearts_meet/utils/widgets/pop_up_menus.dart';
 
+import '../consts/actions_enum.dart';
 import '../util_functions/decoration_functions.dart';
 
 class EventCard extends StatelessWidget {
   final EventResponseModel eventResponseModel;
   final Function onCardTap;
+  final Function onDelete;
+  final Function onView;
 
-  const EventCard({Key? key, required this.eventResponseModel, required this.onCardTap}) : super(key: key);
+  const EventCard(
+      {Key? key,
+      required this.eventResponseModel,
+      required this.onCardTap,
+      required this.onDelete,
+      required this.onView})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -112,17 +122,7 @@ class EventCard extends StatelessWidget {
                     ],
                   ),
                 ),
-                Container(
-                  height: screenHeight * 0.04,
-                  width: screenWidth * 0.15,
-                  alignment: Alignment.center,
-                  margin: EdgeInsets.only(right: screenWidth * 0.02),
-                  decoration: BoxDecoration(color: Colors.white, borderRadius: BorderRadius.circular(40)),
-                  child: Text(
-                    'See',
-                    style: textStyleDangrek(fontSize: screenWidth * 0.04, color: primaryColor),
-                  ),
-                )
+                moreViewPopUpMenu(onDelete: onDelete, onView: onView,showBackground: false),
               ],
             )
           ],
@@ -130,5 +130,4 @@ class EventCard extends StatelessWidget {
       ),
     );
   }
-
 }

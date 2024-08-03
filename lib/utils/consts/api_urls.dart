@@ -10,6 +10,8 @@ class AppUrls {
   ///created by me
   static const String eventsCreatedByUserUrl = 'eventApp/get_events_list/';
 
+  static const String getGiftsUrl = 'eventApp/gifts_list/';
+
   ///for guest
   static const String receiveEventUrl = 'eventApp/get_event_receiver/';
 
@@ -20,4 +22,5 @@ class AppUrls {
   static const String eventWishesUrl = 'wishesApp/wishes/';
   static const String eventTimelineUrl = 'wishesApp/timeline/';
   static const String personalWishesUrl = 'wishesApp/personal_wishes/';
+  static const String giftsUrl = 'eventApp/gifts/';
 }

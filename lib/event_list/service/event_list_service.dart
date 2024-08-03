@@ -44,4 +44,15 @@ class EventListService {
       return [];
     }
   }
+  Future<String?> deleteEventApi({required String eventId}) async {
+    String url = AppUrls.createEventUrl;
+
+    final response = await _apiService.deleteApiCall(url: url, queryParams: {"eventid": eventId});
+
+    if (response['message'].toLowerCase().contains('event deleted')) {
+      return response['message'];
+    } else {
+      return null;
+    }
+  }
 }

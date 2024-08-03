@@ -48,7 +48,6 @@ dependencies:
   simple_s3: ^0.3.2
   image_cropper: ^4.0.1
 
-
   google_fonts:
   blur:
   lottie:
@@ -59,8 +58,8 @@ dependencies:
   firebase_core_web:
   chewie: ^1.7.5
   video_player: ^2.9.1
-
   flutter_launcher_icons: ^0.13.1
+
 
 dev_dependencies:
   flutter_test:

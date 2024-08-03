@@ -6,6 +6,7 @@ import 'package:confetti/confetti.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:where_hearts_meet/main.dart';
+import 'package:where_hearts_meet/utils/dialogs/pop_up_dialogs.dart';
 import '../../../../show_event_module/model/event_details_model.dart';
 import '../../../../utils/controller/base_controller.dart';
 import '../../../create_event/model/wishes_model.dart';
@@ -101,8 +102,10 @@ class GuestHomeController extends BaseController {
   }
 
   Future<void> getTimelineWishes(String eventId) async {
+    showLoaderDialog(context: Get.context!);
    // setBusy(true);
     timeLineModel.value = await guestReceiveService.getTimeline(eventId: eventId);
+    cancelDialog();
     log('zzzz ${timeLineModel.value.toJson()}');
    // setBusy(false);
     update();

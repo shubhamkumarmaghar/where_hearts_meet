@@ -30,6 +30,11 @@ const String birthDayWishes = 'asset/images/birthday_wish_image.webp';
 const String congratulationWishes = 'asset/images/congratulations_wish_image.jpg';
 const String marriageWishes = 'asset/images/marriage_wish_image.webp';
 
+///events
+const String createEventImage = 'asset/images/create_event_image.jpg';
+
+const String giftsIcon = 'asset/icons/gifts_icon.gif';
+
 //lotties json
 const String giftbox = 'asset/icons/Animation - 1720867208224.json';
 

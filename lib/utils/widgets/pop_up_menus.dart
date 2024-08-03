@@ -1,0 +1,100 @@
+import 'package:flutter/material.dart';
+import 'package:where_hearts_meet/utils/consts/app_screen_size.dart';
+
+import '../consts/actions_enum.dart';
+import '../consts/color_const.dart';
+
+Widget moreViewPopUpMenu({Function? onDelete, Function? onView, bool showBackground = true}) {
+  return showBackground
+      ? Container(
+          height: screenHeight*0.04,
+          width: screenHeight*0.04,
+          decoration: BoxDecoration(color: primaryColor.withOpacity(0.5), shape: BoxShape.circle),
+          child: PopupMenuButton<AppActions>(
+            color: Colors.white,
+            icon: const Icon(
+              Icons.more_vert_rounded,
+              color: Colors.white,
+              size: 20,
+            ),
+            onSelected: (AppActions result) {
+              if (result == AppActions.delete) {
+                onDelete != null ? onDelete() : () {};
+              } else if (result == AppActions.view) {
+                onView != null ? onView() : () {};
+              }
+            },
+            itemBuilder: (BuildContext context) => <PopupMenuEntry<AppActions>>[
+              const PopupMenuItem<AppActions>(
+                value: AppActions.delete,
+                child: ListTile(
+                  leading: Icon(
+                    Icons.delete,
+                    color: errorColor,
+                  ),
+                  title: Text(
+                    'Delete',
+                    style: TextStyle(color: Colors.black, fontSize: 16, fontWeight: FontWeight.w600),
+                  ),
+                ),
+              ),
+              const PopupMenuItem<AppActions>(
+                value: AppActions.view,
+                child: ListTile(
+                  leading: Icon(
+                    Icons.remove_red_eye_rounded,
+                    color: primaryColor,
+                  ),
+                  title: Text(
+                    'View',
+                    style: TextStyle(color: Colors.black, fontSize: 16, fontWeight: FontWeight.w600),
+                  ),
+                ),
+              ),
+            ],
+          ),
+        )
+      : PopupMenuButton<AppActions>(
+          color: Colors.white,
+          icon: const Icon(
+            Icons.more_vert_rounded,
+            color: Colors.white,
+            size: 30,
+          ),
+          onSelected: (AppActions result) {
+            if (result == AppActions.delete) {
+              onDelete != null ? onDelete() : () {};
+            } else if (result == AppActions.view) {
+              onView != null ? onView() : () {};
+            }
+          },
+          itemBuilder: (BuildContext context) => <PopupMenuEntry<AppActions>>[
+            const PopupMenuItem<AppActions>(
+              value: AppActions.delete,
+              child: ListTile(
+                leading: Icon(
+                  Icons.delete,
+                  color: errorColor,
+                ),
+                title: Text(
+                  'Delete',
+                  style: TextStyle(color: Colors.black, fontSize: 16, fontWeight: FontWeight.w600),
+                ),
+              ),
+            ),
+            const PopupMenuItem<AppActions>(
+              value: AppActions.view,
+              child: ListTile(
+                leading: Icon(
+                  Icons.remove_red_eye_rounded,
+                  color: primaryColor,
+                ),
+                title: Text(
+                  'View',
+                  style: TextStyle(color: Colors.black, fontSize: 16, fontWeight: FontWeight.w600),
+                ),
+              ),
+            ),
+          ],
+        );
+}

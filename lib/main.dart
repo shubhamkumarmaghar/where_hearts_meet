@@ -17,8 +17,6 @@ import 'package:where_hearts_meet/utils/services/dio_injector.dart';
 import 'package:where_hearts_meet/utils/services/firebase_auth_controller.dart';
 import 'package:where_hearts_meet/utils/services/firebase_storage_controller.dart';
 
-import 'onboarding_module/view/onboarding_view.dart';
-
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   HttpOverrides.global = MyHttpOverrides();
@@ -80,7 +78,7 @@ class MyApp extends StatelessWidget {
         primarySwatch: getMaterialColor(primaryColor),
       ),
       home: const SplashScreen(),
-      // initialRoute: RoutesConst.createPersonalWishesScreen,
+       //initialRoute: RoutesConst.createGiftsScreen,
     );
   }
 

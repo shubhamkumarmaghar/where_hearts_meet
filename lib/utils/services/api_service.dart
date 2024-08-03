@@ -13,12 +13,9 @@ class ApiService {
   final apiClient = locator<DioInjector>();
 
   Map<String, dynamic> getHeaders() {
-    String userToken = GetStorage().read(token) ??'';
+    String userToken = GetStorage().read(token) ?? '';
     log('Authorization Bearer $userToken');
-    return {
-      'Authorization':'Bearer $userToken'
-
-    };
+    return {'Authorization': 'Bearer $userToken'};
   }
 
   Future<Map<String, dynamic>> getApiCall({required String url, Map<String, dynamic>? queryParams}) async {
@@ -49,9 +46,10 @@ class ApiService {
       return {'message': 'failure'};
     }
   }
+
   Future<Map<String, dynamic>> formDataPostApiCall({required String url, required Map<String, dynamic> data}) async {
     try {
-      FormData formData = FormData.fromMap(data,ListFormat.multiCompatible);
+      FormData formData = FormData.fromMap(data, ListFormat.multiCompatible);
       Response response = await apiClient.dio.post(
         url,
         data: formData,
@@ -98,7 +96,7 @@ class ApiService {
   Future<Map<String, dynamic>> patchApiCall({required String url, required Map<String, dynamic> data}) async {
     try {
       log('data :: $data');
-     //FormData formData = FormData.fromMap(data);
+      //FormData formData = FormData.fromMap(data);
 
       Response response = await apiClient.dio.patch(
         url,
@@ -115,10 +113,11 @@ class ApiService {
     }
   }
 
-  Future<Map<String, dynamic>> deleteApiCall({required String url}) async {
+  Future<Map<String, dynamic>> deleteApiCall({required String url, Map<String, dynamic>? queryParams}) async {
     try {
       Response response = await apiClient.dio.delete(
         url,
+        queryParameters: queryParams,
         options: Options(headers: getHeaders()),
       );
       return await _handleResponse(response: response, url: url);
@@ -165,7 +164,7 @@ class ApiService {
 
   Map<String, dynamic> _getErrorResponse(decode) {
     final error = decode as Map<String, dynamic>;
-  //  AppWidgets.getToast(message: 'Error : ${error['message']}', color: errorColor);
+    //  AppWidgets.getToast(message: 'Error : ${error['message']}', color: errorColor);
     return {'message': 'failure ${error['message']}'};
   }
 }

@@ -1,6 +1,4 @@
-import 'dart:developer';
 
-import 'package:carousel_slider/carousel_slider.dart';
 import 'package:clay_containers/widgets/clay_container.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -14,7 +12,6 @@ import '../../utils/consts/app_screen_size.dart';
 import '../../utils/consts/color_const.dart';
 import '../../utils/util_functions/app_pickers.dart';
 import '../../utils/util_functions/decoration_functions.dart';
-import '../../utils/widgets/custom_photo_view.dart';
 import '../../utils/widgets/designer_text_field.dart';
 
 class CreateWishesScreen extends StatelessWidget {
@@ -119,7 +116,7 @@ class CreateWishesScreen extends StatelessWidget {
                                     )),
                         ),
                       ),
-                      Container(
+                      SizedBox(
                         width: screenWidth * 0.7,
                         child: DesignerTextField(
                             title: '',
@@ -150,7 +147,8 @@ class CreateWishesScreen extends StatelessWidget {
                       style: textStyleDangrek(fontSize: 18),
                     ),
                   ),
-                  getImagesListWidget(),
+                  _getImagesListWidget(),
+
                   SizedBox(
                     height: screenHeight * 0.01,
                   ),
@@ -161,7 +159,7 @@ class CreateWishesScreen extends StatelessWidget {
                       style: textStyleDangrek(fontSize: 18),
                     ),
                   ),
-                  getVideosListWidget(),
+                  _getVideosListWidget(),
                   SizedBox(
                     height: screenHeight * 0.02,
                   ),
@@ -174,7 +172,7 @@ class CreateWishesScreen extends StatelessWidget {
     );
   }
 
-  Widget getImagesListWidget() {
+  Widget _getImagesListWidget() {
     return GridView.builder(
         scrollDirection: Axis.vertical,
         shrinkWrap: true,
@@ -221,7 +219,7 @@ class CreateWishesScreen extends StatelessWidget {
         });
   }
 
-  Widget getVideosListWidget() {
+  Widget _getVideosListWidget() {
     return GridView.builder(
         scrollDirection: Axis.vertical,
         shrinkWrap: true,

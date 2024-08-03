@@ -16,9 +16,9 @@ class DioInjector {
   void init() {
     _dio = Dio(BaseOptions(
       baseUrl: AppUrls.baseUrl,
-      // validateStatus: (status) {
-      //   return true;
-      // },
+      validateStatus: (status) {
+        return true;
+      },
       connectTimeout: const Duration(seconds: 30),
       receiveTimeout: const Duration(seconds: 30),
       sendTimeout: const Duration(seconds: 30),

@@ -2,9 +2,12 @@ import 'package:get/get.dart';
 import 'package:where_hearts_meet/auth_module/binding/profile_setup_binding.dart';
 import 'package:where_hearts_meet/auth_module/screens/profile_setup_screen.dart';
 import 'package:where_hearts_meet/create_event/binding/create_event_binding.dart';
+import 'package:where_hearts_meet/create_event/binding/create_gifts_binding.dart';
 import 'package:where_hearts_meet/create_event/binding/create_timeline_binding.dart';
-import 'package:where_hearts_meet/create_event/controller/create_event_controller.dart';
+import 'package:where_hearts_meet/create_event/controller/create_gifts_controller.dart';
 import 'package:where_hearts_meet/create_event/view/create_event_splash_screen.dart';
+import 'package:where_hearts_meet/create_event/view/create_gifts_screen.dart';
+import 'package:where_hearts_meet/create_event/widgets/select_gift_type_screen.dart';
 import 'package:where_hearts_meet/create_event_module/screens/add_giftcard_screen.dart';
 import 'package:where_hearts_meet/create_event_module/screens/add_secret_wishes_screen.dart';
 import 'package:where_hearts_meet/create_event_module/screens/add_timeline_screen.dart';
@@ -23,6 +26,7 @@ import '../../create_event_module/screens/add_event_screen.dart';
 import '../../create_event_module/screens/add_event_specials_screen.dart';
 import '../../event_list/binding/event_list_binding.dart';
 import '../../event_list/view/event_list_screen.dart';
+
 import '../../preview_event/binding/created_wishes_preview_binding.dart';
 import '../../preview_event/view/created_wishes_preview_screen.dart';
 import '../../profile_module/binding/edit_profile_binding.dart';
@@ -37,6 +41,8 @@ import '../guest_dashboard/view/guest_dashboard.dart';
 import '../guest_dashboard/view/guest_splash_view.dart';
 import '../create_event/binding/create_personal_wishes_binding.dart';
 import '../create_event/view/create_personal_wishes_screen.dart';
+import '../preview_event/binding/created_gifts_preview_binding.dart';
+import '../preview_event/view/created_gifts_preview_screen.dart';
 
 
 class AppRoutes {
@@ -137,11 +143,26 @@ class AppRoutes {
         binding: CreatePersonalWishesBinding(),
         page: () => CreatePersonalWishesScreen(),
       ),
+      GetPage(
+        name: RoutesConst.createGiftsScreen,
+        binding: CreateGiftsBinding(),
+        page: () => CreateGiftsScreen(),
+      ),
+      GetPage(
+        name: RoutesConst.selectGiftsScreen,
+        binding: CreateGiftsBinding(),
+        page: () => SelectGiftCardScreen(),
+      ),
 
       GetPage(
         name: RoutesConst.createdWishesPreviewScreen,
         binding: CreatedWishesPreviewBinding(),
         page: () => CreatedWishesPreviewScreen(),
+      ),
+      GetPage(
+        name: RoutesConst.createdGiftsPreviewScreen,
+        binding: CreatedGiftsPreviewBinding(),
+        page: () => CreatedGiftsPreviewScreen(),
       ),
       GetPage(
         name: RoutesConst.eventListScreen,
