@@ -4,9 +4,8 @@ import 'dart:developer';
 import 'package:confetti/confetti.dart';
 
 import 'package:get/get.dart';
-import 'package:get/get_core/src/get_main.dart';
-import 'package:get/get_rx/src/rx_types/rx_types.dart';
 import 'package:get_storage/get_storage.dart';
+import 'package:where_hearts_meet/main.dart';
 import '../../../../show_event_module/model/event_details_model.dart';
 import '../../../../utils/controller/base_controller.dart';
 import '../../../create_event/model/wishes_model.dart';
@@ -21,7 +20,7 @@ class GuestHomeController extends BaseController {
 
   String videoUrl = 'https://hehbucket.s3.ap-south-1.amazonaws.com/112233344412.mp4';
 
-  DateTime birthday = DateTime.now(); // Set your birthday date here
+   DateTime birthday = DateTime.now() ; // Set your birthday date here
   Duration countdownDuration = Duration();
   Timer? countdownTimer;
   GuestReceiveService guestReceiveService = GuestReceiveService();
@@ -35,6 +34,7 @@ class GuestHomeController extends BaseController {
   String textTitle = '';
   String nameText = '';
 
+
   @override
   void onInit() {
     super.onInit();
@@ -42,17 +42,20 @@ class GuestHomeController extends BaseController {
     homeConfettiController = ConfettiController(duration: const Duration(minutes: 1));
     homeConfettiController.play();
     final arg = Get.arguments;
+    final parameters = Get.parameters;
     if (arg != null) {
-    getData(args: arg);
+    getData(args: arg,data: parameters);
     }
-    startCountdown();
+
+
   }
-  Future<void> getData({String? args}) async {
-    await getEventDetails(args??"");
+  Future<void> getData({String? args, Map? data}) async {
+    String byYou = data?['type'];
+    await getEventDetails(eventId: args??"",byYou:byYou=='For You'?false:true );
     await textAnimation();
      getEventWishes(args??"");
      getTimelineWishes(args??"");
-    birthday = DateTime.parse(eventDetails?.eventHostDay ?? '2024-10-30 18:30:00.000Z');
+    startCountdown();
     update();
   }
 
@@ -77,20 +80,22 @@ class GuestHomeController extends BaseController {
     }
   }
 
-  Future<void> getEventDetails(String eventId) async {
+  Future<void> getEventDetails({required String eventId ,bool byYou = true}) async {
 
     setBusy(true);
-    eventDetails = await guestReceiveService.getEventDetails(eventId: eventId, mobileNo: mobileNo);
+    eventDetails = await guestReceiveService.getEventDetails(eventId: eventId, mobileNo: mobileNo,type: byYou);
+    birthday = DateTime.parse(eventDetails?.eventHostDay ?? DateTime.now().toString());
     setBusy(false);
     showDescription();
     update();
   }
 
+
   Future<void> getEventWishes(String eventId) async {
    // setBusy(true);
     var res = await guestReceiveService.getWishesList(eventId: eventId);
     guestwishesModel = res;
-    log('Data ${guestwishesModel?.length}');
+    log('Data ${guestwishesModel.length}');
    // setBusy(false);
     update();
   }
@@ -114,14 +119,18 @@ class GuestHomeController extends BaseController {
     }
   }
 
-  void startCountdown() {
+  Future<void> startCountdown() async {
     if(birthday.isAfter(DateTime.now())){
-    countdownDuration = birthday.difference(DateTime.now());
-    countdownTimer = Timer.periodic(Duration(seconds: 1), (_) {
+
+    countdownDuration =birthday.difference(DateTime.now());
+    countdownTimer = Timer.periodic(const Duration(seconds: 1), (_) {
       countdownDuration = birthday.difference(DateTime.now());
+
     });}
     else{
+
       countdownDuration = birthday.difference(birthday);
+
     }
      // countdownTimer = Timer.periodic(Duration(seconds: 1), (_) {
        // countdownDuration = birthday.difference(birthday);

@@ -12,14 +12,15 @@ class GuestReceiveService {
   final ApiService _apiService = ApiService();
 
 
-  Future<EventDetailsModel> getEventDetails({required String eventId,required String mobileNo}) async {
-    String url = AppUrls.receiveEventUrl;
+  Future<EventDetailsModel> getEventDetails({required String eventId,required String mobileNo,  bool type =true}) async {
+
+    String url = type == false ? AppUrls.receiveEventUrl: AppUrls.createEventUrl;
 
     final response = await _apiService.getApiCall(
       url: url,
       queryParams:{
         'eventid': eventId,
-       'receiver_phone_number': mobileNo
+       if(type== false) 'receiver_phone_number': mobileNo
       } ,
 
     );

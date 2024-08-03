@@ -214,7 +214,7 @@ class DashboardScreen extends StatelessWidget {
                               height: screenHeight * 0.44,
                               width: screenWidth,
                               padding: EdgeInsets.only(bottom: screenHeight * 0.04),
-                              child: getEventCard(context: context, eventsList: controller.eventListCreatedByUser)),
+                              child: getEventCard(context: context, eventsList: controller.eventListCreatedByUser,type: true)),
                         ),
                         Visibility(
                           visible: controller.eventListCreatedForUser.isNotEmpty,
@@ -255,7 +255,7 @@ class DashboardScreen extends StatelessWidget {
                           child: SizedBox(
                               height: screenHeight * 0.4,
                               width: screenWidth,
-                              child: getEventCard(context: context, eventsList: controller.eventListCreatedForUser)),
+                              child: getEventCard(context: context, eventsList: controller.eventListCreatedForUser,type: false)),
                         ),
                       ],
                     ),
@@ -270,7 +270,7 @@ class DashboardScreen extends StatelessWidget {
   }
 }
 
-Widget getEventCard({required BuildContext context, required List<EventResponseModel> eventsList}) {
+Widget getEventCard({required BuildContext context, required List<EventResponseModel> eventsList, required bool type}) {
   return Container(
     padding: const EdgeInsets.symmetric(horizontal: 20),
     child: ListView.separated(
@@ -280,7 +280,7 @@ Widget getEventCard({required BuildContext context, required List<EventResponseM
           return EventCard(
               eventResponseModel: data,
               onCardTap: () {
-                Get.toNamed(RoutesConst.guestCoverScreen, arguments: data.eventid);
+                Get.toNamed(RoutesConst.guestCoverScreen, arguments: data.eventid,parameters: {'type':type==false ?'For You':'By You'});
               });
         },
         separatorBuilder: (context, index) => const SizedBox(
