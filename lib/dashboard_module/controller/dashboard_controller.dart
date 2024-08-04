@@ -17,9 +17,9 @@ class DashboardController extends BaseController {
   final service = DashboardService();
   List<EventResponseModel> eventListCreatedByUser = [];
   List<EventResponseModel> eventListCreatedForUser = [];
-  String userName = '';
-  String userPhone = '';
-  String userImage = '';
+  String? userName ;
+  String? userPhone ;
+  String? userImage ;
 
   @override
   void onInit() {

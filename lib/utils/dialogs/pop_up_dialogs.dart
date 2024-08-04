@@ -15,28 +15,21 @@ void showSnackBar({required BuildContext context, String? message}) {
 }
 
 void showLoaderDialog({required BuildContext context, String? loadingText, Color? color}) {
-  AlertDialog alert = AlertDialog(
-    shape: const RoundedRectangleBorder(
-        borderRadius: BorderRadius.all(Radius.circular(10.0))),
-    content: Row(
-      crossAxisAlignment: CrossAxisAlignment.center,
-      children: [
-        const CircularProgressIndicator.adaptive(
-
-        ),
-        const SizedBox(width: 15,),
-        Text(
-          loadingText ?? 'Loading...',
-          style: const TextStyle(fontSize: 16, color: blackColor, fontWeight: FontWeight.w500),
-        ),
-      ],
-    ),
-  );
-  showDialog(
+  showAdaptiveDialog(
     barrierDismissible: false,
     context: context,
     builder: (BuildContext context) {
-      return alert;
+      return const Dialog(
+        backgroundColor: Colors.transparent,
+        child: Center(
+          child: SizedBox(
+            height: 50,
+            width: 50,
+            child: CircularProgressIndicator.adaptive(
+                valueColor: AlwaysStoppedAnimation<Color>(whiteColor), backgroundColor: primaryColor),
+          ),
+        ),
+      );
     },
   );
 }
@@ -69,9 +62,11 @@ void showAlertDialogWithOK({String? message, required BuildContext context, Func
   );
 }
 
-void showLogoutAlertDialog({String? message, required BuildContext context,required Function logOutFunction}) {
+void showLogoutAlertDialog({String? message, required BuildContext context, required Function logOutFunction}) {
   final CupertinoAlertDialog alert = CupertinoAlertDialog(
-    title: Center(child: Text(message ?? 'Are you sure to exit?', style: const TextStyle(fontSize: 16,fontWeight: FontWeight.w400))),
+    title: Center(
+        child: Text(message ?? 'Are you sure to exit?',
+            style: const TextStyle(fontSize: 16, fontWeight: FontWeight.w400))),
     actions: <Widget>[
       CupertinoDialogAction(
         isDefaultAction: false,
@@ -97,4 +92,3 @@ void showLogoutAlertDialog({String? message, required BuildContext context,requi
     },
   );
 }
-

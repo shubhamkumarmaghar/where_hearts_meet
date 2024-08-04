@@ -22,7 +22,9 @@ class CreateTimelineScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return GetBuilder<CreateTimelineController>(
+    return PopScope(
+        canPop: false,
+        child: GetBuilder<CreateTimelineController>(
       builder: (controller) {
         return Scaffold(
           bottomNavigationBar: Container(
@@ -33,14 +35,12 @@ class CreateTimelineScreen extends StatelessWidget {
               right: screenWidth * 0.06,
             ),
             child: GradientButton(
-              title: 'Submit',
-              width: screenWidth * 0.8,
-              enabled: controller.imagesList.isNotEmpty || controller.videosList.isNotEmpty,
-              onPressed: controller.addTimelineStories,
-              buttonColor: appColor1,
-              titleTextStyle: textStyleDangrek(fontSize: 22)
-
-            ),
+                title: 'Submit',
+                width: screenWidth * 0.8,
+                enabled: controller.imagesList.isNotEmpty || controller.videosList.isNotEmpty,
+                onPressed: controller.addTimelineStories,
+                buttonColor: appColor1,
+                titleTextStyle: textStyleDangrek(fontSize: 22)),
           ),
           body: Container(
             height: screenHeight,
@@ -186,7 +186,7 @@ class CreateTimelineScreen extends StatelessWidget {
           ),
         );
       },
-    );
+    ));
   }
 
   Widget addTimelineImages() {

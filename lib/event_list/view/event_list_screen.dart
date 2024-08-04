@@ -1,6 +1,5 @@
-import 'package:flutter/cupertino.dart';
+
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 import 'package:where_hearts_meet/event_list/controller/event_list_controller.dart';
 import 'package:where_hearts_meet/utils/extensions/string_extension.dart';
@@ -198,22 +197,6 @@ class EventListScreen extends StatelessWidget {
                       ),
                     ),
                     const Spacer(),
-                    Container(
-                      alignment: Alignment.centerRight,
-                      width: screenWidth * 0.3,
-                      child: Text(
-                        "From : ${!controller.forSelf ? 'You' : '${data.hostName}'}",
-                        style: textStyleDangrek(fontSize: 16),
-                        textAlign: TextAlign.center,
-                        maxLines: 1,
-                        overflow: TextOverflow.ellipsis,
-                      ),
-                    ),
-                  ],
-                ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
                     Text(
                       getYearTime(data.eventHostDay ?? ''),
                       style: textStyleDangrek(fontSize: 18),
@@ -221,12 +204,19 @@ class EventListScreen extends StatelessWidget {
                       maxLines: 1,
                       overflow: TextOverflow.ellipsis,
                     ),
-                    const Icon(
-                      Icons.arrow_forward_outlined,
-                      size: 18,
-                      color: Colors.white,
-                    ),
+
                   ],
+                ),
+                Container(
+                  alignment: Alignment.centerLeft,
+                  width: screenWidth * 0.8,
+                  child: Text(
+                    "From : ${!controller.forSelf ? 'You' : '${data.hostName}'}",
+                    style: textStyleDangrek(fontSize: 16),
+                    textAlign: TextAlign.center,
+                    maxLines: 1,
+                    overflow: TextOverflow.ellipsis,
+                  ),
                 ),
               ],
             ),

@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:where_hearts_meet/utils/consts/color_const.dart';
 import 'package:where_hearts_meet/utils/consts/images_const.dart';
 
-Widget cachedImage({String? imageUrl, double height = 90, double width = 120}) {
+Widget cachedImage({String? imageUrl, double height = 90, double width = 120,BoxFit? boxFit}) {
   return imageUrl != null && imageUrl.isNotEmpty
       ? CachedNetworkImage(
           memCacheHeight: height.toInt(),
@@ -14,7 +14,7 @@ Widget cachedImage({String? imageUrl, double height = 90, double width = 120}) {
           imageUrl: imageUrl,
           imageBuilder: (context, imageProvider) => Container(
             decoration: BoxDecoration(
-              image: DecorationImage(image: imageProvider, fit: BoxFit.cover),
+              image: DecorationImage(image: imageProvider, fit:boxFit?? BoxFit.cover),
             ),
           ),
           placeholder: (context, url) => Shimmer.fromColors(

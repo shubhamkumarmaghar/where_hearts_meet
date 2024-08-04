@@ -12,6 +12,7 @@ import 'package:where_hearts_meet/create_event_module/screens/add_giftcard_scree
 import 'package:where_hearts_meet/create_event_module/screens/add_secret_wishes_screen.dart';
 import 'package:where_hearts_meet/create_event_module/screens/add_timeline_screen.dart';
 import 'package:where_hearts_meet/create_event_module/screens/add_wishes_screen.dart';
+import 'package:where_hearts_meet/dashboard_module/binding/dashboard_binding.dart';
 import 'package:where_hearts_meet/dashboard_module/screens/dashboard_screen.dart';
 import 'package:where_hearts_meet/routes/routes_const.dart';
 import '../../auth_module/binding/login_binding.dart';
@@ -29,9 +30,9 @@ import '../../event_list/view/event_list_screen.dart';
 
 import '../../preview_event/binding/created_wishes_preview_binding.dart';
 import '../../preview_event/view/created_wishes_preview_screen.dart';
-import '../../profile_module/binding/edit_profile_binding.dart';
+import '../../profile_module/binding/profile_binding.dart';
 
-import '../../profile_module/screens/edit_profile_screen.dart';
+import '../../profile_module/screens/profile_screen.dart';
 import '../guest_dashboard/binding/guest_dashboard_binding.dart';
 import '../guest_dashboard/guest_home/binding/guest_home_binding.dart';
 import '../guest_dashboard/guest_home/view/guest_home.dart';
@@ -44,18 +45,14 @@ import '../create_event/view/create_personal_wishes_screen.dart';
 import '../preview_event/binding/created_gifts_preview_binding.dart';
 import '../preview_event/view/created_gifts_preview_screen.dart';
 
-
 class AppRoutes {
   static List<GetPage> getRoutes() {
     return [
+      GetPage(name: RoutesConst.dashboardScreen, page: () => DashboardScreen(), binding: DashboardBinding()),
       GetPage(
-        name: RoutesConst.dashboardScreen,
-        page: () => DashboardScreen(),
-      ),
-      GetPage(
-        name: RoutesConst.editProfileScreen,
-        binding: EditProfileBinding(),
-        page: () => EditProfileScreen(),
+        name: RoutesConst.profileScreen,
+        binding: ProfileBinding(),
+        page: () => ProfileScreen(),
       ),
       GetPage(
         name: RoutesConst.loginScreen,
@@ -72,7 +69,6 @@ class AppRoutes {
         binding: AddEventBinding(),
         page: () => AddEventScreen(),
       ),
-
       GetPage(
         name: RoutesConst.addEventSpecialsScreen,
         binding: AddEventSpecialsBinding(),
@@ -153,7 +149,6 @@ class AppRoutes {
         binding: CreateGiftsBinding(),
         page: () => SelectGiftCardScreen(),
       ),
-
       GetPage(
         name: RoutesConst.createdWishesPreviewScreen,
         binding: CreatedWishesPreviewBinding(),

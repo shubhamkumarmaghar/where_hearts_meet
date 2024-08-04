@@ -61,8 +61,9 @@ Widget getDrawerContentWidget({required IconData icon, required String heading, 
 Widget scheduleEventView() {
   return GestureDetector(
     onTap: () {
-      //Get.toNamed(RoutesConst.createEventScreen);
-      Get.toNamed(RoutesConst.createGiftsScreen);
+      Get.toNamed(RoutesConst.createEventScreen);
+      // Get.toNamed(RoutesConst.createGiftsScreen);
+      //Get.toNamed(RoutesConst.createdGiftsPreviewScreen);
     },
     child: Stack(
       children: [
@@ -201,7 +202,7 @@ Widget getWishesCard(
 Widget getEventCard(
     {required BuildContext context,
     required List<EventResponseModel> eventsList,
-      required EventsCreated eventsCreated,
+    required EventsCreated eventsCreated,
     required DashboardController controller}) {
   return Container(
     padding: const EdgeInsets.symmetric(horizontal: 20),
@@ -212,7 +213,7 @@ Widget getEventCard(
           return EventCard(
               eventResponseModel: data,
               onDelete: () {
-                controller.deleteEvent(eventId: data.eventid ?? "",eventsCreated: eventsCreated);
+                controller.deleteEvent(eventId: data.eventid ?? "", eventsCreated: eventsCreated);
               },
               onView: () {
                 Get.toNamed(RoutesConst.guestCoverScreen, arguments: data.eventid);

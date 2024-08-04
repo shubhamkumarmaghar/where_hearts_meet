@@ -1,4 +1,3 @@
-
 import 'dart:io';
 
 import 'package:dio/dio.dart' as dio;
@@ -26,6 +25,14 @@ class CreateEventService {
         filename: (imageFile.path.split('/')).last, contentType: MediaType('image', (imageFile.path.split('.')).last));
 
     final response = await _apiService.formDataPostApiCall(url: AppUrls.uploadFileUrl, data: {'file': img});
+
+    return response['data'] != null ? ImageResponseModel.fromJson(response['data']) : null;
+  }
+  Future<ImageResponseModel?> uploadVideoApi({required File videoFile}) async {
+    final video = await dio.MultipartFile.fromFile(videoFile.path,
+        filename: (videoFile.path.split('/')).last, contentType: MediaType('video', (videoFile.path.split('.')).last));
+
+    final response = await _apiService.formDataPostApiCall(url: AppUrls.uploadVideoUrl, data: {'file': video});
 
     return response['data'] != null ? ImageResponseModel.fromJson(response['data']) : null;
   }
@@ -79,18 +86,8 @@ class CreateEventService {
     return null;
   }
 
-  Future<PersonalWishesModel?> addPersonalWishesEventApi(
-      {required String eventId,
-      required List<String> imagesList,
-      required List<String> videosList,
-      required List<String> messagesList}) async {
+  Future<PersonalWishesModel?> addPersonalWishesEventApi({required PersonalWishesModel model}) async {
     String url = AppUrls.personalWishesUrl;
-
-    PersonalWishesModel model = PersonalWishesModel();
-    model.eventId = eventId;
-    model.personalWishes = messagesList;
-    model.images = imagesList;
-    model.videos = videosList;
 
     final response = await _apiService.postApiCall(
       url: url,
@@ -104,6 +101,7 @@ class CreateEventService {
     }
     return null;
   }
+
   Future<GiftModel?> addGiftsEventApi({required GiftModel giftModel}) async {
     String url = AppUrls.giftsUrl;
 

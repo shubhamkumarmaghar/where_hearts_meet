@@ -1,4 +1,4 @@
-
+import 'dart:developer';
 import 'dart:io';
 
 import 'package:flutter/cupertino.dart';
@@ -15,6 +15,7 @@ import '../../utils/consts/service_const.dart';
 import '../../utils/dialogs/pop_up_dialogs.dart';
 import '../../utils/model/image_response_model.dart';
 import '../../utils/repository/created_event_repo.dart';
+import '../../utils/services/functions_service.dart';
 import '../model/wishes_model.dart';
 import '../service/create_event_service.dart';
 
@@ -64,6 +65,13 @@ class CreateWishesController extends BaseController {
   }
 
   void onCaptureVideo({required ImageSource source}) async {
+    final thumbnail =
+    await FunctionsService.generateThumbnail("https://hehbucket.s3.amazonaws.com/172275963580152704.mp4");
+    if(thumbnail != null){
+      log('thubmnail $thumbnail');
+    }
+
+    return;
     final ImagePicker picker = ImagePicker();
 
     var video = await picker.pickVideo(
@@ -78,15 +86,23 @@ class CreateWishesController extends BaseController {
 
   Future<void> _uploadVideo({required File videoFile}) async {
     showLoaderDialog(context: Get.context!);
-
-    final url = await createEventService.uploadVideoToAws(videoFile: videoFile);
-
+    final videoResponse = await createEventService.uploadVideoApi(videoFile: videoFile);
     cancelDialog();
-    if (url.isNotEmpty) {
-      videosList.add(url);
-      update();
+    // showLoaderDialog(context: Get.context!);
+    // final url = await createEventService.uploadVideoToAws(videoFile: videoFile);
+    // cancelDialog();
+    if (videoResponse != null) {
+      final thumbnail =
+          await FunctionsService.generateThumbnail("https://hehbucket.s3.amazonaws.com/172275963580152704.mp4");
+
+      if (thumbnail != null) {
+        videoResponse.fileUrl = thumbnail;
+        imagesList.add(videoResponse);
+        update();
+      }
     }
   }
+
   void addWishes() async {
     showLoaderDialog(context: Get.context!);
     final response = await createEventService.addWishesEventApi(
@@ -109,22 +125,32 @@ class CreateWishesController extends BaseController {
     }
   }
 
-  void navigateToCreatedWishesPreviewScreen(WishesModel wishesModel) {
-    Get.toNamed(
+  void navigateToCreatedWishesPreviewScreen(WishesModel wishesModel) async {
+    final res = await Get.toNamed(
       RoutesConst.createdWishesPreviewScreen,
       arguments: wishesModel,
     );
+    if (res != null) {
+      try {
+        final wishId = res as int;
+        wishesList.removeWhere((element) => element.id == wishId);
+        update();
+      } catch (e) {
+        log(e.toString());
+      }
+    }
   }
 
   void navigateToCreateTimelineScreen() {
     if (wishesList.isNotEmpty) {
-      Get.offNamed(
+      Get.offAllNamed(
         RoutesConst.createTimelineScreen,
       );
     } else {
       AppWidgets.getToast(message: 'Please add at least 1 wish', color: redColor);
     }
   }
+
   @override
   void onClose() {
     nameTextController.dispose();

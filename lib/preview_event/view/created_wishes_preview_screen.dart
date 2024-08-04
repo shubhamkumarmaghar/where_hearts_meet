@@ -8,6 +8,7 @@ import 'package:where_hearts_meet/utils/widgets/cached_image.dart';
 import '../../utils/consts/app_screen_size.dart';
 import '../../utils/util_functions/decoration_functions.dart';
 import '../../utils/widgets/custom_photo_view.dart';
+import '../../utils/widgets/pop_up_menus.dart';
 
 class CreatedWishesPreviewScreen extends StatelessWidget {
   final controller = Get.find<CreatedWishesPreviewController>();
@@ -90,11 +91,7 @@ class CreatedWishesPreviewScreen extends StatelessWidget {
                     ],
                   ),
                   Spacer(),
-                  const Icon(
-                    Icons.more_vert_rounded,
-                    color: Colors.white,
-                    size: 24,
-                  )
+                  moreViewPopUpMenu(showBackground: false,onDelete:controller.deleteWish),
                 ],
               ),
               SizedBox(

@@ -131,7 +131,7 @@ class ApiService {
     required Response response,
     String? url,
   }) async {
-    log('Status Code :: ${response.statusCode} -- $url    ${response.data}');
+    //log('Status Code :: ${response.statusCode} -- $url    ${response.data}');
     switch (response.statusCode) {
       case 200:
         return response.data.isNotEmpty ? response.data : {'message': 'failure'};

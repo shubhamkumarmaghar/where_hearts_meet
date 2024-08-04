@@ -29,7 +29,7 @@ class CreateEventScreen extends StatelessWidget {
           title: 'Submit',
           buttonCorner: 20,
           height: screenHeight * 0.06,
-          buttonColor: primaryColor,
+          buttonColor: appColor1,
           width: screenWidth * 0.8,
           onPressed: () async {
             FocusScope.of(context).requestFocus(FocusNode());
@@ -85,12 +85,9 @@ class CreateEventScreen extends StatelessWidget {
                               title: "Person's mobile number*",
                               hint: 'Mobile number',
                               inputType: TextInputType.phone,
-
+                              maxLength: 10,
                               onChanged: (text) {},
                               controller: controller.personMobileController),
-                          SizedBox(
-                            height: screenHeight * 0.02,
-                          ),
                           DesignerTextField(
                               title: "Description",
                               maxLines: 5,
@@ -165,27 +162,27 @@ class CreateEventScreen extends StatelessWidget {
                             },
                             child: controller.coverImage != null && controller.coverImage!.isNotEmpty
                                 ? ClayContainer(
-                                height: screenHeight * 0.24,
-                                width: screenWidth * 0.85,
-                                borderRadius: 20,
-                                color: appColor2,
-                                child: ClipRRect(
-                                  borderRadius: BorderRadius.circular(20),
-                                  child: Image.network(
-                                    controller.coverImage!,
-                                    fit: BoxFit.cover,
-                                  ),
-                                ))
+                                    height: screenHeight * 0.24,
+                                    width: screenWidth * 0.85,
+                                    borderRadius: 20,
+                                    color: appColor2,
+                                    child: ClipRRect(
+                                      borderRadius: BorderRadius.circular(20),
+                                      child: Image.network(
+                                        controller.coverImage!,
+                                        fit: BoxFit.cover,
+                                      ),
+                                    ))
                                 : ClayContainer(
-                                height: screenHeight * 0.12,
-                                width: screenWidth * 0.3,
-                                borderRadius: 20,
-                                color: appColor2,
-                                child: Icon(
-                                  Icons.upload,
-                                  size: screenHeight * 0.06,
-                                  color: Colors.white,
-                                )),
+                                    height: screenHeight * 0.12,
+                                    width: screenWidth * 0.3,
+                                    borderRadius: 20,
+                                    color: appColor2,
+                                    child: Icon(
+                                      Icons.upload,
+                                      size: screenHeight * 0.06,
+                                      color: Colors.white,
+                                    )),
                           ),
                           SizedBox(
                             height: screenHeight * 0.02,

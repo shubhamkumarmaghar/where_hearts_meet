@@ -1,4 +1,7 @@
+import 'dart:developer';
+
 import 'package:clay_containers/widgets/clay_container.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
@@ -12,6 +15,7 @@ import '../../utils/util_functions/app_pickers.dart';
 import '../../utils/util_functions/decoration_functions.dart';
 import '../../utils/widgets/designer_text_field.dart';
 import '../../utils/widgets/gradient_button.dart';
+import '../../utils/widgets/outlined_busy_button.dart';
 
 class CreateGiftsScreen extends StatelessWidget {
   final controller = Get.find<CreateGiftsController>();
@@ -30,13 +34,25 @@ class CreateGiftsScreen extends StatelessWidget {
               left: screenWidth * 0.06,
               right: screenWidth * 0.06,
             ),
-            child: GradientButton(
-                title: 'Submit',
-                width: screenWidth * 0.8,
-                enabled: true,
-                onPressed: controller.addGifts,
-                buttonColor: appColor1,
-                titleTextStyle: textStyleDangrek(fontSize: 22)),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                GradientButton(
+                  title: 'Submit',
+                  width: screenWidth * 0.4,
+                  onPressed: controller.addGifts,
+                  buttonColor: appColor1,
+                  titleTextStyle: textStyleDangrek(fontSize: 22),
+                ),
+                OutlinedBusyButton(
+                  title: 'Next',
+                  width: screenWidth * 0.4,
+                  titleTextStyle: textStyleDangrek(fontSize: 22, color: primaryColor),
+                  onPressed: controller.navigateToEventCompletedScreen,
+                  enabled: controller.submittedGiftsList.isNotEmpty,
+                ),
+              ],
+            ),
           ),
           body: Container(
             height: screenHeight,
@@ -199,18 +215,28 @@ class CreateGiftsScreen extends StatelessWidget {
   }
 
   Widget _getSubmittedGiftsBadgeView() {
-    return Badge.count(
-      count: controller.submittedGiftsList.length,
-      child: Container(
-          padding: EdgeInsets.all(10),
-          decoration: BoxDecoration(
-            color: Colors.white,
-            shape: BoxShape.circle,
+    return Stack(
+      children: [
+        Container(
+            height: screenHeight*0.055,
+            width: screenHeight*0.055,
+            padding: const EdgeInsets.all(10),
+            decoration: BoxDecoration(color: Colors.white, borderRadius: BorderRadius.circular(50)),
+            child: ClipRRect(
+                borderRadius: BorderRadius.circular(50),
+                child: Image.asset(
+                  giftsIcon,
+                  fit: BoxFit.cover,
+                ))),
+        Positioned(
+          right: 0,
+          child: CircleAvatar(
+            radius: 8,
+            backgroundColor: errorColor,
+            child: Text('${controller.submittedGiftsList.length}',style: const TextStyle(color: Colors.white,fontSize: 8),),
           ),
-          child: Icon(
-            Icons.card_giftcard,
-            size: 30,
-          )),
+        )
+      ],
     );
   }
 }

@@ -18,23 +18,23 @@ class UserModel {
   bool? userCreatedViaGuest;
 
   UserModel(
-      {lastLogin,
-        username,
-        firstName,
-        email,
-        lastName,
-        dateOfBirth,
-        address,
-        phoneNumber,
-        gender,
-        dateJoined,
-        maritalStatus,
-        isActive,
-        profilePic,
-        fcmToken,
-        uid,
-        isFirstTimeUser,
-        userCreatedViaGuest});
+      {this.lastLogin,
+        this.username,
+        this.firstName,
+        this.email,
+        this.lastName,
+        this.dateOfBirth,
+        this.address,
+        this.phoneNumber,
+        this.gender,
+        this.dateJoined,
+        this.maritalStatus,
+        this.isActive,
+        this.profilePic,
+        this.fcmToken,
+        this.uid,
+        this.isFirstTimeUser,
+        this.userCreatedViaGuest});
 
   UserModel.fromJson(Map<String, dynamic> json) {
     lastLogin = json['last_login'];
@@ -57,24 +57,25 @@ class UserModel {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data =  {};
-    data['last_login'] = lastLogin;
-    data['username'] = username;
-    data['first_name'] = firstName;
-    data['email'] = email;
-    data['last_name'] = lastName;
-    data['date_of_birth'] = dateOfBirth;
-    data['address'] = address;
-    data['phone_number'] = phoneNumber;
-    data['gender'] = gender;
-    data['date_joined'] = dateJoined;
-    data['marital_status'] = maritalStatus;
-    data['is_active'] = isActive;
-    data['profile_pic'] = profilePic;
-    data['fcm_token'] = fcmToken;
-    data['uid'] = uid;
-    data['is_first_time_user'] = isFirstTimeUser;
-    data['user_created_via_guest'] = userCreatedViaGuest;
+    final Map<String, dynamic> data = new Map<String, dynamic>();
+    data['last_login'] = this.lastLogin;
+    data['username'] = this.username;
+    data['first_name'] = this.firstName;
+    data['email'] = this.email;
+    data['last_name'] = this.lastName;
+    data['date_of_birth'] = this.dateOfBirth;
+    data['address'] = this.address;
+    data['phone_number'] = this.phoneNumber;
+    data['gender'] = this.gender;
+    data['date_joined'] = this.dateJoined;
+    data['marital_status'] = this.maritalStatus;
+    data['is_active'] = this.isActive;
+    data['profile_pic'] = this.profilePic;
+    data['fcm_token'] = this.fcmToken;
+    data['uid'] = this.uid;
+    data['is_first_time_user'] = this.isFirstTimeUser;
+    data['user_created_via_guest'] = this.userCreatedViaGuest;
     return data;
   }
 }
+

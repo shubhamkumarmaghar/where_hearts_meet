@@ -80,6 +80,10 @@ TextStyle textStyleDangrek({double? fontSize, Color? color, FontWeight? fontWeig
   return GoogleFonts.dangrek(
       color: color ?? Colors.white, fontWeight: fontWeight ?? FontWeight.w500, fontSize: fontSize ?? 22,decoration: textDecoration,decorationColor:color ?? Colors.white );
 }
+TextStyle textStyleAleo({double? fontSize, Color? color, FontWeight? fontWeight,TextDecoration? textDecoration}) {
+  return GoogleFonts.aleo(
+      color: color ?? Colors.white, fontWeight: fontWeight ?? FontWeight.w500, fontSize: fontSize ?? 22,decoration: textDecoration,decorationColor:color ?? Colors.white );
+}
 
 TextStyle textStyleAbel({double? fontSize, Color? color, FontWeight? fontWeight,TextDecoration? textDecoration}) {
   return GoogleFonts.abel(

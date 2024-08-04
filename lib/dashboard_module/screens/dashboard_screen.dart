@@ -1,4 +1,5 @@
 import 'package:clay_containers/clay_containers.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -20,14 +21,13 @@ import 'dashboard_drawer_screen.dart';
 final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
 
 class DashboardScreen extends StatelessWidget {
-  final controller = DashboardController();
+  final controller = Get.find<DashboardController>();
 
   DashboardScreen({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return GetBuilder<DashboardController>(
-      init: DashboardController(),
       builder: (controller) {
         return Scaffold(
           key: _scaffoldKey,
@@ -113,7 +113,7 @@ class DashboardScreen extends StatelessWidget {
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
                                   Text(
-                                    controller.userName != null && controller.userName.isNotEmpty
+                                    controller.userName != null && controller.userName!.isNotEmpty
                                         ? 'Hello, ${controller.userName} !'
                                         : "Hello User !",
                                     style: textStyleAbel(fontSize: 20, fontWeight: FontWeight.w600),
@@ -178,6 +178,20 @@ class DashboardScreen extends StatelessWidget {
                         getWishesCard(context: context, wishesList: getWishesCardsDataList(), controller: controller),
                         SizedBox(
                           height: screenHeight * 0.02,
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.symmetric(horizontal: 16),
+                          child: Text(
+                            'What you can do',
+                            style: dashboardtextStyleDangrek,
+                          ),
+                        ),
+                        SizedBox(
+                          height: screenHeight * 0.02,
+                        ),
+                        appFeaturesView(),
+                        SizedBox(
+                          height: screenHeight * 0.04,
                         ),
                         Visibility(
                             visible: controller.eventListCreatedByUser.isNotEmpty,
@@ -267,13 +281,12 @@ class DashboardScreen extends StatelessWidget {
                                   eventsList: controller.eventListCreatedForUser,
                                   eventsCreated: EventsCreated.forUser)),
                         ),
-
+                        SizedBox(
+                          height: screenHeight * 0.02,
+                        ),
                       ],
                     ),
                   ),
-                ),
-                SizedBox(
-                  height: screenHeight * 0.02,
                 ),
               ],
             ),
@@ -304,9 +317,8 @@ class DashboardScreen extends StatelessWidget {
                 controller.deleteEvent(eventId: data.eventid ?? '', eventsCreated: eventsCreated);
               },
               onView: () {
-                Get.toNamed(
-                  RoutesConst.guestCoverScreen,
-                  arguments: data.eventid,
+                Get.toNamed(RoutesConst.guestCoverScreen,
+                    arguments: data.eventid,
                     parameters: {'type': eventsCreated == EventsCreated.forUser ? 'For You' : 'By You'});
               },
             );
@@ -317,7 +329,55 @@ class DashboardScreen extends StatelessWidget {
           itemCount: eventsList.length > 2 ? 3 : eventsList.length),
     );
   }
-}
 
-//Event\'s  \u{1F970}
-//parameters: 'For You':'By You'
+  Widget appFeaturesView() {
+    return Container(
+      padding: const EdgeInsets.symmetric(horizontal: 16),
+      child: GridView.builder(
+          scrollDirection: Axis.vertical,
+          shrinkWrap: true,
+          padding: EdgeInsets.zero,
+          physics: const NeverScrollableScrollPhysics(),
+          itemCount: featuresTextList.length,
+          gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+              crossAxisCount: 2,
+              mainAxisSpacing: 15,
+              crossAxisSpacing: 15,
+              childAspectRatio: screenHeight / (screenWidth + 100)),
+          itemBuilder: (BuildContext context, int index) {
+            var data = featuresTextList[index];
+            return Row(
+              children: [
+                Expanded(
+                  child: ClayContainer(
+                    color: appColor1,
+                    borderRadius: 20,
+                    child: Container(
+                      width: screenWidth,
+                      padding: EdgeInsets.symmetric(horizontal: screenWidth * 0.025),
+                      alignment: Alignment.center,
+                      decoration: BoxDecoration(
+                          color: appColor1,
+                          borderRadius: BorderRadius.circular(20),
+                          border: Border.all(color: Colors.white, width: 0.4)),
+                      child: Text(
+                        data,
+                        style: textStyleAleo(fontSize: 16),
+                        textAlign: TextAlign.center,
+                      ),
+                    ),
+                  ),
+                ),
+              ],
+            );
+          }),
+    );
+  }
+
+  List<String> get featuresTextList => [
+        "Send wishes to your loved one's.",
+        "Send Gifts/GiftCards to your loved one's.",
+        "Surprise your loved one's in unique way.",
+        "We assure your loved one's wishes come to you.️",
+      ];
+}
