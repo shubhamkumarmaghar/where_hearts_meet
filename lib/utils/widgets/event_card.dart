@@ -4,8 +4,6 @@ import 'package:where_hearts_meet/utils/consts/app_screen_size.dart';
 import 'package:where_hearts_meet/utils/consts/color_const.dart';
 import 'package:where_hearts_meet/utils/widgets/cached_image.dart';
 import 'package:where_hearts_meet/utils/widgets/pop_up_menus.dart';
-
-import '../consts/actions_enum.dart';
 import '../util_functions/decoration_functions.dart';
 
 class EventCard extends StatelessWidget {

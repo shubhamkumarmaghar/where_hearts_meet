@@ -1,4 +1,3 @@
-
 import 'package:get/get.dart';
 import 'package:flutter/material.dart';
 import 'package:where_hearts_meet/utils/util_functions/decoration_functions.dart';
@@ -16,7 +15,7 @@ class ProfileScreen extends StatelessWidget {
       builder: (controller) {
         return Scaffold(
           body: controller.isBusy
-              ? CircularProgressIndicator()
+              ? const Center(child: CircularProgressIndicator())
               : Container(
                   height: screenHeight,
                   width: screenWidth,

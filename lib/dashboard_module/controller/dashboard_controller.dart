@@ -15,11 +15,13 @@ import '../../utils/model/week_model.dart';
 class DashboardController extends BaseController {
   List<WeekModel> currentWeekDates = [];
   final service = DashboardService();
-  List<EventResponseModel> eventListCreatedByUser = [];
-  List<EventResponseModel> eventListCreatedForUser = [];
-  String? userName ;
-  String? userPhone ;
-  String? userImage ;
+  List<EventResponseModel>? eventListCreatedByUser;
+  List<EventResponseModel>? eventListCreatedForUser;
+  String? userName;
+
+  String? userPhone;
+
+  String? userImage;
 
   @override
   void onInit() {
@@ -45,33 +47,32 @@ class DashboardController extends BaseController {
     cancelDialog();
     if (res != null) {
       if (eventsCreated == EventsCreated.byUser) {
-        eventListCreatedByUser.removeWhere((element) => element.eventid == eventId);
-
+        eventListCreatedByUser?.removeWhere((element) => element.eventid == eventId);
       } else if (eventsCreated == EventsCreated.forUser) {
-        eventListCreatedForUser.removeWhere((element) => element.eventid == eventId);
+        eventListCreatedForUser?.removeWhere((element) => element.eventid == eventId);
       }
     }
     update();
   }
 
   Future<void> getEventsCreatedByUser() async {
-    setBusy(true);
     final res = await service.getAllEventsCreatedByUserApi();
-    if (res.isNotEmpty) {
+    if (res != null && res.isNotEmpty) {
       eventListCreatedByUser = res;
-      update();
+    } else {
+      eventListCreatedByUser = [];
     }
-    setBusy(false);
+    update();
   }
 
   Future<void> getEventsCreatedForUser() async {
-    setBusy(true);
     final res = await service.getAllEventsCreatedForUserApi();
-    if (res.isNotEmpty) {
+    if (res != null && res.isNotEmpty) {
       eventListCreatedForUser = res;
-      update();
+    } else {
+      eventListCreatedForUser = [];
     }
-    setBusy(false);
+    update();
   }
 
   void getDatesForWeek() {

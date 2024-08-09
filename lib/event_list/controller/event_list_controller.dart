@@ -8,7 +8,7 @@ import '../service/event_list_service.dart';
 
 class EventListController extends BaseController {
   final _eventListService = EventListService();
-  List<EventResponseModel> eventsList = [];
+  List<EventResponseModel>? eventsList;
   late EventsCreated eventsCreated;
   late String pageTitle;
   late bool forSelf;
@@ -29,22 +29,22 @@ class EventListController extends BaseController {
   }
 
   Future<void> eventsListCreatedByUser() async {
-    setBusy(true);
     final response = await _eventListService.eventsListCreatedByUserApi();
-    if (response.isNotEmpty) {
+    if (response != null && response.isNotEmpty) {
       eventsList = response;
+    } else {
+      eventsList = [];
     }
-    setBusy(false);
     update();
   }
 
   Future<void> eventsListCreatedForUser() async {
-    setBusy(true);
     final response = await _eventListService.eventsListCreatedForUserApi();
-    if (response.isNotEmpty) {
+    if (response != null && response.isNotEmpty) {
       eventsList = response;
+    } else {
+      eventsList = [];
     }
-    setBusy(false);
     update();
   }
 
@@ -53,7 +53,7 @@ class EventListController extends BaseController {
     final res = await _eventListService.deleteEventApi(eventId: eventId);
     cancelDialog();
     if (res != null) {
-      eventsList.removeWhere((element) => element.eventid == eventId);
+      eventsList?.removeWhere((element) => element.eventid == eventId);
     }
     update();
   }

@@ -1,15 +1,18 @@
-
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:where_hearts_meet/event_list/controller/event_list_controller.dart';
+import 'package:where_hearts_meet/utils/consts/string_consts.dart';
 import 'package:where_hearts_meet/utils/extensions/string_extension.dart';
+import 'package:where_hearts_meet/utils/shimmers/event_list_shimmer.dart';
 import 'package:where_hearts_meet/utils/widgets/app_bar_widget.dart';
 import 'package:where_hearts_meet/utils/widgets/cached_image.dart';
 import '../../create_event/model/event_response_model.dart';
 import '../../routes/routes_const.dart';
 import '../../utils/consts/app_screen_size.dart';
+import '../../utils/consts/screen_const.dart';
 import '../../utils/util_functions/decoration_functions.dart';
 import '../../utils/widgets/custom_photo_view.dart';
+import '../../utils/widgets/no_data_screen.dart';
 import '../../utils/widgets/pop_up_menus.dart';
 
 class EventListScreen extends StatelessWidget {
@@ -29,33 +32,38 @@ class EventListScreen extends StatelessWidget {
               gradient: backgroundGradient,
             ),
             padding: const EdgeInsets.symmetric(horizontal: 20),
-            child: SingleChildScrollView(
-              child: Column(
-                children: [
-                  SizedBox(
-                    height: screenHeight * 0.07,
-                  ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    children: [
-                      backIcon(),
-                      const Spacer(),
-                      Text(
-                        controller.pageTitle,
-                        style: textStyleDangrek(fontSize: 24),
-                      ),
-                      const Spacer(),
-                    ],
-                  ),
-                  SizedBox(
-                    height: screenHeight * 0.02,
-                  ),
-                  _eventInfoCardsWidget(eventsList: controller.eventsList),
-                  SizedBox(
-                    height: screenHeight * 0.03,
-                  ),
-                ],
-              ),
+            child: Column(
+              children: [
+                SizedBox(
+                  height: screenHeight * 0.07,
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  children: [
+                    backIcon(),
+                    const Spacer(),
+                    Text(
+                      controller.pageTitle,
+                      style: textStyleDangrek(fontSize: 24),
+                    ),
+                    const Spacer(),
+                  ],
+                ),
+                SizedBox(
+                  height: screenHeight * 0.02,
+                ),
+                controller.eventsList == null
+                    ? const EventListShimmer()
+                    : controller.eventsList != null && controller.eventsList!.isEmpty
+                        ? NoDataScreen(
+                            message: controller.eventsCreated == EventsCreated.byUser
+                                ? StringConsts.noEventsCreatedByYou
+                                : StringConsts.noEventsCreatedForYou,
+                          )
+                        : _eventInfoCardsWidget(
+                            eventsList: controller.eventsList ?? [],
+                          ),
+              ],
             ),
           ),
         );
@@ -95,15 +103,13 @@ class EventListScreen extends StatelessWidget {
                       Positioned(
                           right: 10,
                           top: 10,
-                          child: moreViewPopUpMenu(
-                              onDelete: () {
-                                controller.deleteEvent(eventId: data.eventid ?? "");
-                              },
-                              onView: () {
-                                Get.toNamed(RoutesConst.guestCoverScreen,
-                                    arguments: data.eventid, parameters: {'type': controller.forSelf == true ? 'For You' : 'By You'});
-
-                              })),
+                          child: moreViewPopUpMenu(onDelete: () {
+                            controller.deleteEvent(eventId: data.eventid ?? "");
+                          }, onView: () {
+                            Get.toNamed(RoutesConst.guestCoverScreen,
+                                arguments: data.eventid,
+                                parameters: {'type': controller.forSelf == true ? 'For You' : 'By You'});
+                          })),
                       Positioned(
                         right: screenWidth * 0.15,
                         bottom: screenHeight * 0.01,
@@ -204,7 +210,6 @@ class EventListScreen extends StatelessWidget {
                       maxLines: 1,
                       overflow: TextOverflow.ellipsis,
                     ),
-
                   ],
                 ),
                 Container(

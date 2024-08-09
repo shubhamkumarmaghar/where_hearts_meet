@@ -8,7 +8,7 @@ import '../../utils/services/api_service.dart';
 class EventListService {
   final ApiService _apiService = ApiService();
 
-  Future<List<EventResponseModel>> eventsListCreatedByUserApi() async {
+  Future<List<EventResponseModel>?> eventsListCreatedByUserApi() async {
     String url = AppUrls.eventsCreatedByUserUrl;
     final response = await _apiService.getApiCall(
       url: url,
@@ -20,30 +20,26 @@ class EventListService {
       final list = iterable.map((event) => EventResponseModel.fromJson(event)).toList();
       return list;
     } else {
-      return [];
+      return null;
     }
   }
 
-  Future<List<EventResponseModel>> eventsListCreatedForUserApi() async {
+  Future<List<EventResponseModel>?> eventsListCreatedForUserApi() async {
     final storage = GetStorage();
     var userPhone = storage.read(userMobile) ?? '';
     String url = AppUrls.eventsCreatedForUserUrl;
-    final response = await _apiService.getApiCall(
-        url: url,
-        queryParams: {
-          "receiver_phone_number": userPhone
-        }
-    );
+    final response = await _apiService.getApiCall(url: url, queryParams: {"receiver_phone_number": userPhone});
     final data = response;
 
-    if (data['message'].toString().toLowerCase().contains('events found')&& data['data'] != null) {
+    if (data['message'].toString().toLowerCase().contains('events found') && data['data'] != null) {
       Iterable iterable = data['data'];
       final list = iterable.map((event) => EventResponseModel.fromJson(event)).toList();
       return list;
     } else {
-      return [];
+      return null;
     }
   }
+
   Future<String?> deleteEventApi({required String eventId}) async {
     String url = AppUrls.createEventUrl;
 

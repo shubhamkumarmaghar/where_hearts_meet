@@ -1,6 +1,7 @@
 import 'package:clay_containers/clay_containers.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:where_hearts_meet/dashboard_module/controller/dashboard_controller.dart';
@@ -8,11 +9,14 @@ import 'package:where_hearts_meet/routes/routes_const.dart';
 import 'package:where_hearts_meet/utils/consts/color_const.dart';
 import 'package:where_hearts_meet/utils/consts/images_const.dart';
 import 'package:where_hearts_meet/utils/consts/screen_const.dart';
+import 'package:where_hearts_meet/utils/consts/string_consts.dart';
 import 'package:where_hearts_meet/utils/repository/wishes_card_data.dart';
 import 'package:where_hearts_meet/utils/widgets/cached_image.dart';
 import 'package:where_hearts_meet/utils/widgets/custom_photo_view.dart';
+import 'package:where_hearts_meet/utils/widgets/no_data_screen.dart';
 import '../../create_event/model/event_response_model.dart';
 import '../../utils/consts/app_screen_size.dart';
+import '../../utils/shimmers/event_card_shimmer.dart';
 import '../../utils/util_functions/decoration_functions.dart';
 import '../../utils/widgets/event_card.dart';
 import '../widgets/dashboard_widgets.dart';
@@ -194,52 +198,55 @@ class DashboardScreen extends StatelessWidget {
                           height: screenHeight * 0.04,
                         ),
                         Visibility(
-                            visible: controller.eventListCreatedByUser.isNotEmpty,
-                            replacement: const SizedBox.shrink(),
-                            child: GestureDetector(
-                              onTap: () {
-                                Get.toNamed(RoutesConst.eventListScreen, arguments: EventsCreated.byUser);
-                              },
-                              child: Padding(
-                                padding: EdgeInsets.only(left: 16, right: 16, bottom: screenHeight * 0.02),
-                                child: Row(
-                                  children: [
-                                    Text(
-                                      "Wishes created by you",
-                                      style: dashboardtextStyleDangrek,
-                                    ),
-                                    const Spacer(),
-                                    Text(
-                                      "See all",
-                                      style: textStyleAbel(fontSize: 14, fontWeight: FontWeight.w600),
-                                    ),
-                                    SizedBox(
-                                      width: screenWidth * 0.01,
-                                    ),
-                                    const Icon(
-                                      Icons.arrow_forward_outlined,
-                                      size: 18,
-                                      color: Colors.white,
-                                    ),
-                                  ],
-                                ),
+                          visible: controller.eventListCreatedByUser == null ||
+                              (controller.eventListCreatedByUser != null &&
+                                  controller.eventListCreatedByUser!.isNotEmpty),
+                          child: GestureDetector(
+                            onTap: () {
+                              Get.toNamed(RoutesConst.eventListScreen, arguments: EventsCreated.byUser);
+                            },
+                            child: Padding(
+                              padding: EdgeInsets.only(left: 16, right: 16, bottom: screenHeight * 0.02),
+                              child: Row(
+                                children: [
+                                  Text(
+                                    "Wishes created by you",
+                                    style: dashboardtextStyleDangrek,
+                                  ),
+                                  const Spacer(),
+                                  Text(
+                                    "See all",
+                                    style: textStyleAbel(fontSize: 14, fontWeight: FontWeight.w600),
+                                  ),
+                                  SizedBox(
+                                    width: screenWidth * 0.01,
+                                  ),
+                                  const Icon(
+                                    Icons.arrow_forward_outlined,
+                                    size: 18,
+                                    color: Colors.white,
+                                  ),
+                                ],
                               ),
-                            )),
-                        Visibility(
-                          visible: controller.eventListCreatedByUser.isNotEmpty,
-                          replacement: const SizedBox.shrink(),
-                          child: Container(
-                              height: screenHeight * 0.44,
-                              width: screenWidth,
-                              padding: EdgeInsets.only(bottom: screenHeight * 0.04),
-                              child: getEventCard(
-                                  context: context,
-                                  eventsList: controller.eventListCreatedByUser,
-                                  eventsCreated: EventsCreated.byUser)),
+                            ),
+                          ),
                         ),
+                        controller.eventListCreatedByUser == null
+                            ? const EventCardShimmer()
+                            : controller.eventListCreatedByUser != null && controller.eventListCreatedByUser!.isEmpty
+                                ? const SizedBox.shrink()
+                                : Container(
+                                    height: screenHeight * 0.4,
+                                    width: screenWidth,
+                                    child: getEventCard(
+                                        context: context,
+                                        eventsList: controller.eventListCreatedByUser ?? [],
+                                        eventsCreated: EventsCreated.byUser)),
+                        SizedBox(height: screenHeight * 0.04,),
                         Visibility(
-                          visible: controller.eventListCreatedForUser.isNotEmpty,
-                          replacement: const SizedBox.shrink(),
+                          visible: controller.eventListCreatedForUser == null ||
+                              (controller.eventListCreatedForUser != null &&
+                                  controller.eventListCreatedForUser!.isNotEmpty),
                           child: GestureDetector(
                             onTap: () {
                               Get.toNamed(RoutesConst.eventListScreen, arguments: EventsCreated.forUser);
@@ -270,17 +277,17 @@ class DashboardScreen extends StatelessWidget {
                             ),
                           ),
                         ),
-                        Visibility(
-                          visible: controller.eventListCreatedForUser.isNotEmpty,
-                          replacement: const SizedBox.shrink(),
-                          child: SizedBox(
-                              height: screenHeight * 0.4,
-                              width: screenWidth,
-                              child: getEventCard(
-                                  context: context,
-                                  eventsList: controller.eventListCreatedForUser,
-                                  eventsCreated: EventsCreated.forUser)),
-                        ),
+                        controller.eventListCreatedForUser == null
+                            ? const EventCardShimmer()
+                            : controller.eventListCreatedForUser != null && controller.eventListCreatedForUser!.isEmpty
+                                ? const SizedBox.shrink()
+                                : SizedBox(
+                                    height: screenHeight * 0.4,
+                                    width: screenWidth,
+                                    child: getEventCard(
+                                        context: context,
+                                        eventsList: controller.eventListCreatedForUser ?? [],
+                                        eventsCreated: EventsCreated.forUser)),
                         SizedBox(
                           height: screenHeight * 0.02,
                         ),
