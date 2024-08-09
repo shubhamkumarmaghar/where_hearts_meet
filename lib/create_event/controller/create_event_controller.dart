@@ -43,6 +43,15 @@ class CreateEventController extends BaseController {
   @override
   void onInit() {
     super.onInit();
+    final data = Get.arguments;
+    if (data != null) {
+      try {
+        selectedEventType = data as EventTypeModel;
+        eventTypeController.text = selectedEventType.eventName ?? '';
+      } catch (e) {
+        log(e.toString());
+      }
+    }
     setEventTime();
   }
 
@@ -80,7 +89,7 @@ class CreateEventController extends BaseController {
     final event = await showEventsTypeBottomSheet();
     if (event != null) {
       selectedEventType = event;
-      eventTypeController.text = selectedEventType.eventName ?? 'Others';
+      eventTypeController.text = selectedEventType.eventName ?? '';
       update();
     }
   }
@@ -152,7 +161,7 @@ class CreateEventController extends BaseController {
       return;
     }
     if (eventModel.eventType == null || eventModel.eventType!.isEmpty) {
-      AppWidgets.showSnackBar(context: Get.context!, message: "Enter event's type", color: errorColor);
+      AppWidgets.showSnackBar(context: Get.context!, message: "Select event's type", color: errorColor);
       return;
     }
 
