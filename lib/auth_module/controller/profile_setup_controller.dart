@@ -32,7 +32,6 @@ class ProfileSetupController extends BaseController {
   RxnString errorNameText = RxnString(null);
   RxnString errorMobileText = RxnString(null);
   Rx<String> dateOfBirth = 'Date of birth'.obs;
-  //final signUpController = Get.find<SignUpController>();
   String imageUrl = '';
 
   void onNameChanged(String name) {

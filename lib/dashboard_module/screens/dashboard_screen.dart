@@ -354,25 +354,22 @@ class DashboardScreen extends StatelessWidget {
             return Row(
               children: [
                 Expanded(
-                  child: Container(
-                    width: screenWidth,
-                    padding: EdgeInsets.symmetric(horizontal: screenWidth * 0.025),
-                    alignment: Alignment.center,
-                    decoration: BoxDecoration(
-                        color: Colors.white,
-                        boxShadow: [
-                          BoxShadow(
-                              color: Colors.black.withOpacity(0.3),
-                              spreadRadius: 1,
-                              blurStyle: BlurStyle.outer,
-                              blurRadius: 20),
-                        ],
-                        borderRadius: BorderRadius.circular(20),
-                        border: Border.all(color: Colors.white, width: 0.4)),
-                    child: Text(
-                      data,
-                      style: textStyleAleo(fontSize: 16, color: primaryColor),
-                      textAlign: TextAlign.center,
+                  child: ClayContainer(
+                    color: appColor1,
+                    borderRadius: 20,
+                    child: Container(
+                      width: screenWidth,
+                      padding: EdgeInsets.symmetric(horizontal: screenWidth * 0.025),
+                      alignment: Alignment.center,
+                      decoration: BoxDecoration(
+                          color: appColor1,
+                          borderRadius: BorderRadius.circular(20),
+                          border: Border.all(color: Colors.white, width: 0.4)),
+                      child: Text(
+                        data,
+                        style: textStyleAleo(fontSize: 16, color: Colors.white),
+                        textAlign: TextAlign.center,
+                      ),
                     ),
                   ),
                 ),

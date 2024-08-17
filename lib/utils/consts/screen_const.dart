@@ -1,4 +1,4 @@
-enum ScreenName { fromDashboard, fromAddPeople }
+enum Screens { fromDashboard, fromSignup}
 
 enum EventType {
   birthday,
@@ -7,3 +7,8 @@ enum EventType {
 enum EventsCreated { forUser, byUser }
 
 enum LoadingState { loading, hasData, noData, error }
+
+enum AppActions{
+  delete,
+  view
+}

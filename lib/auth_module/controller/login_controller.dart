@@ -9,6 +9,7 @@ import 'package:where_hearts_meet/utils/consts/color_const.dart';
 import 'package:where_hearts_meet/utils/consts/shared_pref_const.dart';
 import 'package:where_hearts_meet/utils/controller/base_controller.dart';
 import 'package:where_hearts_meet/utils/dialogs/pop_up_dialogs.dart';
+import '../../utils/consts/screen_const.dart';
 import '../../utils/widgets/util_widgets/app_widgets.dart';
 import '../auth_model/login_response_model.dart';
 import '../auth_services/Auth_api_service.dart';
@@ -125,7 +126,7 @@ class LoginController extends BaseController {
       if (loginResponseModel.message!.toLowerCase().contains('user logged in successfully')) {
         Get.offAllNamed(RoutesConst.dashboardScreen);
       } else if (loginResponseModel.message!.toLowerCase().contains('register')) {
-        Get.offAllNamed(RoutesConst.profileSetUpScreen);
+        Get.toNamed(RoutesConst.profileScreen, arguments: Screens.fromSignup);
       }
     } else {
       cancelDialog();

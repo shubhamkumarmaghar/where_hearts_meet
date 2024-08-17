@@ -28,12 +28,21 @@ class ProfileController extends BaseController {
   final phoneTextController = TextEditingController();
   LoadingState loadingState = LoadingState.loading;
   RxBool isDataChanged = false.obs;
-  DateTime _initialDateTime = DateTime.now().subtract(Duration(days: 5000));
+  DateTime _initialDateTime = DateTime.now().subtract(Duration(days: 365));
+  late Screens screens;
 
   @override
   void onInit() {
     super.onInit();
-    getUserData();
+    screens = Get.arguments as Screens;
+    if (screens == Screens.fromDashboard) {
+      getUserData();
+    } else {
+      loadingState = LoadingState.hasData;
+      isDataChanged = true.obs;
+      phoneTextController.text = GetStorage().read(userMobile);
+      update();
+    }
   }
 
   Future<void> getUserData() async {
@@ -61,7 +70,10 @@ class ProfileController extends BaseController {
     final res = await selectDataDialog(
         context: Get.context!, title: StringConsts.selectGender, dataList: gendersList, height: screenHeight * 0.25);
     if (res != null) {
-      isDataChanged = true.obs;
+      if (screens == Screens.fromDashboard) {
+        isDataChanged = true.obs;
+      }
+
       userModel.gender = res.title;
       update();
     }
@@ -74,7 +86,9 @@ class ProfileController extends BaseController {
         dataList: maritalStatusList,
         height: screenHeight * 0.25);
     if (res != null) {
-      isDataChanged = true.obs;
+      if (screens == Screens.fromDashboard) {
+        isDataChanged = true.obs;
+      }
       userModel.maritalStatus = res.title;
       update();
     }
@@ -105,7 +119,9 @@ class ProfileController extends BaseController {
         cancelDialog();
         if (imageResponse != null && imageResponse.fileUrl != null && imageResponse.fileUrl!.isNotEmpty) {
           userModel.profilePic = imageResponse.fileUrl;
-          isDataChanged = true.obs;
+          if (screens == Screens.fromDashboard) {
+            isDataChanged = true.obs;
+          }
           update();
         }
       }
@@ -113,6 +129,10 @@ class ProfileController extends BaseController {
   }
 
   Future<void> updateUserDetails() async {
+    if (firstNameTextController.text.isEmpty) {
+      showSnackBar(context: Get.context!, message: 'First name can not be empty');
+      return;
+    }
     showLoaderDialog(context: Get.context!);
     final response = await _profileService.updateUserDataApi(
         profilePic: userModel.profilePic,
@@ -131,7 +151,6 @@ class ProfileController extends BaseController {
         GetStorage().write(profileUrl, response.profilePic ?? ''),
       ]);
       cancelDialog();
-
       Get.offAllNamed(RoutesConst.dashboardScreen);
     } else {
       cancelDialog();
