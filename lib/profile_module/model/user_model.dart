@@ -6,6 +6,7 @@ class UserModel {
   String? lastName;
   String? dateOfBirth;
   String? address;
+  int? profileCompletion;
   String? phoneNumber;
   String? gender;
   String? dateJoined;
@@ -27,6 +28,7 @@ class UserModel {
         this.address,
         this.phoneNumber,
         this.gender,
+        this.profileCompletion,
         this.dateJoined,
         this.maritalStatus,
         this.isActive,
@@ -48,6 +50,7 @@ class UserModel {
     gender = json['gender'];
     dateJoined = json['date_joined'];
     maritalStatus = json['marital_status'];
+   profileCompletion = json['profile_completion'];
     isActive = json['is_active'];
     profilePic = json['profile_pic'];
     fcmToken = json['fcm_token'];

@@ -24,7 +24,7 @@ class ProfileScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return GetBuilder<ProfileController>(
       builder: (controller) {
-        controller.userModel.profilePic = 'https://www.economist.com/sites/default/files/20181006_BLP501.jpg';
+        //  controller.userModel.profilePic = 'https://www.economist.com/sites/default/files/20181006_BLP501.jpg';
         return Scaffold(
           body: Container(
             height: screenHeight,
@@ -89,13 +89,16 @@ class ProfileScreen extends StatelessWidget {
                         Positioned(
                           bottom: screenHeight * 0.00,
                           right: screenWidth * 0.00,
-                          child: const CircleAvatar(
-                              backgroundColor: Colors.black,
-                              child: Icon(
-                                Icons.edit,
-                                size: 18,
-                                color: Colors.white,
-                              )),
+                          child: GestureDetector(
+                            onTap: controller.updateProfilePic,
+                            child: const CircleAvatar(
+                                backgroundColor: Colors.black,
+                                child: Icon(
+                                  Icons.edit,
+                                  size: 18,
+                                  color: Colors.white,
+                                )),
+                          ),
                         ),
                       ],
                     ),
@@ -103,7 +106,9 @@ class ProfileScreen extends StatelessWidget {
                   SizedBox(
                     height: screenHeight * 0.03,
                   ),
-                  Align(alignment: Alignment.center, child: showProfileCompletionPercentage(completed: 41)),
+                  Align(
+                      alignment: Alignment.center,
+                      child: showProfileCompletionPercentage(completed: controller.userModel.profileCompletion ?? 0)),
                   SizedBox(
                     height: screenHeight * 0.03,
                   ),
@@ -113,25 +118,21 @@ class ProfileScreen extends StatelessWidget {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           _detailsTextField(
-                              text: 'First name',
+                              text: StringConsts.firstName,
                               textController: controller.firstNameTextController,
-                              onTap: () {
-                                Get.toNamed(RoutesConst.profileSetUpScreen);
-                              }),
+                              onTap: () {}),
                           SizedBox(
                             height: screenHeight * 0.01,
                           ),
                           _detailsTextField(
-                              text: 'Last name',
+                              text: StringConsts.lastName,
                               textController: controller.lastNmeTextController,
-                              onTap: () {
-                                Get.toNamed(RoutesConst.profileSetUpScreen);
-                              }),
+                              onTap: () {}),
                           SizedBox(
                             height: screenHeight * 0.01,
                           ),
                           _detailsTextField(
-                            text: 'Phone',
+                            text: StringConsts.mobileNumber,
                             textController: controller.phoneTextController,
                             enable: false,
                             onTap: () {},
@@ -139,34 +140,32 @@ class ProfileScreen extends StatelessWidget {
                           SizedBox(
                             height: screenHeight * 0.01,
                           ),
-                          _detailsTextField(
-                            text: 'Email',
-                            textController: controller.emailTextController,
-                            onTap: () {},
-                          ),
-                          SizedBox(
-                            height: screenHeight * 0.01,
-                          ),
                           _userField(
                             value: controller.userModel.dateOfBirth ?? '',
-                            text: 'Date of birth',
+                            text: StringConsts.dateOfBirth,
                             onTap: controller.onSelectDOB,
                           ),
-
                           SizedBox(
                             height: screenHeight * 0.01,
                           ),
                           _userField(
                             value: controller.userModel.gender ?? '',
-                            text: 'Gender',
+                            text: StringConsts.gender,
                             onTap: controller.selectGender,
                           ),
-
+                          SizedBox(
+                            height: screenHeight * 0.01,
+                          ),
+                          _userField(
+                            value: controller.userModel.maritalStatus ?? '',
+                            text: StringConsts.maritalStatus,
+                            onTap: controller.selectMaritalStatus,
+                          ),
                           SizedBox(
                             height: screenHeight * 0.01,
                           ),
                           _detailsTextField(
-                            text: 'Address',
+                            text: StringConsts.address,
                             textController: controller.addressTextController,
                             onTap: () {},
                           ),

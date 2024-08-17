@@ -1,5 +1,7 @@
+
 import 'package:flutter/material.dart';
 import 'package:where_hearts_meet/utils/consts/app_screen_size.dart';
+import 'package:where_hearts_meet/utils/consts/color_const.dart';
 import 'package:where_hearts_meet/utils/util_functions/decoration_functions.dart';
 
 Widget showProfileCompletionPercentage({required int completed}) {
@@ -7,9 +9,30 @@ Widget showProfileCompletionPercentage({required int completed}) {
   return Column(
     mainAxisSize: MainAxisSize.min,
     children: [
-      Text(
-        'Profile completed ($completed % )',
-        style: textStyleAleo(fontSize: 18),
+      Row(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Text(
+            'Profile completed ($completed % )',
+            style: textStyleAleo(fontSize: 18),
+          ),
+          SizedBox(
+            width: screenWidth * 0.02,
+          ),
+          Visibility(
+            visible: completed == 100,
+            replacement: const SizedBox.shrink(),
+            child: const CircleAvatar(
+              backgroundColor: greenTextColor,
+              radius: 10,
+              child: Icon(
+                Icons.check,
+                size: 14,
+                color: Colors.white,
+              ),
+            ),
+          )
+        ],
       ),
       SizedBox(
         height: screenHeight * 0.01,

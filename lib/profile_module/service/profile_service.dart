@@ -1,14 +1,27 @@
 import 'dart:developer';
+import 'dart:io';
 
 import 'package:get_storage/get_storage.dart';
 import 'package:where_hearts_meet/profile_module/model/user_model.dart';
 
 import '../../utils/consts/api_urls.dart';
 import '../../utils/consts/shared_pref_const.dart';
+import '../../utils/model/image_response_model.dart';
 import '../../utils/services/api_service.dart';
+import 'package:dio/dio.dart' as dio;
+import 'package:http_parser/http_parser.dart';
 
 class ProfileService {
   final ApiService _apiService = ApiService();
+
+  Future<ImageResponseModel?> uploadImageApi({required File imageFile}) async {
+    final img = await dio.MultipartFile.fromFile(imageFile.path,
+        filename: (imageFile.path.split('/')).last, contentType: MediaType('image', (imageFile.path.split('.')).last));
+
+    final response = await _apiService.formDataPostApiCall(url: AppUrls.uploadFileUrl, data: {'file': img});
+
+    return response['data'] != null ? ImageResponseModel.fromJson(response['data']) : null;
+  }
 
   Future<UserModel?> userDataApi() async {
     String url = AppUrls.userAccountUrl;
