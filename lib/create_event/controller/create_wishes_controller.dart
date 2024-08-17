@@ -1,4 +1,4 @@
-
+import 'dart:developer';
 import 'dart:io';
 
 import 'package:flutter/cupertino.dart';
@@ -15,6 +15,7 @@ import '../../utils/consts/service_const.dart';
 import '../../utils/dialogs/pop_up_dialogs.dart';
 import '../../utils/model/image_response_model.dart';
 import '../../utils/repository/created_event_repo.dart';
+import '../../utils/services/functions_service.dart';
 import '../model/wishes_model.dart';
 import '../service/create_event_service.dart';
 
@@ -24,7 +25,7 @@ class CreateWishesController extends BaseController {
   final nameTextController = TextEditingController();
   final messageTextController = TextEditingController();
   List<ImageResponseModel> imagesList = [];
-  List<String> videosList = [];
+  List<ImageResponseModel> videosList = [];
   ImageResponseModel? profileImage;
 
   final createEventService = CreateEventService();
@@ -78,22 +79,21 @@ class CreateWishesController extends BaseController {
 
   Future<void> _uploadVideo({required File videoFile}) async {
     showLoaderDialog(context: Get.context!);
-
-    final url = await createEventService.uploadVideoToAws(videoFile: videoFile);
-
+    final videoResponse = await createEventService.uploadVideoApi(videoFile: videoFile);
     cancelDialog();
-    if (url.isNotEmpty) {
-      videosList.add(url);
+    if (videoResponse != null) {
+      videosList.add(videoResponse);
       update();
     }
   }
+
   void addWishes() async {
     showLoaderDialog(context: Get.context!);
     final response = await createEventService.addWishesEventApi(
         wishesModel: WishesModel(
             eventId: eventResponseModel.eventid,
             imageUrls: imagesList.map((model) => model.fileId ?? '').toList(),
-            videoUrls: videosList,
+            videoUrls: videosList.map((model) => model.fileId ?? '').toList(),
             senderMessage: messageTextController.text,
             senderName: nameTextController.text,
             senderProfileImage: profileImage?.fileId));
@@ -109,22 +109,32 @@ class CreateWishesController extends BaseController {
     }
   }
 
-  void navigateToCreatedWishesPreviewScreen(WishesModel wishesModel) {
-    Get.toNamed(
+  void navigateToCreatedWishesPreviewScreen(WishesModel wishesModel) async {
+    final res = await Get.toNamed(
       RoutesConst.createdWishesPreviewScreen,
       arguments: wishesModel,
     );
+    if (res != null) {
+      try {
+        final wishId = res as int;
+        wishesList.removeWhere((element) => element.id == wishId);
+        update();
+      } catch (e) {
+        log(e.toString());
+      }
+    }
   }
 
   void navigateToCreateTimelineScreen() {
     if (wishesList.isNotEmpty) {
-      Get.offNamed(
+      Get.offAllNamed(
         RoutesConst.createTimelineScreen,
       );
     } else {
       AppWidgets.getToast(message: 'Please add at least 1 wish', color: redColor);
     }
   }
+
   @override
   void onClose() {
     nameTextController.dispose();

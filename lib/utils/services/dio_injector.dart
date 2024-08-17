@@ -28,7 +28,7 @@ class DioInjector {
       ..add(CustomInterceptor())
       ..add(
         LogInterceptor(
-          responseBody: false,
+          responseBody: true,
           requestBody: true,
           request: false,
           responseHeader: false,

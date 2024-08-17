@@ -1,16 +1,18 @@
 class PersonalWishesModel {
   String? eventId;
   int? id;
-  List<String>? personalWishes;
+  List<String>? wishes;
+  String? coverImage;
   List<String>? images;
   List<String>? videos;
 
-  PersonalWishesModel({eventId, id, personalWishes, images, videos});
+  PersonalWishesModel({eventId, id, personalWishes, images, videos,coverImage});
 
   PersonalWishesModel.fromJson(Map<String, dynamic> json) {
     eventId = json['event_id'];
     id = json['id'];
-    personalWishes = json['personal_wishes'] != null ? json['personal_wishes'].cast<String>() : [];
+    coverImage = json['cover_image'];
+    wishes = json['wishes'] != null ? json['wishes'].cast<String>() : [];
     images = json['images'] != null ? json['images'].cast<String>() : [];
     videos = json['videos'] != null ? json['videos'].cast<String>() : [];
   }
@@ -18,8 +20,9 @@ class PersonalWishesModel {
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = <String, dynamic>{};
     data['event_id'] = eventId;
-    data['personal_wishes'] = personalWishes;
+    data['wishes'] = wishes;
     data['images'] = images;
+    data['cover_image'] = coverImage;
     data['videos'] = videos;
     return data;
   }

@@ -1,6 +1,6 @@
 class RoutesConst {
   static String dashboardScreen = '/dashboardScreen';
-  static String editProfileScreen = '/editProfileScreen';
+  static String profileScreen = '/profileScreen';
   static String loginScreen = '/loginScreen';
   static String guestLogin = '/guestLogin';
   static String signUpScreen = '/signUpScreen';

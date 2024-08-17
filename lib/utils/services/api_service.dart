@@ -6,7 +6,9 @@ import 'package:get_storage/get_storage.dart';
 import 'package:where_hearts_meet/utils/consts/color_const.dart';
 import 'package:where_hearts_meet/utils/consts/service_const.dart';
 import 'package:where_hearts_meet/utils/consts/shared_pref_const.dart';
+import 'package:where_hearts_meet/utils/dialogs/pop_up_dialogs.dart';
 import 'package:where_hearts_meet/utils/services/dio_injector.dart';
+import 'package:where_hearts_meet/utils/util_functions/decoration_functions.dart';
 import 'package:where_hearts_meet/utils/widgets/util_widgets/app_widgets.dart';
 
 class ApiService {
@@ -137,34 +139,19 @@ class ApiService {
         return response.data.isNotEmpty ? response.data : {'message': 'failure'};
       case 201:
         return response.data.isNotEmpty ? response.data : {'message': 'failure'};
-      case 400:
-        return _getErrorResponse(json.decode(response.data));
       case 401:
-        return _getErrorResponse(json.decode(response.data));
-      case 402:
-        return _getErrorResponse(json.decode(response.data));
-      case 403:
-        return _getErrorResponse(json.decode(response.data));
-      case 404:
-        return _getErrorResponse(json.decode(response.data));
-      case 405:
-        return _getErrorResponse(json.decode(response.data));
-      case 415:
-        return _getErrorResponse(json.decode(response.data));
-      case 500:
-        return _getErrorResponse(json.decode(response.data));
-      case 501:
-        return _getErrorResponse(json.decode(response.data));
-      case 502:
-        return _getErrorResponse(json.decode(response.data));
+        logoutFunction();
+        return response.data.isNotEmpty ? response.data : {'message': 'failure'};
+      case 400:
+        return _getErrorResponse(response.data);
       default:
-        return _getErrorResponse(json.decode(response.data));
+        return _getErrorResponse(response.data);
     }
   }
 
   Map<String, dynamic> _getErrorResponse(decode) {
     final error = decode as Map<String, dynamic>;
-    //  AppWidgets.getToast(message: 'Error : ${error['message']}', color: errorColor);
+    AppWidgets.getToast(message: error['error'], color: primaryColor);
     return {'message': 'failure ${error['message']}'};
   }
 }

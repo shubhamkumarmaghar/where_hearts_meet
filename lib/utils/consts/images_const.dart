@@ -10,14 +10,11 @@ const String su1 = 'asset/images/su1.jpg';
 const String dummyImage = 'asset/images/dummy_image.png';
 const String errorImage = 'asset/images/error_image.png';
 
-
-
 ///social login
 const String googleIcon = 'asset/icons/google_icon.jpeg';
 const String otpIcon = 'asset/icons/otp_icon.png';
 
 const String profileIcon = 'asset/icons/profile_placeholder.jpeg';
-
 
 ///app background
 const String appBackground2 = 'asset/images/app_background_2.jpg';
@@ -33,9 +30,9 @@ const String marriageWishes = 'asset/images/marriage_wish_image.webp';
 ///events
 const String createEventImage = 'asset/images/create_event_image.jpg';
 
-const String giftsIcon = 'asset/icons/gifts_icon.gif';
+const String giftsIcon = 'asset/icons/gifts_icon.png';
+
+const String worldBackgroundImage = 'asset/images/world_backgroundpng.png';
 
 //lotties json
 const String giftbox = 'asset/icons/Animation - 1720867208224.json';
-
-

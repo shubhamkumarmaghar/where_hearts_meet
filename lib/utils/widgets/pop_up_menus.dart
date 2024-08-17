@@ -7,11 +7,12 @@ import '../consts/color_const.dart';
 Widget moreViewPopUpMenu({Function? onDelete, Function? onView, bool showBackground = true}) {
   return showBackground
       ? Container(
-          height: screenHeight*0.04,
-          width: screenHeight*0.04,
+          height: screenHeight * 0.04,
+          width: screenHeight * 0.04,
           decoration: BoxDecoration(color: primaryColor.withOpacity(0.5), shape: BoxShape.circle),
           child: PopupMenuButton<AppActions>(
             color: Colors.white,
+            shape: const RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(15.0))),
             icon: const Icon(
               Icons.more_vert_rounded,
               color: Colors.white,
@@ -38,24 +39,26 @@ Widget moreViewPopUpMenu({Function? onDelete, Function? onView, bool showBackgro
                   ),
                 ),
               ),
-              const PopupMenuItem<AppActions>(
-                value: AppActions.view,
-                child: ListTile(
-                  leading: Icon(
-                    Icons.remove_red_eye_rounded,
-                    color: primaryColor,
-                  ),
-                  title: Text(
-                    'View',
-                    style: TextStyle(color: Colors.black, fontSize: 16, fontWeight: FontWeight.w600),
+              if (onView != null)
+                const PopupMenuItem<AppActions>(
+                  value: AppActions.view,
+                  child: ListTile(
+                    leading: Icon(
+                      Icons.remove_red_eye_rounded,
+                      color: primaryColor,
+                    ),
+                    title: Text(
+                      'View',
+                      style: TextStyle(color: Colors.black, fontSize: 16, fontWeight: FontWeight.w600),
+                    ),
                   ),
                 ),
-              ),
             ],
           ),
         )
       : PopupMenuButton<AppActions>(
           color: Colors.white,
+          shape: const RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(15.0))),
           icon: const Icon(
             Icons.more_vert_rounded,
             color: Colors.white,
@@ -97,4 +100,36 @@ Widget moreViewPopUpMenu({Function? onDelete, Function? onView, bool showBackgro
             ),
           ],
         );
+}
+
+Widget deleteProfileView({required Function onDelete}) {
+  return PopupMenuButton<AppActions>(
+    color: Colors.white,
+    shape: const RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(15.0))),
+    icon: const Icon(
+      Icons.more_vert_rounded,
+      color: Colors.white,
+      size: 30,
+    ),
+    onSelected: (AppActions result) {
+      if (result == AppActions.delete) {
+        onDelete();
+      }
+    },
+    itemBuilder: (BuildContext context) => <PopupMenuEntry<AppActions>>[
+      const PopupMenuItem<AppActions>(
+        value: AppActions.delete,
+        child: ListTile(
+          leading: Icon(
+            Icons.delete,
+            color: errorColor,
+          ),
+          title: Text(
+            'Delete',
+            style: TextStyle(color: Colors.black, fontSize: 16, fontWeight: FontWeight.w600),
+          ),
+        ),
+      ),
+    ],
+  );
 }

@@ -15,7 +15,7 @@ import '../service/create_event_service.dart';
 class CreateTimelineController extends BaseController {
   late EventResponseModel eventResponseModel;
   List<ImageResponseModel> imagesList = [];
-  List<String> videosList = [];
+  List<ImageResponseModel> videosList = [];
 
   final createEventService = CreateEventService();
 
@@ -63,11 +63,10 @@ class CreateTimelineController extends BaseController {
   Future<void> _uploadVideo({required File videoFile}) async {
     showLoaderDialog(context: Get.context!);
 
-    final url = await createEventService.uploadVideoToAws(videoFile: videoFile);
-
+    final videoResponse = await createEventService.uploadVideoApi(videoFile: videoFile);
     cancelDialog();
-    if (url.isNotEmpty) {
-      videosList.add(url);
+    if (videoResponse != null) {
+      videosList.add(videoResponse);
       update();
     }
   }
@@ -77,7 +76,7 @@ class CreateTimelineController extends BaseController {
     final response = await createEventService.addTimelineStoriesEventApi(
         eventId: eventResponseModel.eventid.toString(),
         imagesList: imagesList.map((model) => model.fileId ?? '').toList(),
-        videosList: videosList);
+        videosList: videosList.map((model) => model.fileId ?? '').toList());
     cancelDialog();
     if (response != null) {
       Get.offAllNamed(RoutesConst.createPersonalWishesScreen);

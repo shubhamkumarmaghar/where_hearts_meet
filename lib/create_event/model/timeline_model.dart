@@ -2,7 +2,7 @@ class TimelineModel {
   List<String>? images;
   List<String>? videos;
   String? eventId;
-  String? id;
+  int? id;
 
   TimelineModel({images, videos, eventId, id});
 

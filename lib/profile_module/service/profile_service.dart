@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:get_storage/get_storage.dart';
 import 'package:where_hearts_meet/profile_module/model/user_model.dart';
 
@@ -15,7 +17,7 @@ class ProfileService {
     );
     final data = response;
 
-    if (data['message'].toString().toLowerCase().contains('events found') && data['data'] != null) {
+    if (data['message'].toString().toLowerCase().contains('user data') && data['data'] != null) {
       return UserModel.fromJson(data['data']);
     } else {
       return null;
@@ -33,7 +35,7 @@ class ProfileService {
       String? profilePic}) async {
     String url = AppUrls.signUpUrl;
 
-    final response = await _apiService.patchApiCall(url: url, data: {
+    final response = await _apiService.putApiCall(url: url, data: {
       "first_name": firstName,
       "last_name": lastName,
       "email": email,
@@ -41,13 +43,13 @@ class ProfileService {
       "address": address,
       "gender": gender,
       "marital_status": martialStatus,
-     "phone_number":'9794562047',
-      "username":GetStorage().read(username) ,
+      "phone_number": GetStorage().read(userMobile),
+      "username": GetStorage().read(username),
       "profile_pic": profilePic,
     });
     final data = response;
 
-    if (data['message'].toString().toLowerCase().contains('found') && data['data'] != null) {
+    if (data['message'].toString().toLowerCase().contains('successful') && data['data'] != null) {
       return UserModel.fromJson(data['data']);
     } else {
       return null;

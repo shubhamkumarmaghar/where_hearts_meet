@@ -10,10 +10,11 @@ import '../../utils/dialogs/pop_up_dialogs.dart';
 import '../../utils/model/image_response_model.dart';
 import '../../utils/repository/created_event_repo.dart';
 import '../../utils/util_functions/decoration_functions.dart';
+import '../model/event_response_model.dart';
 import '../service/create_event_service.dart';
 
 class CreateGiftsController extends BaseController {
-  //late EventResponseModel eventResponseModel;
+  late EventResponseModel eventResponseModel;
   RxInt giftCardGroupValue = 0.obs;
   final _createEventService = CreateEventService();
   List<GiftsCard>? giftsDataList;
@@ -34,7 +35,7 @@ class CreateGiftsController extends BaseController {
     super.onInit();
     var createdEvent = locator<CreatedEventRepo>();
     if (createdEvent.getCurrentEvent != null) {
-      // eventResponseModel = createdEvent.getCurrentEvent!;
+      eventResponseModel = createdEvent.getCurrentEvent!;
     }
     getGifts();
   }
@@ -92,7 +93,7 @@ class CreateGiftsController extends BaseController {
       showLoaderDialog(context: Get.context!);
       GiftModel model = GiftModel();
 
-      model.eventId = '81_Happy birthday';
+      model.eventId = eventResponseModel.eventid ?? ''; // '81_Happy birthday';
       model.senderName = nameTextController.text;
       model.giftCode = selectedGift?.code ?? '';
       model.giftTitle = giftTitleController.text;
@@ -124,6 +125,14 @@ class CreateGiftsController extends BaseController {
       canTitleChange = selectedGift?.code == 'other' ? true : false;
       update();
     }
+  }
+
+  void navigateToEventCompletedScreen() async {
+    var createdEvent = locator<CreatedEventRepo>();
+    if (createdEvent.getCurrentEvent != null) {
+      createdEvent.setEvent(null);
+    }
+    Get.offAllNamed(RoutesConst.dashboardScreen);
   }
 
   @override

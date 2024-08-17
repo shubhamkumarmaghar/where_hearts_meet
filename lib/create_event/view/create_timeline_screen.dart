@@ -4,6 +4,7 @@ import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:where_hearts_meet/utils/consts/app_screen_size.dart';
 import 'package:where_hearts_meet/utils/consts/images_const.dart';
+import 'package:where_hearts_meet/utils/widgets/cached_image.dart';
 import 'package:where_hearts_meet/utils/widgets/circular_dotted_border.dart';
 
 import '../../utils/buttons/buttons.dart';
@@ -22,171 +23,167 @@ class CreateTimelineScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return GetBuilder<CreateTimelineController>(
-      builder: (controller) {
-        return Scaffold(
-          bottomNavigationBar: Container(
-            color: appColor3,
-            padding: EdgeInsets.only(
-              bottom: 14,
-              left: screenWidth * 0.06,
-              right: screenWidth * 0.06,
-            ),
-            child: GradientButton(
-              title: 'Submit',
-              width: screenWidth * 0.8,
-              enabled: controller.imagesList.isNotEmpty || controller.videosList.isNotEmpty,
-              onPressed: controller.addTimelineStories,
-              buttonColor: appColor1,
-              titleTextStyle: textStyleDangrek(fontSize: 22)
-
-            ),
-          ),
-          body: Container(
-            height: screenHeight,
-            width: screenWidth,
-            decoration: BoxDecoration(gradient: backgroundGradient),
-            padding: const EdgeInsets.symmetric(
-              horizontal: 20,
-            ),
-            child: SingleChildScrollView(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  SizedBox(
-                    height: screenHeight * 0.05,
-                  ),
-                  appHeader,
-                  Center(
-                    child: Text(
-                      'Add Timeline Stories',
-                      style: textStyleDangrek(fontSize: 24),
-                    ),
-                  ),
-                  SizedBox(
-                    height: screenHeight * 0.03,
-                  ),
-                  Row(
+    return PopScope(
+        canPop: false,
+        child: GetBuilder<CreateTimelineController>(
+          builder: (controller) {
+            return Scaffold(
+              bottomNavigationBar: Container(
+                color: appColor3,
+                padding: EdgeInsets.only(
+                  bottom: 14,
+                  left: screenWidth * 0.06,
+                  right: screenWidth * 0.06,
+                ),
+                child: GradientButton(
+                    title: 'Submit',
+                    width: screenWidth * 0.8,
+                    enabled: controller.imagesList.isNotEmpty || controller.videosList.isNotEmpty,
+                    onPressed: controller.addTimelineStories,
+                    buttonColor: appColor1,
+                    titleTextStyle: textStyleDangrek(fontSize: 22)),
+              ),
+              body: Container(
+                height: screenHeight,
+                width: screenWidth,
+                decoration: BoxDecoration(gradient: backgroundGradient),
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 20,
+                ),
+                child: SingleChildScrollView(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Visibility(
-                        visible: controller.imagesList.isNotEmpty,
-                        replacement: const SizedBox.shrink(),
-                        child: Column(
-                          children: [
-                            GestureDetector(
-                              onTap: () {
-                                Get.to(() => ImageStoryWidget(
-                                      images: controller.imagesList.map((e) => e.fileUrl ?? '').toList(),
-                                    ));
-                              },
-                              child: DottedCircularBorder(
-                                totalNumber: controller.imagesList.length,
-                                dotsColor: Colors.white,
-                                widget: Container(
-                                  height: screenHeight * 0.12,
-                                  width: screenWidth * 0.22,
-                                  padding: const EdgeInsets.all(5),
-                                  child: ClipRRect(
-                                    borderRadius: BorderRadius.circular(50),
-                                    child: controller.imagesList.isNotEmpty
-                                        ? Image.network(
-                                            controller.imagesList.first.fileUrl ?? '',
-                                            fit: BoxFit.cover,
-                                          )
-                                        : Image.asset(dummyImage),
-                                  ),
-                                ),
-                                radius: screenWidth * 0.1,
-                              ),
-                            ),
-                            SizedBox(
-                              height: screenHeight * 0.01,
-                            ),
-                            const Text(
-                              'Photos',
-                              style: TextStyle(fontSize: 16, fontWeight: FontWeight.w500, color: Colors.white),
-                            ),
-                          ],
+                      SizedBox(
+                        height: screenHeight * 0.05,
+                      ),
+                      appHeader,
+                      Center(
+                        child: Text(
+                          'Add Timeline Stories',
+                          style: textStyleDangrek(fontSize: 24),
                         ),
                       ),
                       SizedBox(
-                        width: screenWidth * 0.05,
+                        height: screenHeight * 0.03,
                       ),
-                      Visibility(
-                        visible: controller.videosList.isNotEmpty,
-                        replacement: const SizedBox.shrink(),
-                        child: Column(
-                          children: [
-                            DottedCircularBorder(
-                              totalNumber: controller.videosList.length,
-                              dotsColor: Colors.white,
-                              widget: Container(
-                                height: screenHeight * 0.12,
-                                width: screenWidth * 0.22,
-                                padding: const EdgeInsets.all(5),
-                                child: ClipRRect(
-                                  borderRadius: BorderRadius.circular(50),
-                                  child: Image.network(
-                                    'https://letsenhance.io/static/8f5e523ee6b2479e26ecc91b9c25261e/1015f/MainAfter.jpg',
-                                    fit: BoxFit.cover,
+                      Row(
+                        children: [
+                          Visibility(
+                            visible: controller.imagesList.isNotEmpty,
+                            replacement: const SizedBox.shrink(),
+                            child: Column(
+                              children: [
+                                GestureDetector(
+                                  onTap: () {
+                                    Get.to(() => ImageStoryWidget(
+                                          images: controller.imagesList.map((e) => e.fileUrl ?? '').toList(),
+                                        ));
+                                  },
+                                  child: DottedCircularBorder(
+                                    totalNumber: controller.imagesList.length,
+                                    dotsColor: Colors.white,
+                                    widget: Container(
+                                      height: screenHeight * 0.12,
+                                      width: screenWidth * 0.22,
+                                      padding: const EdgeInsets.all(5),
+                                      child: ClipRRect(
+                                        borderRadius: BorderRadius.circular(50),
+                                        child: controller.imagesList.isNotEmpty
+                                            ? cachedImage(imageUrl: controller.imagesList.first.fileUrl ?? '')
+                                            : Image.asset(dummyImage),
+                                      ),
+                                    ),
+                                    radius: screenWidth * 0.1,
                                   ),
                                 ),
-                              ),
-                              radius: screenWidth * 0.1,
+                                SizedBox(
+                                  height: screenHeight * 0.01,
+                                ),
+                                const Text(
+                                  'Photos',
+                                  style: TextStyle(fontSize: 16, fontWeight: FontWeight.w500, color: Colors.white),
+                                ),
+                              ],
                             ),
-                            SizedBox(
-                              height: screenHeight * 0.01,
+                          ),
+                          SizedBox(
+                            width: screenWidth * 0.05,
+                          ),
+                          Visibility(
+                            visible: controller.videosList.isNotEmpty,
+                            replacement: const SizedBox.shrink(),
+                            child: Column(
+                              children: [
+                                DottedCircularBorder(
+                                  totalNumber: controller.videosList.length,
+                                  dotsColor: Colors.white,
+                                  widget: Container(
+                                    height: screenHeight * 0.12,
+                                    width: screenWidth * 0.22,
+                                    padding: const EdgeInsets.all(5),
+                                    child: ClipRRect(
+                                      borderRadius: BorderRadius.circular(50),
+                                      child: controller.videosList.isNotEmpty
+                                          ? cachedImage(imageUrl: controller.videosList.first.fileUrl ?? '')
+                                          : Image.asset(dummyImage),
+                                    ),
+                                  ),
+                                  radius: screenWidth * 0.1,
+                                ),
+                                SizedBox(
+                                  height: screenHeight * 0.01,
+                                ),
+                                const Text(
+                                  'Videos',
+                                  style: TextStyle(fontSize: 16, fontWeight: FontWeight.w500, color: Colors.white),
+                                ),
+                              ],
                             ),
-                            const Text(
-                              'Videos',
-                              style: TextStyle(fontSize: 16, fontWeight: FontWeight.w500, color: Colors.white),
-                            ),
-                          ],
+                          )
+                        ],
+                      ),
+                      Visibility(
+                        visible: controller.imagesList.isNotEmpty || controller.videosList.isNotEmpty,
+                        child: SizedBox(
+                          height: screenHeight * 0.03,
                         ),
-                      )
+                      ),
+                      Align(
+                        alignment: Alignment.centerLeft,
+                        child: Text(
+                          'Upload timeline images*',
+                          style: textStyleDangrek(fontSize: 18),
+                        ),
+                      ),
+                      SizedBox(
+                        height: screenHeight * 0.02,
+                      ),
+                      addTimelineImages(),
+                      SizedBox(
+                        height: screenHeight * 0.03,
+                      ),
+                      Align(
+                        alignment: Alignment.centerLeft,
+                        child: Text(
+                          'Upload timeline videos*',
+                          style: textStyleDangrek(fontSize: 18),
+                        ),
+                      ),
+                      SizedBox(
+                        height: screenHeight * 0.02,
+                      ),
+                      addTimelineVideos(),
+                      SizedBox(
+                        height: screenHeight * 0.01,
+                      ),
                     ],
                   ),
-                  Visibility(
-                    visible: controller.imagesList.isNotEmpty || controller.videosList.isNotEmpty,
-                    child: SizedBox(
-                      height: screenHeight * 0.03,
-                    ),
-                  ),
-                  Align(
-                    alignment: Alignment.centerLeft,
-                    child: Text(
-                      'Upload timeline images*',
-                      style: textStyleDangrek(fontSize: 18),
-                    ),
-                  ),
-                  SizedBox(
-                    height: screenHeight * 0.02,
-                  ),
-                  addTimelineImages(),
-                  SizedBox(
-                    height: screenHeight * 0.03,
-                  ),
-                  Align(
-                    alignment: Alignment.centerLeft,
-                    child: Text(
-                      'Upload timeline videos*',
-                      style: textStyleDangrek(fontSize: 18),
-                    ),
-                  ),
-                  SizedBox(
-                    height: screenHeight * 0.02,
-                  ),
-                  addTimelineVideos(),
-                  SizedBox(
-                    height: screenHeight * 0.01,
-                  ),
-                ],
+                ),
               ),
-            ),
-          ),
-        );
-      },
-    );
+            );
+          },
+        ));
   }
 
   Widget addTimelineImages() {

@@ -56,9 +56,8 @@ class DashboardDrawerScreen extends StatelessWidget {
                   ),
                   GestureDetector(
                     onTap: () {
-
-                      Get.toNamed(RoutesConst.editProfileScreen);
-                      onDrawerClose();
+                      Get.toNamed(RoutesConst.profileScreen);
+                      //onDrawerClose();
                     },
                     child: Container(
                       margin: EdgeInsets.only(right: screenWidth * 0.05),
@@ -82,13 +81,13 @@ class DashboardDrawerScreen extends StatelessWidget {
                 height: screenHeight * 0.02,
               ),
               Text(
-                  dashboardController.userName != null && dashboardController.userName.isNotEmpty
-                      ? dashboardController.userName
+                  dashboardController.userName != null && dashboardController.userName!.isNotEmpty
+                      ? dashboardController.userName!
                       : "User",
                   style: textStyleDangrek(fontSize: 20)),
               Text(
-                  dashboardController.userPhone != null && dashboardController.userPhone.isNotEmpty
-                      ? dashboardController.userPhone
+                  dashboardController.userPhone != null && dashboardController.userPhone!.isNotEmpty
+                      ? dashboardController.userPhone!
                       : "+91",
                   style: textStyleDangrek(fontSize: 20)),
               SizedBox(
@@ -128,11 +127,8 @@ class DashboardDrawerScreen extends StatelessWidget {
                   onTap: () async {
                     showLogoutAlertDialog(
                         context: Get.context!,
-                        logOutFunction: () async {
-                          showLoaderDialog(context: Get.context!);
-                          await GetStorage().erase();
-                          cancelDialog();
-                          Get.offAllNamed(RoutesConst.loginScreen);
+                        logOutFunction: (){
+                          logoutFunction();
                         });
                   }),
               const Spacer(),
@@ -161,7 +157,7 @@ class DashboardDrawerScreen extends StatelessWidget {
       otherAccountsPictures: [
         InkWell(
           onTap: () {
-            Get.toNamed(RoutesConst.editProfileScreen);
+            Get.toNamed(RoutesConst.profileScreen);
           },
           child: const CircleAvatar(
               backgroundColor: blackColor,

@@ -2,11 +2,14 @@ import 'dart:developer';
 import 'dart:io';
 
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:where_hearts_meet/create_event/model/personal_wishes_model.dart';
 import 'package:where_hearts_meet/create_event/widgets/create_event_widgets.dart';
 import 'package:where_hearts_meet/splash_module/screens/splash_screen.dart';
 import 'package:where_hearts_meet/utils/controller/base_controller.dart';
+import 'package:where_hearts_meet/utils/dialogs/confirmation_dialog.dart';
 
 import '../../routes/routes_const.dart';
 import '../../utils/consts/service_const.dart';
@@ -20,7 +23,7 @@ import '../service/create_event_service.dart';
 class CreatePersonalWishesController extends BaseController {
   late EventResponseModel eventResponseModel;
   List<ImageResponseModel> imagesList = [];
-  List<String> videosList = [];
+  List<ImageResponseModel> videosList = [];
   List<String> messagesList = [];
   final createEventService = CreateEventService();
   final messageController = TextEditingController();
@@ -72,11 +75,10 @@ class CreatePersonalWishesController extends BaseController {
   Future<void> _uploadVideo({required File videoFile}) async {
     showLoaderDialog(context: Get.context!);
 
-    final url = await createEventService.uploadVideoToAws(videoFile: videoFile);
-
+    final videoResponse = await createEventService.uploadVideoApi(videoFile: videoFile);
     cancelDialog();
-    if (url.isNotEmpty) {
-      videosList.add(url);
+    if (videoResponse != null) {
+      videosList.add(videoResponse);
       update();
     }
   }
@@ -92,11 +94,15 @@ class CreatePersonalWishesController extends BaseController {
 
   void addPersonalWishes() async {
     showLoaderDialog(context: Get.context!);
-    final response = await createEventService.addPersonalWishesEventApi(
-        eventId: eventResponseModel.eventid ?? '',
-        imagesList: imagesList.map((e) => e.fileId ?? '').toList(),
-        videosList: videosList,
-        messagesList: messagesList);
+    PersonalWishesModel model = PersonalWishesModel();
+
+    model.coverImage = '172271953865181984';
+    model.eventId = eventResponseModel.eventid ?? '';
+    model.images = imagesList.map((e) => e.fileId ?? '').toList();
+    model.videos = videosList.map((e) => e.fileId ?? '').toList();
+    model.wishes = messagesList;
+
+    final response = await createEventService.addPersonalWishesEventApi(model: model);
     cancelDialog();
     if (response != null) {
       navigateToCreateGiftsScreen();
@@ -104,11 +110,9 @@ class CreatePersonalWishesController extends BaseController {
   }
 
   void navigateToCreateGiftsScreen() {
-    Get.offAll(() => const SplashScreen());
-
-    // Get.offNamed(
-    //   RoutesConst.createTimelineScreen,
-    // );
+    Get.offAllNamed(
+      RoutesConst.createGiftsScreen,
+    );
   }
 
   @override

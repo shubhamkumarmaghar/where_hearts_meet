@@ -1,8 +1,6 @@
 import 'package:clay_containers/clay_containers.dart';
 import 'package:clay_containers/widgets/clay_container.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 import '../../utils/consts/app_screen_size.dart';
@@ -29,7 +27,7 @@ class CreateEventScreen extends StatelessWidget {
           title: 'Submit',
           buttonCorner: 20,
           height: screenHeight * 0.06,
-          buttonColor: primaryColor,
+          buttonColor: appColor1,
           width: screenWidth * 0.8,
           onPressed: () async {
             FocusScope.of(context).requestFocus(FocusNode());
@@ -44,6 +42,7 @@ class CreateEventScreen extends StatelessWidget {
             return Container(
               height: screenHeight,
               width: screenWidth,
+              //color: appColor1,
               decoration: BoxDecoration(gradient: backgroundGradient),
               padding: const EdgeInsets.symmetric(
                 horizontal: 20,
@@ -85,7 +84,7 @@ class CreateEventScreen extends StatelessWidget {
                               title: "Person's mobile number*",
                               hint: 'Mobile number',
                               inputType: TextInputType.phone,
-
+                              maxLength: 10,
                               onChanged: (text) {},
                               controller: controller.personMobileController),
                           SizedBox(
@@ -165,27 +164,27 @@ class CreateEventScreen extends StatelessWidget {
                             },
                             child: controller.coverImage != null && controller.coverImage!.isNotEmpty
                                 ? ClayContainer(
-                                height: screenHeight * 0.24,
-                                width: screenWidth * 0.85,
-                                borderRadius: 20,
-                                color: appColor2,
-                                child: ClipRRect(
-                                  borderRadius: BorderRadius.circular(20),
-                                  child: Image.network(
-                                    controller.coverImage!,
-                                    fit: BoxFit.cover,
-                                  ),
-                                ))
+                                    height: screenHeight * 0.24,
+                                    width: screenWidth * 0.85,
+                                    borderRadius: 20,
+                                    color: appColor2,
+                                    child: ClipRRect(
+                                      borderRadius: BorderRadius.circular(20),
+                                      child: Image.network(
+                                        controller.coverImage!,
+                                        fit: BoxFit.cover,
+                                      ),
+                                    ))
                                 : ClayContainer(
-                                height: screenHeight * 0.12,
-                                width: screenWidth * 0.3,
-                                borderRadius: 20,
-                                color: appColor2,
-                                child: Icon(
-                                  Icons.upload,
-                                  size: screenHeight * 0.06,
-                                  color: Colors.white,
-                                )),
+                                    height: screenHeight * 0.12,
+                                    width: screenWidth * 0.3,
+                                    borderRadius: 20,
+                                    color: appColor2,
+                                    child: Icon(
+                                      Icons.upload,
+                                      size: screenHeight * 0.06,
+                                      color: Colors.white,
+                                    )),
                           ),
                           SizedBox(
                             height: screenHeight * 0.02,

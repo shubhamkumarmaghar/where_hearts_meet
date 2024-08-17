@@ -10,6 +10,7 @@ import '../../utils/consts/app_screen_size.dart';
 import '../../utils/consts/images_const.dart';
 import '../../utils/consts/screen_const.dart';
 import '../../utils/model/dropdown_model.dart';
+import '../../utils/model/event_type_model.dart';
 import '../../utils/util_functions/decoration_functions.dart';
 import '../../utils/widgets/event_card.dart';
 import '../controller/dashboard_controller.dart';
@@ -61,8 +62,9 @@ Widget getDrawerContentWidget({required IconData icon, required String heading, 
 Widget scheduleEventView() {
   return GestureDetector(
     onTap: () {
-      //Get.toNamed(RoutesConst.createEventScreen);
-      Get.toNamed(RoutesConst.createGiftsScreen);
+      Get.toNamed(RoutesConst.createEventScreen);
+      // Get.toNamed(RoutesConst.createGiftsScreen);
+      //Get.toNamed(RoutesConst.createdGiftsPreviewScreen);
     },
     child: Stack(
       children: [
@@ -187,12 +189,49 @@ Widget getWishesCard(
             crossAxisCount: 2, childAspectRatio: 1.1, crossAxisSpacing: 10, mainAxisSpacing: 10),
         itemBuilder: (BuildContext context, int index) {
           var data = wishesList[index];
-          return Container(
-            height: screenHeight * 0.15,
-            width: screenWidth * 0.35,
-            decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(10),
-                image: DecorationImage(image: AssetImage(data.value ?? ''), fit: BoxFit.cover)),
+          return GestureDetector(
+            onTap: () {
+              if (data.id == 2) {
+                Get.toNamed(
+                  RoutesConst.createEventScreen,
+                  arguments: EventTypeModel(
+                    eventName: 'Birthday',
+                    eventTypeId: '2',
+                  ),
+                );
+              } else if (data.id == 3) {
+                Get.toNamed(
+                  RoutesConst.createEventScreen,
+                  arguments: EventTypeModel(
+                    eventName: 'Congratulation',
+                    eventTypeId: '3',
+                  ),
+                );
+              } else if (data.id == 5) {
+                Get.toNamed(
+                  RoutesConst.createEventScreen,
+                  arguments: EventTypeModel(
+                    eventName: 'Anniversary',
+                    eventTypeId: '5',
+                  ),
+                );
+              } else if (data.id == 6) {
+                Get.toNamed(
+                  RoutesConst.createEventScreen,
+                  arguments: EventTypeModel(
+                    eventName: 'Wedding',
+                    eventTypeId: '6',
+                  ),
+                );
+              }
+            },
+            child: Container(
+              height: screenHeight * 0.15,
+              width: screenWidth * 0.35,
+              decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(10),
+                  image: DecorationImage(image: AssetImage(data.value ?? ''), fit: BoxFit.cover)),
+            ),
           );
         }),
   );
@@ -201,7 +240,7 @@ Widget getWishesCard(
 Widget getEventCard(
     {required BuildContext context,
     required List<EventResponseModel> eventsList,
-      required EventsCreated eventsCreated,
+    required EventsCreated eventsCreated,
     required DashboardController controller}) {
   return Container(
     padding: const EdgeInsets.symmetric(horizontal: 20),
@@ -212,7 +251,7 @@ Widget getEventCard(
           return EventCard(
               eventResponseModel: data,
               onDelete: () {
-                controller.deleteEvent(eventId: data.eventid ?? "",eventsCreated: eventsCreated);
+                controller.deleteEvent(eventId: data.eventid ?? "", eventsCreated: eventsCreated);
               },
               onView: () {
                 Get.toNamed(RoutesConst.guestCoverScreen, arguments: data.eventid);

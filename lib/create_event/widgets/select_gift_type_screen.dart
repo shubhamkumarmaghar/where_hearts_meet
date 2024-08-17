@@ -112,7 +112,7 @@ class SelectGiftCardScreen extends StatelessWidget {
                             if (states.contains(MaterialState.selected)) {
                               return Colors.white;
                             }
-                            return Colors.black;
+                            return primaryColor;
                           },
                         ),
                         onChanged: controller.onSelectGiftCard),

@@ -4,9 +4,9 @@ import '../model/dropdown_model.dart';
 
 List<DropDownModel> getWishesCardsDataList() {
   return [
-    DropDownModel(id: 1, title: 'Birthday', value: birthDayWishes),
-    DropDownModel(id: 2, title: 'Anniversary', value: anniversaryWishes),
+    DropDownModel(id: 2, title: 'Birthday', value: birthDayWishes),
+    DropDownModel(id: 5, title: 'Anniversary', value: anniversaryWishes),
     DropDownModel(id: 3, title: 'Congratulations', value: congratulationWishes),
-    DropDownModel(id: 4, title: 'Marriage', value: marriageWishes),
+    DropDownModel(id: 6, title: 'Wedding', value: marriageWishes),
   ];
 }

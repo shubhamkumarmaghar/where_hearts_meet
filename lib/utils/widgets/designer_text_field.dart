@@ -20,6 +20,7 @@ class DesignerTextField extends StatelessWidget {
   final bool? obscureText;
   final bool enabled;
   final Widget? prefixIcon;
+  final int? maxLength;
   final Widget? suffixIcon;
   final TextStyle? titleTextStyle;
   final TextAlign? textAlign;
@@ -30,6 +31,7 @@ class DesignerTextField extends StatelessWidget {
       this.hint,
       this.inputAction,
       this.onTap,
+      this.maxLength,
       this.titleTextStyle,
       this.inputType = TextInputType.text,
       this.error,
@@ -59,7 +61,7 @@ class DesignerTextField extends StatelessWidget {
             style: titleTextStyle ?? textStyleDangrek(fontSize: 18),
           ),
         SizedBox(
-          height: screenHeight * 0.01,
+          height: screenHeight * 0.005,
         ),
         GestureDetector(
           onTap: () {
@@ -72,10 +74,12 @@ class DesignerTextField extends StatelessWidget {
             textAlign: textAlign == null ? TextAlign.start : textAlign!,
             textInputAction: inputAction,
             maxLines: maxLines == null || maxLines == 0 ? 1 : maxLines,
+            maxLength: maxLength,
             style: TextStyle(color: enabled ? blackColor : greyColor, fontSize: 14.0, fontWeight: FontWeight.w600),
             onChanged: onChanged,
             obscureText: obscureText ?? false,
             decoration: InputDecoration(
+              counterText: '',
               prefixIcon: prefixIcon,
               suffixIcon: suffixIcon,
               contentPadding:

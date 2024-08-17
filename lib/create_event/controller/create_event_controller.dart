@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'dart:developer';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
@@ -43,6 +44,15 @@ class CreateEventController extends BaseController {
   @override
   void onInit() {
     super.onInit();
+    final data = Get.arguments;
+    if (data != null) {
+      try {
+        selectedEventType = data as EventTypeModel;
+        eventTypeController.text = selectedEventType.eventName ?? '';
+      } catch (e) {
+        log(e.toString());
+      }
+    }
     setEventTime();
   }
 
@@ -80,7 +90,7 @@ class CreateEventController extends BaseController {
     final event = await showEventsTypeBottomSheet();
     if (event != null) {
       selectedEventType = event;
-      eventTypeController.text = selectedEventType.eventName ?? 'Others';
+      eventTypeController.text = selectedEventType.eventName ?? '';
       update();
     }
   }
@@ -107,10 +117,16 @@ class CreateEventController extends BaseController {
           if (imageType == EventImageType.backgroundImage) {
             eventModel.splashBackgroundImage = imageResponse.fileId;
             backgroundImage = imageResponse.fileUrl;
-          } else if (imageType == EventImageType.displayImage) {
-            eventModel.splashDisplayImage = imageResponse.fileId;
-            displayImage = imageResponse.fileUrl;
-          } else if (imageType == EventImageType.coverImage) {
+               eventModel.splashDisplayImage = imageResponse.fileId;
+               displayImage = imageResponse.fileUrl;
+
+          }
+          // else if (imageType == EventImageType.displayImage) {
+          //
+          //   eventModel.splashDisplayImage = imageResponse.fileId;
+          //   displayImage = imageResponse.fileUrl;
+          // }
+          else if (imageType == EventImageType.coverImage) {
             eventModel.coverImage = imageResponse.fileId;
             coverImage = imageResponse.fileUrl;
           }
@@ -152,7 +168,7 @@ class CreateEventController extends BaseController {
       return;
     }
     if (eventModel.eventType == null || eventModel.eventType!.isEmpty) {
-      AppWidgets.showSnackBar(context: Get.context!, message: "Enter event's type", color: errorColor);
+      AppWidgets.showSnackBar(context: Get.context!, message: "Select event's type", color: errorColor);
       return;
     }
 

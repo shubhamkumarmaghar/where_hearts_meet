@@ -35,13 +35,16 @@ Future<DropDownModel?> selectDataDialog(
                       style: const TextStyle(fontSize: 20, fontWeight: FontWeight.w500, color: Colors.black),
                     ),
                   ),
-                  Container(
-                    height: height != null ? height - (screenHeight * 0.08) : screenHeight * 0.37,
-                    width: screenWidth * 0.7,
-                    padding: EdgeInsets.only(bottom: screenWidth * 0.02),
+                  Flexible(
+                    fit: FlexFit.loose,
                     child: ListView.separated(
                       itemCount: dataList.length,
-                      separatorBuilder: (context, index) => const Divider(),
+                      shrinkWrap: true,
+                      padding: EdgeInsets.only(bottom: screenWidth * 0.02),
+                      separatorBuilder: (context, index) => const Divider(
+                        color: Colors.grey,
+                        thickness: 0.2,
+                      ),
                       itemBuilder: (BuildContext context, int index) {
                         var data = dataList[index];
                         return InkWell(
