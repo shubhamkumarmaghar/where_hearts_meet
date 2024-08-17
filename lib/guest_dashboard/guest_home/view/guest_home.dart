@@ -9,7 +9,6 @@ import 'package:lottie/lottie.dart';
 import 'package:where_hearts_meet/routes/routes_const.dart';
 import 'package:where_hearts_meet/utils/consts/app_screen_size.dart';
 import 'package:where_hearts_meet/utils/consts/color_const.dart';
-import 'package:where_hearts_meet/utils/consts/images_const.dart';
 import 'package:where_hearts_meet/utils/text_styles/custom_text_styles.dart';
 
 import '../../../../utils/consts/confetti_shape_enum.dart';
@@ -363,7 +362,7 @@ class _GuestHomeState extends State<GuestHome> with TickerProviderStateMixin {
                                 ),
                                 GestureDetector(
                                   onTap: (){
-                                    Get.to(const GetPersonalScreenCover());
+                                    Get.to(const GetPersonalScreenCover(),arguments: controller.eventDetails?.eventid);
                                     //Get.toNamed(RoutesConst.guestWishlist);
                                   },
                                   child: Card(
@@ -603,7 +602,7 @@ class _GuestHomeState extends State<GuestHome> with TickerProviderStateMixin {
                           child: CardSwiper(
                               isLoop: true,
                               scale: 0.9,
-                              numberOfCardsDisplayed: controller.guestwishesModel!.length > 5
+                              numberOfCardsDisplayed: controller.guestwishesModel.length > 5
                                   ? 5
                                   : controller.guestwishesModel.length,
                               backCardOffset: const Offset(
@@ -612,7 +611,7 @@ class _GuestHomeState extends State<GuestHome> with TickerProviderStateMixin {
                               ),
                               cardBuilder: (BuildContext context, int index, int horizontalOffsetPercentage,
                                   int verticalOffsetPercentage) {
-                                var data = controller.guestwishesModel?[index];
+                                var data = controller.guestwishesModel[index];
                                 return GestureDetector(
                                   onTap: () {
                                     Get.toNamed(RoutesConst.guestWishlist);                                   //Get.to(GuestWishList());
@@ -626,7 +625,7 @@ class _GuestHomeState extends State<GuestHome> with TickerProviderStateMixin {
                                   ),
                                 );
                               },
-                              cardsCount: controller.guestwishesModel!.length ?? 1),
+                              cardsCount: controller.guestwishesModel.length ?? 1),
                         ),
                       )
                     : Container(),

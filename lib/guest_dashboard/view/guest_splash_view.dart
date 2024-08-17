@@ -132,7 +132,7 @@ class _GuestCoverScreenState extends State<GuestCoverScreen> {
                   width: screenHeight * 0.2,
                   decoration: BoxDecoration(
                       image: DecorationImage(
-                          image: NetworkImage(controller.eventDetails?.splashDisplayImage ??
+                          image: NetworkImage(controller.eventDetails?.splashBackgroundImage ??
                               'https://firebasestorage.googleapis.com/v0/b/where-hearts-meet.appspot.com/o/Black%20Minimalist%20Happy%20Birthday%20Poster%20(1).png?alt=media&token=13bada89-8df2-4c06-b98e-962a08ba929e'),
                           fit: BoxFit.cover),
                       border: Border.all(width: 5, color: Colors.white),

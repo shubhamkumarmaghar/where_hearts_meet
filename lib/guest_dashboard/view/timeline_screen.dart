@@ -24,41 +24,19 @@ class TimelineStoriesSreen extends StatefulWidget {
 }
 
 class _TimelineStoriesSreenState extends State<TimelineStoriesSreen> {
-  String message = '''Happy Birthday rashi🎉
-              
-                    I wanted to take a moment to celebrate not only your special day but also the incredible year we’ve shared together. It’s hard to believe it’s been a whole year since we started this journey as roommates, lab partners, and “sukh dukh ka saathi.”
-              
-                  From the countless lab sessions to the spontaneous adventures and heartfelt conversations, every moment has been amazing. Your kindness, support, and genuine heart have made this past year truly special. You’ve been a rock in times of stress and a joy in times of celebration.
-              
-                  I’m grateful for your friendship and the beautiful memories we’ve created together. I sincerely hope that our bond continues to grow stronger with each passing year. Here’s to many more adventures, laughs, and unforgettable moments together!
-              
-                    Wishing you all the happiness, love, and success in the world on your birthday and always.''';
+  int _currentIndex = 0;
   String showMessage = "";
   final controller = Get.find<GuestHomeController>();
 
   @override
   void initState() {
-    textAnimation();
     super.initState();
   }
 
   @override
   void dispose() {
-    controller.countdownTimer?.cancel();
+   // controller.countdownTimer?.cancel();
     super.dispose();
-  }
-
-  Future<void> textAnimation() async {
-    String? text = message;
-
-    List<String>? wordsList = text?.split('');
-
-    for (var word in wordsList!) {
-      await Future.delayed(const Duration(milliseconds: 80));
-      setState(() {
-        showMessage = showMessage + word;
-      });
-    }
   }
 
   @override
@@ -74,36 +52,20 @@ class _TimelineStoriesSreenState extends State<TimelineStoriesSreen> {
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  heightSpace(30),
+                  heightSpace(screenHeight*0.02),
+                  Center(
+                    child: Text('Wishes', style: GoogleFonts.dancingScript(
+                        decoration: TextDecoration.none,
+                        color: Colors.white,
+                        fontWeight: FontWeight.w700,
+                        fontSize: 50),),
+                  ),
                   Padding(
                     padding: const EdgeInsets.all(16.0),
                     child: Row(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        CircleAvatar(
-                          radius: screenWidth * 0.07,
-                          backgroundImage: NetworkImage("https://firebasestorage.googleapis.com/v0/b/where-hearts-meet.appspot.com/o/WhatsApp%20Image%202024-07-17%20at%2023.36.03_5909fd2b.jpg?alt=media&token=ef1eb0ea-8b8b-43a0-921a-a9e5ae4c12eb"),
-                        ),
-                        widthSpace(20),
-                        Column(
-                          mainAxisAlignment: MainAxisAlignment.start,
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text(
-                              controller.eventDetails!.hostName ?? controller.eventDetails!.hostName.toString(),
-                              style: GoogleFonts.abel(
-                                  decoration: TextDecoration.none,
-                                  color: Colors.white,
-                                  fontWeight: FontWeight.w800,
-                                  fontSize: 24),
-                            ),
-                            Text(
-                              '@sunandaaryan',
-                              style: TextStyle(fontSize: 14, fontWeight: FontWeight.w400, color: Colors.white70),
-                            ),
-                          ],
-                        ),
-                        Spacer(),
+
                         GestureDetector(
                           onTap: () {
                             Get.to(() => ImageStoryWidget(
@@ -137,18 +99,6 @@ class _TimelineStoriesSreenState extends State<TimelineStoriesSreen> {
                     ),
                   ),
                   SizedBox(height: 10),
-                  VideoPlayerScreen(url: controller.videoUrl),
-                  SizedBox(height: screenHeight*0.03),
-                  Container(
-                    padding: EdgeInsets.symmetric(horizontal: screenWidth * 0.04),
-                    child: Text(
-                      showMessage,
-                      textAlign: TextAlign.center,
-
-                      style: textStyleDangrek(fontSize: 18,fontWeight: FontWeight.w300),
-                    ),
-                  ),
-
                   CarouselSlider(
                     options: CarouselOptions(
                       height: 400.0,
@@ -169,7 +119,8 @@ class _TimelineStoriesSreenState extends State<TimelineStoriesSreen> {
                                 imageUrl: imagePath,
                               ));
                             },
-                            child: Container(
+                            child:
+                            Container(
                               width: screenWidth,
                               margin: EdgeInsets.symmetric(horizontal: 5.0),
                               decoration: BoxDecoration(
@@ -185,6 +136,31 @@ class _TimelineStoriesSreenState extends State<TimelineStoriesSreen> {
                       );
                     }).toList(),
                   ),
+                  SizedBox(height: screenHeight*0.03),
+                  CarouselSlider(
+                    options: CarouselOptions(
+                      height: 400.0,
+                      enlargeCenterPage: true,
+                      //autoPlay: true,
+                     // aspectRatio: 16 / 9,
+                     // autoPlayCurve: Curves.fastOutSlowIn,
+                      enableInfiniteScroll: false,
+                      autoPlayAnimationDuration: Duration(milliseconds: 800),
+                      viewportFraction: 0.8,
+                    ),
+
+                    items: controller.timeLineModel.value.videos?.map((videoPath) {
+                      return Builder(
+                        builder: (BuildContext context) {
+                          return
+                            VideoPlayerScreen(url: videoPath);
+                        },
+                      );
+                    }).toList(),
+                  ),
+
+
+
                 ],
               ),
             ),
