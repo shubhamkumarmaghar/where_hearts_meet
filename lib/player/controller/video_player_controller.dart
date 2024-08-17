@@ -26,10 +26,10 @@ class VideoScreenController extends BaseController {
         videoPlayerController: playerController,
         autoPlay: false,
         allowMuting: true,
-
         zoomAndPan: true,
         looping: true,
         autoInitialize: true,
+
        // overlay: overlayWidget
       );
 

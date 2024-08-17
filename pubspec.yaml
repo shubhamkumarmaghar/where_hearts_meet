@@ -59,6 +59,7 @@ dependencies:
   chewie: ^1.7.5
   video_player: ^2.9.1
   flutter_launcher_icons: ^0.13.1
+  infinite_carousel: ^1.1.1
 
 
 dev_dependencies:

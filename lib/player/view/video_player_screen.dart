@@ -33,7 +33,6 @@ class VideoPlayerScreen extends StatelessWidget {
                 )
               : Chewie(
                   controller: controller.chewieController,
-
                 ),
         );
       },

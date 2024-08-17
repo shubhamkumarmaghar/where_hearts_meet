@@ -24,7 +24,7 @@ class _GetPersonalScreenCoverState extends State<GetPersonalScreenCover> {
       body: Stack(
         children: [
           Container(
-            decoration: BoxDecoration(
+            decoration: const BoxDecoration(
                 image: DecorationImage(
                     image: AssetImage(su1), fit: BoxFit.fitHeight)),
           ),
@@ -56,15 +56,9 @@ class _GetPersonalScreenCoverState extends State<GetPersonalScreenCover> {
                   heightSpace(screenHeight * 0.5),
                   Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 8.0),
-                    child: Text('Perfect Choice',
+                    child: Text('Explore Special Feelings',
                         style: GoogleFonts.architectsDaughter(
                             fontSize: 45, color: Colors.white)),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 8.0),
-                    child: Text('For You Mr. Late',
-                        style: GoogleFonts.barlowSemiCondensed(
-                            fontSize: 30, color: Colors.white)),
                   ),
                 ]),
           ),
@@ -75,7 +69,7 @@ class _GetPersonalScreenCoverState extends State<GetPersonalScreenCover> {
             child: GestureDetector(
               onTap: (() {
 
-                Get.to(GetPersonalWishScreen());
+                Get.to(const GetPersonalWishScreen());
               }),
               child: Container(
                   alignment: Alignment.bottomCenter,
