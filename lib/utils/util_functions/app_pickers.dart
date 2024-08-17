@@ -6,12 +6,12 @@ import '../consts/color_const.dart';
 import '../dialogs/pop_up_dialogs.dart';
 import '../widgets/image_dialog.dart';
 
-Future<DateTime?> dateOfBirthPicker({required BuildContext context}) async {
+Future<DateTime?> dateOfBirthPicker({required BuildContext context, DateTime? initialDate}) async {
   final DateTime? picked = await showDatePicker(
     context: context,
-    initialDate: DateTime.now().subtract(Duration(days: 3650)),
+    initialDate: initialDate ?? DateTime.now().subtract(const Duration(days: 365)),
     firstDate: DateTime(1950),
-    lastDate: DateTime.now().subtract(Duration(days: 3650)),
+    lastDate: DateTime.now().subtract(const Duration(days: 365)),
     builder: (BuildContext context, Widget? child) {
       return Theme(
         data: Theme.of(context).copyWith(
@@ -32,7 +32,8 @@ Future<DateTime?> dateOfBirthPicker({required BuildContext context}) async {
   return null;
 }
 
-void showImagePickerDialog({required BuildContext context,required Function onCamera, required Function onGallery}) async {
+void showImagePickerDialog(
+    {required BuildContext context, required Function onCamera, required Function onGallery}) async {
   await Permission.photos.request();
   await Permission.camera.request();
   await Permission.mediaLibrary.request();

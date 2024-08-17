@@ -9,4 +9,5 @@ class BaseController extends GetxController {
     _isBusy = value;
     update();
   }
+
 }

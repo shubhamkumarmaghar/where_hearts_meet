@@ -93,10 +93,7 @@ class EventCard extends StatelessWidget {
                         //padding: EdgeInsets.all(5),
                         child: ClipRRect(
                           borderRadius: BorderRadius.circular(50),
-                          child: Image.network(
-                            eventResponseModel.splashBackgroundImage ?? '',
-                            fit: BoxFit.cover,
-                          ),
+                          child: cachedImage(imageUrl: eventResponseModel.splashBackgroundImage),
                         ),
                       ),
                       Positioned(
@@ -110,10 +107,7 @@ class EventCard extends StatelessWidget {
                           //padding: EdgeInsets.all(5),
                           child: ClipRRect(
                             borderRadius: BorderRadius.circular(50),
-                            child: Image.network(
-                              eventResponseModel.splashDisplayImage ?? '',
-                              fit: BoxFit.cover,
-                            ),
+                            child: cachedImage(imageUrl: eventResponseModel.splashDisplayImage),
                           ),
                         ),
                       ),

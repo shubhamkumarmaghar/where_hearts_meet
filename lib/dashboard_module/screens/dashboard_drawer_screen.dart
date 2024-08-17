@@ -56,7 +56,6 @@ class DashboardDrawerScreen extends StatelessWidget {
                   ),
                   GestureDetector(
                     onTap: () {
-
                       Get.toNamed(RoutesConst.profileScreen);
                       //onDrawerClose();
                     },
@@ -128,11 +127,8 @@ class DashboardDrawerScreen extends StatelessWidget {
                   onTap: () async {
                     showLogoutAlertDialog(
                         context: Get.context!,
-                        logOutFunction: () async {
-                          showLoaderDialog(context: Get.context!);
-                          await GetStorage().erase();
-                          cancelDialog();
-                          Get.offAllNamed(RoutesConst.loginScreen);
+                        logOutFunction: (){
+                          logoutFunction();
                         });
                   }),
               const Spacer(),

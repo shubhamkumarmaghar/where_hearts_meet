@@ -1,12 +1,17 @@
+import 'dart:developer';
 import 'dart:io';
 
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:get_storage/get_storage.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:image_cropper/image_cropper.dart';
 
+import '../../routes/routes_const.dart';
 import '../consts/app_screen_size.dart';
 import '../consts/color_const.dart';
 import '../consts/images_const.dart';
+import '../dialogs/pop_up_dialogs.dart';
 
 Color getColorBasedOnIndex(int index) {
   int temp = index % 6;
@@ -63,31 +68,57 @@ Widget get appHeader {
     ],
   );
 }
-String getYearTime(String date) {
-  if (date.isEmpty) {
-    return '';
+
+String getYearTime(String? date) {
+  String formattedDate = '';
+  if (date != null && date.isNotEmpty) {
+    try {
+      final dateTime = DateTime.parse(date);
+      formattedDate = '${addZero(dateTime.day)}-${addZero(dateTime.month)}-${dateTime.year}';
+    } catch (e) {
+      log(e.toString());
+    }
   }
-  final dateTime = DateTime.parse(date);
-  final time = '${addZero(dateTime.day)}/${addZero(dateTime.month)}/${dateTime.year}';
-  return time;
+
+  return formattedDate;
+}
+
+void logoutFunction() async {
+  showLoaderDialog(context: Get.context!);
+  await GetStorage().erase();
+  cancelDialog();
+  Get.offAllNamed(RoutesConst.loginScreen);
 }
 
 String addZero(int value) {
   return value > 9 ? value.toString() : '0$value';
 }
 
-TextStyle textStyleDangrek({double? fontSize, Color? color, FontWeight? fontWeight,TextDecoration? textDecoration}) {
+TextStyle textStyleDangrek({double? fontSize, Color? color, FontWeight? fontWeight, TextDecoration? textDecoration}) {
   return GoogleFonts.dangrek(
-      color: color ?? Colors.white, fontWeight: fontWeight ?? FontWeight.w500, fontSize: fontSize ?? 22,decoration: textDecoration,decorationColor:color ?? Colors.white );
-}
-TextStyle textStyleAleo({double? fontSize, Color? color, FontWeight? fontWeight,TextDecoration? textDecoration}) {
-  return GoogleFonts.aleo(
-      color: color ?? Colors.white, fontWeight: fontWeight ?? FontWeight.w500, fontSize: fontSize ?? 22,decoration: textDecoration,decorationColor:color ?? Colors.white );
+      color: color ?? Colors.white,
+      fontWeight: fontWeight ?? FontWeight.w500,
+      fontSize: fontSize ?? 22,
+      decoration: textDecoration,
+      decorationColor: color ?? Colors.white);
 }
 
-TextStyle textStyleAbel({double? fontSize, Color? color, FontWeight? fontWeight,TextDecoration? textDecoration}) {
+TextStyle textStyleAleo({double? fontSize, Color? color, FontWeight? fontWeight, TextDecoration? textDecoration}) {
+  return GoogleFonts.aleo(
+      color: color ?? Colors.white,
+      fontWeight: fontWeight ?? FontWeight.w500,
+      fontSize: fontSize ?? 22,
+      decoration: textDecoration,
+      decorationColor: color ?? Colors.white);
+}
+
+TextStyle textStyleAbel({double? fontSize, Color? color, FontWeight? fontWeight, TextDecoration? textDecoration}) {
   return GoogleFonts.abel(
-      color: color ?? Colors.white, fontWeight: fontWeight ?? FontWeight.w500, fontSize: fontSize ?? 22,decoration: textDecoration,decorationColor: color ??Colors.white);
+      color: color ?? Colors.white,
+      fontWeight: fontWeight ?? FontWeight.w500,
+      fontSize: fontSize ?? 22,
+      decoration: textDecoration,
+      decorationColor: color ?? Colors.white);
 }
 
 Future<File?> cropImage({required String filePath, bool? isProfileImage}) async {

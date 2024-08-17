@@ -25,7 +25,7 @@ class CreateWishesController extends BaseController {
   final nameTextController = TextEditingController();
   final messageTextController = TextEditingController();
   List<ImageResponseModel> imagesList = [];
-  List<String> videosList = [];
+  List<ImageResponseModel> videosList = [];
   ImageResponseModel? profileImage;
 
   final createEventService = CreateEventService();
@@ -65,13 +65,6 @@ class CreateWishesController extends BaseController {
   }
 
   void onCaptureVideo({required ImageSource source}) async {
-    final thumbnail =
-    await FunctionsService.generateThumbnail("https://hehbucket.s3.amazonaws.com/172275963580152704.mp4");
-    if(thumbnail != null){
-      log('thubmnail $thumbnail');
-    }
-
-    return;
     final ImagePicker picker = ImagePicker();
 
     var video = await picker.pickVideo(
@@ -88,18 +81,9 @@ class CreateWishesController extends BaseController {
     showLoaderDialog(context: Get.context!);
     final videoResponse = await createEventService.uploadVideoApi(videoFile: videoFile);
     cancelDialog();
-    // showLoaderDialog(context: Get.context!);
-    // final url = await createEventService.uploadVideoToAws(videoFile: videoFile);
-    // cancelDialog();
     if (videoResponse != null) {
-      final thumbnail =
-          await FunctionsService.generateThumbnail("https://hehbucket.s3.amazonaws.com/172275963580152704.mp4");
-
-      if (thumbnail != null) {
-        videoResponse.fileUrl = thumbnail;
-        imagesList.add(videoResponse);
-        update();
-      }
+      videosList.add(videoResponse);
+      update();
     }
   }
 
@@ -109,7 +93,7 @@ class CreateWishesController extends BaseController {
         wishesModel: WishesModel(
             eventId: eventResponseModel.eventid,
             imageUrls: imagesList.map((model) => model.fileId ?? '').toList(),
-            videoUrls: videosList,
+            videoUrls: videosList.map((model) => model.fileId ?? '').toList(),
             senderMessage: messageTextController.text,
             senderName: nameTextController.text,
             senderProfileImage: profileImage?.fileId));

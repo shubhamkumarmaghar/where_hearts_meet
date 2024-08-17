@@ -29,7 +29,7 @@ class CreateEventSplashScreen extends StatelessWidget {
                   height: screenHeight,
                   alignment: Alignment.center,
                   decoration: BoxDecoration(
-                    gradient: LinearGradient(begin: Alignment.topCenter, end: Alignment.bottomCenter, colors: [
+                    gradient: const LinearGradient(begin: Alignment.topCenter, end: Alignment.bottomCenter, colors: [
                       Color(0xff9467ff),
                       Color(0xffae8bff),
                       Color(0xffc7afff),
@@ -44,9 +44,10 @@ class CreateEventSplashScreen extends StatelessWidget {
               ),
               Container(
                 width: screenWidth,
-                decoration: BoxDecoration(
+                decoration: const BoxDecoration(
                     gradient: LinearGradient(begin: Alignment.topCenter, end: Alignment.bottomCenter, colors: [
                   Colors.white,
+                  Colors.white70,
                   Colors.white70,
                   Colors.white24,
                   Colors.transparent,
@@ -61,9 +62,7 @@ class CreateEventSplashScreen extends StatelessWidget {
                     children: [
                       heightSpace(screenHeight * 0.08),
                       Container(
-                        padding: EdgeInsets.symmetric(
-                          horizontal: 20
-                        ),
+                        padding: const EdgeInsets.symmetric(horizontal: 20),
                         //   color: Colors.amber,
                         child: Text(
                           controller.eventModel.eventName ?? 'Add Event Name',
@@ -71,33 +70,51 @@ class CreateEventSplashScreen extends StatelessWidget {
                               decoration: TextDecoration.none,
                               color: Colors.black,
                               fontWeight: FontWeight.w500,
-                              fontSize: 60),textAlign: TextAlign.center,
+                              fontSize: 60),
+                          textAlign: TextAlign.center,
                         ),
                       ),
-                      InkWell(
-                        onTap: () async {
-                          final name =
-                              await showTextDialog(dialogTitle: "Person's Name", hintText: "Enter person's Name");
-                          controller.eventModel.receiverName = name;
-                          controller.update();
-                        },
-                        child: Container(
-                          // color: Colors.red,
-                          child: Text(
-                            controller.eventModel.receiverName ?? 'Add Name',
-                            style: GoogleFonts.moonDance(
-                                decoration: TextDecoration.none,
-                                color: Colors.pinkAccent.shade200,
-                                fontWeight: FontWeight.w800,
-                                fontSize: 80),
-                            textAlign: TextAlign.start,
-                          ),
-                        ),
+                      Text(
+                        controller.eventModel.receiverName ?? 'Add Name',
+                        style: GoogleFonts.moonDance(
+                            decoration: TextDecoration.none,
+                            color: Colors.pinkAccent.shade200,
+                            fontWeight: FontWeight.w800,
+                            fontSize: 80),
+                        textAlign: TextAlign.start,
                       ),
                       heightSpace(
-                        screenHeight * 0.05,
+                        screenHeight * 0.1,
                       ),
-                      InkWell(
+                      // InkWell(
+                      //   onTap: () {
+                      //     showImagePickerDialog(
+                      //       context: Get.context!,
+                      //       onCamera: () => controller.onCaptureMediaClick(
+                      //           source: ImageSource.camera, imageType: EventImageType.backgroundImage),
+                      //       onGallery: () => controller.onCaptureMediaClick(
+                      //           source: ImageSource.gallery, imageType: EventImageType.backgroundImage),
+                      //     );
+                      //   },
+                      //   child: Container(
+                      //     height: screenHeight * 0.07,
+                      //     width: screenWidth * 0.7,
+                      //     alignment: Alignment.center,
+                      //     decoration: BoxDecoration(color: primaryColor, borderRadius: BorderRadius.circular(15)),
+                      //     child: Text(
+                      //       'Tap to upload background image',
+                      //       style: GoogleFonts.dangrek(
+                      //           decoration: TextDecoration.none,
+                      //           color: Colors.white,
+                      //           fontWeight: FontWeight.w500,
+                      //           fontSize: 20),
+                      //     ),
+                      //   ),
+                      // ),
+                      // heightSpace(
+                      //   screenHeight * 0.06,
+                      // ),
+                      GestureDetector(
                         onTap: () {
                           showImagePickerDialog(
                             context: Get.context!,
@@ -107,51 +124,23 @@ class CreateEventSplashScreen extends StatelessWidget {
                                 source: ImageSource.gallery, imageType: EventImageType.backgroundImage),
                           );
                         },
-                        child: Container(
-                          height: screenHeight * 0.07,
-                          width: screenWidth * 0.7,
-                          alignment: Alignment.center,
-                          decoration: BoxDecoration(color: primaryColor, borderRadius: BorderRadius.circular(15)),
-                          child: Text(
-                            'Tap to upload background image',
-                            style: GoogleFonts.dangrek(
-                                decoration: TextDecoration.none,
-                                color: Colors.white,
-                                fontWeight: FontWeight.w500,
-                                fontSize: 20),
-                          ),
-                        ),
-                      ),
-                      heightSpace(
-                        screenHeight * 0.06,
-                      ),
-                      GestureDetector(
-                        onTap: () {
-                          showImagePickerDialog(
-                            context: Get.context!,
-                            onCamera: () => controller.onCaptureMediaClick(
-                                source: ImageSource.camera, imageType: EventImageType.displayImage),
-                            onGallery: () => controller.onCaptureMediaClick(
-                                source: ImageSource.gallery, imageType: EventImageType.displayImage),
-                          );
-                        },
-                        child: controller.displayImage != null && controller.displayImage!.isNotEmpty
+                        child: controller.backgroundImage != null && controller.backgroundImage!.isNotEmpty
                             ? Container(
                                 alignment: Alignment.center,
                                 height: screenHeight * 0.2,
                                 width: screenHeight * 0.2,
                                 decoration: BoxDecoration(
                                     border: Border.all(width: 5, color: Colors.white),
-                                    borderRadius: BorderRadius.circular(10),
-                                    image: DecorationImage(image: NetworkImage(controller.displayImage!))),
+                                    borderRadius: BorderRadius.circular(100),
+                                    image: DecorationImage(image: NetworkImage(controller.backgroundImage!))),
                               )
                             : Container(
                                 alignment: Alignment.center,
-                                height: screenHeight * 0.15,
-                                width: screenHeight * 0.15,
+                                height: screenHeight * 0.2,
+                                width: screenHeight * 0.2,
                                 decoration: BoxDecoration(
                                     border: Border.all(width: 5, color: Colors.white),
-                                    borderRadius: BorderRadius.circular(20),
+                                    borderRadius: BorderRadius.circular(100),
                                     color: appColor2),
                                 child: Icon(
                                   Icons.person,
@@ -171,7 +160,6 @@ class CreateEventSplashScreen extends StatelessWidget {
                   bottom: screenHeight * 0.15, child: Align(alignment: Alignment.bottomCenter, child: timeView())),
               GestureDetector(
                 onTap: controller.createEvent,
-                // onTap: controller.addWishesEvent,
                 child: const Align(
                   alignment: Alignment.bottomCenter,
                   child: Padding(
@@ -216,12 +204,12 @@ class CreateEventSplashScreen extends StatelessWidget {
                           controller.weekModel?.month != null
                               ? controller.weekModel!.month.toString().substring(0, 3)
                               : '',
-                          style: TextStyle(color: Colors.white, fontSize: 16, fontWeight: FontWeight.w600)),
+                          style: const TextStyle(color: Colors.white, fontSize: 14, fontWeight: FontWeight.w600)),
                       SizedBox(
                         height: screenHeight * 0.005,
                       ),
                       Text(controller.weekModel?.day ?? '',
-                          style: const TextStyle(color: Colors.white, fontSize: 16, fontWeight: FontWeight.w600)),
+                          style: const TextStyle(color: Colors.white, fontSize: 14, fontWeight: FontWeight.w600)),
                     ],
                   ),
                 ),
@@ -237,7 +225,7 @@ class CreateEventSplashScreen extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(controller.weekModel?.date ?? '',
-                        style: TextStyle(color: Colors.white, fontSize: 16, fontWeight: FontWeight.w600)),
+                        style: TextStyle(color: Colors.white, fontSize: 14, fontWeight: FontWeight.w600)),
                     Visibility(
                       visible: controller.countdownTimer != null,
                       child: Text(
@@ -246,7 +234,7 @@ class CreateEventSplashScreen extends StatelessWidget {
                             decoration: TextDecoration.none,
                             color: Colors.white,
                             fontWeight: FontWeight.w500,
-                            fontSize: 24),
+                            fontSize: 20),
                       ),
                     )
                   ],

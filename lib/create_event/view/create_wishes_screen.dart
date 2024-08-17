@@ -1,10 +1,10 @@
-
 import 'package:clay_containers/widgets/clay_container.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 
 import 'package:where_hearts_meet/create_event/controller/create_wishes_controller.dart';
+import 'package:where_hearts_meet/utils/widgets/cached_image.dart';
 import 'package:where_hearts_meet/utils/widgets/gradient_button.dart';
 import 'package:where_hearts_meet/utils/widgets/outlined_busy_button.dart';
 
@@ -24,160 +24,159 @@ class CreateWishesScreen extends StatelessWidget {
     return PopScope(
         canPop: false,
         child: GetBuilder<CreateWishesController>(
-      builder: (controller) {
-        return Scaffold(
-          bottomNavigationBar: Container(
-            color: appColor3,
-            padding: EdgeInsets.only(
-              bottom: 14,
-              left: screenWidth * 0.06,
-              right: screenWidth * 0.06,
-            ),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                GradientButton(
-                  title: 'Submit',
-                  width: screenWidth * 0.4,
-                  onPressed: controller.addWishes,
-                  buttonColor: appColor1,
-                  titleTextStyle: textStyleDangrek(fontSize: 22),
+          builder: (controller) {
+            return Scaffold(
+              bottomNavigationBar: Container(
+                color: appColor3,
+                padding: EdgeInsets.only(
+                  bottom: 14,
+                  left: screenWidth * 0.06,
+                  right: screenWidth * 0.06,
                 ),
-                OutlinedBusyButton(
-                  title: 'Next',
-                  width: screenWidth * 0.4,
-                  titleTextStyle: textStyleDangrek(fontSize: 22, color: primaryColor),
-                  onPressed: controller.navigateToCreateTimelineScreen,
-                  enabled: controller.wishesList.isNotEmpty,
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    GradientButton(
+                      title: 'Submit',
+                      width: screenWidth * 0.4,
+                      onPressed: controller.addWishes,
+                      buttonColor: appColor1,
+                      titleTextStyle: textStyleDangrek(fontSize: 22),
+                    ),
+                    OutlinedBusyButton(
+                      title: 'Next',
+                      width: screenWidth * 0.4,
+                      titleTextStyle: textStyleDangrek(fontSize: 22, color: primaryColor),
+                      onPressed: controller.navigateToCreateTimelineScreen,
+                      enabled: controller.wishesList.isNotEmpty,
+                    ),
+                  ],
                 ),
-              ],
-            ),
-          ),
-          body: Container(
-            height: screenHeight,
-            width: screenWidth,
-            decoration: BoxDecoration(gradient: backgroundGradient),
-            padding: const EdgeInsets.symmetric(
-              horizontal: 20,
-            ),
-            child: Column(
-              children: [
-                SizedBox(
-                  height: screenHeight * 0.05,
+              ),
+              body: Container(
+                height: screenHeight,
+                width: screenWidth,
+                decoration: BoxDecoration(gradient: backgroundGradient),
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 20,
                 ),
-                appHeader,
-                Text(
-                  'Add Wishes',
-                  style: textStyleDangrek(fontSize: 24),
+                child: Column(
+                  children: [
+                    SizedBox(
+                      height: screenHeight * 0.05,
+                    ),
+                    appHeader,
+                    Text(
+                      'Add Wishes',
+                      style: textStyleDangrek(fontSize: 24),
+                    ),
+                    Visibility(
+                      visible: controller.wishesList.isNotEmpty,
+                      replacement: const SizedBox.shrink(),
+                      child: SizedBox(
+                        height: screenHeight * 0.01,
+                      ),
+                    ),
+                    Visibility(
+                      visible: controller.wishesList.isNotEmpty,
+                      replacement: const SizedBox.shrink(),
+                      child: showWish(),
+                    ),
+                    Expanded(
+                      child: SingleChildScrollView(
+                        child: Column(
+                          children: [
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                GestureDetector(
+                                  onTap: () {
+                                    showImagePickerDialog(
+                                      context: Get.context!,
+                                      onCamera: () =>
+                                          controller.onCaptureMediaClick(source: ImageSource.camera, forProfile: true),
+                                      onGallery: () =>
+                                          controller.onCaptureMediaClick(source: ImageSource.gallery, forProfile: true),
+                                    );
+                                  },
+                                  child: Container(
+                                    padding: const EdgeInsets.only(top: 30),
+                                    child: ClayContainer(
+                                        width: screenWidth * 0.15,
+                                        height: screenHeight * 0.065,
+                                        borderRadius: 50,
+                                        color: appColor1,
+                                        child: controller.profileImage == null
+                                            ? Icon(
+                                                Icons.add_a_photo,
+                                                size: screenHeight * 0.03,
+                                                color: Colors.white,
+                                              )
+                                            : ClipRRect(
+                                                borderRadius: const BorderRadius.all(Radius.circular(50)),
+                                                child: Image.network(
+                                                  controller.profileImage?.fileUrl ?? '',
+                                                  fit: BoxFit.cover,
+                                                ),
+                                              )),
+                                  ),
+                                ),
+                                SizedBox(
+                                  width: screenWidth * 0.7,
+                                  child: DesignerTextField(
+                                      title: '',
+                                      hint: 'Name',
+                                      cornerRadius: 15,
+                                      onChanged: (text) {},
+                                      controller: controller.nameTextController),
+                                ),
+                              ],
+                            ),
+                            SizedBox(
+                              height: screenHeight * 0.03,
+                            ),
+                            DesignerTextField(
+                                title: 'Message*',
+                                hint: 'Enter message',
+                                maxLines: 6,
+                                cornerRadius: 15,
+                                onChanged: (text) {},
+                                controller: controller.messageTextController),
+                            SizedBox(
+                              height: screenHeight * 0.03,
+                            ),
+                            Align(
+                              alignment: Alignment.centerLeft,
+                              child: Text(
+                                'Upload wishing images*',
+                                style: textStyleDangrek(fontSize: 18),
+                              ),
+                            ),
+                            _getImagesListWidget(),
+                            SizedBox(
+                              height: screenHeight * 0.01,
+                            ),
+                            Align(
+                              alignment: Alignment.centerLeft,
+                              child: Text(
+                                'Upload wishing videos*',
+                                style: textStyleDangrek(fontSize: 18),
+                              ),
+                            ),
+                            _getVideosListWidget(),
+                            SizedBox(
+                              height: screenHeight * 0.02,
+                            ),
+                          ],
+                        ),
+                      ),
+                    )
+                  ],
                 ),
-                Visibility(
-                  visible: controller.wishesList.isNotEmpty,
-                  replacement: const SizedBox.shrink(),
-                  child: SizedBox(
-                    height: screenHeight * 0.01,
-                  ),
-                ),
-                Visibility(
-                  visible: controller.wishesList.isNotEmpty,
-                  replacement: const SizedBox.shrink(),
-                  child: showWish(),
-                ),
-               Expanded(
-                 child: SingleChildScrollView(
-                   child: Column(
-                     children: [
-                       Row(
-                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                         children: [
-                           GestureDetector(
-                             onTap: () {
-                               showImagePickerDialog(
-                                 context: Get.context!,
-                                 onCamera: () =>
-                                     controller.onCaptureMediaClick(source: ImageSource.camera, forProfile: true),
-                                 onGallery: () =>
-                                     controller.onCaptureMediaClick(source: ImageSource.gallery, forProfile: true),
-                               );
-                             },
-                             child: Container(
-                               padding: const EdgeInsets.only(top: 30),
-                               child: ClayContainer(
-                                   width: screenWidth * 0.15,
-                                   height: screenHeight * 0.065,
-                                   borderRadius: 50,
-                                   color: appColor1,
-                                   child: controller.profileImage == null
-                                       ? Icon(
-                                     Icons.add_a_photo,
-                                     size: screenHeight * 0.03,
-                                     color: Colors.white,
-                                   )
-                                       : ClipRRect(
-                                     borderRadius: const BorderRadius.all(Radius.circular(50)),
-                                     child: Image.network(
-                                       controller.profileImage?.fileUrl ?? '',
-                                       fit: BoxFit.cover,
-                                     ),
-                                   )),
-                             ),
-                           ),
-                           SizedBox(
-                             width: screenWidth * 0.7,
-                             child: DesignerTextField(
-                                 title: '',
-                                 hint: 'Name',
-                                 cornerRadius: 15,
-                                 onChanged: (text) {},
-                                 controller: controller.nameTextController),
-                           ),
-                         ],
-                       ),
-                       SizedBox(
-                         height: screenHeight * 0.03,
-                       ),
-                       DesignerTextField(
-                           title: 'Message*',
-                           hint: 'Enter message',
-                           maxLines: 6,
-                           cornerRadius: 15,
-                           onChanged: (text) {},
-                           controller: controller.messageTextController),
-                       SizedBox(
-                         height: screenHeight * 0.03,
-                       ),
-                       Align(
-                         alignment: Alignment.centerLeft,
-                         child: Text(
-                           'Upload wishing images*',
-                           style: textStyleDangrek(fontSize: 18),
-                         ),
-                       ),
-                       _getImagesListWidget(),
-
-                       SizedBox(
-                         height: screenHeight * 0.01,
-                       ),
-                       Align(
-                         alignment: Alignment.centerLeft,
-                         child: Text(
-                           'Upload wishing videos*',
-                           style: textStyleDangrek(fontSize: 18),
-                         ),
-                       ),
-                       _getVideosListWidget(),
-                       SizedBox(
-                         height: screenHeight * 0.02,
-                       ),
-                     ],
-                   ),
-                 ),
-               )
-              ],
-            ),
-          ),
-        );
-      },
-    ));
+              ),
+            );
+          },
+        ));
   }
 
   Widget _getImagesListWidget() {
@@ -216,10 +215,7 @@ class CreateWishesScreen extends StatelessWidget {
                       )
                     : ClipRRect(
                         borderRadius: const BorderRadius.all(Radius.circular(20)),
-                        child: Image.network(
-                          controller.imagesList[index].fileUrl ?? '',
-                          fit: BoxFit.cover,
-                        ),
+                        child: cachedImage(imageUrl: controller.imagesList[index].fileUrl ?? ''),
                       ),
               ),
             ),
@@ -263,10 +259,7 @@ class CreateWishesScreen extends StatelessWidget {
                       )
                     : ClipRRect(
                         borderRadius: const BorderRadius.all(Radius.circular(20)),
-                        child: Image.network(
-                          controller.videosList[index],
-                          fit: BoxFit.cover,
-                        ),
+                        child: cachedImage(imageUrl: controller.videosList[index].fileUrl ?? ''),
                       ),
               ),
             ),

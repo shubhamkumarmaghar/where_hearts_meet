@@ -101,3 +101,35 @@ Widget moreViewPopUpMenu({Function? onDelete, Function? onView, bool showBackgro
           ],
         );
 }
+
+Widget deleteProfileView({required Function onDelete}) {
+  return PopupMenuButton<AppActions>(
+    color: Colors.white,
+    shape: const RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(15.0))),
+    icon: const Icon(
+      Icons.more_vert_rounded,
+      color: Colors.white,
+      size: 30,
+    ),
+    onSelected: (AppActions result) {
+      if (result == AppActions.delete) {
+        onDelete();
+      }
+    },
+    itemBuilder: (BuildContext context) => <PopupMenuEntry<AppActions>>[
+      const PopupMenuItem<AppActions>(
+        value: AppActions.delete,
+        child: ListTile(
+          leading: Icon(
+            Icons.delete,
+            color: errorColor,
+          ),
+          title: Text(
+            'Delete',
+            style: TextStyle(color: Colors.black, fontSize: 16, fontWeight: FontWeight.w600),
+          ),
+        ),
+      ),
+    ],
+  );
+}

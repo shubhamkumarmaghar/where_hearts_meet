@@ -3,6 +3,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:where_hearts_meet/utils/widgets/cached_image.dart';
 
 import '../../utils/consts/app_screen_size.dart';
 import '../../utils/consts/color_const.dart';
@@ -21,137 +22,134 @@ class CreatePersonalWishesScreen extends StatelessWidget {
     return PopScope(
         canPop: false,
         child: GetBuilder<CreatePersonalWishesController>(
-      builder: (controller) {
-        return Scaffold(
-          bottomNavigationBar: Container(
-            color: appColor3,
-            padding: EdgeInsets.only(
-              bottom: 14,
-              left: screenWidth * 0.06,
-              right: screenWidth * 0.06,
-            ),
-            child: GradientButton(
-              title: 'Submit',
-              width: screenWidth * 0.8,
-              enabled: controller.messagesList.isNotEmpty,
-              onPressed: controller.addPersonalWishes,
-              buttonColor: appColor1,
-              titleTextStyle: textStyleDangrek(fontSize: 22),
-            ),
-          ),
-          body: Container(
-            height: screenHeight,
-            width: screenWidth,
-            decoration: BoxDecoration(gradient: backgroundGradient),
-            padding: const EdgeInsets.symmetric(
-              horizontal: 20,
-            ),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                SizedBox(
-                  height: screenHeight * 0.05,
+          builder: (controller) {
+            return Scaffold(
+              bottomNavigationBar: Container(
+                color: appColor3,
+                padding: EdgeInsets.only(
+                  bottom: 14,
+                  left: screenWidth * 0.06,
+                  right: screenWidth * 0.06,
                 ),
-                appHeader,
-                Center(
-                  child: Text(
-                    'Personal Wishes/Messages ',
-                    style: textStyleDangrek(fontSize: 24),
-                  ),
+                child: GradientButton(
+                  title: 'Submit',
+                  width: screenWidth * 0.8,
+                  enabled: controller.messagesList.isNotEmpty,
+                  onPressed: controller.addPersonalWishes,
+                  buttonColor: appColor1,
+                  titleTextStyle: textStyleDangrek(fontSize: 22),
                 ),
-                SizedBox(
-                  height: screenHeight * 0.01,
+              ),
+              body: Container(
+                height: screenHeight,
+                width: screenWidth,
+                decoration: BoxDecoration(gradient: backgroundGradient),
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 20,
                 ),
-                Expanded(
-
-                  child: SingleChildScrollView(
-                    child: Column(
-                      children: [
-                        SizedBox(
-                          height: screenHeight * 0.01,
-                        ),
-                        Row(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    SizedBox(
+                      height: screenHeight * 0.05,
+                    ),
+                    appHeader,
+                    Center(
+                      child: Text(
+                        'Personal Wishes/Messages ',
+                        style: textStyleDangrek(fontSize: 24),
+                      ),
+                    ),
+                    SizedBox(
+                      height: screenHeight * 0.01,
+                    ),
+                    Expanded(
+                      child: SingleChildScrollView(
+                        child: Column(
                           children: [
-                            Text(
-                              'Wish/Message*',
-                              style: textStyleDangrek(fontSize: 18),
+                            SizedBox(
+                              height: screenHeight * 0.01,
                             ),
-                            Visibility(
-                              visible: controller.messagesList.isNotEmpty,
-                              replacement: const SizedBox.shrink(),
+                            Row(
+                              children: [
+                                Text(
+                                  'Wish/Message*',
+                                  style: textStyleDangrek(fontSize: 18),
+                                ),
+                                Visibility(
+                                  visible: controller.messagesList.isNotEmpty,
+                                  replacement: const SizedBox.shrink(),
+                                  child: Text(
+                                    '  (${controller.messagesList.length})',
+                                    style: textStyleDangrek(fontSize: 18),
+                                  ),
+                                ),
+                                const Spacer(),
+                                GestureDetector(
+                                  onTap: controller.onMessagesTap,
+                                  child: Container(
+                                    decoration:
+                                        BoxDecoration(color: Colors.white, borderRadius: BorderRadius.circular(10)),
+                                    height: screenHeight * 0.04,
+                                    width: screenWidth * 0.2,
+                                    child: Row(
+                                      mainAxisAlignment: MainAxisAlignment.center,
+                                      children: [
+                                        Text(
+                                          'Add',
+                                          style: textStyleDangrek(fontSize: 20, color: primaryColor),
+                                          textAlign: TextAlign.center,
+                                        ),
+                                        const Icon(
+                                          Icons.add,
+                                          color: primaryColor,
+                                          size: 20,
+                                        )
+                                      ],
+                                    ),
+                                  ),
+                                ),
+                              ],
+                            ),
+                            SizedBox(
+                              height: screenHeight * 0.02,
+                            ),
+                            getMessagesListWidget(),
+                            SizedBox(
+                              height: screenHeight * 0.02,
+                            ),
+                            Align(
+                              alignment: Alignment.centerLeft,
                               child: Text(
-                                '  (${controller.messagesList.length})',
+                                'Upload images',
                                 style: textStyleDangrek(fontSize: 18),
                               ),
                             ),
-                            const Spacer(),
-                            GestureDetector(
-                              onTap: controller.onMessagesTap,
-                              child: Container(
-                                decoration: BoxDecoration(
-                                    color: Colors.white,
-                                    borderRadius: BorderRadius.circular(10)
-                                ),
-                                height: screenHeight * 0.04,
-                                width: screenWidth * 0.2,
-                                child: Row(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children: [
-                                    Text(
-                                      'Add',
-                                      style: textStyleDangrek(fontSize: 20, color: primaryColor),
-                                      textAlign: TextAlign.center,
-                                    ),
-                                    const Icon(
-                                      Icons.add,
-                                      color: primaryColor,
-                                      size: 20,
-                                    )
-                                  ],
-                                ),
+                            getImagesListWidget(),
+                            SizedBox(
+                              height: screenHeight * 0.01,
+                            ),
+                            Align(
+                              alignment: Alignment.centerLeft,
+                              child: Text(
+                                'Upload videos',
+                                style: textStyleDangrek(fontSize: 18),
                               ),
+                            ),
+                            getVideosListWidget(),
+                            SizedBox(
+                              height: screenHeight * 0.02,
                             ),
                           ],
                         ),
-                        SizedBox(
-                          height: screenHeight * 0.02,
-                        ),
-                        getMessagesListWidget(),
-                        SizedBox(
-                          height: screenHeight * 0.02,
-                        ),
-                        Align(
-                          alignment: Alignment.centerLeft,
-                          child: Text(
-                            'Upload images',
-                            style: textStyleDangrek(fontSize: 18),
-                          ),
-                        ),
-                        getImagesListWidget(),
-                        SizedBox(
-                          height: screenHeight * 0.01,
-                        ),
-                        Align(
-                          alignment: Alignment.centerLeft,
-                          child: Text(
-                            'Upload videos',
-                            style: textStyleDangrek(fontSize: 18),
-                          ),
-                        ),
-                        getVideosListWidget(),
-                        SizedBox(
-                          height: screenHeight * 0.02,
-                        ),
-                      ],
-                    ),
-                  ),
-                )
-              ],
-            ),
-          ),
-        );
-      },
-    ));
+                      ),
+                    )
+                  ],
+                ),
+              ),
+            );
+          },
+        ));
   }
 
   Widget getMessagesListWidget() {
@@ -239,10 +237,7 @@ class CreatePersonalWishesScreen extends StatelessWidget {
                       )
                     : ClipRRect(
                         borderRadius: const BorderRadius.all(Radius.circular(20)),
-                        child: Image.network(
-                          controller.imagesList[index].fileUrl ?? '',
-                          fit: BoxFit.cover,
-                        ),
+                        child: cachedImage(imageUrl: controller.imagesList[index].fileUrl ?? ''),
                       ),
               ),
             ),
@@ -286,10 +281,7 @@ class CreatePersonalWishesScreen extends StatelessWidget {
                       )
                     : ClipRRect(
                         borderRadius: const BorderRadius.all(Radius.circular(20)),
-                        child: Image.network(
-                          controller.videosList[index],
-                          fit: BoxFit.cover,
-                        ),
+                        child: cachedImage(imageUrl: controller.videosList[index].fileUrl ?? ''),
                       ),
               ),
             ),

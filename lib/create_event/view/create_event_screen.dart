@@ -1,8 +1,6 @@
 import 'package:clay_containers/clay_containers.dart';
 import 'package:clay_containers/widgets/clay_container.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 import '../../utils/consts/app_screen_size.dart';
@@ -44,6 +42,7 @@ class CreateEventScreen extends StatelessWidget {
             return Container(
               height: screenHeight,
               width: screenWidth,
+              //color: appColor1,
               decoration: BoxDecoration(gradient: backgroundGradient),
               padding: const EdgeInsets.symmetric(
                 horizontal: 20,
@@ -88,6 +87,9 @@ class CreateEventScreen extends StatelessWidget {
                               maxLength: 10,
                               onChanged: (text) {},
                               controller: controller.personMobileController),
+                          SizedBox(
+                            height: screenHeight * 0.02,
+                          ),
                           DesignerTextField(
                               title: "Description",
                               maxLines: 5,

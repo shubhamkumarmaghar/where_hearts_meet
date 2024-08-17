@@ -55,10 +55,12 @@ class EventListScreen extends StatelessWidget {
                 controller.eventsList == null
                     ? const EventListShimmer()
                     : controller.eventsList != null && controller.eventsList!.isEmpty
-                        ? NoDataScreen(
-                            message: controller.eventsCreated == EventsCreated.byUser
-                                ? StringConsts.noEventsCreatedByYou
-                                : StringConsts.noEventsCreatedForYou,
+                        ? Expanded(
+                            child: NoDataScreen(
+                              message: controller.eventsCreated == EventsCreated.byUser
+                                  ? StringConsts.noEventsCreatedByYou
+                                  : StringConsts.noEventsCreatedForYou,
+                            ),
                           )
                         : _eventInfoCardsWidget(
                             eventsList: controller.eventsList ?? [],
@@ -124,7 +126,7 @@ class EventListScreen extends StatelessWidget {
                             width: screenHeight * 0.06,
                             decoration: BoxDecoration(
                                 borderRadius: BorderRadius.circular(50),
-                                border: Border.all(color: Colors.white, width: 3)),
+                                border: Border.all(color: Colors.white, width: 2)),
                             //padding: EdgeInsets.all(5),
                             child: ClipRRect(
                               borderRadius: BorderRadius.circular(50),
@@ -147,7 +149,7 @@ class EventListScreen extends StatelessWidget {
                             width: screenHeight * 0.06,
                             decoration: BoxDecoration(
                                 borderRadius: BorderRadius.circular(50),
-                                border: Border.all(color: Colors.white, width: 3)),
+                                border: Border.all(color: Colors.white, width: 2)),
                             //padding: EdgeInsets.all(5),
                             child: ClipRRect(
                               borderRadius: BorderRadius.circular(50),

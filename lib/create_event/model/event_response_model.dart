@@ -36,7 +36,7 @@ class EventResponseModel {
     eventName = json['event_name'];
     hostName = json['host_name'];
     eventType = json['event_type'];
-    eventHostDay = json['event_host_day'];
+    eventHostDay = json['event_date'];
     eventSubtext = json['event_subtext'];
     eventDescription = json['event_description'];
     eventid = json['eventid'];

@@ -23,7 +23,7 @@ import '../service/create_event_service.dart';
 class CreatePersonalWishesController extends BaseController {
   late EventResponseModel eventResponseModel;
   List<ImageResponseModel> imagesList = [];
-  List<String> videosList = [];
+  List<ImageResponseModel> videosList = [];
   List<String> messagesList = [];
   final createEventService = CreateEventService();
   final messageController = TextEditingController();
@@ -75,11 +75,10 @@ class CreatePersonalWishesController extends BaseController {
   Future<void> _uploadVideo({required File videoFile}) async {
     showLoaderDialog(context: Get.context!);
 
-    final url = await createEventService.uploadVideoToAws(videoFile: videoFile);
-
+    final videoResponse = await createEventService.uploadVideoApi(videoFile: videoFile);
     cancelDialog();
-    if (url.isNotEmpty) {
-      videosList.add(url);
+    if (videoResponse != null) {
+      videosList.add(videoResponse);
       update();
     }
   }
@@ -100,7 +99,7 @@ class CreatePersonalWishesController extends BaseController {
     model.coverImage = '172271953865181984';
     model.eventId = eventResponseModel.eventid ?? '';
     model.images = imagesList.map((e) => e.fileId ?? '').toList();
-    model.videos = videosList;
+    model.videos = videosList.map((e) => e.fileId ?? '').toList();
     model.wishes = messagesList;
 
     final response = await createEventService.addPersonalWishesEventApi(model: model);

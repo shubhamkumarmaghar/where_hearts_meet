@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'dart:developer';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
@@ -116,10 +117,16 @@ class CreateEventController extends BaseController {
           if (imageType == EventImageType.backgroundImage) {
             eventModel.splashBackgroundImage = imageResponse.fileId;
             backgroundImage = imageResponse.fileUrl;
-          } else if (imageType == EventImageType.displayImage) {
-            eventModel.splashDisplayImage = imageResponse.fileId;
-            displayImage = imageResponse.fileUrl;
-          } else if (imageType == EventImageType.coverImage) {
+               eventModel.splashDisplayImage = imageResponse.fileId;
+               displayImage = imageResponse.fileUrl;
+
+          }
+          // else if (imageType == EventImageType.displayImage) {
+          //
+          //   eventModel.splashDisplayImage = imageResponse.fileId;
+          //   displayImage = imageResponse.fileUrl;
+          // }
+          else if (imageType == EventImageType.coverImage) {
             eventModel.coverImage = imageResponse.fileId;
             coverImage = imageResponse.fileUrl;
           }
