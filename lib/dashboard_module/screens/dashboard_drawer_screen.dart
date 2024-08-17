@@ -56,8 +56,7 @@ class DashboardDrawerScreen extends StatelessWidget {
                   ),
                   GestureDetector(
                     onTap: () {
-                      Get.toNamed(RoutesConst.profileScreen);
-                      //onDrawerClose();
+                      Get.toNamed(RoutesConst.profileScreen,arguments: Screens.fromDashboard);
                     },
                     child: Container(
                       margin: EdgeInsets.only(right: screenWidth * 0.05),

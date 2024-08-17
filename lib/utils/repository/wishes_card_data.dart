@@ -10,3 +10,4 @@ List<DropDownModel> getWishesCardsDataList() {
     DropDownModel(id: 6, title: 'Wedding', value: marriageWishes),
   ];
 }
+

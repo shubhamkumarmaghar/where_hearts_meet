@@ -1,15 +1,19 @@
 import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:get_storage/get_storage.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:where_hearts_meet/profile_module/service/profile_service.dart';
 import 'package:where_hearts_meet/routes/routes_const.dart';
 import 'package:where_hearts_meet/utils/consts/app_screen_size.dart';
 import 'package:where_hearts_meet/utils/consts/screen_const.dart';
+import 'package:where_hearts_meet/utils/consts/string_consts.dart';
 import 'package:where_hearts_meet/utils/controller/base_controller.dart';
 import 'package:where_hearts_meet/utils/dialogs/pop_up_dialogs.dart';
 import 'package:where_hearts_meet/utils/dialogs/select_data_dialog.dart';
 import 'package:where_hearts_meet/utils/repository/user_data.dart';
 import 'package:where_hearts_meet/utils/util_functions/decoration_functions.dart';
+import '../../utils/consts/shared_pref_const.dart';
 import '../../utils/util_functions/app_pickers.dart';
 import '../model/user_model.dart';
 
@@ -24,12 +28,21 @@ class ProfileController extends BaseController {
   final phoneTextController = TextEditingController();
   LoadingState loadingState = LoadingState.loading;
   RxBool isDataChanged = false.obs;
-  DateTime _initialDateTime = DateTime.now().subtract(Duration(days: 5000));
+  DateTime _initialDateTime = DateTime.now().subtract(Duration(days: 365));
+  late Screens screens;
 
   @override
   void onInit() {
     super.onInit();
-    getUserData();
+    screens = Get.arguments as Screens;
+    if (screens == Screens.fromDashboard) {
+      getUserData();
+    } else {
+      loadingState = LoadingState.hasData;
+      isDataChanged = true.obs;
+      phoneTextController.text = GetStorage().read(userMobile);
+      update();
+    }
   }
 
   Future<void> getUserData() async {
@@ -44,9 +57,8 @@ class ProfileController extends BaseController {
       userModel.dateOfBirth = getYearTime(userModel.dateOfBirth);
       addressTextController.text = userModel.address ?? '';
       phoneTextController.text = userModel.phoneNumber ?? '';
-      parseDOB();
+      _parseDOB();
       loadingState = LoadingState.hasData;
-
       update();
     } else {
       loadingState = LoadingState.noData;
@@ -56,19 +68,74 @@ class ProfileController extends BaseController {
 
   Future<void> selectGender() async {
     final res = await selectDataDialog(
-        context: Get.context!, title: 'Select Gender', dataList: gendersList, height: screenHeight * 0.3);
+        context: Get.context!, title: StringConsts.selectGender, dataList: gendersList, height: screenHeight * 0.25);
     if (res != null) {
-      isDataChanged = true.obs;
+      if (screens == Screens.fromDashboard) {
+        isDataChanged = true.obs;
+      }
+
       userModel.gender = res.title;
       update();
     }
   }
 
+  Future<void> selectMaritalStatus() async {
+    final res = await selectDataDialog(
+        context: Get.context!,
+        title: StringConsts.selectMaritalStatus,
+        dataList: maritalStatusList,
+        height: screenHeight * 0.25);
+    if (res != null) {
+      if (screens == Screens.fromDashboard) {
+        isDataChanged = true.obs;
+      }
+      userModel.maritalStatus = res.title;
+      update();
+    }
+  }
+
+  void updateProfilePic() {
+    showImagePickerDialog(
+      context: Get.context!,
+      onCamera: () => _onCaptureMediaClick(
+        source: ImageSource.camera,
+      ),
+      onGallery: () => _onCaptureMediaClick(
+        source: ImageSource.gallery,
+      ),
+    );
+  }
+
+  void _onCaptureMediaClick({required ImageSource source}) async {
+    final ImagePicker picker = ImagePicker();
+
+    var image = await picker.pickImage(source: source, imageQuality: 100);
+
+    if (image != null) {
+      final croppedImage = await cropImage(filePath: image.path, isProfileImage: true);
+      if (croppedImage != null) {
+        showLoaderDialog(context: Get.context!);
+        final imageResponse = await _profileService.uploadImageApi(imageFile: croppedImage);
+        cancelDialog();
+        if (imageResponse != null && imageResponse.fileUrl != null && imageResponse.fileUrl!.isNotEmpty) {
+          userModel.profilePic = imageResponse.fileUrl;
+          if (screens == Screens.fromDashboard) {
+            isDataChanged = true.obs;
+          }
+          update();
+        }
+      }
+    }
+  }
+
   Future<void> updateUserDetails() async {
+    if (firstNameTextController.text.isEmpty) {
+      showSnackBar(context: Get.context!, message: 'First name can not be empty');
+      return;
+    }
     showLoaderDialog(context: Get.context!);
     final response = await _profileService.updateUserDataApi(
-        profilePic: null,
-        //userModel.profilePic,
+        profilePic: userModel.profilePic,
         martialStatus: userModel.maritalStatus,
         dateOfBirth: userModel.dateOfBirth,
         address: addressTextController.text,
@@ -76,9 +143,17 @@ class ProfileController extends BaseController {
         firstName: firstNameTextController.text,
         gender: userModel.gender,
         email: emailTextController.text);
-    cancelDialog();
+
     if (response != null) {
+      await Future.wait([
+        GetStorage().write(firstName, response.firstName ?? ''),
+        GetStorage().write(lastName, response.lastName ?? ''),
+        GetStorage().write(profileUrl, response.profilePic ?? ''),
+      ]);
+      cancelDialog();
       Get.offAllNamed(RoutesConst.dashboardScreen);
+    } else {
+      cancelDialog();
     }
   }
 
@@ -86,11 +161,13 @@ class ProfileController extends BaseController {
     final date = await dateOfBirthPicker(context: Get.context!, initialDate: _initialDateTime);
 
     if (date != null) {
-      log('${date}');
       isDataChanged.value = true;
+      userModel.dateOfBirth = getYearTime(date.toString());
+      update();
     }
   }
-  void parseDOB() {
+
+  void _parseDOB() {
     if (userModel.dateOfBirth != null && userModel.dateOfBirth!.isNotEmpty) {
       try {
         _initialDateTime = DateTime.parse(userModel.dateOfBirth!);
@@ -110,6 +187,4 @@ class ProfileController extends BaseController {
     phoneTextController.dispose();
     super.onClose();
   }
-
-
 }

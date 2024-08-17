@@ -1,3 +1,4 @@
+
 import 'dart:developer';
 import 'dart:io';
 
@@ -74,7 +75,7 @@ String getYearTime(String? date) {
   if (date != null && date.isNotEmpty) {
     try {
       final dateTime = DateTime.parse(date);
-      formattedDate = '${addZero(dateTime.day)}-${addZero(dateTime.month)}-${dateTime.year}';
+      formattedDate = '${dateTime.year}-${addZero(dateTime.month)}-${addZero(dateTime.day)}';
     } catch (e) {
       log(e.toString());
     }

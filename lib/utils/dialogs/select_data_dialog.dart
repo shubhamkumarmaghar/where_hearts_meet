@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:where_hearts_meet/utils/consts/color_const.dart';
+import 'package:where_hearts_meet/utils/util_functions/decoration_functions.dart';
 import '../consts/app_screen_size.dart';
 import '../model/dropdown_model.dart';
 
@@ -32,7 +33,7 @@ Future<DropDownModel?> selectDataDialog(
                     padding: EdgeInsets.only(top: screenHeight * 0.02, bottom: screenHeight * 0.02),
                     child: Text(
                       title,
-                      style: const TextStyle(fontSize: 20, fontWeight: FontWeight.w500, color: Colors.black),
+                      style:  textStyleDangrek(color: primaryColor,fontSize: 20),
                     ),
                   ),
                   Flexible(
@@ -59,7 +60,7 @@ Future<DropDownModel?> selectDataDialog(
                             child: Center(
                               child: Text(
                                 data.title,
-                                style: const TextStyle(fontSize: 16, fontWeight: FontWeight.w600, color: primaryColor),
+                                style: const TextStyle(fontSize: 16, fontWeight: FontWeight.w600, color: Colors.black),
                               ),
                             ),
                           ),
