@@ -21,19 +21,21 @@ import '../model/event_response_model.dart';
 import '../service/create_event_service.dart';
 
 class CreatePersonalWishesController extends BaseController {
-  late EventResponseModel eventResponseModel;
+  //late EventResponseModel eventResponseModel;
   List<ImageResponseModel> imagesList = [];
   List<ImageResponseModel> videosList = [];
   List<String> messagesList = [];
+  String? backgroundImage;
   final createEventService = CreateEventService();
   final messageController = TextEditingController();
+  final titleController = TextEditingController();
 
   @override
   void onInit() {
     super.onInit();
     var createdEvent = locator<CreatedEventRepo>();
     if (createdEvent.getCurrentEvent != null) {
-      eventResponseModel = createdEvent.getCurrentEvent!;
+     // eventResponseModel = createdEvent.getCurrentEvent!;
     }
   }
 
@@ -97,7 +99,7 @@ class CreatePersonalWishesController extends BaseController {
     PersonalWishesModel model = PersonalWishesModel();
 
     model.coverImage = '172271953865181984';
-    model.eventId = eventResponseModel.eventid ?? '';
+    model.eventId =  '';
     model.images = imagesList.map((e) => e.fileId ?? '').toList();
     model.videos = videosList.map((e) => e.fileId ?? '').toList();
     model.wishes = messagesList;

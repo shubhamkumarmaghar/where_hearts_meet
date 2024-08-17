@@ -39,19 +39,20 @@ class EventModel {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
+    final Map<String, dynamic> data = <String, dynamic>{};
 
-    data['event_name'] = this.eventName;
-    data['host_name'] = this.hostName;
-    data['event_type'] = this.eventType;
-    data['event_host_day'] = this.eventHostDay;
-    data['receiver_phone_number'] = this.receiverPhoneNumber;
-    data['receiver_name'] = this.receiverName;
-    data['event_description'] = this.eventDescription;
-    data['global_event'] = this.globalEvent;
-    data['cover_image'] = this.coverImage;
-    data['splash_background_image'] = this.splashBackgroundImage;
-    data['splash_display_image'] = this.splashDisplayImage;
+    data['event_name'] = eventName;
+    data['host_name'] = hostName;
+    data['event_type'] = eventType;
+    data['event_host_day'] = eventHostDay;
+    data['receiver_phone_number'] = receiverPhoneNumber;
+    data['receiver_name'] = receiverName;
+    data['event_description'] = eventDescription;
+    data['global_event'] = globalEvent;
+    data['cover_image'] = coverImage;
+    data['splash_background_image'] = splashBackgroundImage;
+    data['splash_display_image'] = splashDisplayImage;
+
     return data;
   }
 }

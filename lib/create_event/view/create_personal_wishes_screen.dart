@@ -3,10 +3,13 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:where_hearts_meet/utils/consts/string_consts.dart';
 import 'package:where_hearts_meet/utils/widgets/cached_image.dart';
+import 'package:where_hearts_meet/utils/widgets/designer_text_field.dart';
 
 import '../../utils/consts/app_screen_size.dart';
 import '../../utils/consts/color_const.dart';
+import '../../utils/consts/images_const.dart';
 import '../../utils/util_functions/app_pickers.dart';
 import '../../utils/util_functions/decoration_functions.dart';
 import '../../utils/widgets/gradient_button.dart';
@@ -24,26 +27,10 @@ class CreatePersonalWishesScreen extends StatelessWidget {
         child: GetBuilder<CreatePersonalWishesController>(
           builder: (controller) {
             return Scaffold(
-              bottomNavigationBar: Container(
-                color: appColor3,
-                padding: EdgeInsets.only(
-                  bottom: 14,
-                  left: screenWidth * 0.06,
-                  right: screenWidth * 0.06,
-                ),
-                child: GradientButton(
-                  title: 'Submit',
-                  width: screenWidth * 0.8,
-                  enabled: controller.messagesList.isNotEmpty,
-                  onPressed: controller.addPersonalWishes,
-                  buttonColor: appColor1,
-                  titleTextStyle: textStyleDangrek(fontSize: 22),
-                ),
-              ),
               body: Container(
                 height: screenHeight,
                 width: screenWidth,
-                decoration: BoxDecoration(gradient: backgroundGradient),
+                color: Colors.black,
                 padding: const EdgeInsets.symmetric(
                   horizontal: 20,
                 ),
@@ -51,97 +38,62 @@ class CreatePersonalWishesScreen extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     SizedBox(
-                      height: screenHeight * 0.05,
+                      height: screenHeight * 0.06,
                     ),
-                    appHeader,
-                    Center(
-                      child: Text(
-                        'Personal Wishes/Messages ',
-                        style: textStyleDangrek(fontSize: 24),
-                      ),
-                    ),
+                    createEventHeader(title: 'Happy birthday', image: ''),
                     SizedBox(
-                      height: screenHeight * 0.01,
+                      height: screenHeight * 0.03,
                     ),
-                    Expanded(
-                      child: SingleChildScrollView(
-                        child: Column(
-                          children: [
-                            SizedBox(
-                              height: screenHeight * 0.01,
-                            ),
-                            Row(
-                              children: [
-                                Text(
-                                  'Wish/Message*',
-                                  style: textStyleDangrek(fontSize: 18),
+                    const Text(
+                      StringConsts.personalWishesDisclaimer,
+                      style: TextStyle(color: Colors.white),
+                    ),
+                    SingleChildScrollView(
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          SizedBox(
+                            height: screenHeight * 0.1,
+                          ),
+                          Text(
+                            'Enter title for Your special personal section',
+                            style: textStyleDangrek(fontSize: 18),
+                          ),
+                          SizedBox(
+                            height: screenHeight * 0.015,
+                          ),
+                          DesignerTextField(onChanged: (text) {}, controller: controller.titleController),
+                          SizedBox(
+                            height: screenHeight * 0.1,
+                          ),
+                          GestureDetector(
+                            onTap: () {
+                              showImagePickerDialog(
+                                context: Get.context!,
+                                onCamera: () => controller.onCaptureMediaClick(source: ImageSource.camera),
+                                onGallery: () => controller.onCaptureMediaClick(
+                                  source: ImageSource.gallery,
                                 ),
-                                Visibility(
-                                  visible: controller.messagesList.isNotEmpty,
-                                  replacement: const SizedBox.shrink(),
-                                  child: Text(
-                                    '  (${controller.messagesList.length})',
-                                    style: textStyleDangrek(fontSize: 18),
-                                  ),
-                                ),
-                                const Spacer(),
-                                GestureDetector(
-                                  onTap: controller.onMessagesTap,
-                                  child: Container(
-                                    decoration:
-                                        BoxDecoration(color: Colors.white, borderRadius: BorderRadius.circular(10)),
-                                    height: screenHeight * 0.04,
-                                    width: screenWidth * 0.2,
-                                    child: Row(
-                                      mainAxisAlignment: MainAxisAlignment.center,
-                                      children: [
-                                        Text(
-                                          'Add',
-                                          style: textStyleDangrek(fontSize: 20, color: primaryColor),
-                                          textAlign: TextAlign.center,
-                                        ),
-                                        const Icon(
-                                          Icons.add,
-                                          color: primaryColor,
-                                          size: 20,
-                                        )
-                                      ],
+                              );
+                            },
+                            child: Container(
+                              alignment: Alignment.center,
+                              height: screenHeight * 0.2,
+                              width: screenHeight * 0.2,
+                              decoration: controller.backgroundImage != null && controller.backgroundImage!.isNotEmpty
+                                  ? BoxDecoration(
+                                      border: Border.all(width: 5, color: Colors.white),
+                                      borderRadius: BorderRadius.circular(30),
+                                      image: DecorationImage(image: NetworkImage(controller.backgroundImage!)))
+                                  : BoxDecoration(
+                                      border: Border.all(width: 5, color: Colors.white),
+                                      borderRadius: BorderRadius.circular(30),
+                                      image: const DecorationImage(image: AssetImage(dummyImage), fit: BoxFit.cover),
+                                      color: appColor2,
                                     ),
-                                  ),
-                                ),
-                              ],
                             ),
-                            SizedBox(
-                              height: screenHeight * 0.02,
-                            ),
-                            getMessagesListWidget(),
-                            SizedBox(
-                              height: screenHeight * 0.02,
-                            ),
-                            Align(
-                              alignment: Alignment.centerLeft,
-                              child: Text(
-                                'Upload images',
-                                style: textStyleDangrek(fontSize: 18),
-                              ),
-                            ),
-                            getImagesListWidget(),
-                            SizedBox(
-                              height: screenHeight * 0.01,
-                            ),
-                            Align(
-                              alignment: Alignment.centerLeft,
-                              child: Text(
-                                'Upload videos',
-                                style: textStyleDangrek(fontSize: 18),
-                              ),
-                            ),
-                            getVideosListWidget(),
-                            SizedBox(
-                              height: screenHeight * 0.02,
-                            ),
-                          ],
-                        ),
+                          ),
+                        ],
                       ),
                     )
                   ],

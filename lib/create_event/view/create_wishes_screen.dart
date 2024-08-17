@@ -63,9 +63,15 @@ class CreateWishesScreen extends StatelessWidget {
                 child: Column(
                   children: [
                     SizedBox(
-                      height: screenHeight * 0.05,
+                      height: screenHeight * 0.06,
                     ),
-                    appHeader,
+                    createEventHeader(
+                        title: controller.eventResponseModel.eventName ?? '',
+                        image: controller.eventResponseModel.coverImage),
+                    SizedBox(
+                      height: screenHeight * 0.02,
+                    ),
+
                     Text(
                       'Add Wishes',
                       style: textStyleDangrek(fontSize: 24),

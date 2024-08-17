@@ -90,7 +90,7 @@ class CreatedWishesPreviewScreen extends StatelessWidget {
                       ),
                     ],
                   ),
-                  Spacer(),
+                  const Spacer(),
                   moreViewPopUpMenu(showBackground: false,onDelete:controller.deleteWish),
                 ],
               ),

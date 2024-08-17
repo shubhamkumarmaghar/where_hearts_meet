@@ -84,6 +84,7 @@ Widget moreViewPopUpMenu({Function? onDelete, Function? onView, bool showBackgro
                 ),
               ),
             ),
+            if (onView != null)
             const PopupMenuItem<AppActions>(
               value: AppActions.view,
               child: ListTile(

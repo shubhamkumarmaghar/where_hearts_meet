@@ -1,12 +1,13 @@
-
 import 'dart:developer';
 import 'dart:io';
 
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:image_cropper/image_cropper.dart';
+import 'package:where_hearts_meet/utils/widgets/cached_image.dart';
 
 import '../../routes/routes_const.dart';
 import '../consts/app_screen_size.dart';
@@ -65,6 +66,30 @@ Widget get appHeader {
         'Heart-e-homies',
         style: GoogleFonts.aclonica(
             decoration: TextDecoration.none, color: Colors.white, fontWeight: FontWeight.w500, fontSize: 22),
+      ),
+    ],
+  );
+}
+
+Widget createEventHeader({required String title, String? image}) {
+  return Row(
+    children: [
+      Container(
+        height: screenHeight * 0.05,
+        width: screenHeight * 0.05,
+        decoration: BoxDecoration(borderRadius: BorderRadius.circular(100)),
+        child: ClipRRect(borderRadius: BorderRadius.circular(100), child: cachedImage(imageUrl: image)),
+      ),
+      SizedBox(
+        width: screenWidth * 0.03,
+      ),
+      SizedBox(
+        width: screenWidth*0.7,
+        child: Text(
+          title,
+          style: GoogleFonts.aclonica(
+              decoration: TextDecoration.none, color: Colors.white, fontWeight: FontWeight.w500, fontSize: 18),
+        ),
       ),
     ],
   );
