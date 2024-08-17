@@ -9,7 +9,6 @@ import 'package:lottie/lottie.dart';
 import 'package:where_hearts_meet/routes/routes_const.dart';
 import 'package:where_hearts_meet/utils/consts/app_screen_size.dart';
 import 'package:where_hearts_meet/utils/consts/color_const.dart';
-import 'package:where_hearts_meet/utils/consts/images_const.dart';
 import 'package:where_hearts_meet/utils/text_styles/custom_text_styles.dart';
 
 import '../../../../utils/consts/confetti_shape_enum.dart';
@@ -363,7 +362,7 @@ class _GuestHomeState extends State<GuestHome> with TickerProviderStateMixin {
                                 ),
                                 GestureDetector(
                                   onTap: (){
-                                    Get.to(const GetPersonalScreenCover());
+                                    Get.to(const GetPersonalScreenCover(),arguments: controller.eventDetails?.eventid);
                                     //Get.toNamed(RoutesConst.guestWishlist);
                                   },
                                   child: Card(

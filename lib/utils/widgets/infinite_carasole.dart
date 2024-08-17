@@ -179,7 +179,6 @@ class _InfiniteCarouselState extends State<InfiniteCarousel> {
       child: LayoutBuilder(
         builder: (BuildContext context, BoxConstraints constraints) {
           final centeredAnchor = _getCenteredAnchor(constraints);
-
           return _InfiniteScrollable(
             controller: scrollController,
             itemExtent: widget.itemExtent,
@@ -188,6 +187,7 @@ class _InfiniteCarouselState extends State<InfiniteCarousel> {
             itemCount: widget.itemCount,
             physics: widget.physics ?? const InfiniteScrollPhysics(),
             axisDirection: axisDirection,
+
             scrollBehavior: widget.scrollBehavior ??
                 ScrollConfiguration.of(context).copyWith(scrollbars: false),
             viewportBuilder: (BuildContext context, ViewportOffset position) {

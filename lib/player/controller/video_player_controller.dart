@@ -46,6 +46,7 @@ class VideoScreenController extends BaseController {
 
   @override
   void onClose() {
+
     playerController.dispose();
     chewieController.dispose();
     super.onClose();

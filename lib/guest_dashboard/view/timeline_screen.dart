@@ -24,7 +24,7 @@ class TimelineStoriesSreen extends StatefulWidget {
 }
 
 class _TimelineStoriesSreenState extends State<TimelineStoriesSreen> {
-
+  int _currentIndex = 0;
   String showMessage = "";
   final controller = Get.find<GuestHomeController>();
 
@@ -142,12 +142,13 @@ class _TimelineStoriesSreenState extends State<TimelineStoriesSreen> {
                       height: 400.0,
                       enlargeCenterPage: true,
                       //autoPlay: true,
-                      aspectRatio: 16 / 9,
-                      autoPlayCurve: Curves.fastOutSlowIn,
-                      enableInfiniteScroll: true,
+                     // aspectRatio: 16 / 9,
+                     // autoPlayCurve: Curves.fastOutSlowIn,
+                      enableInfiniteScroll: false,
                       autoPlayAnimationDuration: Duration(milliseconds: 800),
                       viewportFraction: 0.8,
                     ),
+
                     items: controller.timeLineModel.value.videos?.map((videoPath) {
                       return Builder(
                         builder: (BuildContext context) {

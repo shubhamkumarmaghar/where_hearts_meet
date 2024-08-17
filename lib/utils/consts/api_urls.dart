@@ -18,6 +18,7 @@ class AppUrls {
 
   ///for guest
   static const String receiveEventUrl = 'eventApp/get_event_receiver/';
+  static const String personalWises = 'wishesApp/personal_wishes/';
 
   ///created for me
   static const String eventsCreatedForUserUrl = 'eventApp/get_events_list_receiver/';

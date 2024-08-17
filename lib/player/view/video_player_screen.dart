@@ -18,24 +18,26 @@ class VideoPlayerScreen extends StatelessWidget {
       init: VideoScreenController(videoUrl: url),
       builder: (controller) {
         return Container(
-           height: screenHeight*0.3,
+          height: screenHeight*0.3,
           width: screenWidth,
           decoration: BoxDecoration(borderRadius: BorderRadius.circular(20)),
           child: controller.isBusy
               ? Container(
             height: screenHeight*0.3,
-                  width: screenWidth*0.6,
-                  color: primaryColor,
-                  child: const Icon(
-                    Icons.slow_motion_video,
-                    size: 50,
-                  ),
-                )
+            width: screenWidth*0.6,
+            color: primaryColor,
+            child: const Icon(
+              Icons.slow_motion_video,
+              size: 50,
+            ),
+          )
               : Chewie(
-                  controller: controller.chewieController,
-                ),
+            controller: controller.chewieController,
+          ),
         );
       },
     );
   }
+
 }
+
