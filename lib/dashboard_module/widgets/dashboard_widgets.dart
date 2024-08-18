@@ -63,17 +63,11 @@ Widget getDrawerContentWidget({required IconData icon, required String heading, 
 Widget scheduleEventView() {
   return GestureDetector(
     onTap: () {
-      //Get.toNamed(RoutesConst.createEventScreen);
+      Get.toNamed(RoutesConst.createEventScreen);
       //Get.toNamed(RoutesConst.createPersonalWishesScreen);
       // Get.toNamed(RoutesConst.createPersonalMemoriesScreen);
       //  Get.toNamed(RoutesConst.createWishesScreen);
       // Get.toNamed(RoutesConst.createGiftsScreen);
-      Get.to(VideosListScreen(videosList: [
-        "https://hehbucket.s3.amazonaws.com/172401245582794592.mp4",
-        "https://hehbucket.s3.amazonaws.com/172401246494563520.mp4",
-        "https://hehbucket.s3.amazonaws.com/172401245582794592.mp4",
-        "https://hehbucket.s3.amazonaws.com/172401246494563520.mp4",
-      ]));
     },
     child: Stack(
       children: [
