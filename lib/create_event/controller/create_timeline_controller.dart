@@ -33,7 +33,7 @@ class CreateTimelineController extends BaseController {
   }) async {
     final ImagePicker picker = ImagePicker();
 
-    var image = await picker.pickImage(source: source, maxHeight: 800, maxWidth: 800, imageQuality: 70);
+    var image = await picker.pickImage(source: source, maxHeight: 800, maxWidth: 800, imageQuality: 80);
 
     if (image != null) {
       showLoaderDialog(context: Get.context!);

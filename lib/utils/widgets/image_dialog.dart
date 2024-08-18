@@ -5,10 +5,12 @@ import 'package:get/get.dart';
 import '../consts/color_const.dart';
 
 class ImageDialog extends StatelessWidget {
-  const ImageDialog({Key? key, required this.onCameraClicked, required this.onGalleryClicked}) : super(key: key);
+  const ImageDialog({Key? key, required this.onCameraClicked, required this.onGalleryClicked, this.title})
+      : super(key: key);
 
   final Function onCameraClicked;
   final Function onGalleryClicked;
+  final String? title;
 
   @override
   Widget build(BuildContext context) {
@@ -24,7 +26,7 @@ class ImageDialog extends StatelessWidget {
           mainAxisSize: MainAxisSize.min,
           children: [
             Text(
-              'Upload Image',
+              title ?? 'Upload Image',
               style: TextStyle(fontWeight: FontWeight.w800, fontSize: 17, color: whiteColor),
             ),
             SizedBox(

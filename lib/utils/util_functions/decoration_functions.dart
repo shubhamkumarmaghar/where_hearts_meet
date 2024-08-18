@@ -1,6 +1,7 @@
 import 'dart:developer';
 import 'dart:io';
 
+import 'package:clay_containers/widgets/clay_container.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -71,6 +72,46 @@ Widget get appHeader {
   );
 }
 
+Widget eventHeaderView({required String text, String? image}) {
+  return ClayContainer(
+    color: primaryColor,
+    borderRadius: 30,
+    child: Container(
+        height: 60,
+        decoration: BoxDecoration(
+          color: primaryColor,
+          borderRadius: BorderRadius.circular(30),
+        ),
+        child: Row(
+          children: [
+            SizedBox(
+              width: screenWidth * 0.02,
+            ),
+            Container(
+                height: screenHeight*0.055,
+                width: screenHeight*0.055,
+                decoration: BoxDecoration(borderRadius: BorderRadius.circular(50)),
+                child: ClipRRect(borderRadius: BorderRadius.circular(50), child: cachedImage(imageUrl: image))),
+            SizedBox(
+              width: screenWidth * 0.02,
+            ),
+            SizedBox(
+              width: screenWidth * 0.65,
+              child: Text(
+                text,
+                maxLines: 1,
+                overflow: TextOverflow.ellipsis,
+                style: const TextStyle(fontSize: 16, fontWeight: FontWeight.w600, color: Colors.white),
+              ),
+            ),
+            SizedBox(
+              width: screenWidth * 0.02,
+            ),
+          ],
+        )),
+  );
+}
+
 Widget createEventHeader({required String title, String? image}) {
   return Row(
     children: [
@@ -84,7 +125,7 @@ Widget createEventHeader({required String title, String? image}) {
         width: screenWidth * 0.03,
       ),
       SizedBox(
-        width: screenWidth*0.7,
+        width: screenWidth * 0.7,
         child: Text(
           title,
           style: GoogleFonts.aclonica(

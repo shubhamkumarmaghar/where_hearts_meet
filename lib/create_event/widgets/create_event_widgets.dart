@@ -25,6 +25,7 @@ Future<String?> showTextDialog({required String dialogTitle, required String hin
         content: TextField(
           controller: textController,
           maxLines: 2,
+          maxLength: 50,
           decoration: InputDecoration(
             hintText: hintText,
             hintStyle: TextStyle(fontWeight: FontWeight.w500, fontSize: 14, color: Colors.grey.shade500),

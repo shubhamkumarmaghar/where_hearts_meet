@@ -9,6 +9,8 @@ import 'package:where_hearts_meet/create_event/view/create_gifts_screen.dart';
 import 'package:where_hearts_meet/create_event/widgets/select_gift_type_screen.dart';
 import 'package:where_hearts_meet/dashboard_module/binding/dashboard_binding.dart';
 import 'package:where_hearts_meet/dashboard_module/screens/dashboard_screen.dart';
+import 'package:where_hearts_meet/preview_event/binding/created_memories_preview_binding.dart';
+import 'package:where_hearts_meet/preview_event/view/created_memories_preview_screen.dart';
 import 'package:where_hearts_meet/routes/routes_const.dart';
 import '../../auth_module/binding/login_binding.dart';
 import '../../auth_module/screens/login_screen.dart';
@@ -24,6 +26,8 @@ import '../../preview_event/view/created_wishes_preview_screen.dart';
 import '../../profile_module/binding/profile_binding.dart';
 
 import '../../profile_module/screens/profile_screen.dart';
+import '../create_event/binding/create_personal_memories_binding.dart';
+import '../create_event/view/create_personal_memories_screen.dart';
 import '../guest_dashboard/binding/guest_dashboard_binding.dart';
 import '../guest_dashboard/guest_home/binding/guest_home_binding.dart';
 import '../guest_dashboard/guest_home/view/guest_home.dart';
@@ -101,6 +105,11 @@ class AppRoutes {
         page: () => CreatePersonalWishesScreen(),
       ),
       GetPage(
+        name: RoutesConst.createPersonalMemoriesScreen,
+        binding: CreatePersonalMemoriesBinding(),
+        page: () => CreatePersonalMemoriesScreen(),
+      ),
+      GetPage(
         name: RoutesConst.createGiftsScreen,
         binding: CreateGiftsBinding(),
         page: () => CreateGiftsScreen(),
@@ -120,6 +129,10 @@ class AppRoutes {
         binding: CreatedGiftsPreviewBinding(),
         page: () => CreatedGiftsPreviewScreen(),
       ),
+      GetPage(
+          name: RoutesConst.createdMemoriesPreviewScreen,
+          binding: CreatedMemoriesPreviewBinding(),
+          page: () => CreatedMemoriesPreviewScreen()),
       GetPage(
         name: RoutesConst.eventListScreen,
         binding: EventListBinding(),

@@ -7,7 +7,6 @@ import 'package:where_hearts_meet/utils/widgets/util_widgets/app_widgets.dart';
 import '../../utils/consts/color_const.dart';
 import '../../utils/consts/images_const.dart';
 import '../../utils/consts/widget_styles.dart';
-import '../../utils/widgets/triangle_custom_painter.dart';
 
 class LoginScreen extends StatelessWidget {
   final controller = Get.find<LoginController>();
@@ -22,7 +21,7 @@ class LoginScreen extends StatelessWidget {
         child: Container(
           decoration:  BoxDecoration(
             gradient: backgroundGradient,
-              image: DecorationImage(
+              image: const DecorationImage(
             image: NetworkImage(
               'https://i.pinimg.com/736x/f3/92/36/f39236b33a8c21d6dd704299af0146b7.jpg',
             ),

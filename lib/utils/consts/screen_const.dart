@@ -12,3 +12,7 @@ enum AppActions{
   delete,
   view
 }
+enum MediaType{
+  image,
+  video
+}

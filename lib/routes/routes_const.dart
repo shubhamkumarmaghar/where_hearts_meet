@@ -24,14 +24,20 @@ class RoutesConst {
 
   static String createEventScreen = '/createEventScreen';
   static String createEventSplashScreen = '/createEventSplashScreen';
+
   static String createWishesScreen = '/createWishesScreen';
+
   static String createTimelineScreen = '/createTimelineScreen';
+
   static String createPersonalWishesScreen = '/createPersonalWishesScreen';
+  static String createPersonalMemoriesScreen = '/createPersonalMemoriesScreen';
+
   static String createGiftsScreen = '/createGiftsScreen';
   static String selectGiftsScreen = '/selectGiftsScreen';
 
   static String createdWishesPreviewScreen = '/createdWishesPreviewScreen';
   static String createdGiftsPreviewScreen = '/createdGiftsPreviewScreen';
+  static String createdMemoriesPreviewScreen = '/createdMemoriesPreviewScreen';
 
   static String eventListScreen = '/eventListScreen';
 }

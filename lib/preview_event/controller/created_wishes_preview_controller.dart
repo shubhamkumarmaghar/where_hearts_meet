@@ -7,6 +7,7 @@ import '../../create_event/model/event_response_model.dart';
 import '../../utils/consts/service_const.dart';
 import '../../utils/dialogs/pop_up_dialogs.dart';
 import '../../utils/repository/created_event_repo.dart';
+import '../widgets/videos_list_screen.dart';
 
 class CreatedWishesPreviewController extends BaseController {
   late EventResponseModel eventResponseModel;
@@ -28,7 +29,16 @@ class CreatedWishesPreviewController extends BaseController {
     final res = await service.deleteWishApi(wishId: wishesModel.id ?? -1);
     cancelDialog();
     if (res != null) {
-      Get.back(result:  wishesModel.id);
+      Get.back(result: wishesModel.id);
     }
+  }
+
+  void navigateToVideosListScreen() {
+    Get.to(
+      () => VideosListScreen(
+        videosList: wishesModel.videoUrls ?? [],
+      ),
+      transition: Transition.cupertino
+    );
   }
 }

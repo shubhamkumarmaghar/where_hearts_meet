@@ -33,7 +33,7 @@ Future<DateTime?> dateOfBirthPicker({required BuildContext context, DateTime? in
 }
 
 void showImagePickerDialog(
-    {required BuildContext context, required Function onCamera, required Function onGallery}) async {
+    {required BuildContext context, required Function onCamera, required Function onGallery,String? title}) async {
   await Permission.photos.request();
   await Permission.camera.request();
   await Permission.mediaLibrary.request();
@@ -44,7 +44,7 @@ void showImagePickerDialog(
   final permission2 = statuses[Permission.mediaLibrary]?.isGranted ?? false;
 
   if (permission1 && permission2) {
-    await Get.dialog(ImageDialog(onGalleryClicked: onGallery, onCameraClicked: onCamera));
+    await Get.dialog(ImageDialog(onGalleryClicked: onGallery, onCameraClicked: onCamera,title: title,));
   } else {
     showAlertDialogWithOK(context: context);
   }
