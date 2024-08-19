@@ -81,7 +81,8 @@ class OnboardingScreen extends StatelessWidget {
               final String? login = GetStorage().read(token);
               if (GetStorage().read(isGuest) == true &&
                   login != null && login != '') {
-                Get.offAllNamed(RoutesConst.guestCoverScreen);
+                Get.offAllNamed(RoutesConst.guestDashboard);
+                //Get.offAllNamed(RoutesConst.guestCoverScreen);
               }
               else{
                 onboardingController.showGuestLoginDialog(

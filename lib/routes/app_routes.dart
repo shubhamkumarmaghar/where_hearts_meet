@@ -34,9 +34,10 @@ import '../guest_dashboard/guest_home/view/guest_home.dart';
 import '../guest_dashboard/guest_wishlist/binding/guest_wishlist_binding.dart';
 import '../guest_dashboard/guest_wishlist/view/guest_wishlist.dart';
 import '../guest_dashboard/view/guest_dashboard.dart';
-import '../guest_dashboard/view/guest_splash_view.dart';
+import '../guest_dashboard/guest_home/view/guest_splash_view.dart';
 import '../create_event/binding/create_personal_wishes_binding.dart';
 import '../create_event/view/create_personal_wishes_screen.dart';
+import '../guest_dashboard/view/guest_event_qr_scanner.dart';
 import '../preview_event/binding/created_gifts_preview_binding.dart';
 import '../preview_event/view/created_gifts_preview_screen.dart';
 
@@ -68,6 +69,11 @@ class AppRoutes {
         name: RoutesConst.guestDashboard,
         binding: GuestDashboardBinding(),
         page: () => const GuestDashboard(),
+      ),
+      GetPage(
+        name: RoutesConst.guestQrScannerScreen,
+        binding: GuestDashboardBinding(),
+        page: () => const EventQrScannerScreen(),
       ),
       GetPage(
         name: RoutesConst.guestWishlist,

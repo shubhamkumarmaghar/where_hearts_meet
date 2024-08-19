@@ -16,6 +16,7 @@ class RoutesConst {
   static String addGiftCardScreen = '/addGiftCardScreen';
   static String addTimelineScreen = '/addTimelineScreen';
   static String secretWishesScreen = '/secretWishesScreen';
+  static String guestQrScannerScreen = '/GuestQrScannerScreen';
   static String guestHomeScreen = '/guestHomeScreen';
   static String guestDashboard = '/GuestDashboard';
   static String guestWishlist = '/GuestWishlist';

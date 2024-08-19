@@ -10,6 +10,7 @@ import 'package:where_hearts_meet/routes/routes_const.dart';
 import 'package:where_hearts_meet/utils/consts/app_screen_size.dart';
 import 'package:where_hearts_meet/utils/consts/color_const.dart';
 import 'package:where_hearts_meet/utils/text_styles/custom_text_styles.dart';
+import 'package:where_hearts_meet/utils/widgets/util_widgets/app_widgets.dart';
 
 import '../../../../utils/consts/confetti_shape_enum.dart';
 import '../../../../utils/widgets/confetti_view.dart';
@@ -302,7 +303,8 @@ class _GuestHomeState extends State<GuestHome> with TickerProviderStateMixin {
                               children: [
                                 GestureDetector(
                                   onTap: (){
-                                    Get.to(TimelineStoriesSreen());
+                                    AppWidgets.getToast(message: "Coming Soon",color: primaryColor);
+                                   // Get.to(TimelineStoriesSreen());
                                     //Get.toNamed(RoutesConst.guestWishlist);
                                   },
                                   child:

@@ -11,6 +11,7 @@ import 'package:where_hearts_meet/routes/routes_const.dart';
 import 'package:where_hearts_meet/utils/controller/base_controller.dart';
 
 import '../../auth_module/auth_services/Auth_api_service.dart';
+import '../../guest_dashboard/view/guest_event_qr_scanner.dart';
 import '../../utils/buttons/buttons.dart';
 import '../../utils/consts/app_screen_size.dart';
 import '../../utils/consts/color_const.dart';
@@ -18,7 +19,7 @@ import '../../utils/consts/images_const.dart';
 import '../../utils/consts/shared_pref_const.dart';
 import '../../utils/consts/widget_styles.dart';
 import '../../utils/dialogs/pop_up_dialogs.dart';
-import '../../utils/widgets/gradient_button.dart';
+
 import '../../utils/widgets/util_widgets/app_widgets.dart';
 
 class OnboardingController extends BaseController {
@@ -97,7 +98,8 @@ class OnboardingController extends BaseController {
     GetStorage().write(username, response.data?.username);
     GetStorage().write(profileUrl, response.data?.profilePic);
     GetStorage().write(isGuest, true);
-    Get.offAllNamed(RoutesConst.guestCoverScreen);
+    Get.offAllNamed(RoutesConst.guestDashboard);
+    //Get.offAllNamed(RoutesConst.guestCoverScreen);
       }
     } else {
       cancelDialog();

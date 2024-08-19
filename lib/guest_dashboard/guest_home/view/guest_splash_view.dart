@@ -9,7 +9,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:where_hearts_meet/routes/routes_const.dart';
 import 'package:where_hearts_meet/utils/consts/app_screen_size.dart';
 import 'package:where_hearts_meet/utils/consts/color_const.dart';
-import '../guest_home/controller/guest_home_controller.dart';
+import '../controller/guest_home_controller.dart';
 
 class GuestCoverScreen extends StatefulWidget {
   const GuestCoverScreen({super.key});
