@@ -11,7 +11,7 @@ class AppWidgets {
         toastLength: Toast.LENGTH_SHORT,
         gravity: ToastGravity.BOTTOM,
         timeInSecForIosWeb: 1,
-        backgroundColor: color ?? errorColor,
+        backgroundColor: color ?? primaryColor,
         textColor: Colors.white,
         fontSize: 16.0);
   }

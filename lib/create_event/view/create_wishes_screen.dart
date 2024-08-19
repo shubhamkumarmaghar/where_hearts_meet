@@ -1,4 +1,7 @@
+import 'dart:io';
+
 import 'package:clay_containers/widgets/clay_container.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
@@ -262,8 +265,57 @@ class CreateWishesScreen extends StatelessWidget {
                         color: Colors.white,
                       )
                     : ClipRRect(
-                        borderRadius: const BorderRadius.all(Radius.circular(20)),
-                        child: cachedImage(imageUrl: controller.videosList[index].fileUrl ?? ''),
+                        borderRadius: const BorderRadius.all(Radius.circular(15)),
+                        child: FutureBuilder<String?>(
+                          future: generateThumbnail(controller.videosList[index].fileUrl ??""),
+                          builder: (context, snapshot) {
+                            if (snapshot.connectionState == ConnectionState.waiting) {
+                              return Container(
+                                color: Colors.white.withOpacity(0.4),
+                                child: const CupertinoActivityIndicator(
+                                  color: primaryColor,
+                                  radius: 10.0,
+                                ),
+                              );
+                            } else if (snapshot.hasError) {
+                              return Text(
+                                'Error: ${snapshot.error}',
+                                style: const TextStyle(color: Colors.white),
+                              );
+                            } else if (snapshot.hasData && snapshot.data != null) {
+                              return Stack(
+                                children: [
+                                  SizedBox(
+                                    width: screenWidth,
+                                    child: Image.file(
+                                      File(snapshot.data!),
+                                      fit: BoxFit.cover,
+                                    ),
+                                  ),
+                                  Positioned.fill(
+                                    child: Align(
+                                      alignment: Alignment.center,
+                                      child: Container(
+                                        padding: const EdgeInsets.all(5),
+                                        decoration: BoxDecoration(
+                                            color: primaryColor.withOpacity(0.8),
+                                            shape: BoxShape.circle),
+                                        child: const Icon(
+                                          Icons.play_arrow,
+                                          size: 15,
+                                          color: Colors.white,
+                                        ),
+                                      ),
+                                    ),
+                                  )
+                                ],
+                              );
+                            } else {
+                              return const Text('No data available',
+                                  style: TextStyle(color: Colors.white));
+                            }
+                          },
+                        ),
                       ),
               ),
             ),

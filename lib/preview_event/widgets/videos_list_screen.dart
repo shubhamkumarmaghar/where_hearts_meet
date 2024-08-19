@@ -1,10 +1,7 @@
-import 'dart:developer';
 import 'dart:io';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:path_provider/path_provider.dart';
-import 'package:video_thumbnail/video_thumbnail.dart';
 import 'package:where_hearts_meet/player/view/video_player_screen.dart';
 import 'package:where_hearts_meet/utils/consts/app_screen_size.dart';
 import 'package:where_hearts_meet/utils/consts/color_const.dart';
@@ -57,7 +54,6 @@ class VideosListScreen extends StatelessWidget {
                 scrollDirection: Axis.vertical,
                 shrinkWrap: true,
                 padding: EdgeInsets.zero,
-                //physics: const NeverScrollableScrollPhysics(),
                 itemCount: videosList.length,
                 gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                     crossAxisCount: 2, mainAxisSpacing: 15, crossAxisSpacing: 15, childAspectRatio: 1),
@@ -80,8 +76,6 @@ class VideosListScreen extends StatelessWidget {
                             if (snapshot.connectionState == ConnectionState.waiting) {
                               return Container(
                                 color: primaryColor.withOpacity(0.1),
-
-                                // Background color
                                 child: const CupertinoActivityIndicator(
                                   color: primaryColor,
                                   radius: 10.0,
@@ -95,23 +89,20 @@ class VideosListScreen extends StatelessWidget {
                             } else if (snapshot.hasData && snapshot.data != null) {
                               return Stack(
                                 children: [
-                                  Container(
-
+                                  SizedBox(
+                                    width: screenWidth,
                                     child: Image.file(
                                       File(snapshot.data!),
                                       fit: BoxFit.cover,
                                     ),
-                                    width: screenWidth,
                                   ),
                                   Positioned.fill(
                                     child: Align(
                                       alignment: Alignment.center,
                                       child: Container(
-                                        padding:const EdgeInsets.all(5 ),
-                                        decoration:BoxDecoration(
-                                          color: primaryColor.withOpacity(0.8),
-                                          shape: BoxShape.circle
-                                        ),
+                                        padding: const EdgeInsets.all(5),
+                                        decoration:
+                                            BoxDecoration(color: primaryColor.withOpacity(0.8), shape: BoxShape.circle),
                                         child: const Icon(
                                           Icons.play_arrow,
                                           size: 40,
@@ -135,22 +126,5 @@ class VideosListScreen extends StatelessWidget {
         ),
       ),
     );
-  }
-
-  Future<String?> generateThumbnail(String videoUrl) async {
-    final temp = await getTemporaryDirectory();
-    String? fileName;
-    try {
-      fileName = await VideoThumbnail.thumbnailFile(
-          video: videoUrl,
-          thumbnailPath: temp.path,
-          imageFormat: ImageFormat.JPEG,
-          maxHeight: (screenHeight * 0.6).toInt(),
-          quality: 75,
-          timeMs: 1);
-    } catch (e) {
-      log(e.toString());
-    }
-    return fileName;
   }
 }

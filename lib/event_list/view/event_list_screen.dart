@@ -82,7 +82,7 @@ class EventListScreen extends StatelessWidget {
         padding: EdgeInsets.zero,
         itemBuilder: (context, index) {
           var data = eventsList[index];
-          return GestureDetector(
+          return InkWell(
             onTap: () {
               Get.toNamed(RoutesConst.guestCoverScreen,
                   arguments: data.eventid, parameters: {'type': controller.forSelf == true ? 'For You' : 'By You'});
@@ -103,17 +103,18 @@ class EventListScreen extends StatelessWidget {
                               const BorderRadius.only(topRight: Radius.circular(20), topLeft: Radius.circular(20)),
                           child: cachedImage(height: 200, width: screenWidth, imageUrl: data.coverImage ?? "")),
                       Positioned(
-                          right: 10,
-                          top: 10,
-                          child: moreViewPopUpMenu(onDelete: () {
-                            controller.deleteEvent(eventId: data.eventid ?? "");
-                          }, onView: () {
-                            Get.toNamed(RoutesConst.guestCoverScreen,
-                                arguments: data.eventid,
-                                parameters: {'type': controller.forSelf == true ? 'For You' : 'By You'});
-                          })),
+                        right: 10,
+                        top: 10,
+                        child: controller.eventsCreated == EventsCreated.byUser
+                            ? moreViewPopUpMenu(onDelete: () {
+                                controller.deleteEvent(eventId: data.eventid ?? "");
+                              }, onShare: () {
+                                shareEvent(eventModel: data, context: context);
+                              })
+                            : const SizedBox.shrink(),
+                      ),
                       Positioned(
-                        right: screenWidth * 0.15,
+                        right: screenWidth * 0.03,
                         bottom: screenHeight * 0.01,
                         child: GestureDetector(
                           onTap: () {
@@ -131,29 +132,6 @@ class EventListScreen extends StatelessWidget {
                             child: ClipRRect(
                               borderRadius: BorderRadius.circular(50),
                               child: cachedImage(imageUrl: data.splashBackgroundImage),
-                            ),
-                          ),
-                        ),
-                      ),
-                      Positioned(
-                        right: screenWidth * 0.01,
-                        bottom: screenHeight * 0.01,
-                        child: GestureDetector(
-                          onTap: () {
-                            Get.to(() => CustomPhotoView(
-                                  imageUrl: data.splashDisplayImage,
-                                ));
-                          },
-                          child: Container(
-                            height: screenHeight * 0.06,
-                            width: screenHeight * 0.06,
-                            decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(50),
-                                border: Border.all(color: Colors.white, width: 2)),
-                            //padding: EdgeInsets.all(5),
-                            child: ClipRRect(
-                              borderRadius: BorderRadius.circular(50),
-                              child: cachedImage(imageUrl: data.splashDisplayImage),
                             ),
                           ),
                         ),

@@ -4,20 +4,23 @@ import 'package:where_hearts_meet/utils/consts/app_screen_size.dart';
 import 'package:where_hearts_meet/utils/consts/color_const.dart';
 import 'package:where_hearts_meet/utils/widgets/cached_image.dart';
 import 'package:where_hearts_meet/utils/widgets/pop_up_menus.dart';
+import '../consts/screen_const.dart';
 import '../util_functions/decoration_functions.dart';
 
 class EventCard extends StatelessWidget {
   final EventResponseModel eventResponseModel;
   final Function onCardTap;
   final Function onDelete;
-  final Function onView;
+  final Function onShare;
+  final EventsCreated eventsCreated;
 
   const EventCard(
       {Key? key,
       required this.eventResponseModel,
       required this.onCardTap,
       required this.onDelete,
-      required this.onView})
+      required this.eventsCreated,
+      required this.onShare})
       : super(key: key);
 
   @override
@@ -80,41 +83,28 @@ class EventCard extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Container(
-                  margin: EdgeInsets.symmetric(horizontal: screenWidth * 0.02),
-                  width: screenWidth * 0.25,
                   height: screenHeight * 0.06,
-                  child: Stack(
-                    children: [
-                      Container(
-                        height: screenHeight * 0.06,
-                        width: screenHeight * 0.06,
-                        decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(50), border: Border.all(color: Colors.white, width: 3)),
-                        //padding: EdgeInsets.all(5),
-                        child: ClipRRect(
-                          borderRadius: BorderRadius.circular(50),
-                          child: cachedImage(imageUrl: eventResponseModel.splashBackgroundImage),
-                        ),
-                      ),
-                      Positioned(
-                        right: screenWidth * 0.05,
-                        child: Container(
-                          height: screenHeight * 0.06,
-                          width: screenHeight * 0.06,
-                          decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(50),
-                              border: Border.all(color: Colors.white, width: 3)),
-                          //padding: EdgeInsets.all(5),
-                          child: ClipRRect(
-                            borderRadius: BorderRadius.circular(50),
-                            child: cachedImage(imageUrl: eventResponseModel.splashDisplayImage),
-                          ),
-                        ),
-                      ),
-                    ],
+                  width: screenHeight * 0.06,
+                  margin: EdgeInsets.symmetric(horizontal: screenWidth * 0.02),
+                  decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(50), border: Border.all(color: Colors.white, width: 3)),
+                  child: ClipRRect(
+                    borderRadius: BorderRadius.circular(50),
+                    child: cachedImage(imageUrl: eventResponseModel.splashBackgroundImage),
                   ),
                 ),
-                moreViewPopUpMenu(onDelete: onDelete, onView: onView,showBackground: false),
+                eventsCreated == EventsCreated.byUser
+                    ? moreViewPopUpMenu(onDelete: onDelete, onShare: onShare, showBackground: false)
+                    : GestureDetector(
+                        onTap: () {
+                          onCardTap();
+                        },
+                        child: const Icon(
+                          Icons.arrow_forward_outlined,
+                          color: Colors.white,
+                          size: 22,
+                        ),
+                      ),
               ],
             )
           ],

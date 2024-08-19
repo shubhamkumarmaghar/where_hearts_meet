@@ -12,6 +12,7 @@ import '../../utils/consts/images_const.dart';
 import '../../utils/consts/screen_const.dart';
 import '../../utils/model/dropdown_model.dart';
 import '../../utils/model/event_type_model.dart';
+import '../../utils/repository/common_data.dart';
 import '../../utils/util_functions/decoration_functions.dart';
 import '../../utils/widgets/event_card.dart';
 import '../controller/dashboard_controller.dart';
@@ -240,32 +241,46 @@ Widget getWishesCard(
   );
 }
 
-Widget getEventCard(
-    {required BuildContext context,
-    required List<EventResponseModel> eventsList,
-    required EventsCreated eventsCreated,
-    required DashboardController controller}) {
+Widget appFeaturesView() {
   return Container(
-    padding: const EdgeInsets.symmetric(horizontal: 20),
-    child: ListView.separated(
-        scrollDirection: Axis.horizontal,
+    padding: const EdgeInsets.symmetric(horizontal: 16),
+    child: GridView.builder(
+        scrollDirection: Axis.vertical,
+        shrinkWrap: true,
+        padding: EdgeInsets.zero,
+        physics: const NeverScrollableScrollPhysics(),
+        itemCount: featuresTextList.length,
+        gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+            crossAxisCount: 2,
+            mainAxisSpacing: 15,
+            crossAxisSpacing: 15,
+            childAspectRatio: screenHeight / (screenWidth + 100)),
         itemBuilder: (BuildContext context, int index) {
-          var data = eventsList[index];
-          return EventCard(
-              eventResponseModel: data,
-              onDelete: () {
-                controller.deleteEvent(eventId: data.eventid ?? "", eventsCreated: eventsCreated);
-              },
-              onView: () {
-                Get.toNamed(RoutesConst.guestCoverScreen, arguments: data.eventid);
-              },
-              onCardTap: () {
-                Get.toNamed(RoutesConst.guestCoverScreen, arguments: data.eventid);
-              });
-        },
-        separatorBuilder: (context, index) => const SizedBox(
-              width: 10,
-            ),
-        itemCount: eventsList.length > 2 ? 3 : eventsList.length),
+          var data = featuresTextList[index];
+          return Row(
+            children: [
+              Expanded(
+                child: ClayContainer(
+                  color: appColor1,
+                  borderRadius: 20,
+                  child: Container(
+                    width: screenWidth,
+                    padding: EdgeInsets.symmetric(horizontal: screenWidth * 0.025),
+                    alignment: Alignment.center,
+                    decoration: BoxDecoration(
+                        color: appColor1,
+                        borderRadius: BorderRadius.circular(20),
+                        border: Border.all(color: Colors.white, width: 0.4)),
+                    child: Text(
+                      data,
+                      style: textStyleAleo(fontSize: 16, color: Colors.white),
+                      textAlign: TextAlign.center,
+                    ),
+                  ),
+                ),
+              ),
+            ],
+          );
+        }),
   );
 }

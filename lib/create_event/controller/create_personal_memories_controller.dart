@@ -107,10 +107,6 @@ class CreatePersonalMemoriesController extends BaseController {
     showCupertinoModalPopup(
       context: Get.context!,
       builder: (BuildContext context) => CupertinoActionSheet(
-        title: const Text(
-          StringConsts.selectMediaType,
-          style: TextStyle(color: Colors.black, fontSize: 16, fontWeight: FontWeight.w700),
-        ),
         actions: <CupertinoActionSheetAction>[
           CupertinoActionSheetAction(
             onPressed: () {
