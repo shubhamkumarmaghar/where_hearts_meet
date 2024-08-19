@@ -32,8 +32,8 @@ class _GetPersonalScreenCoverState extends State<GetPersonalScreenCover> {
               controller.isBusy ?AppWidgets.getLoader():
               Container(
                 decoration:  BoxDecoration(
-                    image: DecorationImage(
-                        image: NetworkImage(controller.personalWishesCoverModel!.coverImage??''), fit: BoxFit.fitHeight)),
+                    image: DecorationImage(image: NetworkImage(controller.personalWishesCoverModel!.coverImage??''),
+                        fit: BoxFit.fitHeight)),
               ),
               Container(
                 width: screenWidth,
