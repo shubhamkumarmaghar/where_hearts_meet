@@ -48,7 +48,7 @@ class CreatePersonalMemoriesScreen extends StatelessWidget {
                         width: screenWidth * 0.4,
                         titleTextStyle: textStyleDangrek(fontSize: 22, color: primaryColor),
                         onPressed: controller.onNext,
-                        enabled: true,
+                        enabled: controller.memoriesList.isNotEmpty,
                       );
                     }),
                   ],

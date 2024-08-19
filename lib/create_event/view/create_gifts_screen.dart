@@ -44,13 +44,15 @@ class CreateGiftsScreen extends StatelessWidget {
                   buttonColor: appColor1,
                   titleTextStyle: textStyleDangrek(fontSize: 22),
                 ),
-                OutlinedBusyButton(
-                  title: StringConsts.next,
-                  width: screenWidth * 0.4,
-                  titleTextStyle: textStyleDangrek(fontSize: 22, color: primaryColor),
-                  onPressed: controller.navigateToEventCompletedScreen,
-                  enabled: controller.submittedGiftsList.isNotEmpty,
-                ),
+                Obx(() {
+                  return OutlinedBusyButton(
+                    title: controller.nextButtonTitle.value,
+                    width: screenWidth * 0.4,
+                    titleTextStyle: textStyleDangrek(fontSize: 22, color: primaryColor),
+                    onPressed: controller.navigateToEventCompletedScreen,
+                    enabled: true,
+                  );
+                })
               ],
             ),
           ),
@@ -180,7 +182,7 @@ class CreateGiftsScreen extends StatelessWidget {
         padding: EdgeInsets.zero,
         physics: const NeverScrollableScrollPhysics(),
         //itemCount: controller.imagesList.length == 3 ? 3 : controller.imagesList.length + 1,
-        itemCount:  controller.imagesList.length + 1,
+        itemCount: controller.imagesList.length + 1,
         gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
           crossAxisCount: 3,
           crossAxisSpacing: 0,
@@ -210,7 +212,7 @@ class CreateGiftsScreen extends StatelessWidget {
                       )
                     : ClipRRect(
                         borderRadius: const BorderRadius.all(Radius.circular(20)),
-                        child: cachedImage(imageUrl: controller.imagesList[index].fileUrl,boxFit: BoxFit.cover),
+                        child: cachedImage(imageUrl: controller.imagesList[index].fileUrl, boxFit: BoxFit.cover),
                       ),
               ),
             ),

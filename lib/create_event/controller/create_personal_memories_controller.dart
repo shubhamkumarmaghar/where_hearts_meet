@@ -23,7 +23,7 @@ import '../service/create_event_service.dart';
 
 class CreatePersonalMemoriesController extends BaseController {
   late EventResponseModel eventResponseModel;
-  RxString nextButtonTitle = StringConsts.skip.obs;
+  RxString nextButtonTitle = StringConsts.next.obs;
   List<PersonalMemoriesModel> memoriesList = [];
   RxBool submitButtonEnabled = true.obs;
   final createEventService = CreateEventService();

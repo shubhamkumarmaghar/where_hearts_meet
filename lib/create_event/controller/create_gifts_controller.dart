@@ -5,6 +5,7 @@ import 'package:where_hearts_meet/create_event/model/gift_model.dart';
 import 'package:where_hearts_meet/create_event/model/gifts_data_model.dart';
 import 'package:where_hearts_meet/routes/routes_const.dart';
 import 'package:where_hearts_meet/utils/controller/base_controller.dart';
+import 'package:where_hearts_meet/utils/widgets/util_widgets/app_widgets.dart';
 import '../../utils/consts/service_const.dart';
 import '../../utils/consts/string_consts.dart';
 import '../../utils/dialogs/pop_up_dialogs.dart';
@@ -16,6 +17,7 @@ import '../service/create_event_service.dart';
 
 class CreateGiftsController extends BaseController {
   late EventResponseModel eventResponseModel;
+  RxString nextButtonTitle = StringConsts.skip.obs;
   RxInt giftCardGroupValue = 0.obs;
   final _createEventService = CreateEventService();
   List<GiftsCard>? giftsDataList;
@@ -88,31 +90,48 @@ class CreateGiftsController extends BaseController {
   }
 
   void addGifts() async {
-    if (selectedGift != null) {
-      showLoaderDialog(context: Get.context!);
-      GiftModel model = GiftModel();
+    if (selectedGift == null) {
+      AppWidgets.getToast(message: 'Select gift');
+      return;
+    }
+    if (nameTextController.text.isEmpty) {
+      AppWidgets.getToast(message: 'Sender name can not be empty');
+      return;
+    }
+    if (giftTitleController.text.isEmpty) {
+      AppWidgets.getToast(message: 'Gift title can not be empty');
+      return;
+    }
 
-      model.eventId = eventResponseModel.eventid ?? ''; // '81_Happy birthday';
-      model.senderName = nameTextController.text;
-      model.giftCode = selectedGift?.code ?? '';
-      model.giftTitle = giftTitleController.text;
-      model.cardId = giftCardIdController.text;
-      model.cardPin = giftCardPinController.text;
-      model.giftImages = imagesList.map((e) => e.fileId ?? '').toList();
+    if (giftCardIdController.text.isEmpty && giftCardPinController.text.isEmpty && imagesList.isEmpty) {
+      AppWidgets.getToast(message: 'Add gift card id or add gifts images');
+      return;
+    }
 
-      final response = await _createEventService.addGiftsEventApi(giftModel: model);
-      cancelDialog();
-      if (response != null) {
-        submittedGiftsList.add(response);
-        nameTextController.clear();
-        selectedGift = null;
-        selectGiftText = 'Select Gift*';
-        giftTitleController.clear();
-        giftCardIdController.clear();
-        giftCardPinController.clear();
-        imagesList.clear();
-        update();
-      }
+    showLoaderDialog(context: Get.context!);
+    GiftModel model = GiftModel();
+
+    model.eventId = eventResponseModel.eventid ?? '';
+    model.senderName = nameTextController.text;
+    model.giftCode = selectedGift?.code ?? '';
+    model.giftTitle = giftTitleController.text;
+    model.cardId = giftCardIdController.text;
+    model.cardPin = giftCardPinController.text;
+    model.giftImages = imagesList.map((e) => e.fileId ?? '').toList();
+
+    final response = await _createEventService.addGiftsEventApi(giftModel: model);
+    cancelDialog();
+    if (response != null) {
+      submittedGiftsList.add(response);
+      nameTextController.clear();
+      selectedGift = null;
+      selectGiftText = 'Select Gift*';
+      giftTitleController.clear();
+      giftCardIdController.clear();
+      giftCardPinController.clear();
+      imagesList.clear();
+      nextButtonTitle.value = StringConsts.skip;
+      update();
     }
   }
 

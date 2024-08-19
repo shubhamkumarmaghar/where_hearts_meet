@@ -28,6 +28,7 @@ class CreateEventController extends BaseController {
   String? backgroundImage;
   String? displayImage;
   String? coverImage;
+  bool selectedEventData = false;
 
   EventModel eventModel = EventModel();
   WeekModel? weekModel;
@@ -66,6 +67,7 @@ class CreateEventController extends BaseController {
     );
     if (date != null) {
       eventDate = date;
+      selectedEventData = true;
       setEventTime(selectedDate: date);
       updateTimer();
     }
@@ -130,13 +132,17 @@ class CreateEventController extends BaseController {
   }
 
   void createEvent() async {
-    showLoaderDialog(context: Get.context!);
-    final response = await createEventService.createEventApi(eventModel: eventModel);
-    cancelDialog();
-    if (response != null) {
-      var createdEvent = locator<CreatedEventRepo>();
-      createdEvent.setEvent(response);
-      Get.offNamed(RoutesConst.createWishesScreen);
+    if (selectedEventData) {
+      showLoaderDialog(context: Get.context!);
+      final response = await createEventService.createEventApi(eventModel: eventModel);
+      cancelDialog();
+      if (response != null) {
+        var createdEvent = locator<CreatedEventRepo>();
+        createdEvent.setEvent(response);
+        Get.offNamed(RoutesConst.createWishesScreen);
+      }
+    } else {
+      AppWidgets.getToast(message: 'Select event date!');
     }
   }
 
