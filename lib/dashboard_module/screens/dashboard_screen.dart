@@ -51,15 +51,10 @@ class DashboardScreen extends StatelessWidget {
                 Row(
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
-                    GestureDetector(
-                      onTap: () {
-                        Get.toNamed(RoutesConst.guestHomeScreen);
-                      },
-                      child: SizedBox(
-                        height: screenHeight * 0.08,
-                        child: Image.asset(
-                          logo,
-                        ),
+                    SizedBox(
+                      height: screenHeight * 0.08,
+                      child: Image.asset(
+                        logo,
                       ),
                     ),
                     SizedBox(
