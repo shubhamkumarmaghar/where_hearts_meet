@@ -31,7 +31,7 @@ import '../create_event/view/create_personal_memories_screen.dart';
 import '../guest_dashboard/binding/guest_dashboard_binding.dart';
 import '../guest_dashboard/guest_home/binding/guest_home_binding.dart';
 import '../guest_dashboard/guest_home/view/guest_home.dart';
-import '../guest_dashboard/guest_wishlist/binding/guest_wishlist.dart';
+import '../guest_dashboard/guest_wishlist/binding/guest_wishlist_binding.dart';
 import '../guest_dashboard/guest_wishlist/view/guest_wishlist.dart';
 import '../guest_dashboard/view/guest_dashboard.dart';
 import '../guest_dashboard/view/guest_splash_view.dart';

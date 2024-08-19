@@ -47,8 +47,6 @@ class GuestHomeController extends BaseController {
     if (arg != null) {
     getData(args: arg,data: parameters);
     }
-
-
   }
   Future<void> getData({String? args, Map? data}) async {
     String byYou = data?['type'];

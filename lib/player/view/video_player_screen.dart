@@ -62,16 +62,24 @@ class _VideoPlayerScreenState extends State<VideoPlayerScreen> {
           ? Container(
               height: screenHeight * 0.3,
               width: screenWidth * 0.6,
-              color: primaryColor,
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(20),
+                color: primaryColor,
+              ),
               child: const Icon(
                 Icons.slow_motion_video,
                 size: 50,
               ),
             )
-          : Chewie(
+          : ClipRRect(
+            borderRadius: BorderRadius.circular(20),
+            clipBehavior: Clip.antiAliasWithSaveLayer,
+            child: Chewie(
               controller: chewieController!,
+
               // key: UniqueKey(),
             ),
+          ),
     );
   }
 

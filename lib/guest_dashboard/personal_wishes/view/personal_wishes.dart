@@ -2,10 +2,14 @@ import 'dart:developer';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:video_player/video_player.dart';
+import 'package:where_hearts_meet/player/view/video_player_screen.dart';
 import 'package:where_hearts_meet/utils/consts/app_screen_size.dart';
 import 'package:where_hearts_meet/utils/consts/color_const.dart';
 import 'package:where_hearts_meet/utils/consts/images_const.dart';
 import 'package:where_hearts_meet/utils/text_styles/custom_text_styles.dart';
+import '../../../utils/util_functions/app_pickers.dart';
+import '../../../utils/widgets/util_widgets/app_widgets.dart';
 import '../../guest_home/controller/guest_home_controller.dart';
 import '../controller/PersonalWishesController.dart';
 
@@ -18,28 +22,24 @@ class GetPersonalWishScreen extends StatefulWidget {
 
 class _GetPersonalWishScreenState extends State<GetPersonalWishScreen> {
 
-List<String> data = [
-  'I want to wish you with all my heart',
-  'I want to wish you with all my heart shubham ',
-  'I want to wish you with all my heart goku ',
-  'I want to wish you with all my heart deepK ',
-];
+
 int indexNo=0;
   @override
   Widget build(BuildContext context) {
     return GetBuilder<PersonalWishesController>(
-      init:PersonalWishesController() ,
       builder: (controller){
         return  Scaffold(
-          body: Stack(
+          body: controller.isBusy
+              ? AppWidgets.getLoader()
+              : Stack(
             children: [
               Column(
                 children: [
                   heightSpace(screenHeight * 0.08),
-                  const CircleAvatar(backgroundImage: AssetImage(su1), radius: 40),
+                   CircleAvatar(backgroundImage: NetworkImage(controller.homeController.eventDetails!.coverPic??""), radius: 40),
                   heightSpace(screenHeight * 0.01),
-                  getPrimaryText(text: 'Shubham Kumar', fontSize: 20),
-                  getPrimaryText(text: '15/09/1997'),
+                  getPrimaryText(text: controller.homeController.nameText, fontSize: 20),
+                  getPrimaryText(text: formatDateTime(dateTime: controller.homeController.birthday.toString(),format: 'dd-MMM-yyyy')),
                   heightSpace(screenHeight * 0.01),
                   Container(
                     margin: const EdgeInsets.symmetric(horizontal: 20),
@@ -55,24 +55,33 @@ int indexNo=0;
                           child: getPrimaryText(
                               text: 'Memories', textColor: Colors.white),
                         ),
-                        Container(
+                        GestureDetector(
+                          onTap: (){
+                            AppWidgets.getToast(message: 'Coming soon!!',color: primaryColor);
+                          },
+                          child: Container(
+                            padding: const EdgeInsets.all(10),
+                            decoration: BoxDecoration(
+                              color: primaryColor.withOpacity(0.1),
+                              borderRadius: BorderRadius.circular(20),
+                            ),
+                            child: getPrimaryText(
+                                text: 'Messages', textColor: Colors.grey),
+                          ),
+                        ),
+                        GestureDetector(
+                          onTap: (){
+                            AppWidgets.getToast(message: 'Coming soon!!',color: primaryColor);
+                          },
+                          child:Container(
                           padding: const EdgeInsets.all(10),
                           decoration: BoxDecoration(
                             color: primaryColor.withOpacity(0.1),
                             borderRadius: BorderRadius.circular(20),
                           ),
                           child: getPrimaryText(
-                              text: 'Memories', textColor: Colors.grey),
-                        ),
-                        Container(
-                          padding: const EdgeInsets.all(10),
-                          decoration: BoxDecoration(
-                            color: primaryColor.withOpacity(0.1),
-                            borderRadius: BorderRadius.circular(20),
-                          ),
-                          child: getPrimaryText(
-                              text: 'Memories', textColor: Colors.grey),
-                        ),
+                              text: 'For you', textColor: Colors.grey),
+                        ),),
                       ],
                     ),
                   ),
@@ -83,8 +92,8 @@ int indexNo=0;
                       padding: EdgeInsets.all(20),
                       height: screenHeight * 0.25,
                       width: screenWidth,
-                      decoration: const BoxDecoration(
-                          color: primaryColor,
+                      decoration:  BoxDecoration(
+                          color: primaryColor.withOpacity(0.7),
                           borderRadius: BorderRadius.only(
                             topLeft: Radius.circular(30),
                             topRight: Radius.circular(25),
@@ -92,7 +101,7 @@ int indexNo=0;
                       child: ListView(
                           children: [
                             heightSpace(screenHeight*0.02),
-                            getPrimaryText(text: data[indexNo],
+                            getPrimaryText(text: controller.memoriesList[indexNo].description??"",
                                 textColor: Colors.white)
                           ]),
                     ),
@@ -174,27 +183,33 @@ int indexNo=0;
                         controller.update();
                         log(' change page data $indexNo  $index');
                         setState(() {
-                          log('  ${data[indexNo]}  $index');
+                          log('   $index');
                         });
                       },
 
 
                     ),
-                    items: controller.homeController.timeLineModel.value.images?.map((imagePath) {
+                    items: controller.memoriesList.map((path) {
                       return Builder(
                         builder: (BuildContext context) {
-                          return Container(
-                            // width: screenWidth*0.6,
-                            //  height: Get.height*0.75,
+                          var data = path.file;
 
+                          return path.fileType.toString() =='image'?
+                          Container(
                             margin: EdgeInsets.symmetric(horizontal: 5.0),
                             decoration: BoxDecoration(
                               image: DecorationImage(
-                                image: NetworkImage(imagePath),
+                                image: NetworkImage(data!),
                                 fit: BoxFit.cover,
                               ),
                               borderRadius: BorderRadius.circular(20),
                             ),
+                          ): Container(
+                            margin: EdgeInsets.symmetric(horizontal: 5.0),
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(20),
+                            ),
+                            child: VideoPlayerScreen(url: data.toString(),),
                           );
                         },
                       );

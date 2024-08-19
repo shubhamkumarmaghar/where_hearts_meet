@@ -6,6 +6,10 @@ import 'package:get/utils.dart';
 import 'package:where_hearts_meet/utils/consts/app_screen_size.dart';
 import 'package:where_hearts_meet/utils/widgets/custom_photo_view.dart';
 
+import '../../../preview_event/widgets/videos_list_screen.dart';
+import '../../consts/color_const.dart';
+import '../../util_functions/decoration_functions.dart';
+
 class PostWidget extends StatelessWidget {
   final String profileImageUrl;
   final String username;
@@ -102,10 +106,52 @@ class PostWidget extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      Icon(Icons.favorite_border),
-                      SizedBox(width: 10),
-                      Text('$likes likes'),
+                      Row(
+                        children: [
+                          Icon(Icons.favorite_border),
+                          SizedBox(width: 10),
+                          Text('$likes likes'),
+                        ],
+                      ),
+                      fullDesc==true ?GestureDetector(
+                        onTap:() {
+                          Get.to(
+                                  () => VideosListScreen(
+                                videosList: videoUrl ?? [],
+                              ),
+                              transition: Transition.cupertino
+                          );
+                        },
+                        child: Align(
+                          alignment: Alignment.centerRight,
+                          child: Container(
+                            decoration:
+                            BoxDecoration(color: primaryColor.withOpacity(0.2), borderRadius: BorderRadius.circular(5)),
+                            width: screenWidth * 0.35,
+                            padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 5),
+                            child: Row(
+                              crossAxisAlignment: CrossAxisAlignment.center,
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                const Icon(
+                                  Icons.video_collection_rounded,
+                                  color: Colors.white,
+                                  size: 20,
+                                ),
+                                SizedBox(
+                                  width: screenWidth * 0.02,
+                                ),
+                                Text(
+                                  'View videos',
+                                  style: textStyleAbel(fontSize: 16),
+                                ),
+                              ],
+                            ),
+                          ),
+                        ),
+                      ):const SizedBox(),
                     ],
                   ),
                   SizedBox(height: 5),
