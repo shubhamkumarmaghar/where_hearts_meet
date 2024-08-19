@@ -39,7 +39,6 @@ class _VideoPlayerScreenState extends State<VideoPlayerScreen> {
           allowMuting: true,
           zoomAndPan: true,
           looping: true,
-
           autoInitialize: true,
         );
         setState(() {
@@ -59,22 +58,24 @@ class _VideoPlayerScreenState extends State<VideoPlayerScreen> {
           ? Container(
               height: screenHeight * 0.3,
               width: screenWidth * 0.6,
-              color: primaryColor,
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(20),
+                color: primaryColor,
+              ),
               child: const Icon(
                 Icons.slow_motion_video,
                 size: 50,
               ),
             )
-          : Container(
-              width: screenWidth,
-              child: ClipRRect(
-                borderRadius: BorderRadius.only(topLeft: Radius.circular(20), topRight: Radius.circular(20)),
-                child: Chewie(
-                  controller: chewieController!,
+          : ClipRRect(
+            borderRadius: BorderRadius.circular(20),
+            clipBehavior: Clip.antiAliasWithSaveLayer,
+            child: Chewie(
+              controller: chewieController!,
 
-                ),
-              ),
+              // key: UniqueKey(),
             ),
+          ),
     );
   }
 

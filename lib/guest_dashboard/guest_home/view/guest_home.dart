@@ -333,7 +333,7 @@ class _GuestHomeState extends State<GuestHome> with TickerProviderStateMixin {
                                 ),
                                 GestureDetector(
                                   onTap: (){
-                                    Get.toNamed(RoutesConst.guestWishlist);
+                                    Get.toNamed(RoutesConst.guestWishlist,arguments: controller.eventDetails?.eventid);
                                   },
                                   child: Card(
                                     elevation: 8,
@@ -614,7 +614,7 @@ class _GuestHomeState extends State<GuestHome> with TickerProviderStateMixin {
                                 var data = controller.guestwishesModel[index];
                                 return GestureDetector(
                                   onTap: () {
-                                    Get.toNamed(RoutesConst.guestWishlist);                                   //Get.to(GuestWishList());
+                                    Get.toNamed(RoutesConst.guestWishlist,arguments: controller.eventDetails?.eventid);                                   //Get.to(GuestWishList());
                                   },
                                   child: PostWidget(
                                     username: data!.senderName ?? "",

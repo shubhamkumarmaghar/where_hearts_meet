@@ -25,11 +25,11 @@ class _GetPersonalScreenCoverState extends State<GetPersonalScreenCover> {
         init: PersonalWishesController(),
         builder: (controller) {
           return Scaffold(
-            body: Stack(
+            body:  controller.isBusy
+                ? AppWidgets.getLoader()
+                :Stack(
               children: [
-                controller.isBusy
-                    ? AppWidgets.getLoader()
-                    : Container(
+                Container(
                         decoration: BoxDecoration(
                             image: DecorationImage(
                                 image: NetworkImage(controller.personalWishesCoverModel!.coverImage ?? ''),
@@ -60,8 +60,18 @@ class _GetPersonalScreenCoverState extends State<GetPersonalScreenCover> {
                         heightSpace(screenHeight * 0.5),
                         Padding(
                           padding: const EdgeInsets.symmetric(horizontal: 8.0),
-                          child: Text('Explore Special Feelings',
-                              style: GoogleFonts.architectsDaughter(fontSize: 45, color: Colors.white)),
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.start,
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text('Explore Special Feelings',
+                                  style: GoogleFonts.architectsDaughter(fontSize: 45, color: Colors.white)),
+
+                              Text(controller.personalWishesCoverModel!.message ?? '',
+                                  style: GoogleFonts.architectsDaughter(fontSize: 35, color: Colors.white)),
+
+                            ],
+                          ),
                         ),
                       ]),
                 ),
@@ -71,6 +81,7 @@ class _GetPersonalScreenCoverState extends State<GetPersonalScreenCover> {
                   //left: screenWidth*0.4,
                   child: GestureDetector(
                     onTap: (() {
+                      controller.personalWishesMemories(eventId: controller.eventId);
                       Get.to(const GetPersonalWishScreen());
                     }),
                     child: Container(

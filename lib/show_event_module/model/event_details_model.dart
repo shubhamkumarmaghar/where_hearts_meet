@@ -9,7 +9,6 @@ class EventDetailsModel {
   String? receiverPhoneNumber;
   String? username;
   String? receiverName;
-  List<String>? imageUrls;
   bool? globalEvent;
   String? coverPic;
   String? splashDisplayImage;
@@ -28,7 +27,6 @@ class EventDetailsModel {
       this.receiverPhoneNumber,
       this.username,
       this.receiverName,
-      this.imageUrls,
         this.globalEvent,
         this.coverPic,
         this.splashBackgroundImage,
@@ -46,7 +44,6 @@ class EventDetailsModel {
     receiverPhoneNumber = json['receiver_phone_number'];
     username = json['username'];
     receiverName = json['receiver_name'];
-    imageUrls = json['image_urls'].cast<String>();
     globalEvent = json['global_event'];
     coverPic=json['cover_image'];
     splashDisplayImage=json['splash_display_image'];
@@ -67,7 +64,6 @@ class EventDetailsModel {
     data['receiver_phone_number'] = this.receiverPhoneNumber;
     data['username'] = this.username;
     data['receiver_name'] = this.receiverName;
-    data['image_urls'] = this.imageUrls;
     data['global_event'] = this.globalEvent;
     data['cover_image'] = this.coverPic;
     data['splash_background_image'] = this.splashBackgroundImage;
