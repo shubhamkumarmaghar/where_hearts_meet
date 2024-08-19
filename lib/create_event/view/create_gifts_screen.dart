@@ -24,155 +24,158 @@ class CreateGiftsScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return GetBuilder<CreateGiftsController>(
-      builder: (controller) {
-        return Scaffold(
-          bottomNavigationBar: Container(
-            color: appColor3,
-            padding: EdgeInsets.only(
-              bottom: 14,
-              left: screenWidth * 0.06,
-              right: screenWidth * 0.06,
-            ),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                GradientButton(
-                  title: StringConsts.submit,
-                  width: screenWidth * 0.4,
-                  onPressed: controller.addGifts,
-                  buttonColor: appColor1,
-                  titleTextStyle: textStyleDangrek(fontSize: 22),
+    return PopScope(
+        canPop: false,
+        child: GetBuilder<CreateGiftsController>(
+          builder: (controller) {
+            return Scaffold(
+              bottomNavigationBar: Container(
+                color: appColor3,
+                padding: EdgeInsets.only(
+                  bottom: 14,
+                  left: screenWidth * 0.06,
+                  right: screenWidth * 0.06,
                 ),
-                Obx(() {
-                  return OutlinedBusyButton(
-                    title: controller.nextButtonTitle.value,
-                    width: screenWidth * 0.4,
-                    titleTextStyle: textStyleDangrek(fontSize: 22, color: primaryColor),
-                    onPressed: controller.navigateToEventCompletedScreen,
-                    enabled: true,
-                  );
-                })
-              ],
-            ),
-          ),
-          body: BaseContainer(
-            child: Container(
-              height: screenHeight,
-              width: screenWidth,
-              padding: const EdgeInsets.symmetric(
-                horizontal: 20,
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    GradientButton(
+                      title: StringConsts.submit,
+                      width: screenWidth * 0.4,
+                      onPressed: controller.addGifts,
+                      buttonColor: appColor1,
+                      titleTextStyle: textStyleDangrek(fontSize: 22),
+                    ),
+                    Obx(() {
+                      return OutlinedBusyButton(
+                        title: controller.nextButtonTitle.value,
+                        width: screenWidth * 0.4,
+                        titleTextStyle: textStyleDangrek(fontSize: 22, color: primaryColor),
+                        onPressed: controller.navigateToEventCompletedScreen,
+                        enabled: true,
+                      );
+                    })
+                  ],
+                ),
               ),
-              child: Column(
-                children: [
-                  SizedBox(
-                    height: screenHeight * 0.06,
+              body: BaseContainer(
+                child: Container(
+                  height: screenHeight,
+                  width: screenWidth,
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 20,
                   ),
-                  eventHeaderView(
-                      text: controller.eventResponseModel.eventName ?? '',
-                      image: controller.eventResponseModel.coverImage),
-                  SizedBox(
-                    height: screenHeight * 0.02,
-                  ),
-                  Row(
+                  child: Column(
                     children: [
-                      const Spacer(),
-                      Text(
-                        StringConsts.eGifts,
-                        style: textStyleDangrek(fontSize: 24),
+                      SizedBox(
+                        height: screenHeight * 0.06,
                       ),
-                      const Spacer(),
-                      Visibility(
-                        visible: controller.submittedGiftsList.isNotEmpty,
-                        replacement: const SizedBox.shrink(),
-                        child: _getSubmittedGiftsBadgeView(),
+                      eventHeaderView(
+                          text: controller.eventResponseModel.eventName ?? '',
+                          image: controller.eventResponseModel.coverImage),
+                      SizedBox(
+                        height: screenHeight * 0.02,
                       ),
-                    ],
-                  ),
-                  Expanded(
-                    child: SingleChildScrollView(
-                      child: Column(
+                      Row(
                         children: [
-                          SizedBox(
-                            height: screenHeight * 0.01,
+                          const Spacer(),
+                          Text(
+                            StringConsts.eGifts,
+                            style: textStyleDangrek(fontSize: 24),
                           ),
-                          Align(
-                            alignment: Alignment.centerLeft,
-                            child: Text(
-                              StringConsts.selectGiftType,
-                              style: textStyleDangrek(fontSize: 18),
-                            ),
+                          const Spacer(),
+                          Visibility(
+                            visible: controller.submittedGiftsList.isNotEmpty,
+                            replacement: const SizedBox.shrink(),
+                            child: _getSubmittedGiftsBadgeView(),
                           ),
-                          SizedBox(
-                            height: screenHeight * 0.01,
-                          ),
-                          InkWell(
-                            onTap: controller.navigateToGiftTypeScreen,
-                            child: Container(
-                              height: screenHeight * 0.06,
-                              width: screenWidth,
-                              decoration: BoxDecoration(color: Colors.white, borderRadius: BorderRadius.circular(50)),
-                              alignment: Alignment.center,
-                              child: Text(
-                                controller.selectGiftText,
-                              ),
-                            ),
-                          ),
-                          SizedBox(
-                            height: screenHeight * 0.02,
-                          ),
-                          DesignerTextField(
-                              title: StringConsts.senderName,
-                              hint: StringConsts.enterSenderName,
-                              onChanged: (text) {},
-                              controller: controller.nameTextController),
-                          SizedBox(
-                            height: screenHeight * 0.02,
-                          ),
-                          DesignerTextField(
-                              title: '${StringConsts.giftTitle}*',
-                              hint: StringConsts.enterGiftTitle,
-                              enabled: controller.canTitleChange,
-                              onChanged: (text) {},
-                              controller: controller.giftTitleController),
-                          SizedBox(
-                            height: screenHeight * 0.02,
-                          ),
-                          DesignerTextField(
-                              title: StringConsts.giftCardId,
-                              hint: StringConsts.enterGiftCardId,
-                              onChanged: (text) {},
-                              controller: controller.giftCardIdController),
-                          SizedBox(
-                            height: screenHeight * 0.02,
-                          ),
-                          DesignerTextField(
-                              title: StringConsts.giftCardPin,
-                              hint: StringConsts.enterGiftCardPin,
-                              onChanged: (text) {},
-                              controller: controller.giftCardPinController),
-                          SizedBox(
-                            height: screenHeight * 0.02,
-                          ),
-                          Align(
-                            alignment: Alignment.centerLeft,
-                            child: Text(
-                              '${StringConsts.uploadGiftImages} (Max 3)',
-                              style: textStyleDangrek(fontSize: 18),
-                            ),
-                          ),
-                          _getImagesListWidget(),
                         ],
                       ),
-                    ),
-                  )
-                ],
+                      Expanded(
+                        child: SingleChildScrollView(
+                          child: Column(
+                            children: [
+                              SizedBox(
+                                height: screenHeight * 0.01,
+                              ),
+                              Align(
+                                alignment: Alignment.centerLeft,
+                                child: Text(
+                                  StringConsts.selectGiftType,
+                                  style: textStyleDangrek(fontSize: 18),
+                                ),
+                              ),
+                              SizedBox(
+                                height: screenHeight * 0.01,
+                              ),
+                              InkWell(
+                                onTap: controller.navigateToGiftTypeScreen,
+                                child: Container(
+                                  height: screenHeight * 0.06,
+                                  width: screenWidth,
+                                  decoration:
+                                      BoxDecoration(color: Colors.white, borderRadius: BorderRadius.circular(50)),
+                                  alignment: Alignment.center,
+                                  child: Text(
+                                    controller.selectGiftText,
+                                  ),
+                                ),
+                              ),
+                              SizedBox(
+                                height: screenHeight * 0.02,
+                              ),
+                              DesignerTextField(
+                                  title: StringConsts.senderName,
+                                  hint: StringConsts.enterSenderName,
+                                  onChanged: (text) {},
+                                  controller: controller.nameTextController),
+                              SizedBox(
+                                height: screenHeight * 0.02,
+                              ),
+                              DesignerTextField(
+                                  title: '${StringConsts.giftTitle}*',
+                                  hint: StringConsts.enterGiftTitle,
+                                  enabled: controller.canTitleChange,
+                                  onChanged: (text) {},
+                                  controller: controller.giftTitleController),
+                              SizedBox(
+                                height: screenHeight * 0.02,
+                              ),
+                              DesignerTextField(
+                                  title: StringConsts.giftCardId,
+                                  hint: StringConsts.enterGiftCardId,
+                                  onChanged: (text) {},
+                                  controller: controller.giftCardIdController),
+                              SizedBox(
+                                height: screenHeight * 0.02,
+                              ),
+                              DesignerTextField(
+                                  title: StringConsts.giftCardPin,
+                                  hint: StringConsts.enterGiftCardPin,
+                                  onChanged: (text) {},
+                                  controller: controller.giftCardPinController),
+                              SizedBox(
+                                height: screenHeight * 0.02,
+                              ),
+                              Align(
+                                alignment: Alignment.centerLeft,
+                                child: Text(
+                                  '${StringConsts.uploadGiftImages} (Max 3)',
+                                  style: textStyleDangrek(fontSize: 18),
+                                ),
+                              ),
+                              _getImagesListWidget(),
+                            ],
+                          ),
+                        ),
+                      )
+                    ],
+                  ),
+                ),
               ),
-            ),
-          ),
-        );
-      },
-    );
+            );
+          },
+        ));
   }
 
   Widget _getImagesListWidget() {

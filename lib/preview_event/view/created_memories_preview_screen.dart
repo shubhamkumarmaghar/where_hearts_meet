@@ -111,12 +111,12 @@ class CreatedMemoriesPreviewScreen extends StatelessWidget {
                       url: data.file ?? '',
                     )
                   : GestureDetector(
-                  onTap: () async {
-                    Get.to(() => CustomPhotoView(
-                      imageUrl: data.file,
-                    ));
-                  },
-                  child: cachedImage(imageUrl: data.file)),
+                      onTap: () async {
+                        Get.to(() => CustomPhotoView(
+                              imageUrl: data.file,
+                            ));
+                      },
+                      child: cachedImage(imageUrl: data.file)),
             ),
           ),
         ),
@@ -140,8 +140,8 @@ class CreatedMemoriesPreviewScreen extends StatelessWidget {
                     scrollbarOrientation: ScrollbarOrientation.right,
                     child: SingleChildScrollView(
                       child: Text(
-                        // data.description ?? '',
-                        StringConsts.dummyText + StringConsts.dummyText,
+                         data.description ?? '',
+                        //StringConsts.dummyText + StringConsts.dummyText,
                         style: textStyleAleo(fontSize: 14, color: Colors.white),
                       ),
                     ),

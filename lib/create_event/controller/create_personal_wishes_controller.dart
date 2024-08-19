@@ -5,6 +5,7 @@ import 'package:image_picker/image_picker.dart';
 import 'package:where_hearts_meet/create_event/model/personal_wishes_model.dart';
 import 'package:where_hearts_meet/create_event/widgets/create_event_widgets.dart';
 import 'package:where_hearts_meet/utils/controller/base_controller.dart';
+import 'package:where_hearts_meet/utils/widgets/util_widgets/app_widgets.dart';
 import '../../routes/routes_const.dart';
 import '../../utils/consts/service_const.dart';
 import '../../utils/dialogs/pop_up_dialogs.dart';
@@ -60,11 +61,10 @@ class CreatePersonalWishesController extends BaseController {
 
   void addPersonalWishesCover() async {
     if(backgroundImage == null ){
+      AppWidgets.getToast(message: 'Add cover image');
       return;
     }
-    if(titleController.text.isEmpty){
-      return;
-    }
+
     showLoaderDialog(context: Get.context!);
     final model = PersonalWishesModel(
         eventId: eventResponseModel.eventid, message: titleController.text, coverImage: backgroundImage?.fileId);
