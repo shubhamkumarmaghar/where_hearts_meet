@@ -1,8 +1,10 @@
 import 'package:carousel_slider/carousel_slider.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:where_hearts_meet/preview_event/controller/created_wishes_preview_controller.dart';
-import 'package:where_hearts_meet/utils/widgets/app_bar_widget.dart';
+import 'package:where_hearts_meet/preview_event/widgets/videos_list_screen.dart';
+import 'package:where_hearts_meet/utils/consts/color_const.dart';
 import 'package:where_hearts_meet/utils/widgets/cached_image.dart';
 
 import '../../utils/consts/app_screen_size.dart';
@@ -22,7 +24,6 @@ class CreatedWishesPreviewScreen extends StatelessWidget {
         height: screenHeight,
         width: screenWidth,
         color: Colors.black,
-        //decoration: BoxDecoration(gradient: backgroundGradient),
         padding: const EdgeInsets.symmetric(
           horizontal: 20,
         ),
@@ -40,13 +41,13 @@ class CreatedWishesPreviewScreen extends StatelessWidget {
                       Get.back();
                     },
                     child: const Icon(
-                      Icons.arrow_back_outlined,
+                      Icons.arrow_back_ios_new,
                       color: Colors.white,
-                      size: 24,
+                      size: 18,
                     ),
                   ),
                   SizedBox(
-                    width: screenWidth * 0.02,
+                    width: screenWidth * 0.05,
                   ),
                   Text(
                     'Wish',
@@ -90,8 +91,8 @@ class CreatedWishesPreviewScreen extends StatelessWidget {
                       ),
                     ],
                   ),
-                  Spacer(),
-                  moreViewPopUpMenu(showBackground: false,onDelete:controller.deleteWish),
+                  const Spacer(),
+                  moreViewPopUpMenu(showBackground: false, onDelete: controller.deleteWish),
                 ],
               ),
               SizedBox(
@@ -104,7 +105,7 @@ class CreatedWishesPreviewScreen extends StatelessWidget {
                   autoPlay: true,
                   aspectRatio: 16 / 9,
                   autoPlayCurve: Curves.fastOutSlowIn,
-                  enableInfiniteScroll: true,
+                  enableInfiniteScroll: false,
                   autoPlayAnimationDuration: const Duration(milliseconds: 1200),
                   viewportFraction: 1,
                 ),
@@ -134,6 +135,39 @@ class CreatedWishesPreviewScreen extends StatelessWidget {
                     },
                   );
                 }).toList(),
+              ),
+              SizedBox(
+                height: screenHeight * 0.02,
+              ),
+              GestureDetector(
+                onTap:controller.navigateToVideosListScreen,
+                child: Align(
+                  alignment: Alignment.centerRight,
+                  child: Container(
+                    decoration:
+                        BoxDecoration(color: primaryColor.withOpacity(0.2), borderRadius: BorderRadius.circular(5)),
+                    width: screenWidth * 0.35,
+                    padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 5),
+                    child: Row(
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        const Icon(
+                          Icons.video_collection_rounded,
+                          color: Colors.white,
+                          size: 20,
+                        ),
+                        SizedBox(
+                          width: screenWidth * 0.02,
+                        ),
+                        Text(
+                          'View videos',
+                          style: textStyleAbel(fontSize: 16),
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
               ),
               SizedBox(
                 height: screenHeight * 0.02,

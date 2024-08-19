@@ -4,6 +4,7 @@ import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 
 import 'package:where_hearts_meet/create_event/controller/create_wishes_controller.dart';
+import 'package:where_hearts_meet/utils/consts/string_consts.dart';
 import 'package:where_hearts_meet/utils/widgets/cached_image.dart';
 import 'package:where_hearts_meet/utils/widgets/gradient_button.dart';
 import 'package:where_hearts_meet/utils/widgets/outlined_busy_button.dart';
@@ -37,17 +38,17 @@ class CreateWishesScreen extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     GradientButton(
-                      title: 'Submit',
+                      title: StringConsts.submit,
                       width: screenWidth * 0.4,
                       onPressed: controller.addWishes,
                       buttonColor: appColor1,
                       titleTextStyle: textStyleDangrek(fontSize: 22),
                     ),
                     OutlinedBusyButton(
-                      title: 'Next',
+                      title: StringConsts.next,
                       width: screenWidth * 0.4,
                       titleTextStyle: textStyleDangrek(fontSize: 22, color: primaryColor),
-                      onPressed: controller.navigateToCreateTimelineScreen,
+                      onPressed: controller.navigateToPersonalWishesScreen,
                       enabled: controller.wishesList.isNotEmpty,
                     ),
                   ],
@@ -63,18 +64,23 @@ class CreateWishesScreen extends StatelessWidget {
                 child: Column(
                   children: [
                     SizedBox(
-                      height: screenHeight * 0.05,
+                      height: screenHeight * 0.06,
                     ),
-                    appHeader,
+                    eventHeaderView(
+                        text: controller.eventResponseModel.eventName ?? '',
+                        image: controller.eventResponseModel.coverImage),
+                    SizedBox(
+                      height: screenHeight * 0.02,
+                    ),
                     Text(
-                      'Add Wishes',
+                      StringConsts.wishes,
                       style: textStyleDangrek(fontSize: 24),
                     ),
                     Visibility(
                       visible: controller.wishesList.isNotEmpty,
                       replacement: const SizedBox.shrink(),
                       child: SizedBox(
-                        height: screenHeight * 0.01,
+                        height: screenHeight * 0.0,
                       ),
                     ),
                     Visibility(
@@ -86,8 +92,10 @@ class CreateWishesScreen extends StatelessWidget {
                       child: SingleChildScrollView(
                         child: Column(
                           children: [
+                            SizedBox(height: screenHeight*0.015,),
                             Row(
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              crossAxisAlignment: CrossAxisAlignment.end,
                               children: [
                                 GestureDetector(
                                   onTap: () {
@@ -99,33 +107,29 @@ class CreateWishesScreen extends StatelessWidget {
                                           controller.onCaptureMediaClick(source: ImageSource.gallery, forProfile: true),
                                     );
                                   },
-                                  child: Container(
-                                    padding: const EdgeInsets.only(top: 30),
-                                    child: ClayContainer(
-                                        width: screenWidth * 0.15,
-                                        height: screenHeight * 0.065,
-                                        borderRadius: 50,
-                                        color: appColor1,
-                                        child: controller.profileImage == null
-                                            ? Icon(
-                                                Icons.add_a_photo,
-                                                size: screenHeight * 0.03,
-                                                color: Colors.white,
-                                              )
-                                            : ClipRRect(
-                                                borderRadius: const BorderRadius.all(Radius.circular(50)),
-                                                child: Image.network(
-                                                  controller.profileImage?.fileUrl ?? '',
-                                                  fit: BoxFit.cover,
-                                                ),
-                                              )),
-                                  ),
+                                  child: ClayContainer(
+                                      width: screenWidth * 0.15,
+                                      height: screenHeight * 0.065,
+                                      borderRadius: 50,
+                                      color: appColor1,
+                                      child: controller.profileImage == null
+                                          ? Icon(
+                                              Icons.add_a_photo,
+                                              size: screenHeight * 0.03,
+                                              color: Colors.white,
+                                            )
+                                          : ClipRRect(
+                                              borderRadius: const BorderRadius.all(Radius.circular(50)),
+                                              child: Image.network(
+                                                controller.profileImage?.fileUrl ?? '',
+                                                fit: BoxFit.cover,
+                                              ),
+                                            )),
                                 ),
                                 SizedBox(
                                   width: screenWidth * 0.7,
                                   child: DesignerTextField(
-                                      title: '',
-                                      hint: 'Name',
+                                      hint: StringConsts.name,
                                       cornerRadius: 15,
                                       onChanged: (text) {},
                                       controller: controller.nameTextController),
@@ -136,8 +140,8 @@ class CreateWishesScreen extends StatelessWidget {
                               height: screenHeight * 0.03,
                             ),
                             DesignerTextField(
-                                title: 'Message*',
-                                hint: 'Enter message',
+                                title: '${StringConsts.message}*',
+                                hint: StringConsts.enterMessage,
                                 maxLines: 6,
                                 cornerRadius: 15,
                                 onChanged: (text) {},
@@ -148,7 +152,7 @@ class CreateWishesScreen extends StatelessWidget {
                             Align(
                               alignment: Alignment.centerLeft,
                               child: Text(
-                                'Upload wishing images*',
+                                StringConsts.uploadWishingImages,
                                 style: textStyleDangrek(fontSize: 18),
                               ),
                             ),
@@ -159,7 +163,7 @@ class CreateWishesScreen extends StatelessWidget {
                             Align(
                               alignment: Alignment.centerLeft,
                               child: Text(
-                                'Upload wishing videos*',
+                                StringConsts.uploadWishingVideos,
                                 style: textStyleDangrek(fontSize: 18),
                               ),
                             ),
@@ -270,7 +274,6 @@ class CreateWishesScreen extends StatelessWidget {
   Widget showWish() {
     return SizedBox(
       height: screenHeight * 0.1,
-      //color: Colors.amber,
       child: ListView.separated(
           scrollDirection: Axis.horizontal,
           itemBuilder: (context, index) {

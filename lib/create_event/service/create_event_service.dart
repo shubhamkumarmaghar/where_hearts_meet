@@ -14,7 +14,7 @@ import 'package:where_hearts_meet/utils/widgets/util_widgets/app_widgets.dart';
 
 import '../../utils/consts/api_urls.dart';
 import '../../utils/services/api_service.dart';
-import '../../utils/services/functions_service.dart';
+import '../model/personal_memories_model.dart';
 import '../model/timeline_model.dart';
 
 class CreateEventService {
@@ -28,6 +28,7 @@ class CreateEventService {
 
     return response['data'] != null ? ImageResponseModel.fromJson(response['data']) : null;
   }
+
   Future<ImageResponseModel?> uploadVideoApi({required File videoFile}) async {
     final video = await dio.MultipartFile.fromFile(videoFile.path,
         filename: (videoFile.path.split('/')).last, contentType: MediaType('video', (videoFile.path.split('.')).last));
@@ -86,7 +87,7 @@ class CreateEventService {
     return null;
   }
 
-  Future<PersonalWishesModel?> addPersonalWishesEventApi({required PersonalWishesModel model}) async {
+  Future<PersonalWishesModel?> addPersonalWishesApi({required PersonalWishesModel model}) async {
     String url = AppUrls.personalWishesUrl;
 
     final response = await _apiService.postApiCall(
@@ -95,8 +96,7 @@ class CreateEventService {
     );
     final data = response;
 
-    if (data['message'].toString().toLowerCase().contains('created')) {
-      AppWidgets.getToast(message: data['message'], color: greenTextColor);
+    if (data['message'].toString().toLowerCase().contains('personal wishes created')) {
       return PersonalWishesModel.fromJson(data['data']);
     }
     return null;
@@ -134,8 +134,19 @@ class CreateEventService {
     }
   }
 
-  Future<String> uploadVideoToAws({required File videoFile}) async {
-    final url = await FunctionsService.uploadFileToAWS(file: videoFile);
-    return url;
+  Future<PersonalMemoriesModel?> addPersonalMemoriesApi({required PersonalMemoriesModel model}) async {
+    String url = AppUrls.personaMemoriesUrl;
+
+    final response = await _apiService.postApiCall(
+      url: url,
+      data: model.toJson(),
+    );
+    final data = response;
+
+    if (data['message'].toString().toLowerCase().contains('personal memories created')) {
+      AppWidgets.getToast(message: data['message'], color: greenTextColor);
+      return PersonalMemoriesModel.fromJson(data['data']);
+    }
+    return null;
   }
 }

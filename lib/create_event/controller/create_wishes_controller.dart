@@ -34,9 +34,10 @@ class CreateWishesController extends BaseController {
   void onInit() {
     super.onInit();
     var createdEvent = locator<CreatedEventRepo>();
-    if (createdEvent.getCurrentEvent != null) {
-      eventResponseModel = createdEvent.getCurrentEvent!;
-    }
+    // if (createdEvent.getCurrentEvent != null) {
+    //   eventResponseModel = createdEvent.getCurrentEvent ?? EventResponseModel();
+    // }
+    eventResponseModel = createdEvent.getCurrentEvent ?? EventResponseModel();
   }
 
   void onCaptureMediaClick({required ImageSource source, bool? forProfile}) async {
@@ -125,10 +126,10 @@ class CreateWishesController extends BaseController {
     }
   }
 
-  void navigateToCreateTimelineScreen() {
+  void navigateToPersonalWishesScreen() {
     if (wishesList.isNotEmpty) {
       Get.offAllNamed(
-        RoutesConst.createTimelineScreen,
+        RoutesConst.createPersonalWishesScreen,
       );
     } else {
       AppWidgets.getToast(message: 'Please add at least 1 wish', color: redColor);

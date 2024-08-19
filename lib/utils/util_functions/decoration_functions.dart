@@ -1,12 +1,14 @@
-
 import 'dart:developer';
 import 'dart:io';
 
+import 'package:clay_containers/widgets/clay_container.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:image_cropper/image_cropper.dart';
+import 'package:where_hearts_meet/utils/widgets/cached_image.dart';
 
 import '../../routes/routes_const.dart';
 import '../consts/app_screen_size.dart';
@@ -65,6 +67,70 @@ Widget get appHeader {
         'Heart-e-homies',
         style: GoogleFonts.aclonica(
             decoration: TextDecoration.none, color: Colors.white, fontWeight: FontWeight.w500, fontSize: 22),
+      ),
+    ],
+  );
+}
+
+Widget eventHeaderView({required String text, String? image}) {
+  return ClayContainer(
+    color: primaryColor,
+    borderRadius: 30,
+    child: Container(
+        height: 60,
+        decoration: BoxDecoration(
+          color: primaryColor,
+          borderRadius: BorderRadius.circular(30),
+        ),
+        child: Row(
+          children: [
+            SizedBox(
+              width: screenWidth * 0.02,
+            ),
+            Container(
+                height: screenHeight*0.055,
+                width: screenHeight*0.055,
+                decoration: BoxDecoration(borderRadius: BorderRadius.circular(50)),
+                child: ClipRRect(borderRadius: BorderRadius.circular(50), child: cachedImage(imageUrl: image))),
+            SizedBox(
+              width: screenWidth * 0.02,
+            ),
+            SizedBox(
+              width: screenWidth * 0.65,
+              child: Text(
+                text,
+                maxLines: 1,
+                overflow: TextOverflow.ellipsis,
+                style: const TextStyle(fontSize: 16, fontWeight: FontWeight.w600, color: Colors.white),
+              ),
+            ),
+            SizedBox(
+              width: screenWidth * 0.02,
+            ),
+          ],
+        )),
+  );
+}
+
+Widget createEventHeader({required String title, String? image}) {
+  return Row(
+    children: [
+      Container(
+        height: screenHeight * 0.05,
+        width: screenHeight * 0.05,
+        decoration: BoxDecoration(borderRadius: BorderRadius.circular(100)),
+        child: ClipRRect(borderRadius: BorderRadius.circular(100), child: cachedImage(imageUrl: image)),
+      ),
+      SizedBox(
+        width: screenWidth * 0.03,
+      ),
+      SizedBox(
+        width: screenWidth * 0.7,
+        child: Text(
+          title,
+          style: GoogleFonts.aclonica(
+              decoration: TextDecoration.none, color: Colors.white, fontWeight: FontWeight.w500, fontSize: 18),
+        ),
       ),
     ],
   );

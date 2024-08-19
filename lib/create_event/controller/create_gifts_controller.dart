@@ -6,6 +6,7 @@ import 'package:where_hearts_meet/create_event/model/gifts_data_model.dart';
 import 'package:where_hearts_meet/routes/routes_const.dart';
 import 'package:where_hearts_meet/utils/controller/base_controller.dart';
 import '../../utils/consts/service_const.dart';
+import '../../utils/consts/string_consts.dart';
 import '../../utils/dialogs/pop_up_dialogs.dart';
 import '../../utils/model/image_response_model.dart';
 import '../../utils/repository/created_event_repo.dart';
@@ -24,7 +25,7 @@ class CreateGiftsController extends BaseController {
   final giftTitleController = TextEditingController();
   final giftCardIdController = TextEditingController();
   final giftCardPinController = TextEditingController();
-  String selectGiftText = 'Select Gift*';
+  String selectGiftText = '${StringConsts.selectGift}*';
   bool canTitleChange = true;
 
   List<ImageResponseModel> imagesList = [];
@@ -34,9 +35,7 @@ class CreateGiftsController extends BaseController {
   void onInit() {
     super.onInit();
     var createdEvent = locator<CreatedEventRepo>();
-    if (createdEvent.getCurrentEvent != null) {
-      eventResponseModel = createdEvent.getCurrentEvent!;
-    }
+    eventResponseModel = createdEvent.getCurrentEvent ?? EventResponseModel();
     getGifts();
   }
 

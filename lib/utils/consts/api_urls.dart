@@ -27,5 +27,6 @@ class AppUrls {
   static const String eventWishesUrl = 'wishesApp/wishes/';
   static const String eventTimelineUrl = 'wishesApp/timeline/';
   static const String personalWishesUrl = 'wishesApp/personal_wishes/';
+  static const String personaMemoriesUrl = 'wishesApp/personal_memories/';
   static const String giftsUrl = 'eventApp/gifts/';
 }

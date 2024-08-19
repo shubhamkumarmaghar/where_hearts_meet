@@ -86,34 +86,6 @@ class CreateEventSplashScreen extends StatelessWidget {
                       heightSpace(
                         screenHeight * 0.1,
                       ),
-                      // InkWell(
-                      //   onTap: () {
-                      //     showImagePickerDialog(
-                      //       context: Get.context!,
-                      //       onCamera: () => controller.onCaptureMediaClick(
-                      //           source: ImageSource.camera, imageType: EventImageType.backgroundImage),
-                      //       onGallery: () => controller.onCaptureMediaClick(
-                      //           source: ImageSource.gallery, imageType: EventImageType.backgroundImage),
-                      //     );
-                      //   },
-                      //   child: Container(
-                      //     height: screenHeight * 0.07,
-                      //     width: screenWidth * 0.7,
-                      //     alignment: Alignment.center,
-                      //     decoration: BoxDecoration(color: primaryColor, borderRadius: BorderRadius.circular(15)),
-                      //     child: Text(
-                      //       'Tap to upload background image',
-                      //       style: GoogleFonts.dangrek(
-                      //           decoration: TextDecoration.none,
-                      //           color: Colors.white,
-                      //           fontWeight: FontWeight.w500,
-                      //           fontSize: 20),
-                      //     ),
-                      //   ),
-                      // ),
-                      // heightSpace(
-                      //   screenHeight * 0.06,
-                      // ),
                       GestureDetector(
                         onTap: () {
                           showImagePickerDialog(
@@ -142,7 +114,7 @@ class CreateEventSplashScreen extends StatelessWidget {
                                     border: Border.all(width: 5, color: Colors.white),
                                     borderRadius: BorderRadius.circular(100),
                                     color: appColor2),
-                                child: Icon(
+                                child: const Icon(
                                   Icons.person,
                                   size: 100,
                                   color: Colors.white,
@@ -225,7 +197,7 @@ class CreateEventSplashScreen extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(controller.weekModel?.date ?? '',
-                        style: TextStyle(color: Colors.white, fontSize: 14, fontWeight: FontWeight.w600)),
+                        style: const TextStyle(color: Colors.white, fontSize: 14, fontWeight: FontWeight.w600)),
                     Visibility(
                       visible: controller.countdownTimer != null,
                       child: Text(

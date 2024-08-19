@@ -8,6 +8,7 @@ import 'package:intl/intl.dart';
 import 'package:where_hearts_meet/create_event/service/create_event_service.dart';
 import 'package:where_hearts_meet/routes/routes_const.dart';
 import 'package:where_hearts_meet/utils/consts/color_const.dart';
+import 'package:where_hearts_meet/utils/consts/string_consts.dart';
 import 'package:where_hearts_meet/utils/controller/base_controller.dart';
 import 'package:where_hearts_meet/utils/model/week_model.dart';
 import 'package:where_hearts_meet/utils/repository/created_event_repo.dart';
@@ -39,7 +40,7 @@ class CreateEventController extends BaseController {
   final descriptionController = TextEditingController();
 
   EventTypeModel selectedEventType =
-      EventTypeModel(eventName: 'Select Event', eventTypeId: '0', eventIcon: Icons.select_all);
+      EventTypeModel(eventName: StringConsts.eventName, eventTypeId: '0', eventIcon: Icons.select_all);
 
   @override
   void onInit() {
@@ -117,16 +118,7 @@ class CreateEventController extends BaseController {
           if (imageType == EventImageType.backgroundImage) {
             eventModel.splashBackgroundImage = imageResponse.fileId;
             backgroundImage = imageResponse.fileUrl;
-               eventModel.splashDisplayImage = imageResponse.fileId;
-               displayImage = imageResponse.fileUrl;
-
-          }
-          // else if (imageType == EventImageType.displayImage) {
-          //
-          //   eventModel.splashDisplayImage = imageResponse.fileId;
-          //   displayImage = imageResponse.fileUrl;
-          // }
-          else if (imageType == EventImageType.coverImage) {
+          } else if (imageType == EventImageType.coverImage) {
             eventModel.coverImage = imageResponse.fileId;
             coverImage = imageResponse.fileUrl;
           }

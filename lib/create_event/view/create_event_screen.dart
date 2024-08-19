@@ -3,6 +3,7 @@ import 'package:clay_containers/widgets/clay_container.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:where_hearts_meet/utils/consts/string_consts.dart';
 import '../../utils/consts/app_screen_size.dart';
 import '../../utils/consts/color_const.dart';
 import '../../utils/util_functions/app_pickers.dart';
@@ -24,7 +25,7 @@ class CreateEventScreen extends StatelessWidget {
         color: appColor3,
         padding: EdgeInsets.only(left: screenWidth * 0.08, right: screenWidth * 0.08, bottom: screenHeight * 0.02),
         child: GradientButton(
-          title: 'Submit',
+          title: StringConsts.submit,
           buttonCorner: 20,
           height: screenHeight * 0.06,
           buttonColor: appColor1,
@@ -54,7 +55,7 @@ class CreateEventScreen extends StatelessWidget {
                   ),
                   appHeader,
                   Text(
-                    'Schedule Event',
+                    StringConsts.scheduleEvent,
                     style: textStyleDangrek(fontSize: 24),
                   ),
                   Expanded(
@@ -65,24 +66,24 @@ class CreateEventScreen extends StatelessWidget {
                             height: screenHeight * 0.02,
                           ),
                           DesignerTextField(
-                              title: 'Person Name*',
-                              hint: 'Enter name',
+                              title: '${StringConsts.personName}*',
+                              hint: StringConsts.enterName,
                               onChanged: (text) {},
                               controller: controller.nameController),
                           SizedBox(
                             height: screenHeight * 0.02,
                           ),
                           DesignerTextField(
-                              title: 'Event Name*',
-                              hint: 'Enter event name',
+                              title: '${StringConsts.eventName}*',
+                              hint: StringConsts.enterEventName,
                               onChanged: (text) {},
                               controller: controller.eventNameController),
                           SizedBox(
                             height: screenHeight * 0.02,
                           ),
                           DesignerTextField(
-                              title: "Person's mobile number*",
-                              hint: 'Mobile number',
+                              title: '${StringConsts.personMobileNumber}*',
+                              hint: StringConsts.enterMobileNumber,
                               inputType: TextInputType.phone,
                               maxLength: 10,
                               onChanged: (text) {},
@@ -91,10 +92,10 @@ class CreateEventScreen extends StatelessWidget {
                             height: screenHeight * 0.02,
                           ),
                           DesignerTextField(
-                              title: "Description",
+                              title: StringConsts.description,
+                              hint: StringConsts.saySomethingAboutEvent,
                               maxLines: 5,
                               cornerRadius: 15,
-                              hint: 'Say something about him/her',
                               inputType: TextInputType.text,
                               onChanged: (text) {},
                               controller: controller.descriptionController),
@@ -104,7 +105,7 @@ class CreateEventScreen extends StatelessWidget {
                           Align(
                             alignment: Alignment.centerLeft,
                             child: Text(
-                              'Select Event Type*',
+                              '${StringConsts.selectEventType}*',
                               style: textStyleDangrek(fontSize: 18),
                             ),
                           ),
@@ -128,7 +129,8 @@ class CreateEventScreen extends StatelessWidget {
                                   const Spacer(),
                                   Text(
                                     controller.selectedEventType.eventName ?? '',
-                                    style: TextStyle(fontWeight: FontWeight.w500, fontSize: 16, color: primaryColor),
+                                    style: TextStyle(
+                                        color: Colors.grey.shade400, fontSize: 14.0, fontWeight: FontWeight.w500),
                                   ),
                                   const Spacer(),
                                   const Icon(Icons.arrow_drop_down),
@@ -145,7 +147,7 @@ class CreateEventScreen extends StatelessWidget {
                           Align(
                             alignment: Alignment.centerLeft,
                             child: Text(
-                              'Upload cover image*',
+                              '${StringConsts.uploadCoverImage}*',
                               style: textStyleDangrek(fontSize: 18),
                             ),
                           ),

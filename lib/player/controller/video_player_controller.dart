@@ -9,7 +9,6 @@ class VideoScreenController extends BaseController {
   late VideoPlayerController playerController;
   late ChewieController chewieController;
   final String videoUrl;
-  Widget overlayWidget = Container();
 
   VideoScreenController({required this.videoUrl});
 
@@ -30,15 +29,7 @@ class VideoScreenController extends BaseController {
         looping: true,
         autoInitialize: true,
 
-       // overlay: overlayWidget
       );
-
-      // overlayWidget =chewieController.isPlaying?Container():Container(
-      //   width: screenWidth,
-      //   height: 200,
-      //   decoration: BoxDecoration(image: DecorationImage(image: AssetImage(rashi4,),fit: BoxFit.cover)),
-      // );
-
       setBusy(false);
       update();
     });

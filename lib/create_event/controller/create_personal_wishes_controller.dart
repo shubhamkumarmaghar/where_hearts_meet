@@ -1,16 +1,10 @@
-import 'dart:developer';
-import 'dart:io';
-
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:where_hearts_meet/create_event/model/personal_wishes_model.dart';
 import 'package:where_hearts_meet/create_event/widgets/create_event_widgets.dart';
-import 'package:where_hearts_meet/splash_module/screens/splash_screen.dart';
 import 'package:where_hearts_meet/utils/controller/base_controller.dart';
-import 'package:where_hearts_meet/utils/dialogs/confirmation_dialog.dart';
-
 import '../../routes/routes_const.dart';
 import '../../utils/consts/service_const.dart';
 import '../../utils/dialogs/pop_up_dialogs.dart';
@@ -22,18 +16,16 @@ import '../service/create_event_service.dart';
 
 class CreatePersonalWishesController extends BaseController {
   late EventResponseModel eventResponseModel;
-  List<ImageResponseModel> imagesList = [];
-  List<ImageResponseModel> videosList = [];
-  List<String> messagesList = [];
+  ImageResponseModel? backgroundImage;
   final createEventService = CreateEventService();
-  final messageController = TextEditingController();
+  final titleController = TextEditingController();
 
   @override
   void onInit() {
     super.onInit();
     var createdEvent = locator<CreatedEventRepo>();
     if (createdEvent.getCurrentEvent != null) {
-      eventResponseModel = createdEvent.getCurrentEvent!;
+      eventResponseModel = createdEvent.getCurrentEvent ?? EventResponseModel();
     }
   }
 
@@ -51,73 +43,47 @@ class CreatePersonalWishesController extends BaseController {
         final imageResponse = await createEventService.uploadImageApi(imageFile: croppedImage);
         cancelDialog();
         if (imageResponse != null) {
-          imagesList.add(imageResponse);
-          log('images count :: ${imagesList.length}');
+          backgroundImage = imageResponse;
           update();
         }
       }
     }
   }
 
-  void onCaptureVideo({required ImageSource source}) async {
-    final ImagePicker picker = ImagePicker();
-
-    var video = await picker.pickVideo(
-      source: source,
-    );
-    final videoFile = File(video?.path ?? '');
-
-    if (video != null) {
-      _uploadVideo(videoFile: videoFile);
-    }
-  }
-
-  Future<void> _uploadVideo({required File videoFile}) async {
-    showLoaderDialog(context: Get.context!);
-
-    final videoResponse = await createEventService.uploadVideoApi(videoFile: videoFile);
-    cancelDialog();
-    if (videoResponse != null) {
-      videosList.add(videoResponse);
-      update();
-    }
-  }
-
   void onMessagesTap() async {
-    final message = await showTextDialog(dialogTitle: 'Wish/Message', hintText: 'Add your wish/message');
+    final message = await showTextDialog(dialogTitle: 'Title', hintText: 'Add your title');
     if (message != null && message.trim().isNotEmpty) {
-      messagesList.add(message);
+      titleController.text = message;
       update();
     }
-    log('messages count :: ${messagesList.length}');
   }
 
-  void addPersonalWishes() async {
+  void addPersonalWishesCover() async {
+    if(backgroundImage == null ){
+      return;
+    }
+    if(titleController.text.isEmpty){
+      return;
+    }
     showLoaderDialog(context: Get.context!);
-    PersonalWishesModel model = PersonalWishesModel();
-
-    model.coverImage = '172271953865181984';
-    model.eventId = eventResponseModel.eventid ?? '';
-    model.images = imagesList.map((e) => e.fileId ?? '').toList();
-    model.videos = videosList.map((e) => e.fileId ?? '').toList();
-    model.wishes = messagesList;
-
-    final response = await createEventService.addPersonalWishesEventApi(model: model);
+    final model = PersonalWishesModel(
+        eventId: eventResponseModel.eventid, message: titleController.text, coverImage: backgroundImage?.fileId);
+    final response = await createEventService.addPersonalWishesApi(model: model);
     cancelDialog();
     if (response != null) {
-      navigateToCreateGiftsScreen();
+      navigateToCreatePersonalMemoriesScreen();
     }
   }
 
-  void navigateToCreateGiftsScreen() {
+  void navigateToCreatePersonalMemoriesScreen() {
     Get.offAllNamed(
-      RoutesConst.createGiftsScreen,
+      RoutesConst.createPersonalMemoriesScreen,
     );
   }
 
   @override
   void onClose() {
-    messageController.dispose();
+    titleController.dispose();
     super.onClose();
   }
 }

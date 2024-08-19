@@ -1,3 +1,4 @@
+import 'dart:developer';
 import 'dart:io';
 
 import 'package:firebase_core/firebase_core.dart';
@@ -22,30 +23,24 @@ void main() async {
   HttpOverrides.global = MyHttpOverrides();
 
   await GetStorage.init();
-  print('Initializing Firebase...');
-  if (kIsWeb) { try {
-
+  if (kIsWeb) {
+    try {
       await Firebase.initializeApp(
-        options: FirebaseOptions(
+        options: const FirebaseOptions(
             apiKey: "AIzaSyDVQiOZ2uSbDTF8UzZXNEtsCBW-Ro25gt0",
             authDomain: "where-hearts-meet.firebaseapp.com",
             projectId: "where-hearts-meet",
             storageBucket: "where-hearts-meet.appspot.com",
             messagingSenderId: "996974929233",
             appId: "1:996974929233:web:079825a07c1530872d1f70",
-            measurementId: "G-Q89KKB6P6B"
-        ),
+            measurementId: "G-Q89KKB6P6B"),
       );
-      print('Firebase initialized successfully');
     } catch (e) {
-    print('Error initializing Firebase: $e');
-  }
-  }
-  else{
+      log('Error initializing Firebase: $e');
+    }
+  } else {
     await Firebase.initializeApp();
   }
-
-
 
   await setUp();
   runApp(const MyApp());
@@ -78,7 +73,7 @@ class MyApp extends StatelessWidget {
         primarySwatch: getMaterialColor(primaryColor),
       ),
       home: const SplashScreen(),
-       //initialRoute: RoutesConst.createGiftsScreen,
+      //initialRoute: RoutesConst.createGiftsScreen,
     );
   }
 

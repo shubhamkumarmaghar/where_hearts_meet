@@ -1,15 +1,13 @@
 import 'package:clay_containers/widgets/clay_container.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:where_hearts_meet/utils/widgets/cached_image.dart';
-
 import '../../utils/consts/app_screen_size.dart';
 import '../../utils/consts/color_const.dart';
+import '../../utils/consts/images_const.dart';
 import '../../utils/util_functions/app_pickers.dart';
 import '../../utils/util_functions/decoration_functions.dart';
-import '../../utils/widgets/gradient_button.dart';
 import '../controller/create_personal_wishes_controller.dart';
 
 class CreatePersonalWishesScreen extends StatelessWidget {
@@ -24,125 +22,216 @@ class CreatePersonalWishesScreen extends StatelessWidget {
         child: GetBuilder<CreatePersonalWishesController>(
           builder: (controller) {
             return Scaffold(
-              bottomNavigationBar: Container(
-                color: appColor3,
-                padding: EdgeInsets.only(
-                  bottom: 14,
-                  left: screenWidth * 0.06,
-                  right: screenWidth * 0.06,
-                ),
-                child: GradientButton(
-                  title: 'Submit',
-                  width: screenWidth * 0.8,
-                  enabled: controller.messagesList.isNotEmpty,
-                  onPressed: controller.addPersonalWishes,
-                  buttonColor: appColor1,
-                  titleTextStyle: textStyleDangrek(fontSize: 22),
-                ),
-              ),
               body: Container(
                 height: screenHeight,
                 width: screenWidth,
-                decoration: BoxDecoration(gradient: backgroundGradient),
-                padding: const EdgeInsets.symmetric(
-                  horizontal: 20,
+                decoration: BoxDecoration(
+                  gradient: LinearGradient(
+                    begin: Alignment.topCenter,
+                    end: Alignment.bottomCenter,
+                    colors: [
+                      Colors.transparent,
+                      Colors.transparent,
+                      Colors.transparent,
+                      Colors.transparent,
+                      primaryColor.withOpacity(0.2),
+                      primaryColor.withOpacity(0.5),
+                      primaryColor.withOpacity(0.8),
+                      primaryColor,
+                    ],
+                  ),
                 ),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
+                child: Stack(
                   children: [
-                    SizedBox(
-                      height: screenHeight * 0.05,
-                    ),
-                    appHeader,
-                    Center(
-                      child: Text(
-                        'Personal Wishes/Messages ',
-                        style: textStyleDangrek(fontSize: 24),
+                    Positioned(
+                      top: 0,
+                      child: Container(
+                        height: screenHeight * 0.6,
+                        width: screenWidth,
+                        alignment: Alignment.bottomRight,
+                        padding: EdgeInsets.only(right: 20, bottom: 20),
+                        decoration: controller.backgroundImage != null &&
+                                controller.backgroundImage!.fileUrl != null &&
+                                controller.backgroundImage!.fileUrl!.isNotEmpty
+                            ? BoxDecoration(
+                                borderRadius: BorderRadius.circular(30),
+                                image: DecorationImage(
+                                    image: NetworkImage(controller.backgroundImage!.fileUrl!), fit: BoxFit.fitHeight))
+                            : BoxDecoration(
+                                border: const Border(bottom: BorderSide(color: primaryColor, width: 5)),
+                                borderRadius: BorderRadius.circular(40),
+                                image: const DecorationImage(image: AssetImage(dummyImage), fit: BoxFit.cover),
+                              ),
+                        child: GestureDetector(
+                          onTap: () {
+                            showImagePickerDialog(
+                              context: Get.context!,
+                              onCamera: () => controller.onCaptureMediaClick(source: ImageSource.camera),
+                              onGallery: () => controller.onCaptureMediaClick(
+                                source: ImageSource.gallery,
+                              ),
+                            );
+                          },
+                          child: Container(
+                              padding: EdgeInsets.symmetric(vertical: 10, horizontal: 15),
+                              decoration: BoxDecoration(color: Colors.black, borderRadius: BorderRadius.circular(5)),
+                              child: Text(
+                                'Upload',
+                                style: TextStyle(color: Colors.white),
+                              )),
+                        ),
                       ),
                     ),
-                    SizedBox(
-                      height: screenHeight * 0.01,
-                    ),
-                    Expanded(
-                      child: SingleChildScrollView(
+                    Positioned(
+                      bottom: 0,
+                      child: Container(
+                        height: screenHeight * 0.4,
                         child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             SizedBox(
-                              height: screenHeight * 0.01,
+                              height: screenHeight * 0.1,
                             ),
-                            Row(
-                              children: [
-                                Text(
-                                  'Wish/Message*',
-                                  style: textStyleDangrek(fontSize: 18),
-                                ),
-                                Visibility(
-                                  visible: controller.messagesList.isNotEmpty,
-                                  replacement: const SizedBox.shrink(),
-                                  child: Text(
-                                    '  (${controller.messagesList.length})',
-                                    style: textStyleDangrek(fontSize: 18),
-                                  ),
-                                ),
-                                const Spacer(),
-                                GestureDetector(
-                                  onTap: controller.onMessagesTap,
-                                  child: Container(
-                                    decoration:
-                                        BoxDecoration(color: Colors.white, borderRadius: BorderRadius.circular(10)),
-                                    height: screenHeight * 0.04,
-                                    width: screenWidth * 0.2,
-                                    child: Row(
-                                      mainAxisAlignment: MainAxisAlignment.center,
-                                      children: [
-                                        Text(
-                                          'Add',
-                                          style: textStyleDangrek(fontSize: 20, color: primaryColor),
-                                          textAlign: TextAlign.center,
-                                        ),
-                                        const Icon(
-                                          Icons.add,
-                                          color: primaryColor,
-                                          size: 20,
-                                        )
-                                      ],
+                            SizedBox(
+                              width: screenWidth,
+                              child: Row(
+                                children: [
+                                  Spacer(),
+                                  GestureDetector(
+                                    onTap: controller.titleController.text.isEmpty ? controller.onMessagesTap : () {},
+                                    child: Container(
+                                      width: screenWidth * 0.7,
+                                      padding: controller.titleController.text.isEmpty
+                                          ? EdgeInsets.symmetric(vertical: 10, horizontal: 20)
+                                          : null,
+                                      alignment: Alignment.center,
+                                      decoration: controller.titleController.text.isEmpty
+                                          ? BoxDecoration(color: primaryColor, borderRadius: BorderRadius.circular(10))
+                                          : null,
+                                      child: Text(
+                                        controller.titleController.text.isEmpty
+                                            ? 'Title for Your special personal section'
+                                            : controller.titleController.text,
+                                        style: textStyleDangrek(fontSize: 24),
+                                      ),
                                     ),
                                   ),
-                                ),
-                              ],
-                            ),
-                            SizedBox(
-                              height: screenHeight * 0.02,
-                            ),
-                            getMessagesListWidget(),
-                            SizedBox(
-                              height: screenHeight * 0.02,
-                            ),
-                            Align(
-                              alignment: Alignment.centerLeft,
-                              child: Text(
-                                'Upload images',
-                                style: textStyleDangrek(fontSize: 18),
+                                  Spacer(),
+                                  controller.titleController.text.isNotEmpty
+                                      ? GestureDetector(
+                                          onTap: () {
+                                            controller.titleController.text.isNotEmpty
+                                                ? controller.onMessagesTap()
+                                                : () {};
+                                          },
+                                          child: Container(
+                                            height: 40,
+                                            width: screenWidth * 0.1,
+                                            alignment: Alignment.center,
+                                            decoration: BoxDecoration(
+                                              color: appColor1,
+                                              borderRadius: BorderRadius.circular(10),
+                                            ),
+                                            child: const Icon(
+                                              Icons.edit,
+                                              color: Colors.white,
+                                            ),
+                                          ),
+                                        )
+                                      : SizedBox.shrink(),
+                                  Spacer(),
+                                ],
                               ),
                             ),
-                            getImagesListWidget(),
                             SizedBox(
-                              height: screenHeight * 0.01,
-                            ),
-                            Align(
-                              alignment: Alignment.centerLeft,
-                              child: Text(
-                                'Upload videos',
-                                style: textStyleDangrek(fontSize: 18),
-                              ),
-                            ),
-                            getVideosListWidget(),
-                            SizedBox(
-                              height: screenHeight * 0.02,
+                              height: screenHeight * 0.1,
                             ),
                           ],
                         ),
                       ),
+                    ),
+                    Positioned(
+                      bottom: 30,
+                      right: 20,
+                      //left: screenWidth*0.4,
+                      child: GestureDetector(
+                        onTap: controller.addPersonalWishesCover,
+                        child: ClayContainer(
+                          color: primaryColor.withOpacity(0.8),
+                          borderRadius: 10,
+                          child: Container(
+                              padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 20),
+                              decoration: BoxDecoration(
+                                color: primaryColor.withOpacity(0.8),
+                                borderRadius: BorderRadius.circular(10),
+                              ),
+                              child: const Row(
+                                children: [
+                                  Text(
+                                    'Start ',
+                                    style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600, color: Colors.white),
+                                  ),
+                                  Icon(
+                                    Icons.arrow_forward,
+                                    color: Colors.white,
+                                    size: 20,
+                                  )
+                                ],
+                              )),
+                        ),
+                      ),
+                    ),
+                    Positioned(
+                      top: 50,
+                      right: 15,
+                      left: 15,
+                      child: Container(
+                          height: 60,
+                          decoration: BoxDecoration(
+                            color: primaryColor.withOpacity(0.2),
+                            borderRadius: BorderRadius.circular(30),
+                          ),
+                          child: Row(
+                            children: [
+                              SizedBox(
+                                width: screenWidth * 0.02,
+                              ),
+                              Container(
+                                  height: 45,
+                                  width: 45,
+                                  decoration: BoxDecoration(borderRadius: BorderRadius.circular(50)),
+                                  child: ClipRRect(
+                                      borderRadius: BorderRadius.circular(50),
+                                      child: cachedImage(
+                                          imageUrl:
+                                          controller.eventResponseModel.coverImage ??''))),
+                              SizedBox(
+                                width: screenWidth * 0.02,
+                              ),
+                              Container(
+                                width: screenWidth * 0.55,
+                                child:  Text(
+                                  controller.eventResponseModel.eventName ??'',
+                                  maxLines: 1,
+                                  overflow: TextOverflow.ellipsis,
+                                  style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600, color: primaryColor),
+                                ),
+                              ),
+                              Spacer(),
+                              Container(
+                                  padding: EdgeInsets.all(5),
+                                  decoration:
+                                      BoxDecoration(shape: BoxShape.circle, color: primaryColor.withOpacity(0.8)),
+                                  child: Icon(
+                                    Icons.question_mark_outlined,
+                                    color: Colors.white,
+                                    size: 20,
+                                  )),
+                              SizedBox(
+                                width: screenWidth * 0.04,
+                              ),
+                            ],
+                          )),
                     )
                   ],
                 ),
@@ -150,142 +239,5 @@ class CreatePersonalWishesScreen extends StatelessWidget {
             );
           },
         ));
-  }
-
-  Widget getMessagesListWidget() {
-    return ListView.separated(
-      shrinkWrap: true,
-      padding: EdgeInsets.zero,
-      physics: const NeverScrollableScrollPhysics(),
-      itemBuilder: (context, index) {
-        var data = controller.messagesList[index];
-        return Container(
-          padding: EdgeInsets.symmetric(vertical: screenHeight * 0.015, horizontal: screenWidth * 0.03),
-          decoration: BoxDecoration(borderRadius: BorderRadius.circular(12), color: Colors.white),
-          child: Row(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Icon(
-                Icons.message_rounded,
-                size: 18,
-                color: primaryColor.withOpacity(0.5),
-              ),
-              SizedBox(
-                width: screenWidth * 0.02,
-              ),
-              SizedBox(
-                  width: screenWidth * 0.67,
-                  child: Text(
-                    data,
-                  )),
-              const Spacer(),
-              InkWell(
-                onTap: () {
-                  controller.messagesList.removeAt(index);
-                  controller.update();
-                },
-                child: const Icon(
-                  Icons.delete_forever,
-                  color: errorColor,
-                  size: 20,
-                ),
-              ),
-            ],
-          ),
-        );
-      },
-      separatorBuilder: (context, index) => SizedBox(
-        height: screenHeight * 0.01,
-      ),
-      itemCount: controller.messagesList.length,
-    );
-  }
-
-  Widget getImagesListWidget() {
-    return GridView.builder(
-        scrollDirection: Axis.vertical,
-        shrinkWrap: true,
-        padding: EdgeInsets.zero,
-        physics: const NeverScrollableScrollPhysics(),
-        itemCount: controller.imagesList.length + 1,
-        gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-          crossAxisCount: 3,
-          crossAxisSpacing: 0,
-          mainAxisSpacing: 0,
-        ),
-        itemBuilder: (BuildContext context, int index) {
-          return Container(
-            alignment: Alignment.centerLeft,
-            child: GestureDetector(
-              onTap: () {
-                showImagePickerDialog(
-                  context: Get.context!,
-                  onCamera: () => controller.onCaptureMediaClick(source: ImageSource.camera),
-                  onGallery: () => controller.onCaptureMediaClick(source: ImageSource.gallery),
-                );
-              },
-              child: ClayContainer(
-                width: screenWidth * 0.18,
-                height: screenHeight * 0.08,
-                borderRadius: 15,
-                color: appColor2,
-                child: controller.imagesList.length == index
-                    ? Icon(
-                        Icons.add_a_photo,
-                        size: screenHeight * 0.03,
-                        color: Colors.white,
-                      )
-                    : ClipRRect(
-                        borderRadius: const BorderRadius.all(Radius.circular(20)),
-                        child: cachedImage(imageUrl: controller.imagesList[index].fileUrl ?? ''),
-                      ),
-              ),
-            ),
-          );
-        });
-  }
-
-  Widget getVideosListWidget() {
-    return GridView.builder(
-        scrollDirection: Axis.vertical,
-        shrinkWrap: true,
-        padding: EdgeInsets.zero,
-        physics: const NeverScrollableScrollPhysics(),
-        itemCount: controller.videosList.length + 1,
-        gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-          crossAxisCount: 3,
-          crossAxisSpacing: 0,
-          mainAxisSpacing: 0,
-        ),
-        itemBuilder: (BuildContext context, int index) {
-          return Container(
-            alignment: Alignment.centerLeft,
-            child: GestureDetector(
-              onTap: () {
-                showImagePickerDialog(
-                  context: Get.context!,
-                  onCamera: () => controller.onCaptureVideo(source: ImageSource.camera),
-                  onGallery: () => controller.onCaptureVideo(source: ImageSource.gallery),
-                );
-              },
-              child: ClayContainer(
-                width: screenWidth * 0.18,
-                height: screenHeight * 0.08,
-                borderRadius: 15,
-                color: appColor2,
-                child: controller.videosList.length == index
-                    ? Icon(
-                        Icons.switch_video,
-                        size: screenHeight * 0.03,
-                        color: Colors.white,
-                      )
-                    : ClipRRect(
-                        borderRadius: const BorderRadius.all(Radius.circular(20)),
-                        child: cachedImage(imageUrl: controller.videosList[index].fileUrl ?? ''),
-                      ),
-              ),
-            ),
-          );
-        });
   }
 }

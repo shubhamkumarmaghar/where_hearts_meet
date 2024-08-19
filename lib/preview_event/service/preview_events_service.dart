@@ -1,7 +1,3 @@
-import 'package:get_storage/get_storage.dart';
-import 'package:where_hearts_meet/create_event/model/event_response_model.dart';
-import 'package:where_hearts_meet/utils/consts/shared_pref_const.dart';
-
 import '../../utils/consts/api_urls.dart';
 import '../../utils/services/api_service.dart';
 
