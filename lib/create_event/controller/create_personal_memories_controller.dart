@@ -152,10 +152,6 @@ class CreatePersonalMemoriesController extends BaseController {
   }
 
   void submitMemories() async {
-    if (memoryMessage.text.isEmpty) {
-      memoryMessage.text = StringConsts.dummyText;
-      //return;
-    }
     if (memoryImage == null && memoryVideo == null) {
       AppWidgets.getToast(message: 'Atleast add photo or video', color: primaryColor);
       return;
@@ -179,7 +175,6 @@ class CreatePersonalMemoriesController extends BaseController {
       memoryVideo = null;
       memoryMessage.clear();
       nextButtonTitle = StringConsts.next.obs;
-
       update();
     }
   }
