@@ -15,10 +15,7 @@ class VideoPlayerScreen extends StatefulWidget {
   const VideoPlayerScreen({required this.url, super.key});
 
   @override
-  State<VideoPlayerScreen> createState() {
-    log('called init for video player ');
-    return _VideoPlayerScreenState();
-  }
+  State<VideoPlayerScreen> createState() => _VideoPlayerScreenState();
 }
 
 class _VideoPlayerScreenState extends State<VideoPlayerScreen> {
@@ -30,7 +27,7 @@ class _VideoPlayerScreenState extends State<VideoPlayerScreen> {
   void initState() {
     super.initState();
     WidgetsBinding.instance.addPostFrameCallback((_) async {
-      if (playerController == null) {
+      if (playerController == null || chewieController == null) {
         playerController = VideoPlayerController.networkUrl(
           Uri.parse(widget.url),
         );
@@ -42,6 +39,7 @@ class _VideoPlayerScreenState extends State<VideoPlayerScreen> {
           allowMuting: true,
           zoomAndPan: true,
           looping: true,
+
           autoInitialize: true,
         );
         setState(() {
@@ -54,7 +52,6 @@ class _VideoPlayerScreenState extends State<VideoPlayerScreen> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      //key: UniqueKey(),
       height: screenHeight * 0.3,
       width: screenWidth,
       decoration: BoxDecoration(borderRadius: BorderRadius.circular(20)),
@@ -68,9 +65,15 @@ class _VideoPlayerScreenState extends State<VideoPlayerScreen> {
                 size: 50,
               ),
             )
-          : Chewie(
-              controller: chewieController!,
-              // key: UniqueKey(),
+          : Container(
+              width: screenWidth,
+              child: ClipRRect(
+                borderRadius: BorderRadius.only(topLeft: Radius.circular(20), topRight: Radius.circular(20)),
+                child: Chewie(
+                  controller: chewieController!,
+
+                ),
+              ),
             ),
     );
   }

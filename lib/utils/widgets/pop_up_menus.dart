@@ -1,9 +1,11 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:where_hearts_meet/utils/consts/app_screen_size.dart';
 import '../consts/color_const.dart';
 import '../consts/screen_const.dart';
 
-Widget moreViewPopUpMenu({Function? onDelete, Function? onView, bool showBackground = true}) {
+Widget moreViewPopUpMenu({Function? onDelete, Function? onView, bool showBackground = true, Function? onShare}) {
   return showBackground
       ? Container(
           height: screenHeight * 0.04,
@@ -18,10 +20,13 @@ Widget moreViewPopUpMenu({Function? onDelete, Function? onView, bool showBackgro
               size: 20,
             ),
             onSelected: (AppActions result) {
+              log(result.name);
               if (result == AppActions.delete) {
                 onDelete != null ? onDelete() : () {};
               } else if (result == AppActions.view) {
                 onView != null ? onView() : () {};
+              } else if (result == AppActions.share) {
+                onShare != null ? onShare() : () {};
               }
             },
             itemBuilder: (BuildContext context) => <PopupMenuEntry<AppActions>>[
@@ -52,6 +57,20 @@ Widget moreViewPopUpMenu({Function? onDelete, Function? onView, bool showBackgro
                     ),
                   ),
                 ),
+              if (onShare != null)
+                const PopupMenuItem<AppActions>(
+                  value: AppActions.share,
+                  child: ListTile(
+                    leading: Icon(
+                      Icons.share,
+                      color: primaryColor,
+                    ),
+                    title: Text(
+                      'Share',
+                      style: TextStyle(color: Colors.black, fontSize: 16, fontWeight: FontWeight.w600),
+                    ),
+                  ),
+                ),
             ],
           ),
         )
@@ -68,6 +87,8 @@ Widget moreViewPopUpMenu({Function? onDelete, Function? onView, bool showBackgro
               onDelete != null ? onDelete() : () {};
             } else if (result == AppActions.view) {
               onView != null ? onView() : () {};
+            } else if (result == AppActions.share) {
+              onShare != null ? onShare() : () {};
             }
           },
           itemBuilder: (BuildContext context) => <PopupMenuEntry<AppActions>>[
@@ -85,19 +106,33 @@ Widget moreViewPopUpMenu({Function? onDelete, Function? onView, bool showBackgro
               ),
             ),
             if (onView != null)
-            const PopupMenuItem<AppActions>(
-              value: AppActions.view,
-              child: ListTile(
-                leading: Icon(
-                  Icons.remove_red_eye_rounded,
-                  color: primaryColor,
-                ),
-                title: Text(
-                  'View',
-                  style: TextStyle(color: Colors.black, fontSize: 16, fontWeight: FontWeight.w600),
+              const PopupMenuItem<AppActions>(
+                value: AppActions.view,
+                child: ListTile(
+                  leading: Icon(
+                    Icons.remove_red_eye_rounded,
+                    color: primaryColor,
+                  ),
+                  title: Text(
+                    'View',
+                    style: TextStyle(color: Colors.black, fontSize: 16, fontWeight: FontWeight.w600),
+                  ),
                 ),
               ),
-            ),
+            if (onShare != null)
+              const PopupMenuItem<AppActions>(
+                value: AppActions.share,
+                child: ListTile(
+                  leading: Icon(
+                    Icons.share,
+                    color: primaryColor,
+                  ),
+                  title: Text(
+                    'Share',
+                    style: TextStyle(color: Colors.black, fontSize: 16, fontWeight: FontWeight.w600),
+                  ),
+                ),
+              ),
           ],
         );
 }

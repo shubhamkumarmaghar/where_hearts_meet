@@ -1,3 +1,4 @@
+import 'dart:convert';
 import 'dart:developer';
 import 'dart:io';
 
@@ -8,7 +9,13 @@ import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:image_cropper/image_cropper.dart';
+import 'package:path_provider/path_provider.dart';
+import 'package:qr_image_generator/qr_image_generator.dart';
+import 'package:share_plus/share_plus.dart';
+import 'package:video_thumbnail/video_thumbnail.dart';
+import 'package:where_hearts_meet/create_event/model/event_response_model.dart';
 import 'package:where_hearts_meet/utils/widgets/cached_image.dart';
+import 'package:where_hearts_meet/utils/widgets/util_widgets/app_widgets.dart';
 
 import '../../routes/routes_const.dart';
 import '../consts/app_screen_size.dart';
@@ -88,8 +95,8 @@ Widget eventHeaderView({required String text, String? image}) {
               width: screenWidth * 0.02,
             ),
             Container(
-                height: screenHeight*0.055,
-                width: screenHeight*0.055,
+                height: screenHeight * 0.055,
+                width: screenHeight * 0.055,
                 decoration: BoxDecoration(borderRadius: BorderRadius.circular(50)),
                 child: ClipRRect(borderRadius: BorderRadius.circular(50), child: cachedImage(imageUrl: image))),
             SizedBox(
@@ -212,4 +219,59 @@ Future<File?> cropImage({required String filePath, bool? isProfileImage}) async 
   }
 
   return null;
+}
+
+Future<String?> generateThumbnail(String videoUrl) async {
+  final temp = await getTemporaryDirectory();
+  String? fileName;
+  try {
+    fileName = await VideoThumbnail.thumbnailFile(
+        video: videoUrl,
+        thumbnailPath: temp.path,
+        imageFormat: ImageFormat.JPEG,
+        maxHeight: (screenHeight * 0.6).toInt(),
+        quality: 75,
+        timeMs: 1);
+  } catch (e) {
+    log(e.toString());
+  }
+  return fileName;
+}
+
+Future<void> shareEvent({required EventResponseModel eventModel, required BuildContext context}) async {
+  showLoaderDialog(context: context);
+  final file = await _generateQRImage(model: eventModel);
+  cancelDialog();
+  if (file != null) {
+    XFile qrImage = XFile(file.path);
+    final result = await Share.shareXFiles([qrImage],
+        text: 'Event - ${eventModel.eventName} , Event Code - ${eventModel.eventid}');
+    if (result.status == ShareResultStatus.success) {
+      AppWidgets.getToast(message: 'Event code shared successfully');
+    } else {
+      AppWidgets.getToast(message: 'Something went wrong');
+    }
+  }
+}
+
+Future<File?> _generateQRImage({required EventResponseModel model}) async {
+  final dir = await getApplicationDocumentsDirectory();
+  final qrFile = File('${dir.path}/${model.eventid}.png');
+  if (await qrFile.exists()) {
+    return qrFile;
+  } else {
+    final generator = QRGenerator();
+    File? file;
+    try {
+      final res = await generator.generate(
+        data: jsonEncode(['heh', model.receiverPhoneNumber, model.eventid]),
+        filePath: '${dir.path}/${model.eventid}.png',
+      );
+      file = File(res);
+      return file;
+    } catch (e) {
+      log(e.toString());
+    }
+    return file;
+  }
 }

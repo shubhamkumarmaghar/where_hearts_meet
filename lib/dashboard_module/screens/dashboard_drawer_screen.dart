@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:where_hearts_meet/routes/routes_const.dart';
+import 'package:where_hearts_meet/settings/view/settings_screen.dart';
 import 'package:where_hearts_meet/utils/consts/shared_pref_const.dart';
 import 'package:where_hearts_meet/utils/services/firebase_auth_controller.dart';
 import 'package:where_hearts_meet/utils/util_functions/decoration_functions.dart';
@@ -56,7 +57,7 @@ class DashboardDrawerScreen extends StatelessWidget {
                   ),
                   GestureDetector(
                     onTap: () {
-                      Get.toNamed(RoutesConst.profileScreen,arguments: Screens.fromDashboard);
+                      Get.toNamed(RoutesConst.profileScreen, arguments: Screens.fromDashboard);
                     },
                     child: Container(
                       margin: EdgeInsets.only(right: screenWidth * 0.05),
@@ -112,7 +113,12 @@ class DashboardDrawerScreen extends StatelessWidget {
               SizedBox(
                 height: screenHeight * 0.01,
               ),
-              getDrawerContentWidget(icon: Icons.settings, heading: "Settings", onTap: () {}),
+              getDrawerContentWidget(
+                  icon: Icons.settings,
+                  heading: "Settings",
+                  onTap: () {
+                    //Get.to(()=>SettingsScreen());
+                  }),
               SizedBox(
                 height: screenHeight * 0.01,
               ),
@@ -126,7 +132,7 @@ class DashboardDrawerScreen extends StatelessWidget {
                   onTap: () async {
                     showLogoutAlertDialog(
                         context: Get.context!,
-                        logOutFunction: (){
+                        logOutFunction: () {
                           logoutFunction();
                         });
                   }),

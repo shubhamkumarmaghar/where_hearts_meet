@@ -12,7 +12,6 @@ import 'package:where_hearts_meet/utils/widgets/cached_image.dart';
 import 'package:where_hearts_meet/utils/widgets/custom_photo_view.dart';
 import '../../create_event/model/event_response_model.dart';
 import '../../utils/consts/app_screen_size.dart';
-import '../../utils/repository/common_data.dart';
 import '../../utils/shimmers/event_card_shimmer.dart';
 import '../../utils/util_functions/decoration_functions.dart';
 import '../../utils/widgets/event_card.dart';
@@ -231,7 +230,7 @@ class DashboardScreen extends StatelessWidget {
                             ? const EventCardShimmer()
                             : controller.eventListCreatedByUser != null && controller.eventListCreatedByUser!.isEmpty
                                 ? const SizedBox.shrink()
-                                : Container(
+                                : SizedBox(
                                     height: screenHeight * 0.4,
                                     width: screenWidth,
                                     child: getEventCard(
@@ -313,6 +312,7 @@ class DashboardScreen extends StatelessWidget {
             var data = eventsList[index];
             return EventCard(
               eventResponseModel: data,
+              eventsCreated: eventsCreated,
               onCardTap: () {
                 Get.toNamed(RoutesConst.guestCoverScreen,
                     arguments: data.eventid,
@@ -321,10 +321,8 @@ class DashboardScreen extends StatelessWidget {
               onDelete: () {
                 controller.deleteEvent(eventId: data.eventid ?? '', eventsCreated: eventsCreated);
               },
-              onView: () {
-                Get.toNamed(RoutesConst.guestCoverScreen,
-                    arguments: data.eventid,
-                    parameters: {'type': eventsCreated == EventsCreated.forUser ? 'For You' : 'By You'});
+              onShare: () {
+                shareEvent(eventModel: data, context: context);
               },
             );
           },
@@ -332,50 +330,6 @@ class DashboardScreen extends StatelessWidget {
                 width: 10,
               ),
           itemCount: eventsList.length > 2 ? 3 : eventsList.length),
-    );
-  }
-
-  Widget appFeaturesView() {
-    return Container(
-      padding: const EdgeInsets.symmetric(horizontal: 16),
-      child: GridView.builder(
-          scrollDirection: Axis.vertical,
-          shrinkWrap: true,
-          padding: EdgeInsets.zero,
-          physics: const NeverScrollableScrollPhysics(),
-          itemCount: featuresTextList.length,
-          gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-              crossAxisCount: 2,
-              mainAxisSpacing: 15,
-              crossAxisSpacing: 15,
-              childAspectRatio: screenHeight / (screenWidth + 100)),
-          itemBuilder: (BuildContext context, int index) {
-            var data = featuresTextList[index];
-            return Row(
-              children: [
-                Expanded(
-                  child: ClayContainer(
-                    color: appColor1,
-                    borderRadius: 20,
-                    child: Container(
-                      width: screenWidth,
-                      padding: EdgeInsets.symmetric(horizontal: screenWidth * 0.025),
-                      alignment: Alignment.center,
-                      decoration: BoxDecoration(
-                          color: appColor1,
-                          borderRadius: BorderRadius.circular(20),
-                          border: Border.all(color: Colors.white, width: 0.4)),
-                      child: Text(
-                        data,
-                        style: textStyleAleo(fontSize: 16, color: Colors.white),
-                        textAlign: TextAlign.center,
-                      ),
-                    ),
-                  ),
-                ),
-              ],
-            );
-          }),
     );
   }
 }

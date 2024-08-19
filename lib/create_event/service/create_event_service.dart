@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:dio/dio.dart' as dio;
+import 'package:get_storage/get_storage.dart';
 import 'package:http_parser/http_parser.dart';
 import 'package:where_hearts_meet/create_event/model/event_model.dart';
 import 'package:where_hearts_meet/create_event/model/event_response_model.dart';
@@ -9,6 +10,7 @@ import 'package:where_hearts_meet/create_event/model/gifts_data_model.dart';
 import 'package:where_hearts_meet/create_event/model/personal_wishes_model.dart';
 import 'package:where_hearts_meet/create_event/model/wishes_model.dart';
 import 'package:where_hearts_meet/utils/consts/color_const.dart';
+import 'package:where_hearts_meet/utils/consts/shared_pref_const.dart';
 import 'package:where_hearts_meet/utils/model/image_response_model.dart';
 import 'package:where_hearts_meet/utils/widgets/util_widgets/app_widgets.dart';
 
@@ -39,7 +41,7 @@ class CreateEventService {
   }
 
   Future<EventResponseModel?> createEventApi({required EventModel eventModel}) async {
-    eventModel.hostName = 'Deepak';
+    eventModel.hostName = GetStorage().read(firstName);
     eventModel.globalEvent = false;
 
     String url = AppUrls.createEventUrl;
