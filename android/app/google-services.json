@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "996974929233",
+    "project_id": "where-hearts-meet",
+    "storage_bucket": "where-hearts-meet.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:996974929233:android:785b5e2a06b465d42d1f70",
+        "android_client_info": {
+          "package_name": "org.lbp.where_hearts_meet"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBei4ytsMrqaLE5RA36YuOZspHYok3AUio"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

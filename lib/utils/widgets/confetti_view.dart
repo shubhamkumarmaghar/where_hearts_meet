@@ -2,30 +2,38 @@ import 'dart:math';
 
 import 'package:confetti/confetti.dart';
 import 'package:flutter/material.dart';
+import 'package:where_hearts_meet/utils/consts/confetti_shape_enum.dart';
 
-class ConfettiView extends StatefulWidget {
+class ConfettiView extends StatelessWidget {
   final ConfettiController controller;
+  final List<Color>? patternColorList;
+  final ConfettiShapeEnum confettiShapeEnum;
 
-  const ConfettiView({Key? key, required this.controller}) : super(key: key);
+  const ConfettiView({Key? key, required this.controller, required this.confettiShapeEnum, this.patternColorList})
+      : super(key: key);
 
-  @override
-  State<ConfettiView> createState() => _ConfettiViewState();
-}
-
-class _ConfettiViewState extends State<ConfettiView> {
   @override
   Widget build(BuildContext context) {
     return Align(
-      alignment: Alignment.center,
+      alignment: Alignment.topCenter,
       child: ConfettiWidget(
-        confettiController: widget.controller,
+        confettiController: controller,
+
         blastDirectionality: BlastDirectionality.explosive,
         // don't specify a direction, blast randomly
         shouldLoop: true,
         // start again as soon as the animation is finished
-        colors: const [Colors.green, Colors.blue, Colors.pink, Colors.orange, Colors.purple],
+        colors: patternColorList ?? const [Colors.green, Colors.blue, Colors.pink, Colors.orange, Colors.purple],
         // manually specify the colors to be used
-        createParticlePath: drawHeart, // define a custom shape/path.
+        createParticlePath: (size) {
+          if (confettiShapeEnum == ConfettiShapeEnum.drawStar) {
+            return drawStar(size);
+          } else if (confettiShapeEnum == ConfettiShapeEnum.drawHeart) {
+            return drawHeart(size);
+          } else {
+            return drawStar(size);
+          }
+        }, // define a custom shape/path.
       ),
     );
   }
@@ -52,7 +60,8 @@ class _ConfettiViewState extends State<ConfettiView> {
     path.close();
     return path;
   }
-  Path drawHeart(Size size){
+
+  Path drawHeart(Size size) {
     Paint paint1 = Paint();
     paint1
       ..color = Colors.red
@@ -64,11 +73,9 @@ class _ConfettiViewState extends State<ConfettiView> {
 
     Path path = Path();
     path.moveTo(0.5 * width, height * 0.35);
-    path.cubicTo(0.2 * width, height * 0.1, -0.25 * width, height * 0.6,
-        0.5 * width, height);
+    path.cubicTo(0.2 * width, height * 0.1, -0.25 * width, height * 0.6, 0.5 * width, height);
     path.moveTo(0.5 * width, height * 0.35);
-    path.cubicTo(0.8 * width, height * 0.1, 1.25 * width, height * 0.6,
-        0.5 * width, height);
-     return path;
+    path.cubicTo(0.8 * width, height * 0.1, 1.25 * width, height * 0.6, 0.5 * width, height);
+    return path;
   }
 }

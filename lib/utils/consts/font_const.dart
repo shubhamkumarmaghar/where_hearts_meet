@@ -9,7 +9,7 @@ fontStylePlusJakarta(
       TextDecoration decoration = TextDecoration.none}) {
   return TextStyle(
       fontWeight: fontWeight,
-      letterSpacing: letterSpacing ?? 0.5,
+      letterSpacing: letterSpacing ?? 1,
       fontSize: fontSize,
       fontFamily: 'PlusJakartaSans',
       color: color,
