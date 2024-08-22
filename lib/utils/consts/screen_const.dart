@@ -11,7 +11,8 @@ enum LoadingState { loading, hasData, noData, error }
 enum AppActions{
   delete,
   view,
-  share
+  share,
+  edit
 }
 enum MediaType{
   image,

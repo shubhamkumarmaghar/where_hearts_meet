@@ -133,7 +133,10 @@ class CreatedMemoriesPreviewScreen extends StatelessWidget {
                     Colors.black.withOpacity(0.8),
                     Colors.black,
                     Colors.black
-                  ])),
+                  ],
+
+                      ), borderRadius: const BorderRadius.only(bottomLeft: Radius.circular(15), bottomRight: Radius.circular(15)),
+                  ),
                   child: Scrollbar(
                     thickness: 4,
                     radius: const Radius.circular(10),

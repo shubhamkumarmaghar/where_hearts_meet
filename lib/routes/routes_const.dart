@@ -15,7 +15,7 @@ class RoutesConst {
   static String addWishesScreen = '/addWishesScreen';
   static String addGiftCardScreen = '/addGiftCardScreen';
   static String addTimelineScreen = '/addTimelineScreen';
-  static String secretWishesScreen = '/secretWishesScreen';
+  static String personalMessagesScreen = '/personalMessagesScreen';
   static String guestQrScannerScreen = '/GuestQrScannerScreen';
   static String guestHomeScreen = '/guestHomeScreen';
   static String guestDashboard = '/GuestDashboard';
@@ -32,6 +32,7 @@ class RoutesConst {
 
   static String createPersonalWishesScreen = '/createPersonalWishesScreen';
   static String createPersonalMemoriesScreen = '/createPersonalMemoriesScreen';
+  static String createPersonalMessagesScreen = '/createPersonalMessagesScreen';
 
   static String createGiftsScreen = '/createGiftsScreen';
   static String selectGiftsScreen = '/selectGiftsScreen';

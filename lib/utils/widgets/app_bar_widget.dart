@@ -54,14 +54,15 @@ PreferredSizeWidget appBarWidget(
   );
 }
 
-Widget backIcon({Color? color}) {
+Widget backIcon({Color? color,bool isIos = true}) {
+
   return InkWell(
     onTap: () {
       Get.back();
     },
     child: Icon(
-      Platform.isIOS ? Icons.arrow_back_ios_new_rounded : Icons.arrow_back,
-      size: 24,
+      isIos ? Icons.arrow_back_ios_new_rounded : Icons.arrow_back,
+      size: 20,
       color: color ??Colors.white,
     ),
   );

@@ -49,7 +49,7 @@ class CreatePersonalWishesScreen extends StatelessWidget {
                         height: screenHeight * 0.6,
                         width: screenWidth,
                         alignment: Alignment.bottomRight,
-                        padding: EdgeInsets.only(right: 20, bottom: 20),
+                        padding: const EdgeInsets.only(right: 20, bottom: 20),
                         decoration: controller.backgroundImage != null &&
                                 controller.backgroundImage!.fileUrl != null &&
                                 controller.backgroundImage!.fileUrl!.isNotEmpty

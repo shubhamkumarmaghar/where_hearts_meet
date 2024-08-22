@@ -2,10 +2,10 @@ import 'package:blur/blur.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:image_picker/image_picker.dart';
 import 'package:where_hearts_meet/utils/consts/app_screen_size.dart';
 import 'package:where_hearts_meet/utils/consts/color_const.dart';
-import '../../utils/util_functions/app_pickers.dart';
+import 'package:where_hearts_meet/utils/util_functions/decoration_functions.dart';
+import 'package:where_hearts_meet/utils/widgets/cached_image.dart';
 import '../controller/create_event_controller.dart';
 import '../widgets/create_event_widgets.dart';
 
@@ -19,6 +19,21 @@ class CreateEventSplashScreen extends StatelessWidget {
     return GetBuilder<CreateEventController>(
       builder: (controller) {
         return Scaffold(
+          floatingActionButton: GestureDetector(
+            onTap: () {
+              if (controller.createButtonEnabled.value) {
+                controller.createEvent();
+              }
+            },
+            child: CircleAvatar(
+                radius: 30,
+                backgroundColor: controller.createButtonEnabled.value ? primaryColor : Colors.grey.shade400,
+                child: const Icon(
+                  Icons.arrow_forward,
+                  color: Colors.white,
+                  size: 30,
+                )),
+          ),
           body: Stack(
             children: [
               Blur(
@@ -29,13 +44,7 @@ class CreateEventSplashScreen extends StatelessWidget {
                   height: screenHeight,
                   alignment: Alignment.center,
                   decoration: BoxDecoration(
-                    gradient: const LinearGradient(begin: Alignment.topCenter, end: Alignment.bottomCenter, colors: [
-                      Color(0xff9467ff),
-                      Color(0xffae8bff),
-                      Color(0xffc7afff),
-                      Color(0xffdfd2ff),
-                      Color(0xfff2edff),
-                    ]),
+                    gradient: backgroundGradient,
                     image: controller.backgroundImage != null
                         ? DecorationImage(image: NetworkImage(controller.backgroundImage!), fit: BoxFit.cover)
                         : null,
@@ -44,104 +53,127 @@ class CreateEventSplashScreen extends StatelessWidget {
               ),
               Container(
                 width: screenWidth,
-                decoration: const BoxDecoration(
-                    gradient: LinearGradient(begin: Alignment.topCenter, end: Alignment.bottomCenter, colors: [
-                  Colors.white,
-                  Colors.white70,
-                  Colors.white70,
-                  Colors.white24,
-                  Colors.transparent,
-                  Colors.transparent,
-                  Colors.transparent,
-                  Colors.transparent,
-                  Colors.transparent
-                ])),
+                padding: const EdgeInsets.symmetric(horizontal: 20),
+                decoration: BoxDecoration(
+                  gradient: whiteGradient,
+                ),
                 child: SingleChildScrollView(
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.start,
                     children: [
                       heightSpace(screenHeight * 0.08),
-                      Container(
-                        padding: const EdgeInsets.symmetric(horizontal: 20),
-                        //   color: Colors.amber,
-                        child: Text(
-                          controller.eventModel.eventName ?? 'Add Event Name',
-                          style: GoogleFonts.dancingScript(
-                              decoration: TextDecoration.none,
-                              color: Colors.black,
-                              fontWeight: FontWeight.w500,
-                              fontSize: 60),
-                          textAlign: TextAlign.center,
+                      Text(
+                        controller.eventModel.eventName ?? '',
+                        maxLines: 2,
+                        style: textStyleDancingScript(
+                          fontSize: 45,
+                          color: Colors.black,
+                          fontWeight: FontWeight.w500,
                         ),
+                        textAlign: TextAlign.center,
                       ),
                       Text(
-                        controller.eventModel.receiverName ?? 'Add Name',
-                        style: GoogleFonts.moonDance(
-                            decoration: TextDecoration.none,
-                            color: Colors.pinkAccent.shade200,
-                            fontWeight: FontWeight.w800,
-                            fontSize: 80),
-                        textAlign: TextAlign.start,
+                        controller.eventModel.receiverName ?? '',
+                        maxLines: 2,
+                        style: textStyleMoonDance(
+                            color: Colors.pinkAccent.shade200, fontWeight: FontWeight.w800, fontSize: 60),
+                        textAlign: TextAlign.center,
                       ),
                       heightSpace(
                         screenHeight * 0.1,
                       ),
                       GestureDetector(
-                        onTap: () {
-                          showImagePickerDialog(
-                            context: Get.context!,
-                            onCamera: () => controller.onCaptureMediaClick(
-                                source: ImageSource.camera, imageType: EventImageType.backgroundImage),
-                            onGallery: () => controller.onCaptureMediaClick(
-                                source: ImageSource.gallery, imageType: EventImageType.backgroundImage),
-                          );
-                        },
-                        child: controller.backgroundImage != null && controller.backgroundImage!.isNotEmpty
-                            ? Container(
-                                alignment: Alignment.center,
-                                height: screenHeight * 0.2,
-                                width: screenHeight * 0.2,
-                                decoration: BoxDecoration(
-                                    border: Border.all(width: 5, color: Colors.white),
-                                    borderRadius: BorderRadius.circular(100),
-                                    image: DecorationImage(image: NetworkImage(controller.backgroundImage!))),
-                              )
-                            : Container(
-                                alignment: Alignment.center,
-                                height: screenHeight * 0.2,
-                                width: screenHeight * 0.2,
-                                decoration: BoxDecoration(
-                                    border: Border.all(width: 5, color: Colors.white),
-                                    borderRadius: BorderRadius.circular(100),
-                                    color: appColor2),
-                                child: const Icon(
+                        onTap: () => controller.selectImage(EventImageType.backgroundImage),
+                        child: Container(
+                          height: screenHeight * 0.2,
+                          width: screenHeight * 0.2,
+                          decoration: BoxDecoration(
+                            border: Border.all(width: 5, color: Colors.white),
+                            color: appColor2,
+                            borderRadius: BorderRadius.circular(20),
+                          ),
+                          child: controller.backgroundImage != null && controller.backgroundImage!.isNotEmpty
+                              ? ClipRRect(
+                                  borderRadius: BorderRadius.circular(20),
+                                  child: cachedImage(imageUrl: controller.backgroundImage!, boxFit: BoxFit.cover))
+                              : const Icon(
                                   Icons.person,
                                   size: 100,
                                   color: Colors.white,
                                 ),
-                              ),
+                        ),
                       ),
                       heightSpace(
-                        screenHeight * 0.015,
+                        screenHeight * 0.06,
+                      ),
+                      Obx(
+                        () {
+                          return Visibility(
+                            visible: controller.isEventDateSelected.value && controller.isEventTimeSelected.value,
+                            replacement: Visibility(
+                              visible: controller.isEventDateSelected.value,
+                              child: Text(
+                                'Event Date : ${getYearTime(controller.selectedDate.toString())} 00:00',
+                                style: textStyleDangrek(fontSize: 20, color: primaryColor),
+                              ),
+                            ),
+                            child: timeView(),
+                          );
+                        },
+                      ),
+                      heightSpace(
+                        screenHeight * 0.03,
+                      ),
+                      Container(
+                        padding: const EdgeInsets.symmetric(horizontal: 5),
+                        child: Row(
+                          children: [
+                            Expanded(
+                              child: GestureDetector(
+                                onTap: controller.selectDate,
+                                child: Container(
+                                  height: 50,
+                                  alignment: Alignment.center,
+                                  decoration: BoxDecoration(
+                                    color: appColor3,
+                                    borderRadius: BorderRadius.circular(10),
+                                  ),
+                                  child: Text(
+                                    controller.isEventDateSelected.value ? 'Update Date' : 'Add Date',
+                                    style:
+                                        textStyleAbel(fontSize: 18, color: primaryColor, fontWeight: FontWeight.w700),
+                                  ),
+                                ),
+                              ),
+                            ),
+                            SizedBox(
+                              width: screenWidth * 0.05,
+                            ),
+                            Expanded(
+                              child: GestureDetector(
+                                onTap: controller.selectTime,
+                                child: Container(
+                                  height: 50,
+                                  alignment: Alignment.center,
+                                  decoration: BoxDecoration(
+                                    color: appColor3,
+                                    borderRadius: BorderRadius.circular(10),
+                                  ),
+                                  child: Text(
+                                    controller.isEventTimeSelected.value ? 'Update Time' : 'Add Time',
+                                    style:
+                                        textStyleAbel(fontSize: 18, color: primaryColor, fontWeight: FontWeight.w700),
+                                  ),
+                                ),
+                              ),
+                            )
+                          ],
+                        ),
+                      ),
+                      heightSpace(
+                        screenHeight * 0.02,
                       ),
                     ],
-                  ),
-                ),
-              ),
-              Positioned.fill(
-                  bottom: screenHeight * 0.15, child: Align(alignment: Alignment.bottomCenter, child: timeView())),
-              GestureDetector(
-                onTap: controller.createEvent,
-                child: const Align(
-                  alignment: Alignment.bottomCenter,
-                  child: Padding(
-                    padding: EdgeInsets.only(left: 10.0, right: 10, bottom: 30),
-                    child: CircleAvatar(
-                        radius: 25,
-                        child: Icon(
-                          Icons.arrow_forward,
-                          size: 30,
-                        )),
                   ),
                 ),
               ),
@@ -154,16 +186,15 @@ class CreateEventSplashScreen extends StatelessWidget {
 
   Widget timeView() {
     return Container(
-      height: screenHeight * 0.11,
-      width: screenWidth * 0.9,
-      padding: EdgeInsets.only(left: screenWidth * 0.03),
+      padding: EdgeInsets.all(screenWidth * 0.03),
+      width: screenWidth * 0.86,
       decoration: BoxDecoration(color: appColor3, borderRadius: BorderRadius.circular(20)),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           Container(
             height: screenHeight * 0.08,
-            width: screenWidth * 0.7,
+            width: screenWidth * 0.8,
             decoration: BoxDecoration(color: primaryColor, borderRadius: BorderRadius.circular(20)),
             child: Row(
               children: [
@@ -188,7 +219,7 @@ class CreateEventSplashScreen extends StatelessWidget {
                 SizedBox(
                   width: screenWidth * 0.02,
                 ),
-                SizedBox(height: screenHeight * 0.04, child: VerticalDivider()),
+                SizedBox(height: screenHeight * 0.04, child: const VerticalDivider()),
                 SizedBox(
                   width: screenWidth * 0.02,
                 ),
@@ -201,34 +232,35 @@ class CreateEventSplashScreen extends StatelessWidget {
                     Visibility(
                       visible: controller.countdownTimer != null,
                       child: Text(
-                        '${controller.countdownDuration.inDays}d ${controller.countdownDuration.inHours % 24}h ${controller.countdownDuration.inMinutes % 60}m ${controller.countdownDuration.inSeconds % 60}s',
-                        style: GoogleFonts.montserrat(
-                            decoration: TextDecoration.none,
-                            color: Colors.white,
-                            fontWeight: FontWeight.w500,
-                            fontSize: 20),
-                      ),
+                          '${controller.countdownDuration.inDays}d ${controller.countdownDuration.inHours % 24}h ${controller.countdownDuration.inMinutes % 60}m ${controller.countdownDuration.inSeconds % 60}s',
+                          style: textStyleMontserrat(fontSize: 20)),
                     )
                   ],
                 ),
               ],
             ),
           ),
-          Container(
-            padding: EdgeInsets.only(right: screenWidth * 0.05),
-            child: GestureDetector(
-              onTap: () {
-                controller.onSelectDate();
-              },
-              child: const Icon(
-                Icons.edit_calendar_outlined,
-                color: Colors.black,
-                size: 24,
-              ),
-            ),
-          )
         ],
       ),
     );
   }
+
+  Gradient get whiteGradient => const LinearGradient(
+        begin: Alignment.topCenter,
+        end: Alignment.bottomCenter,
+        colors: [
+          Colors.white,
+          Colors.white70,
+          Colors.white70,
+          Colors.white70,
+          Colors.white24,
+          Colors.transparent,
+          Colors.transparent,
+          Colors.transparent,
+          Colors.transparent,
+          Colors.transparent,
+          Colors.transparent,
+          Colors.transparent
+        ],
+      );
 }

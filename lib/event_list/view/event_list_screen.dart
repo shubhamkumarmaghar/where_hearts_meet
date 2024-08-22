@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:where_hearts_meet/event_list/controller/event_list_controller.dart';
 import 'package:where_hearts_meet/utils/consts/string_consts.dart';
-import 'package:where_hearts_meet/utils/extensions/string_extension.dart';
+import 'package:where_hearts_meet/utils/extensions/methods_extension.dart';
 import 'package:where_hearts_meet/utils/shimmers/event_list_shimmer.dart';
 import 'package:where_hearts_meet/utils/widgets/app_bar_widget.dart';
 import 'package:where_hearts_meet/utils/widgets/cached_image.dart';

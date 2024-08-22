@@ -2,11 +2,9 @@ import 'package:clay_containers/clay_containers.dart';
 import 'package:clay_containers/widgets/clay_container.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:image_picker/image_picker.dart';
 import 'package:where_hearts_meet/utils/consts/string_consts.dart';
 import '../../utils/consts/app_screen_size.dart';
 import '../../utils/consts/color_const.dart';
-import '../../utils/util_functions/app_pickers.dart';
 import '../../utils/util_functions/decoration_functions.dart';
 import '../../utils/widgets/designer_text_field.dart';
 import '../../utils/widgets/gradient_button.dart';
@@ -43,7 +41,6 @@ class CreateEventScreen extends StatelessWidget {
             return Container(
               height: screenHeight,
               width: screenWidth,
-              //color: appColor1,
               decoration: BoxDecoration(gradient: backgroundGradient),
               padding: const EdgeInsets.symmetric(
                 horizontal: 20,
@@ -66,17 +63,19 @@ class CreateEventScreen extends StatelessWidget {
                             height: screenHeight * 0.02,
                           ),
                           DesignerTextField(
-                              title: '${StringConsts.personName}*',
+                              title: '${StringConsts.personName}* (Max 30 words)',
                               hint: StringConsts.enterName,
                               onChanged: (text) {},
+                              maxLength: 30,
                               controller: controller.nameController),
                           SizedBox(
                             height: screenHeight * 0.02,
                           ),
                           DesignerTextField(
-                              title: '${StringConsts.eventName}*',
+                              title: '${StringConsts.eventName}* (Max 30 words)',
                               hint: StringConsts.enterEventName,
                               onChanged: (text) {},
+                              maxLength: 30,
                               controller: controller.eventNameController),
                           SizedBox(
                             height: screenHeight * 0.02,
@@ -130,7 +129,7 @@ class CreateEventScreen extends StatelessWidget {
                                   Text(
                                     controller.selectedEventType.eventName ?? '',
                                     style: TextStyle(
-                                        color: Colors.grey.shade400, fontSize: 14.0, fontWeight: FontWeight.w500),
+                                        color:controller.selectedEventType.eventName == StringConsts.eventName ?Colors.grey.shade400:blackColor, fontSize: 14.0, fontWeight: FontWeight.w600),
                                   ),
                                   const Spacer(),
                                   const Icon(Icons.arrow_drop_down),
@@ -155,15 +154,7 @@ class CreateEventScreen extends StatelessWidget {
                             height: screenHeight * 0.02,
                           ),
                           InkWell(
-                            onTap: () {
-                              showImagePickerDialog(
-                                context: Get.context!,
-                                onCamera: () => controller.onCaptureMediaClick(
-                                    source: ImageSource.camera, imageType: EventImageType.coverImage),
-                                onGallery: () => controller.onCaptureMediaClick(
-                                    source: ImageSource.gallery, imageType: EventImageType.coverImage),
-                              );
-                            },
+                            onTap: () => controller.selectImage(EventImageType.coverImage),
                             child: controller.coverImage != null && controller.coverImage!.isNotEmpty
                                 ? ClayContainer(
                                     height: screenHeight * 0.24,

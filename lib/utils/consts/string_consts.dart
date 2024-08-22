@@ -57,4 +57,8 @@ class StringConsts {
   static const enterMessage = 'Enter message';
   static const uploadWishingImages = 'Upload Wishing Images';
   static const uploadWishingVideos = 'Upload Wishing Videos';
+  static const specialMessages = 'Special Messages';
+  static const changeBackgroundImage = 'Change Background Image';
+  static const changeTextColor = 'Change Text Color';
+  static const writeSomeSpecialMessages = 'Write some special message for';
 }

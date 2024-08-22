@@ -15,7 +15,6 @@ import '../../utils/consts/service_const.dart';
 import '../../utils/dialogs/pop_up_dialogs.dart';
 import '../../utils/model/image_response_model.dart';
 import '../../utils/repository/created_event_repo.dart';
-import '../../utils/services/functions_service.dart';
 import '../model/wishes_model.dart';
 import '../service/create_event_service.dart';
 

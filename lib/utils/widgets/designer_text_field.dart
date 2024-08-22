@@ -12,6 +12,7 @@ class DesignerTextField extends StatelessWidget {
   final String? title;
   final int? maxLines;
   final Widget? suffix;
+  final FocusNode? focusNode;
   final Color? borderColor;
   final double? cornerRadius;
   final TextInputAction? inputAction;
@@ -24,7 +25,7 @@ class DesignerTextField extends StatelessWidget {
   final Widget? suffixIcon;
   final TextStyle? titleTextStyle;
   final TextAlign? textAlign;
-  final TextEditingController controller;
+  final TextEditingController? controller;
 
   DesignerTextField(
       {super.key,
@@ -32,6 +33,7 @@ class DesignerTextField extends StatelessWidget {
       this.inputAction,
       this.onTap,
       this.maxLength,
+        this.focusNode,
       this.titleTextStyle,
       this.inputType = TextInputType.text,
       this.error,
@@ -41,7 +43,7 @@ class DesignerTextField extends StatelessWidget {
       this.prefixIcon,
       this.suffixIcon,
       this.textAlign,
-      required this.controller,
+      this.controller,
       this.maxLines,
       this.suffix,
       this.borderColor,
@@ -74,9 +76,11 @@ class DesignerTextField extends StatelessWidget {
             textAlign: textAlign == null ? TextAlign.start : textAlign!,
             textInputAction: inputAction,
             maxLines: maxLines == null || maxLines == 0 ? 1 : maxLines,
+            minLines: 1,
             maxLength: maxLength,
             style: TextStyle(color: enabled ? blackColor : greyColor, fontSize: 14.0, fontWeight: FontWeight.w600),
             onChanged: onChanged,
+            focusNode: focusNode,
             obscureText: obscureText ?? false,
             decoration: InputDecoration(
               counterText: '',

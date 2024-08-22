@@ -1,5 +1,4 @@
 import 'dart:io';
-
 import 'package:dio/dio.dart' as dio;
 import 'package:get_storage/get_storage.dart';
 import 'package:http_parser/http_parser.dart';
@@ -17,6 +16,7 @@ import 'package:where_hearts_meet/utils/widgets/util_widgets/app_widgets.dart';
 import '../../utils/consts/api_urls.dart';
 import '../../utils/services/api_service.dart';
 import '../model/personal_memories_model.dart';
+import '../model/personal_messages_model.dart';
 import '../model/timeline_model.dart';
 
 class CreateEventService {
@@ -148,6 +148,21 @@ class CreateEventService {
     if (data['message'].toString().toLowerCase().contains('personal memories created')) {
       AppWidgets.getToast(message: data['message'], color: greenTextColor);
       return PersonalMemoriesModel.fromJson(data['data']);
+    }
+    return null;
+  }
+
+  Future<PersonalMessagesModel?> addPersonalMessagesApi({required PersonalMessagesModel model}) async {
+    String url = AppUrls.personaMessagesUrl;
+
+    final response = await _apiService.postApiCall(
+      url: url,
+      data: model.toJson(),
+    );
+    final data = response;
+
+    if (data['message'].toString().toLowerCase().contains('personal messages created')) {
+      return PersonalMessagesModel.fromJson(data['data']);
     }
     return null;
   }

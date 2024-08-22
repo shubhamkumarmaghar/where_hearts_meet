@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:clay_containers/clay_containers.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -183,6 +185,7 @@ class DashboardScreen extends StatelessWidget {
                         SizedBox(
                           height: screenHeight * 0.02,
                         ),
+
                         appFeaturesView(),
                         SizedBox(
                           height: screenHeight * 0.04,

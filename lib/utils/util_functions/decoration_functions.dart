@@ -168,6 +168,16 @@ String addZero(int value) {
   return value > 9 ? value.toString() : '0$value';
 }
 
+TextStyle textStyleMontserrat(
+    {double? fontSize, Color? color, FontWeight? fontWeight, TextDecoration? textDecoration}) {
+  return GoogleFonts.montserrat(
+      color: color ?? Colors.white,
+      fontWeight: fontWeight ?? FontWeight.w500,
+      fontSize: fontSize ?? 22,
+      decoration: textDecoration,
+      decorationColor: color ?? Colors.white);
+}
+
 TextStyle textStyleDangrek({double? fontSize, Color? color, FontWeight? fontWeight, TextDecoration? textDecoration}) {
   return GoogleFonts.dangrek(
       color: color ?? Colors.white,
@@ -179,6 +189,34 @@ TextStyle textStyleDangrek({double? fontSize, Color? color, FontWeight? fontWeig
 
 TextStyle textStyleAleo({double? fontSize, Color? color, FontWeight? fontWeight, TextDecoration? textDecoration}) {
   return GoogleFonts.aleo(
+      color: color ?? Colors.white,
+      fontWeight: fontWeight ?? FontWeight.w500,
+      fontSize: fontSize ?? 22,
+      decoration: textDecoration,
+      decorationColor: color ?? Colors.white);
+}
+
+TextStyle textStyleAclonica({double? fontSize, Color? color, FontWeight? fontWeight, TextDecoration? textDecoration}) {
+  return GoogleFonts.aclonica(
+      color: color ?? Colors.white,
+      fontWeight: fontWeight ?? FontWeight.w500,
+      fontSize: fontSize ?? 22,
+      decoration: textDecoration,
+      decorationColor: color ?? Colors.white);
+}
+
+TextStyle textStyleDancingScript(
+    {double? fontSize, Color? color, FontWeight? fontWeight, TextDecoration? textDecoration}) {
+  return GoogleFonts.dancingScript(
+      color: color ?? Colors.white,
+      fontWeight: fontWeight ?? FontWeight.w500,
+      fontSize: fontSize ?? 22,
+      decoration: textDecoration,
+      decorationColor: color ?? Colors.white);
+}
+
+TextStyle textStyleMoonDance({double? fontSize, Color? color, FontWeight? fontWeight, TextDecoration? textDecoration}) {
+  return GoogleFonts.moonDance(
       color: color ?? Colors.white,
       fontWeight: fontWeight ?? FontWeight.w500,
       fontSize: fontSize ?? 22,
@@ -252,6 +290,14 @@ Future<void> shareEvent({required EventResponseModel eventModel, required BuildC
       AppWidgets.getToast(message: 'Something went wrong');
     }
   }
+}
+
+Color convertIntToColor(String? color) {
+  if (color == null || color.isEmpty) {
+    return Colors.black;
+  }
+  final colorAsInt = int.parse(color);
+  return Color(colorAsInt);
 }
 
 Future<File?> _generateQRImage({required EventResponseModel model}) async {

@@ -105,7 +105,7 @@ class CreatePersonalMemoriesScreen extends StatelessWidget {
                         onMediaTap: () {
                           controller.showCupertinoActionSheet();
                         },
-                        textController: controller.memoryMessage,
+                        textController: controller.memoryText,
                         isEditable: true,
                       )
                     ],

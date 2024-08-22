@@ -29,7 +29,7 @@ class CreatePersonalMemoriesController extends BaseController {
   final createEventService = CreateEventService();
   ImageResponseModel? memoryImage;
   ImageResponseModel? memoryVideo;
-  final memoryMessage = TextEditingController();
+  final memoryText = TextEditingController();
 
   @override
   void onInit() {
@@ -54,10 +54,6 @@ class CreatePersonalMemoriesController extends BaseController {
   }
 
   void _onCaptureVideo({required ImageSource source}) async {
-    // memoryVideo = ImageResponseModel();
-    // memoryVideo?.fileUrl = 'https://hehbucket.s3.ap-south-1.amazonaws.com/birthday_video.mp4';
-    // update();
-    // return;
     final ImagePicker picker = ImagePicker();
 
     var video = await picker.pickVideo(
@@ -78,10 +74,6 @@ class CreatePersonalMemoriesController extends BaseController {
   }
 
   void _onCaptureImage({required ImageSource source}) async {
-    // memoryImage = ImageResponseModel();
-    // memoryImage?.fileUrl = 'https://www.economist.com/sites/default/files/20181006_BLP501.jpg';
-    // update();
-    // return;
     final ImagePicker picker = ImagePicker();
 
     var image = await picker.pickImage(source: source, maxHeight: 800, maxWidth: 800, imageQuality: 80);
@@ -144,7 +136,7 @@ class CreatePersonalMemoriesController extends BaseController {
   }
 
   void onNext() {
-    Get.offAllNamed(RoutesConst.createGiftsScreen);
+    Get.offAllNamed(RoutesConst.createPersonalMessagesScreen);
   }
 
   void viewMemories() {
@@ -157,7 +149,7 @@ class CreatePersonalMemoriesController extends BaseController {
       return;
     }
     PersonalMemoriesModel model = PersonalMemoriesModel();
-    model.description = memoryMessage.text;
+    model.description = memoryText.text;
     model.eventId = eventResponseModel.eventid;
     if (memoryImage != null) {
       model.file = memoryImage?.fileId;
@@ -173,7 +165,7 @@ class CreatePersonalMemoriesController extends BaseController {
       memoriesList.add(response);
       memoryImage = null;
       memoryVideo = null;
-      memoryMessage.clear();
+      memoryText.clear();
       nextButtonTitle = StringConsts.next.obs;
       update();
     }
@@ -181,7 +173,7 @@ class CreatePersonalMemoriesController extends BaseController {
 
   @override
   void onClose() {
-    memoryMessage.dispose();
+    memoryText.dispose();
     super.onClose();
   }
 }

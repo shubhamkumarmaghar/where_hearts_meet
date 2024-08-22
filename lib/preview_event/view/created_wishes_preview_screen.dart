@@ -139,32 +139,36 @@ class CreatedWishesPreviewScreen extends StatelessWidget {
               SizedBox(
                 height: screenHeight * 0.02,
               ),
-              GestureDetector(
-                onTap:controller.navigateToVideosListScreen,
-                child: Align(
-                  alignment: Alignment.centerRight,
-                  child: Container(
-                    decoration:
-                        BoxDecoration(color: primaryColor.withOpacity(0.2), borderRadius: BorderRadius.circular(5)),
-                    width: screenWidth * 0.35,
-                    padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 5),
-                    child: Row(
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        const Icon(
-                          Icons.video_collection_rounded,
-                          color: Colors.white,
-                          size: 20,
-                        ),
-                        SizedBox(
-                          width: screenWidth * 0.02,
-                        ),
-                        Text(
-                          'View videos',
-                          style: textStyleAbel(fontSize: 16),
-                        ),
-                      ],
+              Visibility(
+                visible: controller.wishesModel.videoUrls != null && controller.wishesModel.videoUrls!.isNotEmpty,
+                replacement: const SizedBox.shrink(),
+                child: GestureDetector(
+                  onTap: controller.navigateToVideosListScreen,
+                  child: Align(
+                    alignment: Alignment.centerRight,
+                    child: Container(
+                      decoration:
+                          BoxDecoration(color: primaryColor.withOpacity(0.2), borderRadius: BorderRadius.circular(5)),
+                      width: screenWidth * 0.35,
+                      padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 5),
+                      child: Row(
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          const Icon(
+                            Icons.video_collection_rounded,
+                            color: Colors.white,
+                            size: 20,
+                          ),
+                          SizedBox(
+                            width: screenWidth * 0.02,
+                          ),
+                          Text(
+                            'View videos',
+                            style: textStyleAbel(fontSize: 16),
+                          ),
+                        ],
+                      ),
                     ),
                   ),
                 ),

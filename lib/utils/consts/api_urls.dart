@@ -1,8 +1,7 @@
 class AppUrls {
   static const String prodUrl = "http://heartehomies.com/";
-  static const String homeUrl = "http://192.168.1.12:8000/";
-  static const String baseUrl = prodUrl;
-
+  static const String homeUrl = "http://192.168.1.14:8000/";
+  static const String baseUrl = homeUrl;
 
   static const String registerUrl = "userPolls/register_user/";
   static const String loginUrl = 'userPolls/login/';
@@ -28,5 +27,6 @@ class AppUrls {
   static const String eventTimelineUrl = 'wishesApp/timeline/';
   static const String personalWishesUrl = 'wishesApp/personal_wishes/';
   static const String personaMemoriesUrl = 'wishesApp/personal_memories/';
+  static const String personaMessagesUrl = 'wishesApp/personal_messages/';
   static const String giftsUrl = 'eventApp/gifts/';
 }

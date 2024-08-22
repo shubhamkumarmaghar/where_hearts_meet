@@ -1,3 +1,5 @@
+import 'dart:io';
+
 class ImageResponseModel {
   String? fileUrl;
   String? fileId;

@@ -3,12 +3,16 @@ import 'package:where_hearts_meet/auth_module/binding/profile_setup_binding.dart
 import 'package:where_hearts_meet/auth_module/screens/profile_setup_screen.dart';
 import 'package:where_hearts_meet/create_event/binding/create_event_binding.dart';
 import 'package:where_hearts_meet/create_event/binding/create_gifts_binding.dart';
+import 'package:where_hearts_meet/create_event/binding/create_personal_messages_binding.dart';
 import 'package:where_hearts_meet/create_event/binding/create_timeline_binding.dart';
 import 'package:where_hearts_meet/create_event/view/create_event_splash_screen.dart';
 import 'package:where_hearts_meet/create_event/view/create_gifts_screen.dart';
+import 'package:where_hearts_meet/create_event/view/create_personal_messages_screen.dart';
 import 'package:where_hearts_meet/create_event/widgets/select_gift_type_screen.dart';
 import 'package:where_hearts_meet/dashboard_module/binding/dashboard_binding.dart';
 import 'package:where_hearts_meet/dashboard_module/screens/dashboard_screen.dart';
+import 'package:where_hearts_meet/guest_dashboard/personal_wishes/binding/personal_messages_binding.dart';
+import 'package:where_hearts_meet/guest_dashboard/personal_wishes/view/personal_messages_screen.dart';
 import 'package:where_hearts_meet/preview_event/binding/created_memories_preview_binding.dart';
 import 'package:where_hearts_meet/preview_event/view/created_memories_preview_screen.dart';
 import 'package:where_hearts_meet/routes/routes_const.dart';
@@ -86,6 +90,11 @@ class AppRoutes {
         page: () => const GuestCoverScreen(),
       ),
       GetPage(
+        name: RoutesConst.personalMessagesScreen,
+        binding: PersonalMessagesBinding(),
+        page: () => const PersonalMessagesScreen(),
+      ),
+      GetPage(
         name: RoutesConst.createEventScreen,
         binding: CreateEventBinding(),
         page: () => CreateEventScreen(),
@@ -116,6 +125,11 @@ class AppRoutes {
         page: () => CreatePersonalMemoriesScreen(),
       ),
       GetPage(
+        name: RoutesConst.createPersonalMessagesScreen,
+        binding: CreatePersonalMessagesBinding(),
+        page: () => CreatePersonalMessagesScreen(),
+      ),
+      GetPage(
         name: RoutesConst.createGiftsScreen,
         binding: CreateGiftsBinding(),
         page: () => CreateGiftsScreen(),
@@ -138,7 +152,7 @@ class AppRoutes {
       GetPage(
           name: RoutesConst.createdMemoriesPreviewScreen,
           binding: CreatedMemoriesPreviewBinding(),
-          page: () => CreatedMemoriesPreviewScreen()),
+          page: () => const CreatedMemoriesPreviewScreen()),
       GetPage(
         name: RoutesConst.eventListScreen,
         binding: EventListBinding(),
