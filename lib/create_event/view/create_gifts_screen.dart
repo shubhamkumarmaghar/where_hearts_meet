@@ -224,31 +224,34 @@ class CreateGiftsScreen extends StatelessWidget {
   }
 
   Widget _getSubmittedGiftsBadgeView() {
-    return Stack(
-      children: [
-        Container(
-            height: screenHeight * 0.055,
-            width: screenHeight * 0.055,
-            padding: const EdgeInsets.all(10),
-            decoration: BoxDecoration(color: Colors.white, borderRadius: BorderRadius.circular(50)),
-            child: ClipRRect(
-                borderRadius: BorderRadius.circular(50),
-                child: Image.asset(
-                  giftsIcon,
-                  fit: BoxFit.cover,
-                ))),
-        Positioned(
-          right: 0,
-          child: CircleAvatar(
-            radius: 8,
-            backgroundColor: errorColor,
-            child: Text(
-              '${controller.submittedGiftsList.length}',
-              style: const TextStyle(color: Colors.white, fontSize: 8),
+    return GestureDetector(
+      onTap: controller.navigateToGiftPreviewScreen,
+      child: Stack(
+        children: [
+          Container(
+              height: screenHeight * 0.055,
+              width: screenHeight * 0.055,
+              padding: const EdgeInsets.all(10),
+              decoration: BoxDecoration(color: Colors.white, borderRadius: BorderRadius.circular(50)),
+              child: ClipRRect(
+                  borderRadius: BorderRadius.circular(50),
+                  child: Image.asset(
+                    giftsIcon,
+                    fit: BoxFit.cover,
+                  ))),
+          Positioned(
+            right: 0,
+            child: CircleAvatar(
+              radius: 8,
+              backgroundColor: errorColor,
+              child: Text(
+                '${controller.submittedGiftsList.length}',
+                style: const TextStyle(color: Colors.white, fontSize: 8),
+              ),
             ),
-          ),
-        )
-      ],
+          )
+        ],
+      ),
     );
   }
 }

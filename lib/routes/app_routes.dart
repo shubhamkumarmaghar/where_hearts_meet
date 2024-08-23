@@ -11,11 +11,11 @@ import 'package:where_hearts_meet/create_event/view/create_personal_messages_scr
 import 'package:where_hearts_meet/create_event/widgets/select_gift_type_screen.dart';
 import 'package:where_hearts_meet/dashboard_module/binding/dashboard_binding.dart';
 import 'package:where_hearts_meet/dashboard_module/screens/dashboard_screen.dart';
-import 'package:where_hearts_meet/guest_dashboard/personal_wishes/binding/personal_messages_binding.dart';
-import 'package:where_hearts_meet/guest_dashboard/personal_wishes/view/personal_messages_screen.dart';
 import 'package:where_hearts_meet/preview_event/binding/created_memories_preview_binding.dart';
 import 'package:where_hearts_meet/preview_event/view/created_memories_preview_screen.dart';
 import 'package:where_hearts_meet/routes/routes_const.dart';
+import 'package:where_hearts_meet/view_event_details/e_gifts/binding/e_gifts_binding.dart';
+import 'package:where_hearts_meet/view_event_details/e_gifts/view/e_gifts_screen.dart';
 import '../../auth_module/binding/login_binding.dart';
 import '../../auth_module/screens/login_screen.dart';
 import '../../create_event/binding/create_wishes_binding.dart';
@@ -44,6 +44,8 @@ import '../create_event/view/create_personal_wishes_screen.dart';
 import '../guest_dashboard/view/guest_event_qr_scanner.dart';
 import '../preview_event/binding/created_gifts_preview_binding.dart';
 import '../preview_event/view/created_gifts_preview_screen.dart';
+import '../view_event_details/personal_wishes/binding/personal_messages_binding.dart';
+import '../view_event_details/personal_wishes/view/personal_messages_screen.dart';
 
 class AppRoutes {
   static List<GetPage> getRoutes() {
@@ -93,6 +95,11 @@ class AppRoutes {
         name: RoutesConst.personalMessagesScreen,
         binding: PersonalMessagesBinding(),
         page: () => const PersonalMessagesScreen(),
+      ),
+      GetPage(
+        name: RoutesConst.eGiftsScreen,
+        binding: EGiftsBinding(),
+        page: () => const EGiftsScreen(),
       ),
       GetPage(
         name: RoutesConst.createEventScreen,

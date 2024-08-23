@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:where_hearts_meet/create_event/model/gift_model.dart';
 import 'package:where_hearts_meet/create_event/model/gifts_data_model.dart';
+import 'package:where_hearts_meet/routes/app_routes.dart';
 import 'package:where_hearts_meet/routes/routes_const.dart';
 import 'package:where_hearts_meet/utils/controller/base_controller.dart';
 import 'package:where_hearts_meet/utils/widgets/util_widgets/app_widgets.dart';
@@ -51,6 +52,10 @@ class CreateGiftsController extends BaseController {
 
   void onGiftTypeSelected() {
     Get.back();
+  }
+
+  void navigateToGiftPreviewScreen() {
+    Get.toNamed(RoutesConst.createdGiftsPreviewScreen, arguments: submittedGiftsList);
   }
 
   Future<void> getGifts() async {

@@ -10,7 +10,6 @@ import 'package:where_hearts_meet/utils/consts/images_const.dart';
 import 'package:where_hearts_meet/utils/text_styles/custom_text_styles.dart';
 import '../../../utils/util_functions/app_pickers.dart';
 import '../../../utils/widgets/util_widgets/app_widgets.dart';
-import '../../guest_home/controller/guest_home_controller.dart';
 import '../controller/PersonalWishesController.dart';
 
 class GetPersonalWishScreen extends StatefulWidget {

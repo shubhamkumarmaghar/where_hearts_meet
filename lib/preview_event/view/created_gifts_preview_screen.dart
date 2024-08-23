@@ -1,16 +1,17 @@
-import 'package:clay_containers/clay_containers.dart';
-import 'package:flutter/cupertino.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
-import 'package:flutter_card_swiper/flutter_card_swiper.dart';
+import 'package:get/get.dart';
+import 'package:where_hearts_meet/preview_event/widgets/photos_list_screen.dart';
 import 'package:where_hearts_meet/utils/consts/color_const.dart';
-import 'package:where_hearts_meet/utils/consts/images_const.dart';
-
+import 'package:where_hearts_meet/utils/extensions/methods_extension.dart';
+import 'package:where_hearts_meet/utils/widgets/cached_image.dart';
+import 'package:flutter/material.dart';
 import '../../utils/consts/app_screen_size.dart';
+import '../../utils/consts/string_consts.dart';
 import '../../utils/util_functions/decoration_functions.dart';
+import '../../utils/widgets/app_bar_widget.dart';
+import '../controller/created_gifts_preview_controller.dart';
 
-class CreatedGiftsPreviewScreen extends StatelessWidget {
-  CreatedGiftsPreviewScreen({super.key});
+class CreatedGiftsPreviewScreen extends GetView<CreatedGiftsPreviewController> {
+  const CreatedGiftsPreviewScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -25,144 +26,152 @@ class CreatedGiftsPreviewScreen extends StatelessWidget {
         child: Column(
           children: [
             SizedBox(
-              height: screenHeight * 0.05,
+              height: screenHeight * 0.07,
             ),
-            appHeader,
-            headerListView(),
-            SizedBox(
-              height: screenHeight * 0.05,
-            ),
-            // giftsCardSwiper()
-            giftBodyView(),
-            SizedBox(
-              height: screenHeight * 0.02,
-            ),
-
-            giftsCardSwiper()
-          ],
-        ),
-      ),
-    );
-  }
-
-  Widget giftBodyView() {
-    return Container(
-      height: 220,
-      width: screenWidth,
-      decoration: BoxDecoration(
-          color: primaryColor,
-          borderRadius: BorderRadius.circular(20),
-          image: DecorationImage(
-              image: AssetImage(logo), colorFilter: ColorFilter.mode(Colors.white.withOpacity(0.2), BlendMode.srcIn))),
-      child: Container(
-        padding: EdgeInsets.only(left: 25),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            SizedBox(
-              height: 40,
-            ),
-            Text(
-              '1221 4344 5532 4424',
-              style: textStyleAbel(fontSize: 24),
-            ),
-            Text(
-              '123456',
-              style: textStyleAbel(fontSize: 24),
-            ),
-            Spacer(),
             Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
+                backIcon(),
+                const Spacer(),
                 Text(
-                  'Given by : DkRockX',
-                  style: textStyleDangrek(fontSize: 18),
+                  StringConsts.eGifts,
+                  style: textStyleDangrek(fontSize: 24),
                 ),
-                Container(
-                    padding: EdgeInsets.only(right: 25),
-                    child: Text(
-                      'Amazon',
-                      style: textStyleDangrek(),
-                    )),
+                const Spacer(),
               ],
             ),
             SizedBox(
-              height: 10,
+              height: screenHeight * 0.03,
             ),
+            Expanded(child: giftWidget()),
           ],
         ),
       ),
     );
   }
 
-  Widget giftsCardSwiper() {
-    return Container(
-      height: 300,
-      width: screenWidth,
-      child: CardSwiper(
-        padding: EdgeInsets.zero,
-        cardsCount: cards.length,
-        allowedSwipeDirection: AllowedSwipeDirection.only(left: true, right: true),
-        numberOfCardsDisplayed: 3,
-        controller: CardSwiperController(),
-        cardBuilder: (context, index, percentThresholdX, percentThresholdY) => cards[index],
-      ),
-    );
-  }
-
-  List<Container> cards = [
-    Container(
-      height: 120,
-      child: Image.network('https://t3.ftcdn.net/jpg/01/80/48/98/360_F_180489844_fsK0P7QCfeznToYRvsLm3fN5oMGSQCBw.jpg',fit: BoxFit.cover,),
-    ),
-    Container(
-      height: 120,
-      child: Image.network('https://t3.ftcdn.net/jpg/01/80/48/98/360_F_180489844_fsK0P7QCfeznToYRvsLm3fN5oMGSQCBw.jpg',fit: BoxFit.cover),
-    ),
-    Container(
-      height: 120,
-      child: Image.network('https://t3.ftcdn.net/jpg/01/80/48/98/360_F_180489844_fsK0P7QCfeznToYRvsLm3fN5oMGSQCBw.jpg',fit: BoxFit.cover),
-    ),
-    Container(
-      height: 120,
-      child: Image.network('https://t3.ftcdn.net/jpg/01/80/48/98/360_F_180489844_fsK0P7QCfeznToYRvsLm3fN5oMGSQCBw.jpg',fit: BoxFit.cover),
-    ),
-  ];
-
-  Widget headerListView() {
-    return Container(
-      height: 100,
-      child: ListView.separated(
-          scrollDirection: Axis.horizontal,
-          itemBuilder: (context, index) {
-            return Column(
-              children: [
-                Container(
-                  width: 70,
-                  height: 70,
-                  padding: const EdgeInsets.all(10),
-                  decoration: BoxDecoration(
-                      color: Colors.white,
-                      borderRadius: BorderRadius.circular(50),
-                      border: index == 1 ? Border.all(color: Colors.yellow, width: 3) : null),
-                  child: ClipRRect(
-                      borderRadius: BorderRadius.circular(50),
-                      child: Image.asset(
-                        giftsIcon,
-                        fit: BoxFit.cover,
-                      )),
+  Widget giftWidget() {
+    return ListView.separated(
+        padding: EdgeInsets.only(
+          bottom: screenHeight * 0.02,
+        ),
+        itemBuilder: (context, index) {
+          var data = controller.giftsList[index];
+          return Container(
+            width: screenWidth,
+            padding: EdgeInsets.all(screenWidth * 0.04),
+            decoration: const BoxDecoration(
+                border: Border(
+                  left: BorderSide(width: 0.5, color: Colors.white),
+                  right: BorderSide(width: 0.5, color: Colors.white),
+                  top: BorderSide(width: 0.5, color: Colors.white),
+                  bottom: BorderSide(color: Colors.white, width: 5),
                 ),
-                Text(
-                  'Deepak',
-                  style: textStyleDangrek(),
+                borderRadius: BorderRadius.only(
+                  topRight: Radius.circular(40),
+                  topLeft: Radius.circular(40),
+                  bottomLeft: Radius.circular(40),
+                  bottomRight: Radius.circular(40),
+                )),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Row(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    SizedBox(
+                      height: screenHeight * 0.1,
+                      width: screenHeight * 0.1,
+                      child: ClipRRect(
+                        borderRadius: BorderRadius.circular(10),
+                        child: cachedImage(imageUrl: data.giftLogo),
+                      ),
+                    ),
+                    SizedBox(
+                      width: screenWidth * 0.05,
+                    ),
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      children: [
+                        SizedBox(
+                          width: screenWidth * 0.54,
+                          child: Text(
+                            '${StringConsts.from} - ${data.senderName}',
+                            style: textStyleAleo(fontSize: 16),
+                          ),
+                        ),
+                        SizedBox(
+                          width: screenWidth * 0.54,
+                          child: Text(
+                            '${StringConsts.gift} - ${data.giftTitle != null ? data.giftTitle.toString().capitalizeFirst : ''}',
+                            maxLines: 2,
+                            overflow: TextOverflow.ellipsis,
+                            style: textStyleAleo(fontSize: 16),
+                          ),
+                        ),
+                        SizedBox(
+                          height: screenHeight * 0.01,
+                        ),
+                        Visibility(
+                          visible: data.giftImages != null && data.giftImages!.isNotEmpty,
+                          replacement: const SizedBox.shrink(),
+                          child: GestureDetector(
+                            onTap: () {
+                              Get.to(() => PhotosListScreen(photosList: data.giftImages ?? []));
+                            },
+                            child: Container(
+                              decoration: BoxDecoration(color: Colors.white, borderRadius: BorderRadius.circular(5)),
+                              padding:
+                                  EdgeInsets.symmetric(vertical: screenWidth * 0.015, horizontal: screenWidth * 0.03),
+                              child: Row(
+                                crossAxisAlignment: CrossAxisAlignment.center,
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  const Icon(
+                                    Icons.photo_library_rounded,
+                                    color: primaryColor,
+                                    size: 20,
+                                  ),
+                                  SizedBox(
+                                    width: screenWidth * 0.02,
+                                  ),
+                                  Text(
+                                    StringConsts.viewPhotos,
+                                    style: textStyleAbel(fontSize: 16, color: primaryColor),
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ],
+                ),
+                SizedBox(
+                  height: screenHeight * 0.02,
+                ),
+                Visibility(
+                  visible: data.cardId.isNotNullOrEmpty,
+                  child: Text(
+                    '${StringConsts.giftCardNo} - ${data.cardId}',
+                    style: textStyleAleo(fontSize: 16),
+                  ),
+                ),
+                Visibility(
+                  visible: data.cardPin.isNotNullOrEmpty,
+                  child: Text(
+                    '${StringConsts.giftPin} - ${data.cardPin}',
+                    style: textStyleAleo(fontSize: 16),
+                  ),
                 ),
               ],
-            );
-          },
-          separatorBuilder: (context, index) => SizedBox(
-                width: 10,
-              ),
-          itemCount: 5),
-    );
+            ),
+          );
+        },
+        separatorBuilder: (context, index) => const SizedBox(
+              height: 20,
+            ),
+        itemCount: controller.giftsList.length);
   }
 }

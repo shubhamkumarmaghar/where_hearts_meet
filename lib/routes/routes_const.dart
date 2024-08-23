@@ -15,11 +15,13 @@ class RoutesConst {
   static String addWishesScreen = '/addWishesScreen';
   static String addGiftCardScreen = '/addGiftCardScreen';
   static String addTimelineScreen = '/addTimelineScreen';
+
   static String personalMessagesScreen = '/personalMessagesScreen';
   static String guestQrScannerScreen = '/GuestQrScannerScreen';
   static String guestHomeScreen = '/guestHomeScreen';
   static String guestDashboard = '/GuestDashboard';
   static String guestWishlist = '/GuestWishlist';
+  static String eGiftsScreen = '/eGiftsScreen';
 
   static String guestCoverScreen = '/GuestCoverScreen';
 

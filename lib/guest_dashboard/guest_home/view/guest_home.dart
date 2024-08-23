@@ -16,8 +16,7 @@ import '../../../../utils/consts/confetti_shape_enum.dart';
 import '../../../../utils/widgets/confetti_view.dart';
 import '../../../../utils/widgets/util_widgets/instagram_post_screen.dart';
 
-import '../../personal_wishes/view/get_personal_screen_cover.dart';
-import '../../view/timeline_screen.dart';
+import '../../../view_event_details/personal_wishes/view/get_personal_screen_cover.dart';
 import '../controller/guest_home_controller.dart';
 
 class GuestHome extends StatefulWidget {

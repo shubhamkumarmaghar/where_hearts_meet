@@ -1,11 +1,9 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:get/get_core/src/get_main.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:where_hearts_meet/guest_dashboard/personal_wishes/view/personal_wishes.dart';
 import 'package:where_hearts_meet/utils/consts/app_screen_size.dart';
 import 'package:where_hearts_meet/utils/widgets/util_widgets/app_widgets.dart';
+import 'package:where_hearts_meet/view_event_details/personal_wishes/view/personal_wishes.dart';
 
 import '../../../utils/consts/color_const.dart';
 

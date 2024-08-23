@@ -61,4 +61,9 @@ class StringConsts {
   static const changeBackgroundImage = 'Change Background Image';
   static const changeTextColor = 'Change Text Color';
   static const writeSomeSpecialMessages = 'Write some special message for';
+  static const from = 'From';
+  static const gift = 'Gift';
+  static const giftCardNo = 'Gift card no.';
+  static const giftPin = 'Gift card pin';
+  static const viewPhotos = 'View Photos';
 }
