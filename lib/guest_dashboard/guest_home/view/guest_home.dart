@@ -10,6 +10,8 @@ import 'package:where_hearts_meet/routes/routes_const.dart';
 import 'package:where_hearts_meet/utils/consts/app_screen_size.dart';
 import 'package:where_hearts_meet/utils/consts/color_const.dart';
 import 'package:where_hearts_meet/utils/text_styles/custom_text_styles.dart';
+import 'package:where_hearts_meet/utils/util_functions/decoration_functions.dart';
+import 'package:where_hearts_meet/utils/widgets/cached_image.dart';
 import 'package:where_hearts_meet/utils/widgets/util_widgets/app_widgets.dart';
 
 import '../../../../utils/consts/confetti_shape_enum.dart';
@@ -130,6 +132,7 @@ class _GuestHomeState extends State<GuestHome> with TickerProviderStateMixin {
   Widget build(BuildContext context) {
     return Scaffold(
       extendBodyBehindAppBar: true,
+      extendBody: true,
       floatingActionButton: Row(
         mainAxisAlignment: MainAxisAlignment.end,
         children: [
@@ -166,13 +169,7 @@ class _GuestHomeState extends State<GuestHome> with TickerProviderStateMixin {
                   child: Container(
                     width: Get.width,
                     decoration: BoxDecoration(
-                      gradient: LinearGradient(begin: Alignment.topCenter, end: Alignment.bottomCenter, colors: [
-                        Color(0xff9467ff),
-                        Color(0xffae8bff),
-                        Color(0xffc7afff),
-                        Color(0xffdfd2ff),
-                        Color(0xfff2edff),
-                      ]),
+                      gradient: backgroundGradient,
                     ),
                     child: ListView(children: [
                       Stack(
@@ -180,12 +177,11 @@ class _GuestHomeState extends State<GuestHome> with TickerProviderStateMixin {
                           Container(
                             height: Get.height * 0.45,
                             width: Get.width,
-                            decoration: BoxDecoration(
-                                image: DecorationImage(
-                                    image: NetworkImage(controller.eventDetails?.coverPic ??
-                                        'https://firebasestorage.googleapis.com/v0/b/where-hearts-meet.appspot.com/o/Black%20Minimalist%20Happy%20Birthday%20Poster%20(1).png?alt=media&token=13bada89-8df2-4c06-b98e-962a08ba929e'),
-                                    fit: BoxFit.cover)),
+                            child: ClipRRect(
+                              child: cachedImage(imageUrl: controller.eventDetails?.coverPic),
+                            ),
                           ),
+
                           Positioned(
                               bottom: 0,
                               child: SizedBox(
@@ -219,22 +215,13 @@ class _GuestHomeState extends State<GuestHome> with TickerProviderStateMixin {
                         ],
                       ),
                       heightSpace(screenHeight * 0.01),
-
                     ]),
                   ),
                   overlay: istrue.value != true
                       ? Container(
                           width: Get.width,
                           decoration: BoxDecoration(
-                            gradient: LinearGradient(begin: Alignment.topCenter,
-                                end: Alignment.bottomCenter,
-                                colors: [
-                              Color(0xff9467ff),
-                              Color(0xffae8bff),
-                              Color(0xffc7afff),
-                              Color(0xffdfd2ff),
-                              Color(0xfff2edff),
-                            ]),
+                            gradient: backgroundGradient,
                           ),
                           child: ListView(children: [
                             Stack(
@@ -242,11 +229,8 @@ class _GuestHomeState extends State<GuestHome> with TickerProviderStateMixin {
                                 Container(
                                   height: Get.height * 0.75,
                                   width: Get.width,
-                                  decoration: BoxDecoration(
-                                      image: DecorationImage(
-                                          image: NetworkImage(controller.eventDetails?.coverPic ??
-                                              'https://firebasestorage.googleapis.com/v0/b/where-hearts-meet.appspot.com/o/Black%20Minimalist%20Happy%20Birthday%20Poster%20(1).png?alt=media&token=13bada89-8df2-4c06-b98e-962a08ba929e'),
-                                          fit: BoxFit.cover)),
+                                  child: ClipRRect(child: cachedImage(imageUrl: controller.eventDetails?.coverPic)),
+
                                 ),
                                 Positioned(
                                     bottom: 0,
@@ -269,12 +253,12 @@ class _GuestHomeState extends State<GuestHome> with TickerProviderStateMixin {
                                       alignment: Alignment.bottomCenter,
                                       // height: MediaQuery.of(context).size.height * 0.5,
                                       // color: Colors.black.withOpacity(0.5),
-                                      child:
-
-                                      Column(
+                                      child: Column(
                                         children: [
                                           Text(
-                                            controller.birthday.isAfter(DateTime.now())? 'Time Left':'Celebrating Now',
+                                            controller.birthday.isAfter(DateTime.now())
+                                                ? 'Time Left'
+                                                : 'Celebrating Now',
                                             style: GoogleFonts.dancingScript(
                                               decoration: TextDecoration.none,
                                               color: Colors.white,
@@ -301,38 +285,8 @@ class _GuestHomeState extends State<GuestHome> with TickerProviderStateMixin {
                               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                               children: [
                                 GestureDetector(
-                                  onTap: (){
-                                    Get.toNamed(RoutesConst.eGiftsScreen,arguments:controller.eventId );
-                                  },
-                                  child:
-                                  Card(
-                                    elevation: 8,
-                                    shape: RoundedRectangleBorder(
-                                      borderRadius: BorderRadius.circular(180),
-                                    ),
-                                    color: Colors.white,
-                                    child: CircleAvatar(
-                                      radius: 60,
-                                      child: CircleAvatar(
-                                        radius: 55,
-                                        backgroundColor: Colors.white70,
-                                        child: Column(
-                                          mainAxisAlignment: MainAxisAlignment.center,
-                                          children: [
-                                            getPrimaryText(text:
-                                              'E-Gifts',
-                                              fontSize: 20,
-                                              fontWeight: FontWeight.w500,
-                                            ),
-                                          ],
-                                        ),
-                                      ),
-                                    ),
-                                  ),
-                                ),
-                                GestureDetector(
-                                  onTap: (){
-                                    Get.toNamed(RoutesConst.guestWishlist,arguments: controller.eventDetails?.eventid);
+                                  onTap: () {
+                                    Get.toNamed(RoutesConst.eGiftsScreen, arguments: controller.eventId);
                                   },
                                   child: Card(
                                     elevation: 8,
@@ -348,8 +302,8 @@ class _GuestHomeState extends State<GuestHome> with TickerProviderStateMixin {
                                         child: Column(
                                           mainAxisAlignment: MainAxisAlignment.center,
                                           children: [
-                                            getPrimaryText(text:
-                                            'Wishes',
+                                            getPrimaryText(
+                                              text: 'E-Gifts',
                                               fontSize: 20,
                                               fontWeight: FontWeight.w500,
                                             ),
@@ -360,8 +314,37 @@ class _GuestHomeState extends State<GuestHome> with TickerProviderStateMixin {
                                   ),
                                 ),
                                 GestureDetector(
-                                  onTap: (){
-                                    Get.to(const GetPersonalScreenCover(),arguments: controller.eventDetails?.eventid);
+                                  onTap: () {
+                                    Get.toNamed(RoutesConst.guestWishlist, arguments: controller.eventDetails?.eventid);
+                                  },
+                                  child: Card(
+                                    elevation: 8,
+                                    shape: RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.circular(180),
+                                    ),
+                                    color: Colors.white,
+                                    child: CircleAvatar(
+                                      radius: 60,
+                                      child: CircleAvatar(
+                                        radius: 55,
+                                        backgroundColor: Colors.white70,
+                                        child: Column(
+                                          mainAxisAlignment: MainAxisAlignment.center,
+                                          children: [
+                                            getPrimaryText(
+                                              text: 'Wishes',
+                                              fontSize: 20,
+                                              fontWeight: FontWeight.w500,
+                                            ),
+                                          ],
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                                GestureDetector(
+                                  onTap: () {
+                                    Get.to(const GetPersonalScreenCover(), arguments: controller.eventDetails?.eventid);
                                     //Get.toNamed(RoutesConst.guestWishlist);
                                   },
                                   child: Card(
@@ -380,12 +363,11 @@ class _GuestHomeState extends State<GuestHome> with TickerProviderStateMixin {
                                           crossAxisAlignment: CrossAxisAlignment.center,
                                           children: [
                                             FittedBox(
-                                              child: getPrimaryText(text:
-                                              'Personal Wishes',
+                                              child: getPrimaryText(
+                                                text: 'Personal Wishes',
                                                 fontSize: 20,
                                                 fontWeight: FontWeight.w500,
                                               ),
-
                                             ),
                                           ],
                                         ),
@@ -601,9 +583,8 @@ class _GuestHomeState extends State<GuestHome> with TickerProviderStateMixin {
                           child: CardSwiper(
                               isLoop: true,
                               scale: 0.9,
-                              numberOfCardsDisplayed: controller.guestwishesModel.length > 5
-                                  ? 5
-                                  : controller.guestwishesModel.length,
+                              numberOfCardsDisplayed:
+                                  controller.guestwishesModel.length > 5 ? 5 : controller.guestwishesModel.length,
                               backCardOffset: const Offset(
                                 0,
                                 -50,
@@ -613,7 +594,8 @@ class _GuestHomeState extends State<GuestHome> with TickerProviderStateMixin {
                                 var data = controller.guestwishesModel[index];
                                 return GestureDetector(
                                   onTap: () {
-                                    Get.toNamed(RoutesConst.guestWishlist,arguments: controller.eventDetails?.eventid);                                   //Get.to(GuestWishList());
+                                    Get.toNamed(RoutesConst.guestWishlist,
+                                        arguments: controller.eventDetails?.eventid); //Get.to(GuestWishList());
                                   },
                                   child: PostWidget(
                                     username: data!.senderName ?? "",

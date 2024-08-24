@@ -132,7 +132,7 @@ class EGiftsScreen extends GetView<EGiftsController> {
                             replacement: const SizedBox.shrink(),
                             child: GestureDetector(
                               onTap: () {
-                                Get.to(() => PhotosListScreen(photosList: data.giftImages ?? []));
+                                Get.to(() => PhotosListScreen(photosList: data.giftImages ?? []),   transition: Transition.cupertino );
                               },
                               child: Container(
                                 decoration: BoxDecoration(color: Colors.white, borderRadius: BorderRadius.circular(5)),
