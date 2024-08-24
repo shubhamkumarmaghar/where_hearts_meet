@@ -302,9 +302,7 @@ class _GuestHomeState extends State<GuestHome> with TickerProviderStateMixin {
                               children: [
                                 GestureDetector(
                                   onTap: (){
-                                    AppWidgets.getToast(message: "Coming Soon",color: primaryColor);
-                                   // Get.to(TimelineStoriesSreen());
-                                    //Get.toNamed(RoutesConst.guestWishlist);
+                                    Get.toNamed(RoutesConst.eGiftsScreen,arguments:controller.eventId );
                                   },
                                   child:
                                   Card(
@@ -322,7 +320,7 @@ class _GuestHomeState extends State<GuestHome> with TickerProviderStateMixin {
                                           mainAxisAlignment: MainAxisAlignment.center,
                                           children: [
                                             getPrimaryText(text:
-                                              ' Timeline',
+                                              'E-Gifts',
                                               fontSize: 20,
                                               fontWeight: FontWeight.w500,
                                             ),

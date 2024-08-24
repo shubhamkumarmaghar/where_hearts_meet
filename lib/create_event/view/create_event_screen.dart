@@ -94,6 +94,7 @@ class CreateEventScreen extends StatelessWidget {
                               title: StringConsts.description,
                               hint: StringConsts.saySomethingAboutEvent,
                               maxLines: 5,
+
                               cornerRadius: 15,
                               inputType: TextInputType.text,
                               onChanged: (text) {},

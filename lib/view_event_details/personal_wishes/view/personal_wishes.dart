@@ -8,6 +8,7 @@ import 'package:where_hearts_meet/utils/consts/app_screen_size.dart';
 import 'package:where_hearts_meet/utils/consts/color_const.dart';
 import 'package:where_hearts_meet/utils/consts/images_const.dart';
 import 'package:where_hearts_meet/utils/text_styles/custom_text_styles.dart';
+import '../../../routes/routes_const.dart';
 import '../../../utils/util_functions/app_pickers.dart';
 import '../../../utils/widgets/util_widgets/app_widgets.dart';
 import '../controller/PersonalWishesController.dart';
@@ -56,7 +57,7 @@ int indexNo=0;
                         ),
                         GestureDetector(
                           onTap: (){
-                            AppWidgets.getToast(message: 'Coming soon!!',color: primaryColor);
+                            Get.toNamed(RoutesConst.personalMessagesScreen,arguments:controller.eventId );
                           },
                           child: Container(
                             padding: const EdgeInsets.all(10),
