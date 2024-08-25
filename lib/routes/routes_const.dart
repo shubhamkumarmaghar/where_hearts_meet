@@ -30,9 +30,9 @@ class RoutesConst {
 
   static String createWishesScreen = '/createWishesScreen';
 
-  static String createTimelineScreen = '/createTimelineScreen';
+  static String createPersonalDecorationsScreen = '/createPersonalDecorationsScreen';
 
-  static String createPersonalWishesScreen = '/createPersonalWishesScreen';
+  static String CreatePersonalCoverScreen = '/CreatePersonalCoverScreen';
   static String createPersonalMemoriesScreen = '/createPersonalMemoriesScreen';
   static String createPersonalMessagesScreen = '/createPersonalMessagesScreen';
 

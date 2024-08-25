@@ -128,7 +128,7 @@ class CreateWishesController extends BaseController {
   void navigateToPersonalWishesScreen() {
     if (wishesList.isNotEmpty) {
       Get.offAllNamed(
-        RoutesConst.createPersonalWishesScreen,
+        RoutesConst.CreatePersonalCoverScreen,
       );
     } else {
       AppWidgets.getToast(message: 'Please add at least 1 wish', color: redColor);

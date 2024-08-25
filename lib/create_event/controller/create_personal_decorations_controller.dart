@@ -4,15 +4,18 @@ import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:where_hearts_meet/routes/routes_const.dart';
 
+import '../../utils/consts/screen_const.dart';
 import '../../utils/consts/service_const.dart';
+import '../../utils/consts/string_consts.dart';
 import '../../utils/controller/base_controller.dart';
 import '../../utils/dialogs/pop_up_dialogs.dart';
 import '../../utils/model/image_response_model.dart';
 import '../../utils/repository/created_event_repo.dart';
+import '../../utils/util_functions/app_pickers.dart';
 import '../model/event_response_model.dart';
 import '../service/create_event_service.dart';
 
-class CreateTimelineController extends BaseController {
+class CreatePersonalDecorationsController extends BaseController {
   late EventResponseModel eventResponseModel;
   List<ImageResponseModel> imagesList = [];
   List<ImageResponseModel> videosList = [];
@@ -23,12 +26,23 @@ class CreateTimelineController extends BaseController {
   void onInit() {
     super.onInit();
     var createdEvent = locator<CreatedEventRepo>();
-    if (createdEvent.getCurrentEvent != null) {
-      eventResponseModel = createdEvent.getCurrentEvent!;
-    }
+    eventResponseModel = createdEvent.getCurrentEvent ?? EventResponseModel();
   }
 
-  void onCaptureMediaClick({
+  void uploadMedia(MediaType mediaType) {
+    showImagePickerDialog(
+      context: Get.context!,
+      title: mediaType == MediaType.image ? StringConsts.uploadImage : StringConsts.uploadVideo,
+      onCamera: () => mediaType == MediaType.image
+          ? _onCaptureImage(source: ImageSource.camera)
+          : _onCaptureVideo(source: ImageSource.camera),
+      onGallery: () => mediaType == MediaType.image
+          ? _onCaptureImage(source: ImageSource.gallery)
+          : _onCaptureVideo(source: ImageSource.gallery),
+    );
+  }
+
+  void _onCaptureImage({
     required ImageSource source,
   }) async {
     final ImagePicker picker = ImagePicker();
@@ -47,7 +61,7 @@ class CreateTimelineController extends BaseController {
     }
   }
 
-  void onCaptureVideo({required ImageSource source}) async {
+  void _onCaptureVideo({required ImageSource source}) async {
     final ImagePicker picker = ImagePicker();
 
     var video = await picker.pickVideo(
@@ -56,22 +70,18 @@ class CreateTimelineController extends BaseController {
     final videoFile = File(video?.path ?? '');
 
     if (video != null) {
-      _uploadVideo(videoFile: videoFile);
+      showLoaderDialog(context: Get.context!);
+
+      final videoResponse = await createEventService.uploadVideoApi(videoFile: videoFile);
+      cancelDialog();
+      if (videoResponse != null) {
+        videosList.add(videoResponse);
+        update();
+      }
     }
   }
 
-  Future<void> _uploadVideo({required File videoFile}) async {
-    showLoaderDialog(context: Get.context!);
-
-    final videoResponse = await createEventService.uploadVideoApi(videoFile: videoFile);
-    cancelDialog();
-    if (videoResponse != null) {
-      videosList.add(videoResponse);
-      update();
-    }
-  }
-
-  void addTimelineStories() async {
+  void addPersonalDecoration() async {
     showLoaderDialog(context: Get.context!);
     final response = await createEventService.addTimelineStoriesEventApi(
         eventId: eventResponseModel.eventid.toString(),
@@ -79,7 +89,11 @@ class CreateTimelineController extends BaseController {
         videosList: videosList.map((model) => model.fileId ?? '').toList());
     cancelDialog();
     if (response != null) {
-      Get.offAllNamed(RoutesConst.createPersonalWishesScreen);
+      navigateToCreateGiftScreen();
     }
+  }
+
+  void navigateToCreateGiftScreen() {
+    Get.offAllNamed(RoutesConst.createGiftsScreen);
   }
 }
