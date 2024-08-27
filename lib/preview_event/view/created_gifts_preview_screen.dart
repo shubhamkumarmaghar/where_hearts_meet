@@ -2,7 +2,6 @@ import 'package:get/get.dart';
 import 'package:scratcher/widgets.dart';
 import 'package:where_hearts_meet/preview_event/widgets/photos_list_screen.dart';
 import 'package:where_hearts_meet/utils/consts/color_const.dart';
-import 'package:where_hearts_meet/utils/extensions/methods_extension.dart';
 import 'package:where_hearts_meet/utils/widgets/cached_image.dart';
 import 'package:flutter/material.dart';
 import '../../create_event/model/gift_model.dart';
@@ -51,7 +50,12 @@ class CreatedGiftsPreviewScreen extends StatelessWidget {
                     SizedBox(
                       height: screenHeight * 0.01,
                     ),
-                    Text(StringConsts.scratchToOpen,style: textStyleMontserrat(fontSize: 16),),
+                    controller.giftsList.isNotEmpty
+                        ? Text(
+                            StringConsts.scratchToOpen,
+                            style: textStyleMontserrat(fontSize: 16),
+                          )
+                        : const SizedBox.shrink(),
                     Expanded(child: scratchGiftsWidget(controller)),
                   ],
                 ),
@@ -85,10 +89,9 @@ class CreatedGiftsPreviewScreen extends StatelessWidget {
                     bottomRight: Radius.circular(40),
                   ),
                   child: Scratcher(
-                      brushSize: 30,
+                      brushSize: 50,
                       threshold: 50,
                       color: primaryColor,
-
                       image: Image.asset(
                         giftScratchIcon,
                         fit: BoxFit.cover,
@@ -100,7 +103,7 @@ class CreatedGiftsPreviewScreen extends StatelessWidget {
         separatorBuilder: (context, index) => const SizedBox(
               height: 20,
             ),
-        itemCount: controller.giftsList?.length ?? 0);
+        itemCount: controller.giftsList.length ?? 0);
   }
 
   Widget giftWidget(GiftModel data, bool hasOpened) {

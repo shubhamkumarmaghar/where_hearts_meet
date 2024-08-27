@@ -55,7 +55,7 @@ class GuestHomeController extends BaseController {
     await getEventDetails(eventId: args??"",byYou:byYou=='For You'?false:true );
     await textAnimation();
      getEventWishes(args??"");
-     getTimelineWishes(args??"");
+    // getTimelineWishes(args??"");
     startCountdown();
     update();
   }

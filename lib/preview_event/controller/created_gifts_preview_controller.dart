@@ -16,7 +16,7 @@ class CreatedGiftsPreviewController extends BaseController{
  }
 
  void onScratch({required double scratched, required int index}) async {
-  if (scratched > 70.0) {
+  if (scratched > 50.0) {
    giftsList[index].hasOpened = true;
    update();
    confettiController.play();

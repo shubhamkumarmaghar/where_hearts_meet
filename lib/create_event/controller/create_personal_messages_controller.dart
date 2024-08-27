@@ -168,13 +168,13 @@ class CreatePersonalMessagesController extends BaseController {
       final response = await createEventService.addPersonalMessagesApi(model: model);
       cancelDialog();
       if (response != null) {
-        navigateToCreateGiftScreen();
+        navigateToPersonalDecorationsScreen();
       }
     }
   }
 
-  void navigateToCreateGiftScreen() {
-    Get.offAllNamed(RoutesConst.createGiftsScreen);
+  void navigateToPersonalDecorationsScreen() {
+    Get.toNamed(RoutesConst.createPersonalDecorationsScreen);
   }
 
   @override

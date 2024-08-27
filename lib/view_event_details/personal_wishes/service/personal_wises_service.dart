@@ -1,3 +1,4 @@
+import 'package:where_hearts_meet/create_event/model/personal_decorations_model.dart';
 import 'package:where_hearts_meet/create_event/model/personal_messages_model.dart';
 
 import '../../../create_event/model/personal_memories_model.dart';
@@ -14,8 +15,6 @@ class PersonalWishesService {
     final data = response;
 
     if (data['message'].toString().contains('Personal Wishes found successfully.') && data['data'] != null) {
-      //  Iterable iterable = data['data'];
-      // final list = iterable.map((event) => PersonalWishesCoverModel.fromJson(event)).toList();
       var personalWishesModel = PersonalWishesCoverModel.fromJson(data['data']);
       return personalWishesModel;
     } else {
@@ -44,6 +43,18 @@ class PersonalWishesService {
 
     if (data['message'].toString().toLowerCase().contains('personal messages found') && data['data'] != null) {
       return PersonalMessagesModel.fromJson(data['data']);
+    }
+    return null;
+  }
+
+  Future<PersonalDecorationsModel?> getPersonalDecorationsApi({required String eventId}) async {
+    String url = AppUrls.personalDecorationsUrl;
+
+    final response = await _apiService.getApiCall(url: url, queryParams: {'event_id': eventId});
+    final data = response;
+
+    if (data['message'].toString().toLowerCase().contains('found') && data['data'] != null) {
+      return PersonalDecorationsModel.fromJson(data['data']);
     }
     return null;
   }

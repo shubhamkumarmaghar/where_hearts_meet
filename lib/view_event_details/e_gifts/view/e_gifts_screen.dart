@@ -53,7 +53,12 @@ class EGiftsScreen extends StatelessWidget {
                     SizedBox(
                       height: screenHeight * 0.01,
                     ),
-                    Text(StringConsts.scratchToOpen,style: textStyleMontserrat(fontSize: 16),),
+                    controller.loadingState == LoadingState.hasData
+                        ? Text(
+                            StringConsts.scratchToOpen,
+                            style: textStyleMontserrat(fontSize: 16),
+                          )
+                        : const SizedBox.shrink(),
                     Expanded(
                         child: controller.loadingState == LoadingState.loading
                             ? const GiftShimmer()
@@ -95,10 +100,10 @@ class EGiftsScreen extends StatelessWidget {
                     bottomRight: Radius.circular(40),
                   ),
                   child: Scratcher(
-                      brushSize: 30,
+                      brushSize: 50,
                       threshold: 50,
                       image: Image.asset(
-                        giftsIcon,
+                        giftScratchIcon,
                         fit: BoxFit.cover,
                       ),
                       onChange: (value) => controller.onScratch(scratched: value, index: index),

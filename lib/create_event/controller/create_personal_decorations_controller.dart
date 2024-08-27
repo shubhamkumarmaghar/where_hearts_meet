@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:where_hearts_meet/create_event/model/personal_decorations_model.dart';
 import 'package:where_hearts_meet/routes/routes_const.dart';
 
 import '../../utils/consts/screen_const.dart';
@@ -83,10 +84,11 @@ class CreatePersonalDecorationsController extends BaseController {
 
   void addPersonalDecoration() async {
     showLoaderDialog(context: Get.context!);
-    final response = await createEventService.addTimelineStoriesEventApi(
+    PersonalDecorationsModel model = PersonalDecorationsModel(
         eventId: eventResponseModel.eventid.toString(),
-        imagesList: imagesList.map((model) => model.fileId ?? '').toList(),
-        videosList: videosList.map((model) => model.fileId ?? '').toList());
+        images: imagesList.map((model) => model.fileId ?? '').toList(),
+        videos: videosList.map((model) => model.fileId ?? '').toList());
+    final response = await createEventService.addPersonalDecorationsEventApi(model: model);
     cancelDialog();
     if (response != null) {
       navigateToCreateGiftScreen();

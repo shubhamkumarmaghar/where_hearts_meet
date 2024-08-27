@@ -42,7 +42,7 @@ class GiftModel {
     data['gift_title'] = giftTitle;
     data['sender_name'] = senderName;
     data['card_id'] = cardId;
-    data['gift_logo'] = giftLogo;
+   // data['gift_logo'] = giftLogo;
     data['card_pin'] = cardPin;
     data['gift_images'] = giftImages;
     return data;
