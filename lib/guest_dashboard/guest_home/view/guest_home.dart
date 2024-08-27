@@ -181,7 +181,6 @@ class _GuestHomeState extends State<GuestHome> with TickerProviderStateMixin {
                               child: cachedImage(imageUrl: controller.eventDetails?.coverPic),
                             ),
                           ),
-
                           Positioned(
                               bottom: 0,
                               child: SizedBox(
@@ -230,7 +229,6 @@ class _GuestHomeState extends State<GuestHome> with TickerProviderStateMixin {
                                   height: Get.height * 0.75,
                                   width: Get.width,
                                   child: ClipRRect(child: cachedImage(imageUrl: controller.eventDetails?.coverPic)),
-
                                 ),
                                 Positioned(
                                     bottom: 0,

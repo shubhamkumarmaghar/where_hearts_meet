@@ -66,4 +66,5 @@ class StringConsts {
   static const giftCardNo = 'Gift card no.';
   static const giftPin = 'Gift card pin';
   static const viewPhotos = 'View Photos';
+  static const scratchToOpen = 'Scratch to open';
 }
