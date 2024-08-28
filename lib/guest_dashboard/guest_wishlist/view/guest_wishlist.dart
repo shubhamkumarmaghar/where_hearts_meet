@@ -7,6 +7,7 @@ import 'package:where_hearts_meet/utils/consts/app_screen_size.dart';
 import '../../../../utils/widgets/util_widgets/instagram_post_screen.dart';
 import '../../../utils/consts/string_consts.dart';
 import '../../../utils/util_functions/decoration_functions.dart';
+import '../../../utils/widgets/app_bar_widget.dart';
 import '../../guest_home/controller/guest_home_controller.dart';
 import '../controller/WishesController.dart';
 
@@ -34,10 +35,18 @@ class _GuestWishListState extends State<GuestWishList> with TickerProviderStateM
               child: Column(
                 children: [
                   heightSpace(screenHeight * 0.06),
-                  Text(
-                    StringConsts.wishes,
-                    style: textStyleDangrek(fontSize: 24),
+                  Row(
+                    children: [
+                      backIcon(),
+                      const Spacer(),
+                      Text(
+                        StringConsts.wishes,
+                        style: textStyleDangrek(fontSize: 24),
+                      ),
+                      const Spacer(),
+                    ],
                   ),
+
                   heightSpace(screenHeight * 0.02),
                   Expanded(
                     child: ListView.separated(

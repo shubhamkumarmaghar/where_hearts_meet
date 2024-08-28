@@ -58,7 +58,7 @@ class PersonalDecorationsScreen extends StatelessWidget {
                                 padding: EdgeInsets.all(screenWidth * 0.03),
                                 decoration: BoxDecoration(
                                   color: Colors.black.withOpacity(0.5),
-                                  border: Border.all(color: Colors.white, width: 2),
+                                  border: Border.all(color: Colors.white, width: 1),
                                   borderRadius: BorderRadius.circular(40),
                                 ),
                                 child: Row(
@@ -205,6 +205,7 @@ class PersonalDecorationsScreen extends StatelessWidget {
                           children: [
                             SizedBox(
                               width: screenWidth,
+                              height: screenHeight*0.2,
                               child: Image.file(
                                 File(snapshot.data!),
                                 fit: BoxFit.cover,

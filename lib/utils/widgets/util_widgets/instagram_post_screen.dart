@@ -112,7 +112,7 @@ class PostWidget extends StatelessWidget {
                           Text('$likes likes'),
                         ],
                       ),
-                      fullDesc == true
+                      videoUrl != null && videoUrl!.isNotEmpty
                           ? GestureDetector(
                               onTap: () {
                                 Get.to(

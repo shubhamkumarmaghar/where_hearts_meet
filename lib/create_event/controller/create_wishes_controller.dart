@@ -42,8 +42,7 @@ class CreateWishesController extends BaseController {
   void onCaptureMediaClick({required ImageSource source, bool? forProfile}) async {
     final ImagePicker picker = ImagePicker();
 
-    var image = await picker.pickImage(
-        source: source, maxHeight: 800, maxWidth: 800, imageQuality: forProfile != null && forProfile ? 40 : 75);
+    var image = await picker.pickImage(source: source, imageQuality: forProfile != null && forProfile ? 40 : 80);
 
     if (image != null) {
       final croppedImage = await cropImage(filePath: image.path, isProfileImage: forProfile);

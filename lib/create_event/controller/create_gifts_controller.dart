@@ -77,7 +77,7 @@ class CreateGiftsController extends BaseController {
   void onCaptureMediaClick({required ImageSource source}) async {
     final ImagePicker picker = ImagePicker();
 
-    var image = await picker.pickImage(source: source, maxHeight: 800, maxWidth: 800, imageQuality: 100);
+    var image = await picker.pickImage(source: source, maxHeight: 800, maxWidth: 800, imageQuality: 80);
 
     if (image != null) {
       final croppedImage = await cropImage(filePath: image.path, isProfileImage: false);

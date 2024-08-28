@@ -13,6 +13,7 @@ import '../../utils/dialogs/pop_up_dialogs.dart';
 import '../../utils/model/image_response_model.dart';
 import '../../utils/repository/created_event_repo.dart';
 import '../../utils/util_functions/app_pickers.dart';
+import '../../utils/util_functions/decoration_functions.dart';
 import '../model/event_response_model.dart';
 import '../service/create_event_service.dart';
 
@@ -48,16 +49,20 @@ class CreatePersonalDecorationsController extends BaseController {
   }) async {
     final ImagePicker picker = ImagePicker();
 
-    var image = await picker.pickImage(source: source, maxHeight: 800, maxWidth: 800, imageQuality: 80);
+    var image = await picker.pickImage(source: source,imageQuality: 80);
 
     if (image != null) {
-      showLoaderDialog(context: Get.context!);
-      final imageResponse = await createEventService.uploadImageApi(imageFile: File(image.path));
-      cancelDialog();
-      if (imageResponse != null) {
-        imagesList.add(imageResponse);
-
-        update();
+      final croppedImage = await cropImage(
+        filePath: image.path,
+      );
+      if (croppedImage != null) {
+        showLoaderDialog(context: Get.context!);
+        final imageResponse = await createEventService.uploadImageApi(imageFile: croppedImage);
+        cancelDialog();
+        if (imageResponse != null) {
+          imagesList.add(imageResponse);
+          update();
+        }
       }
     }
   }
