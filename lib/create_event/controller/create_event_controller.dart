@@ -224,6 +224,23 @@ class CreateEventController extends BaseController {
     Get.toNamed(RoutesConst.createEventSplashScreen);
   }
 
+  void deleteFile({required String imageUrl, required EventImageType imageType}) async {
+    showLoaderDialog(context: Get.context!);
+
+    final response = await createEventService.deleteFileApi(fileUrl: imageUrl);
+    cancelDialog();
+    if (response) {
+      if (imageType == EventImageType.coverImage) {
+        coverImage = null;
+        eventModel.coverImage = null;
+      } else if (imageType == EventImageType.backgroundImage) {
+        backgroundImage = null;
+        eventModel.splashBackgroundImage = null;
+      }
+      update();
+    }
+  }
+
   @override
   void onClose() {
     countdownTimer?.cancel();

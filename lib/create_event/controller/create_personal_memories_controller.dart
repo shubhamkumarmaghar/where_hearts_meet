@@ -35,9 +35,7 @@ class CreatePersonalMemoriesController extends BaseController {
   void onInit() {
     super.onInit();
     var createdEvent = locator<CreatedEventRepo>();
-    if (createdEvent.getCurrentEvent != null) {
-      eventResponseModel = createdEvent.getCurrentEvent ?? EventResponseModel();
-    }
+    eventResponseModel = createdEvent.getCurrentEvent ?? EventResponseModel();
   }
 
   void _selectDestination(MediaType mediaType) {
@@ -76,7 +74,7 @@ class CreatePersonalMemoriesController extends BaseController {
   void _onCaptureImage({required ImageSource source}) async {
     final ImagePicker picker = ImagePicker();
 
-    var image = await picker.pickImage(source: source,imageQuality: 80);
+    var image = await picker.pickImage(source: source, imageQuality: 80);
 
     if (image != null) {
       final croppedImage = await cropImage(
@@ -95,44 +93,63 @@ class CreatePersonalMemoriesController extends BaseController {
     }
   }
 
+  void deleteFile({required MediaType mediaType, required String fileUrl}) async {
+    showLoaderDialog(context: Get.context!);
+
+    final response = await createEventService.deleteFileApi(fileUrl: fileUrl);
+    cancelDialog();
+    if (response) {
+      if (mediaType == MediaType.image) {
+        memoryImage = null;
+      } else if (mediaType == MediaType.video) {
+        memoryVideo = null;
+      }
+      update();
+    }
+  }
+
   void showCupertinoActionSheet() {
-    showCupertinoModalPopup(
-      context: Get.context!,
-      builder: (BuildContext context) => CupertinoActionSheet(
-        actions: <CupertinoActionSheetAction>[
-          CupertinoActionSheetAction(
+    if (memoryVideo == null && memoryImage == null) {
+      showCupertinoModalPopup(
+        context: Get.context!,
+        builder: (BuildContext context) => CupertinoActionSheet(
+          actions: <CupertinoActionSheetAction>[
+            CupertinoActionSheetAction(
+              onPressed: () {
+                Get.back();
+                _selectDestination(MediaType.image);
+              },
+              child: const Text(
+                StringConsts.photo,
+                style: TextStyle(color: Colors.blue, fontSize: 18, fontWeight: FontWeight.w500),
+              ),
+            ),
+            CupertinoActionSheetAction(
+              onPressed: () {
+                Get.back();
+                _selectDestination(MediaType.video);
+              },
+              child: const Text(
+                StringConsts.video,
+                style: TextStyle(color: Colors.blue, fontSize: 18, fontWeight: FontWeight.w500),
+              ),
+            ),
+          ],
+          cancelButton: CupertinoActionSheetAction(
             onPressed: () {
               Get.back();
-              _selectDestination(MediaType.image);
             },
+            isDefaultAction: true,
             child: const Text(
-              StringConsts.photo,
-              style: TextStyle(color: Colors.blue, fontSize: 18, fontWeight: FontWeight.w500),
+              StringConsts.cancel,
+              style: TextStyle(color: Colors.red, fontSize: 16, fontWeight: FontWeight.w700),
             ),
-          ),
-          CupertinoActionSheetAction(
-            onPressed: () {
-              Get.back();
-              _selectDestination(MediaType.video);
-            },
-            child: const Text(
-              StringConsts.video,
-              style: TextStyle(color: Colors.blue, fontSize: 18, fontWeight: FontWeight.w500),
-            ),
-          ),
-        ],
-        cancelButton: CupertinoActionSheetAction(
-          onPressed: () {
-            Navigator.pop(context);
-          },
-          isDefaultAction: true,
-          child: const Text(
-            StringConsts.cancel,
-            style: TextStyle(color: Colors.red, fontSize: 16, fontWeight: FontWeight.w700),
           ),
         ),
-      ),
-    );
+      );
+    } else {
+      AppWidgets.getToast(message: 'Delete the current image/video.', color: errorColor);
+    }
   }
 
   void onNext() {
@@ -145,11 +162,12 @@ class CreatePersonalMemoriesController extends BaseController {
 
   void submitMemories() async {
     if (memoryImage == null && memoryVideo == null) {
-      AppWidgets.getToast(message: 'Atleast add photo or video', color: primaryColor);
+      AppWidgets.getToast(message: 'Add photo or video', color: errorColor);
       return;
     }
     PersonalMemoriesModel model = PersonalMemoriesModel();
     model.description = memoryText.text;
+
     model.eventId = eventResponseModel.eventid;
     if (memoryImage != null) {
       model.file = memoryImage?.fileId;

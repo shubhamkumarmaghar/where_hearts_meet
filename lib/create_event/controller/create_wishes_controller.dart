@@ -11,10 +11,13 @@ import 'package:where_hearts_meet/utils/controller/base_controller.dart';
 import 'package:where_hearts_meet/utils/util_functions/decoration_functions.dart';
 import 'package:where_hearts_meet/utils/widgets/util_widgets/app_widgets.dart';
 
+import '../../utils/consts/screen_const.dart';
 import '../../utils/consts/service_const.dart';
+import '../../utils/consts/string_consts.dart';
 import '../../utils/dialogs/pop_up_dialogs.dart';
 import '../../utils/model/image_response_model.dart';
 import '../../utils/repository/created_event_repo.dart';
+import '../../utils/util_functions/app_pickers.dart';
 import '../model/wishes_model.dart';
 import '../service/create_event_service.dart';
 
@@ -33,37 +36,102 @@ class CreateWishesController extends BaseController {
   void onInit() {
     super.onInit();
     var createdEvent = locator<CreatedEventRepo>();
-    // if (createdEvent.getCurrentEvent != null) {
-    //   eventResponseModel = createdEvent.getCurrentEvent ?? EventResponseModel();
-    // }
     eventResponseModel = createdEvent.getCurrentEvent ?? EventResponseModel();
   }
 
-  void onCaptureMediaClick({required ImageSource source, bool? forProfile}) async {
+  void uploadSenderImage() {
+    if (profileImage == null) {
+      showImagePickerDialog(
+        context: Get.context!,
+        title: StringConsts.uploadImage,
+        onCamera: () => _uploadProfileImage(source: ImageSource.camera),
+        onGallery: () => _uploadProfileImage(source: ImageSource.gallery),
+      );
+    } else {
+      showCupertinoActionSheetOptions(
+          button1Text: 'Delete Image',
+          button2Text: 'Update Image',
+          onTapButton1: () async {
+            showLoaderDialog(context: Get.context!);
+            final response = await createEventService.deleteFileApi(fileUrl: profileImage?.fileUrl ?? '');
+            cancelDialog();
+            if (response) {
+              profileImage = null;
+              update();
+            }
+          },
+          onTapButton2: () {
+            showImagePickerDialog(
+              context: Get.context!,
+              title: StringConsts.uploadImage,
+              onCamera: () => _uploadProfileImage(source: ImageSource.camera),
+              onGallery: () => _uploadProfileImage(source: ImageSource.gallery),
+            );
+          });
+    }
+  }
+
+  void _uploadProfileImage({required ImageSource source}) async {
     final ImagePicker picker = ImagePicker();
 
-    var image = await picker.pickImage(source: source, imageQuality: forProfile != null && forProfile ? 40 : 80);
+    var image = await picker.pickImage(source: source, imageQuality: 70);
 
     if (image != null) {
-      final croppedImage = await cropImage(filePath: image.path, isProfileImage: forProfile);
+      final croppedImage = await cropImage(filePath: image.path, isProfileImage: true);
+      if (croppedImage != null) {
+        showLoaderDialog(context: Get.context!);
+        final imageResponse = await createEventService.uploadImageApi(imageFile: croppedImage);
+        if (imageResponse != null) {
+          if (profileImage != null) {
+            await createEventService.deleteFileApi(fileUrl: profileImage?.fileUrl ?? '', showMsg: false);
+            cancelDialog();
+            profileImage = imageResponse;
+            update();
+          } else {
+            cancelDialog();
+            profileImage = imageResponse;
+            update();
+          }
+        } else {
+          cancelDialog();
+        }
+      }
+    }
+  }
+
+  void uploadMedia({required MediaType mediaType}) {
+    showImagePickerDialog(
+      context: Get.context!,
+      title: mediaType == MediaType.image ? StringConsts.uploadImage : StringConsts.uploadVideo,
+      onCamera: () => mediaType == MediaType.image
+          ? _onCaptureImage(source: ImageSource.camera)
+          : _onCaptureVideo(source: ImageSource.camera),
+      onGallery: () => mediaType == MediaType.image
+          ? _onCaptureImage(source: ImageSource.gallery)
+          : _onCaptureVideo(source: ImageSource.gallery),
+    );
+  }
+
+  void _onCaptureImage({required ImageSource source}) async {
+    final ImagePicker picker = ImagePicker();
+
+    var image = await picker.pickImage(source: source, imageQuality: 80);
+
+    if (image != null) {
+      final croppedImage = await cropImage(filePath: image.path);
       if (croppedImage != null) {
         showLoaderDialog(context: Get.context!);
         final imageResponse = await createEventService.uploadImageApi(imageFile: croppedImage);
         cancelDialog();
         if (imageResponse != null) {
-          if (forProfile != null && forProfile) {
-            profileImage = imageResponse;
-          } else {
-            imagesList.add(imageResponse);
-          }
-
+          imagesList.add(imageResponse);
           update();
         }
       }
     }
   }
 
-  void onCaptureVideo({required ImageSource source}) async {
+  void _onCaptureVideo({required ImageSource source}) async {
     final ImagePicker picker = ImagePicker();
 
     var video = await picker.pickVideo(
@@ -72,16 +140,34 @@ class CreateWishesController extends BaseController {
     final videoFile = File(video?.path ?? '');
 
     if (video != null) {
-      _uploadVideo(videoFile: videoFile);
+      showLoaderDialog(context: Get.context!);
+      final videoResponse = await createEventService.uploadVideoApi(videoFile: videoFile);
+      cancelDialog();
+      if (videoResponse != null) {
+        videosList.add(videoResponse);
+        update();
+      }
     }
   }
 
-  Future<void> _uploadVideo({required File videoFile}) async {
+  void deleteFile({required int index, required MediaType mediaType}) async {
     showLoaderDialog(context: Get.context!);
-    final videoResponse = await createEventService.uploadVideoApi(videoFile: videoFile);
+
+    String fileUrl = '';
+    if (mediaType == MediaType.image) {
+      fileUrl = imagesList[index].fileUrl ?? '';
+    } else if (mediaType == MediaType.video) {
+      fileUrl = videosList[index].fileUrl ?? '';
+    }
+
+    final response = await createEventService.deleteFileApi(fileUrl: fileUrl);
     cancelDialog();
-    if (videoResponse != null) {
-      videosList.add(videoResponse);
+    if (response) {
+      if (mediaType == MediaType.image) {
+        imagesList.removeAt(index);
+      } else if (mediaType == MediaType.video) {
+        videosList.removeAt(index);
+      }
       update();
     }
   }

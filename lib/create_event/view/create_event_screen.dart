@@ -3,6 +3,8 @@ import 'package:clay_containers/widgets/clay_container.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:where_hearts_meet/utils/consts/string_consts.dart';
+import 'package:where_hearts_meet/utils/widgets/cached_image.dart';
+import 'package:where_hearts_meet/utils/widgets/custom_photo_view.dart';
 import '../../utils/consts/app_screen_size.dart';
 import '../../utils/consts/color_const.dart';
 import '../../utils/util_functions/decoration_functions.dart';
@@ -94,7 +96,6 @@ class CreateEventScreen extends StatelessWidget {
                               title: StringConsts.description,
                               hint: StringConsts.saySomethingAboutEvent,
                               maxLines: 5,
-
                               cornerRadius: 15,
                               inputType: TextInputType.text,
                               onChanged: (text) {},
@@ -130,7 +131,11 @@ class CreateEventScreen extends StatelessWidget {
                                   Text(
                                     controller.selectedEventType.eventName ?? '',
                                     style: TextStyle(
-                                        color:controller.selectedEventType.eventName == StringConsts.eventName ?Colors.grey.shade400:blackColor, fontSize: 14.0, fontWeight: FontWeight.w600),
+                                        color: controller.selectedEventType.eventName == StringConsts.eventName
+                                            ? Colors.grey.shade400
+                                            : blackColor,
+                                        fontSize: 14.0,
+                                        fontWeight: FontWeight.w600),
                                   ),
                                   const Spacer(),
                                   const Icon(Icons.arrow_drop_down),
@@ -155,30 +160,53 @@ class CreateEventScreen extends StatelessWidget {
                             height: screenHeight * 0.02,
                           ),
                           InkWell(
-                            onTap: () => controller.selectImage(EventImageType.coverImage),
-                            child: controller.coverImage != null && controller.coverImage!.isNotEmpty
-                                ? ClayContainer(
-                                    height: screenHeight * 0.24,
-                                    width: screenWidth * 0.85,
-                                    borderRadius: 20,
-                                    color: appColor2,
-                                    child: ClipRRect(
-                                      borderRadius: BorderRadius.circular(20),
-                                      child: Image.network(
-                                        controller.coverImage!,
-                                        fit: BoxFit.cover,
+                            onTap: () {
+                              if (controller.coverImage == null || controller.coverImage!.isEmpty) {
+                                controller.selectImage(EventImageType.coverImage);
+                              } else {
+                                Get.to(() => CustomPhotoView(
+                                      imageUrl: controller.coverImage,
+                                    ));
+                              }
+                            },
+                            child: Stack(
+                              children: [
+                                ClayContainer(
+                                  height: screenHeight * 0.24,
+                                  width: screenWidth * 0.85,
+                                  borderRadius: 20,
+                                  color: appColor2,
+                                  child: ClipRRect(
+                                    borderRadius: BorderRadius.circular(20),
+                                    child: cachedImage(
+                                        imageUrl: controller.coverImage != null && controller.coverImage!.isNotEmpty
+                                            ? controller.coverImage
+                                            : null),
+                                  ),
+                                ),
+                                Positioned(
+                                  right: 10,
+                                  top: 10,
+                                  child: Visibility(
+                                    visible: controller.coverImage != null,
+                                    child: GestureDetector(
+                                      onTap: () {
+                                        controller.deleteFile(
+                                            imageUrl: controller.coverImage!, imageType: EventImageType.coverImage);
+                                      },
+                                      child: CircleAvatar(
+                                        backgroundColor: whiteColor.withOpacity(0.5),
+                                        child: const Icon(
+                                          Icons.delete,
+                                          color: errorColor,
+                                          size: 25,
+                                        ),
                                       ),
-                                    ))
-                                : ClayContainer(
-                                    height: screenHeight * 0.12,
-                                    width: screenWidth * 0.3,
-                                    borderRadius: 20,
-                                    color: appColor2,
-                                    child: Icon(
-                                      Icons.upload,
-                                      size: screenHeight * 0.06,
-                                      color: Colors.white,
-                                    )),
+                                    ),
+                                  ),
+                                ),
+                              ],
+                            ),
                           ),
                           SizedBox(
                             height: screenHeight * 0.02,

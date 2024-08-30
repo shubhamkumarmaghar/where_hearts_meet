@@ -12,8 +12,9 @@ import '../controller/video_player_controller.dart';
 
 class VideoPlayerScreen extends StatefulWidget {
   final String url;
+  final BorderRadius? borderRadius;
 
-  const VideoPlayerScreen({required this.url, super.key});
+  const VideoPlayerScreen({required this.url, super.key,this.borderRadius});
 
   @override
   State<VideoPlayerScreen> createState() => _VideoPlayerScreenState();
@@ -39,7 +40,7 @@ class _VideoPlayerScreenState extends State<VideoPlayerScreen> {
           autoPlay: false,
           allowMuting: true,
           zoomAndPan: true,
-          looping: true,
+          looping: true,allowPlaybackSpeedChanging: false,
           materialProgressColors: ChewieProgressColors(bufferedColor: Colors.white.withOpacity(0.4),playedColor: primaryColor),
           autoInitialize: true,
         );
@@ -59,7 +60,7 @@ class _VideoPlayerScreenState extends State<VideoPlayerScreen> {
       child: isBusy
           ? videoShimmer()
           : ClipRRect(
-              borderRadius: BorderRadius.circular(20),
+              borderRadius:widget.borderRadius ?? BorderRadius.circular(20),
               clipBehavior: Clip.antiAliasWithSaveLayer,
               child: Chewie(
                 controller: chewieController!,

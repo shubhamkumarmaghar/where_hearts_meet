@@ -292,14 +292,6 @@ Future<void> shareEvent({required EventResponseModel eventModel, required BuildC
   }
 }
 
-Color convertIntToColor(String? color) {
-  if (color == null || color.isEmpty) {
-    return Colors.black;
-  }
-  final colorAsInt = int.parse(color);
-  return Color(colorAsInt);
-}
-
 Future<File?> _generateQRImage({required EventResponseModel model}) async {
   final dir = await getApplicationDocumentsDirectory();
   final qrFile = File('${dir.path}/${model.eventid}.png');
@@ -320,4 +312,13 @@ Future<File?> _generateQRImage({required EventResponseModel model}) async {
     }
     return file;
   }
+}
+
+
+Color convertIntToColor(String? color) {
+  if (color == null || color.isEmpty) {
+    return Colors.black;
+  }
+  final colorAsInt = int.parse(color);
+  return Color(colorAsInt);
 }

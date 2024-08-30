@@ -49,7 +49,7 @@ class CreatePersonalDecorationsController extends BaseController {
   }) async {
     final ImagePicker picker = ImagePicker();
 
-    var image = await picker.pickImage(source: source,imageQuality: 80);
+    var image = await picker.pickImage(source: source, imageQuality: 80);
 
     if (image != null) {
       final croppedImage = await cropImage(
@@ -84,6 +84,28 @@ class CreatePersonalDecorationsController extends BaseController {
         videosList.add(videoResponse);
         update();
       }
+    }
+  }
+
+  void deleteFile({required int index, required MediaType mediaType}) async {
+    showLoaderDialog(context: Get.context!);
+
+    String fileUrl = '';
+    if (mediaType == MediaType.image) {
+      fileUrl = imagesList[index].fileUrl ?? '';
+    } else if (mediaType == MediaType.video) {
+      fileUrl = videosList[index].fileUrl ?? '';
+    }
+
+    final response = await createEventService.deleteFileApi(fileUrl: fileUrl);
+    cancelDialog();
+    if (response) {
+      if (mediaType == MediaType.image) {
+        imagesList.removeAt(index);
+      } else if (mediaType == MediaType.video) {
+        videosList.removeAt(index);
+      }
+      update();
     }
   }
 

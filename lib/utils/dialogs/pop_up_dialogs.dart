@@ -8,6 +8,7 @@ import 'package:where_hearts_meet/utils/util_functions/decoration_functions.dart
 import '../consts/app_screen_size.dart';
 import '../consts/color_const.dart';
 import '../consts/screen_const.dart';
+import '../consts/string_consts.dart';
 import '../model/dropdown_model.dart';
 
 void showThemeDialog() {
@@ -25,18 +26,66 @@ void showLoaderDialog({required BuildContext context, String? loadingText, Color
     barrierDismissible: false,
     context: context,
     builder: (BuildContext context) {
-      return const Dialog(
-        backgroundColor: Colors.transparent,
-        child: Center(
-          child: SizedBox(
-            height: 50,
-            width: 50,
-            child: CircularProgressIndicator.adaptive(
-                valueColor: AlwaysStoppedAnimation<Color>(whiteColor), backgroundColor: primaryColor),
+      return const SizedBox(
+        height: 50,
+        width: 50,
+        child: Dialog(
+          backgroundColor: Colors.transparent,
+          child: Center(
+            child: SizedBox(
+              height: 50,
+              width: 50,
+              child: CircularProgressIndicator.adaptive(
+                  valueColor: AlwaysStoppedAnimation<Color>(whiteColor), backgroundColor: primaryColor),
+            ),
           ),
         ),
       );
     },
+  );
+}
+
+void showCupertinoActionSheetOptions(
+    {required String button1Text,
+    required String button2Text,
+    required Function onTapButton1,
+    required Function onTapButton2}) {
+  showCupertinoModalPopup(
+    context: Get.context!,
+    builder: (BuildContext context) => CupertinoActionSheet(
+      actions: <CupertinoActionSheetAction>[
+        CupertinoActionSheetAction(
+          onPressed: () {
+            Get.back();
+            onTapButton1();
+          },
+          child: Text(
+            button1Text,
+            style: const TextStyle(color: Colors.blue, fontSize: 18, fontWeight: FontWeight.w500),
+          ),
+        ),
+        CupertinoActionSheetAction(
+          onPressed: () {
+            Get.back();
+            onTapButton2();
+          },
+          child: Text(
+            button2Text,
+            style: const TextStyle(color: Colors.blue, fontSize: 18, fontWeight: FontWeight.w500),
+          ),
+        ),
+      ],
+      cancelButton: CupertinoActionSheetAction(
+        onPressed: () {
+          Get.back();
+        },
+        isDefaultAction: true,
+        child: const Text(
+          StringConsts.cancel,
+          style: TextStyle(color: Colors.red, fontSize: 16, fontWeight: FontWeight.w700),
+        ),
+      ),
+    ),
   );
 }
 

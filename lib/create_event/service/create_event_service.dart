@@ -41,6 +41,18 @@ class CreateEventService {
     return response['data'] != null ? ImageResponseModel.fromJson(response['data']) : null;
   }
 
+  Future<bool> deleteFileApi({required String fileUrl,bool showMsg=true}) async {
+    final response = await _apiService.deleteApiCall(url: AppUrls.deleteFileUrl, queryParams: {'file_url': fileUrl});
+
+    if (response['message'].toString().toLowerCase().contains('deleted successfully')) {
+      if(showMsg){
+        AppWidgets.getToast(message: response['message'], color: greenTextColor);
+      }
+      return true;
+    }
+    return false;
+  }
+
   Future<EventResponseModel?> createEventApi({required EventModel eventModel}) async {
     eventModel.hostName = GetStorage().read(firstName);
     eventModel.globalEvent = false;
@@ -74,8 +86,7 @@ class CreateEventService {
     return null;
   }
 
-  Future<TimelineModel?> addPersonalDecorationsEventApi(
-      {required PersonalDecorationsModel model}) async {
+  Future<TimelineModel?> addPersonalDecorationsEventApi({required PersonalDecorationsModel model}) async {
     String url = AppUrls.personalDecorationsUrl;
     final response = await _apiService.postApiCall(
       url: url,

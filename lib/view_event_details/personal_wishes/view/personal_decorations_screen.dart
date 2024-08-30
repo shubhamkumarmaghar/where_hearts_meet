@@ -52,10 +52,11 @@ class PersonalDecorationsScreen extends StatelessWidget {
                                 ],
                               ),
                               SizedBox(
-                                height: screenHeight * 0.03,
+                                height: screenHeight * 0.02,
                               ),
                               Container(
-                                padding: EdgeInsets.all(screenWidth * 0.03),
+                                padding: EdgeInsets.all(screenWidth * 0.02),
+                                margin: EdgeInsets.symmetric(horizontal: screenWidth * 0.1),
                                 decoration: BoxDecoration(
                                   color: Colors.black.withOpacity(0.5),
                                   border: Border.all(color: Colors.white, width: 1),
@@ -67,7 +68,7 @@ class PersonalDecorationsScreen extends StatelessWidget {
                                       child: GestureDetector(
                                         onTap: controller.toggleMediaChange,
                                         child: Container(
-                                            padding: EdgeInsets.all(screenWidth * 0.03),
+                                            padding: EdgeInsets.all(screenWidth * 0.02),
                                             alignment: Alignment.center,
                                             decoration: BoxDecoration(
                                               borderRadius: BorderRadius.circular(40),
@@ -77,19 +78,19 @@ class PersonalDecorationsScreen extends StatelessWidget {
                                             child: Text(
                                               StringConsts.images,
                                               style: textStyleMontserrat(
-                                                  fontSize: 18,
+                                                  fontSize: 16,
                                                   color: controller.imagesSelected.value ? primaryColor : Colors.white),
                                             )),
                                       ),
                                     ),
                                     SizedBox(
-                                      width: screenWidth * 0.06,
+                                      width: screenWidth * 0.1,
                                     ),
                                     Expanded(
                                       child: GestureDetector(
                                         onTap: controller.toggleMediaChange,
                                         child: Container(
-                                          padding: EdgeInsets.all(screenWidth * 0.03),
+                                          padding: EdgeInsets.all(screenWidth * 0.02),
                                           alignment: Alignment.center,
                                           decoration: BoxDecoration(
                                             borderRadius: BorderRadius.circular(40),
@@ -98,7 +99,7 @@ class PersonalDecorationsScreen extends StatelessWidget {
                                           child: Text(
                                             StringConsts.videos,
                                             style: textStyleMontserrat(
-                                                fontSize: 18,
+                                                fontSize: 16,
                                                 color: controller.imagesSelected.value ? Colors.white : primaryColor),
                                           ),
                                         ),
@@ -205,7 +206,7 @@ class PersonalDecorationsScreen extends StatelessWidget {
                           children: [
                             SizedBox(
                               width: screenWidth,
-                              height: screenHeight*0.2,
+                              height: screenHeight * 0.2,
                               child: Image.file(
                                 File(snapshot.data!),
                                 fit: BoxFit.cover,

@@ -1,26 +1,21 @@
 import 'package:clay_containers/widgets/clay_container.dart';
 import 'package:flutter/material.dart';
-
 import 'package:get/get.dart';
-import 'package:image_picker/image_picker.dart';
 import 'package:where_hearts_meet/create_event/controller/create_gifts_controller.dart';
 import 'package:where_hearts_meet/utils/consts/color_const.dart';
 import 'package:where_hearts_meet/utils/consts/images_const.dart';
 import 'package:where_hearts_meet/utils/consts/string_consts.dart';
 import 'package:where_hearts_meet/utils/widgets/base_container.dart';
 import 'package:where_hearts_meet/utils/widgets/cached_image.dart';
-
 import '../../utils/consts/app_screen_size.dart';
-import '../../utils/util_functions/app_pickers.dart';
 import '../../utils/util_functions/decoration_functions.dart';
+import '../../utils/widgets/custom_photo_view.dart';
 import '../../utils/widgets/designer_text_field.dart';
 import '../../utils/widgets/gradient_button.dart';
 import '../../utils/widgets/outlined_busy_button.dart';
 
 class CreateGiftsScreen extends StatelessWidget {
-  final controller = Get.find<CreateGiftsController>();
-
-  CreateGiftsScreen({super.key});
+  const CreateGiftsScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -87,7 +82,7 @@ class CreateGiftsScreen extends StatelessWidget {
                           Visibility(
                             visible: controller.submittedGiftsList.isNotEmpty,
                             replacement: const SizedBox.shrink(),
-                            child: _getSubmittedGiftsBadgeView(),
+                            child: _getSubmittedGiftsBadgeView(controller),
                           ),
                         ],
                       ),
@@ -144,6 +139,8 @@ class CreateGiftsScreen extends StatelessWidget {
                               DesignerTextField(
                                   title: StringConsts.giftCardId,
                                   hint: StringConsts.enterGiftCardId,
+                                  inputType: TextInputType.number,
+                                  maxLength: 16,
                                   onChanged: (text) {},
                                   controller: controller.giftCardIdController),
                               SizedBox(
@@ -152,6 +149,8 @@ class CreateGiftsScreen extends StatelessWidget {
                               DesignerTextField(
                                   title: StringConsts.giftCardPin,
                                   hint: StringConsts.enterGiftCardPin,
+                                  inputType: TextInputType.number,
+                                  maxLength: 6,
                                   onChanged: (text) {},
                                   controller: controller.giftCardPinController),
                               SizedBox(
@@ -164,7 +163,10 @@ class CreateGiftsScreen extends StatelessWidget {
                                   style: textStyleDangrek(fontSize: 18),
                                 ),
                               ),
-                              _getImagesListWidget(),
+                              SizedBox(
+                                height: screenHeight * 0.02,
+                              ),
+                              _getImagesListWidget(controller),
                             ],
                           ),
                         ),
@@ -178,52 +180,73 @@ class CreateGiftsScreen extends StatelessWidget {
         ));
   }
 
-  Widget _getImagesListWidget() {
+  Widget _getImagesListWidget(CreateGiftsController controller) {
     return GridView.builder(
         scrollDirection: Axis.vertical,
         shrinkWrap: true,
-        padding: EdgeInsets.zero,
+        padding: EdgeInsets.only(bottom: screenHeight * 0.03),
         physics: const NeverScrollableScrollPhysics(),
-        //itemCount: controller.imagesList.length == 3 ? 3 : controller.imagesList.length + 1,
-        itemCount: controller.imagesList.length + 1,
+        itemCount: controller.imagesList.length == 5 ? 5 : controller.imagesList.length + 1,
         gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
           crossAxisCount: 3,
-          crossAxisSpacing: 0,
-          mainAxisSpacing: 0,
+          crossAxisSpacing: 15,
+          mainAxisSpacing: 20,
         ),
         itemBuilder: (BuildContext context, int index) {
-          return Container(
-            alignment: Alignment.centerLeft,
-            child: GestureDetector(
-              onTap: () {
-                showImagePickerDialog(
-                  context: Get.context!,
-                  onCamera: () => controller.onCaptureMediaClick(source: ImageSource.camera),
-                  onGallery: () => controller.onCaptureMediaClick(source: ImageSource.gallery),
-                );
-              },
-              child: ClayContainer(
-                width: screenWidth * 0.18,
-                height: screenHeight * 0.08,
-                borderRadius: 20,
-                color: appColor2,
-                child: controller.imagesList.length == index
-                    ? Icon(
-                        Icons.add_a_photo,
-                        size: screenHeight * 0.03,
-                        color: Colors.white,
-                      )
-                    : ClipRRect(
-                        borderRadius: const BorderRadius.all(Radius.circular(20)),
-                        child: cachedImage(imageUrl: controller.imagesList[index].fileUrl, boxFit: BoxFit.cover),
+          return controller.imagesList.length == index
+              ? GestureDetector(
+                  onTap: controller.uploadGiftImage,
+                  child: ClayContainer(
+                    height: screenHeight * 0.12,
+                    borderRadius: 20,
+                    color: appColor2,
+                    child: Icon(
+                      Icons.add_a_photo,
+                      size: screenHeight * 0.03,
+                      color: Colors.white,
+                    ),
+                  ),
+                )
+              : GestureDetector(
+                  onTap: () {
+                    Get.to(() => CustomPhotoView(
+                          imageUrl: controller.imagesList[index].fileUrl,
+                        ));
+                  },
+                  child: Stack(
+                    children: [
+                      Container(
+                        height: screenHeight * 0.12,
+                        decoration: const BoxDecoration(
+                          borderRadius: BorderRadius.all(Radius.circular(20)),
+                        ),
+                        child: ClipRRect(
+                          borderRadius: const BorderRadius.all(Radius.circular(20)),
+                          child: cachedImage(imageUrl: controller.imagesList[index].fileUrl, boxFit: BoxFit.cover),
+                        ),
                       ),
-              ),
-            ),
-          );
+                      Positioned(
+                        right: 5,
+                        top: 5,
+                        child: GestureDetector(
+                          onTap: () => controller.deleteFile(index: index),
+                          child: CircleAvatar(
+                            radius: 12,
+                            child: Icon(
+                              Icons.close,
+                              size: screenHeight * 0.02,
+                              color: errorColor,
+                            ),
+                          ),
+                        ),
+                      )
+                    ],
+                  ),
+                );
         });
   }
 
-  Widget _getSubmittedGiftsBadgeView() {
+  Widget _getSubmittedGiftsBadgeView(CreateGiftsController controller) {
     return GestureDetector(
       onTap: controller.navigateToGiftPreviewScreen,
       child: Stack(

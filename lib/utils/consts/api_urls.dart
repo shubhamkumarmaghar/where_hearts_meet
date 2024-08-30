@@ -9,6 +9,7 @@ class AppUrls {
   static const String userAccountUrl = 'userPolls/get_user/';
   static const String uploadFileUrl = 'userPolls/upload_file/';
   static const String uploadVideoUrl = 'userPolls/upload_video/';
+  static const String deleteFileUrl = 'userPolls/delete_file/';
 
   ///created by me
   static const String eventsCreatedByUserUrl = 'eventApp/get_events_list/';
