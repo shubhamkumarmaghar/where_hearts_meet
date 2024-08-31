@@ -15,7 +15,7 @@ import '../../utils/util_functions/decoration_functions.dart';
 import '../model/event_response_model.dart';
 import '../service/create_event_service.dart';
 
-class CreatePersonalWishesController extends BaseController {
+class CreatePersonalCoverController extends BaseController {
   late EventResponseModel eventResponseModel;
   ImageResponseModel? backgroundImage;
   final createEventService = CreateEventService();

@@ -11,6 +11,7 @@ class DesignerTextField extends StatelessWidget {
   final String? hint;
   final String? title;
   final int? maxLines;
+  final int? minLines;
   final Widget? suffix;
   final FocusNode? focusNode;
   final Color? borderColor;
@@ -33,7 +34,8 @@ class DesignerTextField extends StatelessWidget {
       this.inputAction,
       this.onTap,
       this.maxLength,
-        this.focusNode,
+        this.minLines,
+      this.focusNode,
       this.titleTextStyle,
       this.inputType = TextInputType.text,
       this.error,
@@ -76,7 +78,7 @@ class DesignerTextField extends StatelessWidget {
             textAlign: textAlign == null ? TextAlign.start : textAlign!,
             textInputAction: inputAction,
             maxLines: maxLines == null || maxLines == 0 ? 1 : maxLines,
-            minLines: 1,
+            minLines: minLines,
             maxLength: maxLength,
             style: TextStyle(color: enabled ? blackColor : greyColor, fontSize: 14.0, fontWeight: FontWeight.w600),
             onChanged: onChanged,

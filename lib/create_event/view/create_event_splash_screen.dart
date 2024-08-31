@@ -1,11 +1,11 @@
 import 'package:blur/blur.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:where_hearts_meet/utils/consts/app_screen_size.dart';
 import 'package:where_hearts_meet/utils/consts/color_const.dart';
 import 'package:where_hearts_meet/utils/util_functions/decoration_functions.dart';
 import 'package:where_hearts_meet/utils/widgets/cached_image.dart';
+import '../../utils/widgets/custom_photo_view.dart';
 import '../controller/create_event_controller.dart';
 import '../widgets/create_event_widgets.dart';
 
@@ -80,27 +80,59 @@ class CreateEventSplashScreen extends StatelessWidget {
                         textAlign: TextAlign.center,
                       ),
                       heightSpace(
-                        screenHeight * 0.1,
+                        screenHeight * 0.12,
                       ),
                       GestureDetector(
-                        onTap: () => controller.selectImage(EventImageType.backgroundImage),
-                        child: Container(
-                          height: screenHeight * 0.2,
-                          width: screenHeight * 0.2,
-                          decoration: BoxDecoration(
-                            border: Border.all(width: 5, color: Colors.white),
-                            color: appColor2,
-                            borderRadius: BorderRadius.circular(20),
-                          ),
-                          child: controller.backgroundImage != null && controller.backgroundImage!.isNotEmpty
-                              ? ClipRRect(
+                        onTap: () {
+                          if (controller.backgroundImage == null || controller.backgroundImage!.isEmpty) {
+                            controller.selectImage(EventImageType.backgroundImage);
+                          } else {
+                            Get.to(() => CustomPhotoView(
+                                  imageUrl: controller.backgroundImage,
+                                ));
+                          }
+                        },
+                        child: Stack(
+                          children: [
+                            Container(
+                                height: screenHeight * 0.2,
+                                width: screenHeight * 0.2,
+                                decoration: BoxDecoration(
+                                  border: Border.all(width: 3, color: Colors.white),
+                                  color: appColor2,
                                   borderRadius: BorderRadius.circular(20),
-                                  child: cachedImage(imageUrl: controller.backgroundImage!, boxFit: BoxFit.cover))
-                              : const Icon(
-                                  Icons.person,
-                                  size: 100,
-                                  color: Colors.white,
                                 ),
+                                child: ClipRRect(
+                                    borderRadius: BorderRadius.circular(20),
+                                    child: cachedImage(
+                                        imageUrl:
+                                            controller.backgroundImage != null && controller.backgroundImage!.isNotEmpty
+                                                ? controller.backgroundImage!
+                                                : null,
+                                        boxFit: BoxFit.cover))),
+                            Positioned(
+                              right: 10,
+                              top: 10,
+                              child: Visibility(
+                                visible: controller.backgroundImage != null,
+                                child: GestureDetector(
+                                  onTap: () {
+                                    controller.deleteFile(
+                                        imageUrl: controller.backgroundImage!,
+                                        imageType: EventImageType.backgroundImage);
+                                  },
+                                  child: CircleAvatar(
+                                    backgroundColor: whiteColor.withOpacity(0.5),
+                                    child: const Icon(
+                                      Icons.delete,
+                                      color: errorColor,
+                                      size: 25,
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ],
                         ),
                       ),
                       heightSpace(
@@ -254,6 +286,7 @@ class CreateEventSplashScreen extends StatelessWidget {
           Colors.white70,
           Colors.white70,
           Colors.white24,
+          Colors.white12,
           Colors.transparent,
           Colors.transparent,
           Colors.transparent,

@@ -24,8 +24,7 @@ class GuestDashboard extends StatefulWidget {
   State<GuestDashboard> createState() => _GuestDashboardState();
 }
 
-class _GuestDashboardState extends State<GuestDashboard>
-    with TickerProviderStateMixin {
+class _GuestDashboardState extends State<GuestDashboard> with TickerProviderStateMixin {
   @override
   void initState() {
     super.initState();
@@ -42,83 +41,75 @@ class _GuestDashboardState extends State<GuestDashboard>
     return GetBuilder<GuestDashboardController>(
         init: GuestDashboardController(),
         builder: (controller) {
-          return  Scaffold(
-              body:
-              controller.isBusy ? AppWidgets.getLoader():
-              Container(
-            width: screenWidth,
-            height: screenHeight,
-            alignment: Alignment.center,
-            decoration: const BoxDecoration(
-              gradient: LinearGradient(
-                  begin: Alignment.topCenter,
-                  end: Alignment.bottomCenter,
-                  colors: [
-                    Color(0xff9467ff),
-                    Color(0xffae8bff),
-                    Color(0xffc7afff),
-                    Color(0xffdfd2ff),
-                    Color(0xfff2edff),
-                  ]),
-            ),
-            child: Column(
-                crossAxisAlignment: CrossAxisAlignment.center,
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  heightSpace(screenHeight * 0.3),
-                  getPrimaryText(
-                      text: 'Get Your Event',
-                      fontSize: 30,
-                      textColor: Colors.white),
-                  Padding(
-                    padding: const EdgeInsets.all(16.0),
-                    child: DesignerTextField(
-                      onChanged: (value) {},
-                      controller: controller.textController,
-                      hint: 'Enter Event Code',
-                    ),
-                  ),
-                  GradientButton(
-                      title: 'Get Event',
-                      onPressed: () async {
-                        controller.textController.text.isNotEmpty
-                            ? await controller.getEventDetails(
-                                eventId: controller.textController.text,
-                              )
-                            : AppWidgets.getToast(
-                                message: 'Please enter valid Event Code');
-                      }),
-                  const Spacer(),
-                  GestureDetector(
-                    onTap: () {
-                      Get.toNamed(RoutesConst.guestQrScannerScreen);
-                    },
-                    child: Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 32.0),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Row(
-                            children: [
-                              getPrimaryText(
-                                  text: 'SCAN QR CODE', fontSize: 20),
-                              Icon(
-                                Icons.arrow_forward_ios,
-                                color: primaryColor,
-                              ),
-                            ],
-                          ),
-                          const Icon(
-                            Icons.qr_code_rounded,
-                            size: 50,
-                            color: primaryColor,
-                          ),
-                        ],
+          return Scaffold(
+              body: controller.isBusy
+                  ? AppWidgets.getLoader()
+                  : Container(
+                      width: screenWidth,
+                      height: screenHeight,
+                      alignment: Alignment.center,
+                      decoration: const BoxDecoration(
+                        gradient: LinearGradient(begin: Alignment.topCenter, end: Alignment.bottomCenter, colors: [
+                          Color(0xff9467ff),
+                          Color(0xffae8bff),
+                          Color(0xffc7afff),
+                          Color(0xffdfd2ff),
+                          Color(0xfff2edff),
+                        ]),
                       ),
-                    ),
-                  )
-                ]),
-          ));
+                      child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            heightSpace(screenHeight * 0.3),
+                            getPrimaryText(text: 'Get Your Event', fontSize: 30, textColor: Colors.white),
+                            Padding(
+                              padding: const EdgeInsets.all(16.0),
+                              child: DesignerTextField(
+                                onChanged: (value) {},
+                                controller: controller.textController,
+                                hint: 'Enter Event Code',
+                              ),
+                            ),
+                            GradientButton(
+                                title: 'Get Event',
+                                onPressed: () async {
+                                  controller.textController.text.isNotEmpty
+                                      ? await controller.getEventDetails(
+                                          eventId: controller.textController.text,
+                                        )
+                                      : AppWidgets.getToast(message: 'Please enter valid Event Code');
+                                }),
+                            const Spacer(),
+                            GestureDetector(
+                              onTap: () {
+                                Get.toNamed(RoutesConst.guestQrScannerScreen);
+                              },
+                              child: Padding(
+                                padding: const EdgeInsets.symmetric(horizontal: 32.0),
+                                child: Row(
+                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    Row(
+                                      children: [
+                                        getPrimaryText(text: 'SCAN QR CODE', fontSize: 20),
+                                        Icon(
+                                          Icons.arrow_forward_ios,
+                                          color: primaryColor,
+                                        ),
+                                      ],
+                                    ),
+                                    const Icon(
+                                      Icons.qr_code_rounded,
+                                      size: 50,
+                                      color: primaryColor,
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            )
+                          ]),
+                    ));
         });
   }
 

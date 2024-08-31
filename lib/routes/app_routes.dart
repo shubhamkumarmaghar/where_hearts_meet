@@ -4,7 +4,7 @@ import 'package:where_hearts_meet/auth_module/screens/profile_setup_screen.dart'
 import 'package:where_hearts_meet/create_event/binding/create_event_binding.dart';
 import 'package:where_hearts_meet/create_event/binding/create_gifts_binding.dart';
 import 'package:where_hearts_meet/create_event/binding/create_personal_messages_binding.dart';
-import 'package:where_hearts_meet/create_event/binding/create_timeline_binding.dart';
+import 'package:where_hearts_meet/create_event/binding/create_personal_decorations_binding.dart';
 import 'package:where_hearts_meet/create_event/view/create_event_splash_screen.dart';
 import 'package:where_hearts_meet/create_event/view/create_gifts_screen.dart';
 import 'package:where_hearts_meet/create_event/view/create_personal_messages_screen.dart';
@@ -16,11 +16,13 @@ import 'package:where_hearts_meet/preview_event/view/created_memories_preview_sc
 import 'package:where_hearts_meet/routes/routes_const.dart';
 import 'package:where_hearts_meet/view_event_details/e_gifts/binding/e_gifts_binding.dart';
 import 'package:where_hearts_meet/view_event_details/e_gifts/view/e_gifts_screen.dart';
+import 'package:where_hearts_meet/view_event_details/personal_wishes/binding/personal_decorations_binding.dart';
+import 'package:where_hearts_meet/view_event_details/personal_wishes/view/personal_decorations_screen.dart';
 import '../../auth_module/binding/login_binding.dart';
 import '../../auth_module/screens/login_screen.dart';
 import '../../create_event/binding/create_wishes_binding.dart';
 import '../../create_event/view/create_event_screen.dart';
-import '../../create_event/view/create_timeline_screen.dart';
+import '../../create_event/view/create_personal_decorations_screen.dart';
 import '../../create_event/view/create_wishes_screen.dart';
 import '../../event_list/binding/event_list_binding.dart';
 import '../../event_list/view/event_list_screen.dart';
@@ -39,8 +41,8 @@ import '../guest_dashboard/guest_wishlist/binding/guest_wishlist_binding.dart';
 import '../guest_dashboard/guest_wishlist/view/guest_wishlist.dart';
 import '../guest_dashboard/view/guest_dashboard.dart';
 import '../guest_dashboard/guest_home/view/guest_splash_view.dart';
-import '../create_event/binding/create_personal_wishes_binding.dart';
-import '../create_event/view/create_personal_wishes_screen.dart';
+import '../create_event/binding/create_personal_cover_binding.dart';
+import '../create_event/view/create_personal_cover_screen.dart';
 import '../guest_dashboard/view/guest_event_qr_scanner.dart';
 import '../preview_event/binding/created_gifts_preview_binding.dart';
 import '../preview_event/view/created_gifts_preview_screen.dart';
@@ -97,6 +99,11 @@ class AppRoutes {
         page: () => const PersonalMessagesScreen(),
       ),
       GetPage(
+        name: RoutesConst.personalDecorationsScreen,
+        binding: PersonalDecorationsBinding(),
+        page: () => const PersonalDecorationsScreen(),
+      ),
+      GetPage(
         name: RoutesConst.eGiftsScreen,
         binding: EGiftsBinding(),
         page: () => const EGiftsScreen(),
@@ -117,14 +124,14 @@ class AppRoutes {
         page: () => CreateWishesScreen(),
       ),
       GetPage(
-        name: RoutesConst.createTimelineScreen,
-        binding: CreateTimelineBinding(),
-        page: () => CreateTimelineScreen(),
+        name: RoutesConst.createPersonalDecorationsScreen,
+        binding: CreatePersonalDecorationsBinding(),
+        page: () => CreatePersonalDecorationsScreen(),
       ),
       GetPage(
-        name: RoutesConst.createPersonalWishesScreen,
-        binding: CreatePersonalWishesBinding(),
-        page: () => CreatePersonalWishesScreen(),
+        name: RoutesConst.CreatePersonalCoverScreen,
+        binding: CreatePersonalCoverBinding(),
+        page: () => CreatePersonalCoverScreen(),
       ),
       GetPage(
         name: RoutesConst.createPersonalMemoriesScreen,

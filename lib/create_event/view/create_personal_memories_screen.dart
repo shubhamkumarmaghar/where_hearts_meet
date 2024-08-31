@@ -106,7 +106,6 @@ class CreatePersonalMemoriesScreen extends StatelessWidget {
                           controller.showCupertinoActionSheet();
                         },
                         textController: controller.memoryText,
-                        isEditable: true,
                       )
                     ],
                   ),

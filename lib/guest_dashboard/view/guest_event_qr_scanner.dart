@@ -11,8 +11,6 @@ import '../../routes/routes_const.dart';
 import '../../utils/consts/app_screen_size.dart';
 import '../controller/guest_dashboard_controller.dart';
 
-
-
 class EventQrScannerScreen extends StatefulWidget {
   const EventQrScannerScreen({super.key});
 
@@ -44,16 +42,16 @@ class _EventQrScannerScreenState extends State<EventQrScannerScreen> {
         child: Column(children: [
           Expanded(
               child: Container(
-                // color: Colors.red,
-                child: Column(children: [
-                  Text('Place the Qr in the area',
-                      style: TextStyle(fontSize: 18, color: Colors.white, letterSpacing: 1, fontWeight: FontWeight.bold)),
-                  SizedBox(
-                    height: 10,
-                  ),
-                  Text('Scanning will be started automatically', style: TextStyle(fontSize: 16, color: Colors.white70)),
-                ]),
-              )),
+            // color: Colors.red,
+            child: Column(children: [
+              Text('Place the Qr in the area',
+                  style: TextStyle(fontSize: 18, color: Colors.white, letterSpacing: 1, fontWeight: FontWeight.bold)),
+              SizedBox(
+                height: 10,
+              ),
+              Text('Scanning will be started automatically', style: TextStyle(fontSize: 16, color: Colors.white70)),
+            ]),
+          )),
           Expanded(
               flex: 4,
               child: MobileScanner(
@@ -76,25 +74,19 @@ class _EventQrScannerScreenState extends State<EventQrScannerScreen> {
                     isScanCompleted = true;
                     var list = jsonDecode(qrList[0]);
                     log('message sk  ${list[0]}');
-                  if(list[0].toString().contains('heh')){
-                    if(list[1].toString()==(dashboardController.mobileNo)){
-                      Get.offAllNamed(RoutesConst.guestCoverScreen,
-                          arguments: list[2].toString(),
-                          parameters: {'type':  'For You'}
-                      );
-                    }
-else{
-                      AppWidgets.getToast(message:  ' This qr Event is not valid for you',color: primaryColor
-                      );
+                    if (list[0].toString().contains('heh')) {
+                      if (list[1].toString() == (dashboardController.mobileNo)) {
+                        Get.offAllNamed(RoutesConst.guestCoverScreen,
+                            arguments: list[2].toString(), parameters: {'type': 'For You'});
+                      } else {
+                        AppWidgets.getToast(message: ' This qr Event is not valid for you', color: primaryColor);
+                        Get.back();
+                      }
+                    } else {
+                      AppWidgets.getToast(message: ' This qr is not valid for Heart-e-Homies ', color: primaryColor);
                       Get.back();
                     }
-                  }
-                  else{
-                    AppWidgets.getToast(message:  ' This qr is not valid for Heart-e-Homies ',color: primaryColor
-                    );
-                    Get.back();
-                  }
-                  /*  if (qrList[0].toString().contains(API.getPartyBookingHistory)) {
+                    /*  if (qrList[0].toString().contains(API.getPartyBookingHistory)) {
                       if (list[2].toString() == dashboardController.organisationID.value) {
                         var pj = list[1].toString().split('&');
                        // Get.off(JoinPartyDetails(), arguments: pj[0]);
@@ -113,20 +105,21 @@ else{
               )),
           Expanded(
               child: Container(
-                //color: Colors.amber,
-                child: const Column(
-                  children: [
-                    SizedBox(
-                      height: 10,
-                    ),
-                    Text('Powered by Heart-e-Homies', style: TextStyle(fontSize: 18, color: Colors.white70)),
-                  ],
+            //color: Colors.amber,
+            child: const Column(
+              children: [
+                SizedBox(
+                  height: 10,
                 ),
-              ))
+                Text('Powered by Heart-e-Homies', style: TextStyle(fontSize: 18, color: Colors.white70)),
+              ],
+            ),
+          ))
         ]),
       ),
     );
   }
+
   Widget getBackBarButton() {
     return GestureDetector(
       onTap: () {
@@ -134,7 +127,7 @@ else{
       },
       child: Container(
           alignment: Alignment.bottomLeft,
-          padding: EdgeInsets.only(left:screenHeight*0.025,bottom: screenHeight*0.005),
+          padding: EdgeInsets.only(left: screenHeight * 0.025, bottom: screenHeight * 0.005),
           child: CircleAvatar(
             child: Icon(
               Icons.arrow_back,

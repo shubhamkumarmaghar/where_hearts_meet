@@ -12,6 +12,7 @@ import '../../utils/consts/string_consts.dart';
 import '../../utils/dialogs/pop_up_dialogs.dart';
 import '../../utils/model/image_response_model.dart';
 import '../../utils/repository/created_event_repo.dart';
+import '../../utils/util_functions/app_pickers.dart';
 import '../../utils/util_functions/decoration_functions.dart';
 import '../model/event_response_model.dart';
 import '../service/create_event_service.dart';
@@ -74,10 +75,31 @@ class CreateGiftsController extends BaseController {
     Get.back();
   }
 
-  void onCaptureMediaClick({required ImageSource source}) async {
+  void uploadGiftImage() {
+    showImagePickerDialog(
+      context: Get.context!,
+      onCamera: () => _onCaptureImage(source: ImageSource.camera),
+      onGallery: () => _onCaptureImage(source: ImageSource.gallery),
+    );
+  }
+
+  void deleteFile({required int index}) async {
+    showLoaderDialog(context: Get.context!);
+
+    String fileUrl = imagesList[index].fileUrl ?? '';
+
+    final response = await createEventService.deleteFileApi(fileUrl: fileUrl);
+    cancelDialog();
+    if (response) {
+      imagesList.removeAt(index);
+      update();
+    }
+  }
+
+  void _onCaptureImage({required ImageSource source}) async {
     final ImagePicker picker = ImagePicker();
 
-    var image = await picker.pickImage(source: source, maxHeight: 800, maxWidth: 800, imageQuality: 100);
+    var image = await picker.pickImage(source: source, maxHeight: 800, maxWidth: 800, imageQuality: 80);
 
     if (image != null) {
       final croppedImage = await cropImage(filePath: image.path, isProfileImage: false);
@@ -87,7 +109,6 @@ class CreateGiftsController extends BaseController {
         cancelDialog();
         if (imageResponse != null) {
           imagesList.add(imageResponse);
-
           update();
         }
       }
@@ -135,7 +156,7 @@ class CreateGiftsController extends BaseController {
       giftCardIdController.clear();
       giftCardPinController.clear();
       imagesList.clear();
-      nextButtonTitle.value = StringConsts.skip;
+      nextButtonTitle.value = StringConsts.next;
       update();
     }
   }

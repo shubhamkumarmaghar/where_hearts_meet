@@ -28,66 +28,66 @@ class CreatedMemoriesPreviewScreen extends StatelessWidget {
     return GetBuilder<CreatedMemoriesPreviewController>(
       builder: (controller) {
         return Scaffold(
-          body: BaseContainer(
-            child: Container(
-              height: screenHeight,
-              width: screenWidth,
-              padding: EdgeInsets.symmetric(horizontal: 20),
-              child: Column(
-                children: [
-                  SizedBox(
-                    height: screenHeight * 0.07,
-                  ),
-                  Row(
+          body: Container(
+            height: screenHeight,
+            width: screenWidth,
+            // padding: EdgeInsets.symmetric(horizontal: 20),
+            child: Column(
+              children: [
+                // SizedBox(
+                //   height: screenHeight * 0.07,
+                // ),
+                // Row(
+                //   children: [
+                //     InkWell(
+                //       onTap: () {
+                //         Get.back();
+                //       },
+                //       child: const Icon(
+                //         Icons.arrow_back_ios_new,
+                //         color: Colors.white,
+                //         size: 18,
+                //       ),
+                //     ),
+                //     const Spacer(),
+                //     Text(
+                //       'Memories',
+                //       style: textStyleDangrek(),
+                //     ),
+                //     const Spacer(),
+                //   ],
+                // ),
+                // SizedBox(
+                //   height: screenHeight * 0.03,
+                // ),
+                Expanded(
+                  child: Stack(
                     children: [
-                      InkWell(
-                        onTap: () {
-                          Get.back();
-                        },
-                        child: const Icon(
-                          Icons.arrow_back_ios_new,
-                          color: Colors.white,
-                          size: 18,
+                      PageView.builder(
+                          itemCount: controller.memoriesList.length,
+                          onPageChanged: controller.onPageChanged,
+                          itemBuilder: (BuildContext context, int index) {
+                            var data = controller.memoriesList[index];
+                            return memoriesView(data);
+                          }),
+                      Positioned.fill(
+                        top: screenHeight * 0.06,
+                        left: screenWidth * 0.04,
+                        right: screenWidth * 0.04,
+                        child: Align(
+                          alignment: Alignment.topCenter,
+                          child: Obx(() {
+                            return LineIndicator(
+                                height: 2,
+                                totalCount: controller.memoriesList.length,
+                                currentIndex: controller.pageIndex.value);
+                          }),
                         ),
                       ),
-                      const Spacer(),
-                      Text(
-                        'Memories',
-                        style: textStyleDangrek(),
-                      ),
-                      const Spacer(),
                     ],
                   ),
-                  SizedBox(
-                    height: screenHeight * 0.03,
-                  ),
-                  Expanded(
-                    child: Stack(
-                      children: [
-                        PageView.builder(
-                            itemCount: controller.memoriesList.length,
-                            onPageChanged: controller.onPageChanged,
-                            itemBuilder: (BuildContext context, int index) {
-                              var data = controller.memoriesList[index];
-                              return memoriesView(data);
-                            }),
-                        Positioned.fill(
-                          top: screenHeight * 0.015,
-                          left: screenWidth * 0.04,
-                          right: screenWidth * 0.04,
-                          child: Align(
-                            alignment: Alignment.topCenter,
-                            child: Obx(() {
-                              return LineIndicator(
-                                  totalCount: controller.memoriesList.length, currentIndex: controller.pageIndex.value);
-                            }),
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                ],
-              ),
+                ),
+              ],
             ),
           ),
         );
@@ -96,65 +96,61 @@ class CreatedMemoriesPreviewScreen extends StatelessWidget {
   }
 
   Widget memoriesView(PersonalMemoriesModel data) {
-    return Column(
+    return Stack(
       children: [
-        Expanded(
-          child: Container(
-            width: screenWidth,
-            decoration: BoxDecoration(
-                borderRadius: const BorderRadius.only(topLeft: Radius.circular(15), topRight: Radius.circular(15)),
-                border: Border.all(color: Colors.white, width: 0.2)),
-            child: ClipRRect(
-              borderRadius: const BorderRadius.only(topLeft: Radius.circular(15), topRight: Radius.circular(15)),
-              child: data.fileType == 'video'
-                  ? VideoPlayerScreen(
-                      url: data.file ?? '',
-                    )
-                  : GestureDetector(
-                      onTap: () async {
-                        Get.to(() => CustomPhotoView(
-                              imageUrl: data.file,
-                            ));
-                      },
-                      child: cachedImage(imageUrl: data.file)),
-            ),
+        Container(
+          width: screenWidth,
+          height: screenHeight * 0.8,
+          decoration: BoxDecoration(
+            borderRadius: const BorderRadius.only(topLeft: Radius.circular(15), topRight: Radius.circular(15)),
+            border: data.fileType == 'video' ? Border.all(color: Colors.white, width: 0.2) : null,
+          ),
+          child: ClipRRect(
+            borderRadius: const BorderRadius.only(topLeft: Radius.circular(15), topRight: Radius.circular(15)),
+            child: data.fileType == 'video'
+                ? VideoPlayerScreen(
+                  borderRadius:
+                      const BorderRadius.only(topLeft: Radius.circular(15), topRight: Radius.circular(15)),
+                  url: data.file ?? '',
+                )
+                : GestureDetector(
+                    onTap: () async {
+                      Get.to(() => CustomPhotoView(
+                            imageUrl: data.file,
+                          ));
+                    },
+                    child: cachedImage(imageUrl: data.file, boxFit: BoxFit.cover)),
           ),
         ),
-        Row(
-          children: [
-            Expanded(
-              child: Container(
-                  height: screenHeight * 0.25,
-                  padding: const EdgeInsets.only(top: 15, left: 15, right: 15, bottom: 5),
-                  decoration: BoxDecoration(
-                      gradient: LinearGradient(begin: Alignment.topCenter, end: Alignment.bottomCenter, colors: [
-                    Colors.black.withOpacity(0.5),
-                    Colors.black.withOpacity(0.6),
-                    Colors.black.withOpacity(0.8),
-                    Colors.black,
-                    Colors.black
-                  ],
-
-                      ), borderRadius: const BorderRadius.only(bottomLeft: Radius.circular(15), bottomRight: Radius.circular(15)),
+        Positioned(
+          bottom: 0,
+          child: Container(
+              height: screenHeight * 0.3,
+              width: screenWidth,
+              padding: const EdgeInsets.only(top: 15, left: 15, right: 15, bottom: 15),
+              decoration: BoxDecoration(
+                gradient: LinearGradient(begin: Alignment.topCenter, end: Alignment.bottomCenter, colors: [
+                  Colors.black.withOpacity(0.1),
+                  Colors.black,
+                  Colors.black,
+                  Colors.black,
+                  Colors.black,
+                ]),
+                borderRadius:
+                    const BorderRadius.only(bottomLeft: Radius.circular(15), bottomRight: Radius.circular(15)),
+              ),
+              child: Scrollbar(
+                thickness: 4,
+                radius: const Radius.circular(10),
+                scrollbarOrientation: ScrollbarOrientation.right,
+                child: SingleChildScrollView(
+                  child: Text(
+                    data.description ?? '',
+                    style: textStyleAleo(fontSize: 16, color: Colors.white),
                   ),
-                  child: Scrollbar(
-                    thickness: 4,
-                    radius: const Radius.circular(10),
-                    scrollbarOrientation: ScrollbarOrientation.right,
-                    child: SingleChildScrollView(
-                      child: Text(
-                         data.description ?? '',
-                        //StringConsts.dummyText + StringConsts.dummyText,
-                        style: textStyleAleo(fontSize: 14, color: Colors.white),
-                      ),
-                    ),
-                  )),
-            ),
-          ],
-        ),
-        SizedBox(
-          height: screenHeight * 0.02,
-        ),
+                ),
+              )),
+        )
       ],
     );
   }

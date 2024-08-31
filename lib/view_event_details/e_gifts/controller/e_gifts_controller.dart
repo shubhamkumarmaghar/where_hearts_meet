@@ -1,3 +1,4 @@
+import 'package:confetti/confetti.dart';
 import 'package:get/get.dart';
 import 'package:where_hearts_meet/create_event/model/gift_model.dart';
 import 'package:where_hearts_meet/utils/controller/base_controller.dart';
@@ -7,8 +8,9 @@ import '../../../utils/consts/screen_const.dart';
 
 class EGiftsController extends BaseController {
   List<GiftModel>? giftsList;
-  Rx<LoadingState> loadingState = LoadingState.loading.obs;
+  LoadingState loadingState = LoadingState.loading;
   final _giftsService = EGiftsService();
+  ConfettiController confettiController = ConfettiController(duration: const Duration(seconds: 10));
 
   @override
   void onInit() {
@@ -19,16 +21,33 @@ class EGiftsController extends BaseController {
     }
   }
 
+  void onScratch({required double scratched, required int index}) async {
+    if (scratched > 50.0) {
+      giftsList![index].hasOpened = true;
+      update();
+      confettiController.play();
+      await Future.delayed(const Duration(seconds: 5));
+      confettiController.stop();
+    }
+  }
+
   Future<void> getEGifts({required String eventId}) async {
-    loadingState.value = LoadingState.loading;
+    loadingState = LoadingState.loading;
+    update();
     final response = await _giftsService.getEGiftsApi(eventId: eventId);
     if (response != null && response.isNotEmpty) {
       giftsList = response;
-      loadingState.value = LoadingState.hasData;
+      loadingState = LoadingState.hasData;
     } else {
       giftsList = [];
-      loadingState.value = LoadingState.noData;
+      loadingState = LoadingState.noData;
     }
     update();
+  }
+
+  @override
+  void dispose() {
+    confettiController.dispose();
+    super.dispose();
   }
 }

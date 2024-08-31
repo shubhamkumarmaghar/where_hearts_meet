@@ -31,6 +31,7 @@ const String marriageWishes = 'asset/images/marriage_wish_image.webp';
 const String createEventImage = 'asset/images/create_event_image.jpg';
 
 const String giftsIcon = 'asset/icons/gifts_icon.png';
+const String giftScratchIcon = 'asset/icons/gift_scratch_icon.jpg';
 
 const String worldBackgroundImage = 'asset/images/world_backgroundpng.png';
 

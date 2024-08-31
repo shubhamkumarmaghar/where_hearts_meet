@@ -21,6 +21,7 @@ class ApiService {
   }
 
   Future<Map<String, dynamic>> getApiCall({required String url, Map<String, dynamic>? queryParams}) async {
+    log('data :: $url  $queryParams');
     try {
       Response response = await apiClient.dio.get(
         url,

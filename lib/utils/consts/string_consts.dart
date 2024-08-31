@@ -31,6 +31,8 @@ class StringConsts {
   static const skip = "Skip";
   static const selectMediaType = "Select Media Type";
   static const photo = "Photo";
+  static const images = "Images";
+  static const videos = "Videos";
   static const video = "Video";
   static const cancel = "Cancel";
   static const uploadVideo = "Upload Video";
@@ -66,4 +68,8 @@ class StringConsts {
   static const giftCardNo = 'Gift card no.';
   static const giftPin = 'Gift card pin';
   static const viewPhotos = 'View Photos';
+  static const scratchToOpen = 'Scratch to open';
+  static const personalDecorations = 'Personal Decorations';
+  static const noImagesFound = 'No any images found!';
+  static const noVideosFound = 'No any videos found!';
 }

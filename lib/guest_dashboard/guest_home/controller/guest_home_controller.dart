@@ -34,6 +34,7 @@ class GuestHomeController extends BaseController {
   String mobileNo = '';
   String textTitle = '';
   String nameText = '';
+  String eventId = '';
 
 
   @override
@@ -45,6 +46,7 @@ class GuestHomeController extends BaseController {
     final arg = Get.arguments;
     final parameters = Get.parameters;
     if (arg != null) {
+      eventId = arg;
     getData(args: arg,data: parameters);
     }
   }
@@ -53,7 +55,7 @@ class GuestHomeController extends BaseController {
     await getEventDetails(eventId: args??"",byYou:byYou=='For You'?false:true );
     await textAnimation();
      getEventWishes(args??"");
-     getTimelineWishes(args??"");
+    // getTimelineWishes(args??"");
     startCountdown();
     update();
   }

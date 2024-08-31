@@ -16,6 +16,7 @@ class CreatePersonalMessagesScreen extends StatelessWidget {
       canPop: true,
       child: GetBuilder<CreatePersonalMessagesController>(
         builder: (controller) {
+
           return Scaffold(
             body: Opacity(
               opacity: 0.9,
@@ -103,6 +104,7 @@ class CreatePersonalMessagesScreen extends StatelessWidget {
                             child: DesignerTextField(
                               maxLines: 6,
                               cornerRadius: 10,
+                              minLines: 1,
                               hint: StringConsts.message,
                               focusNode: controller.focusNode,
                               controller: controller.messageTextController,

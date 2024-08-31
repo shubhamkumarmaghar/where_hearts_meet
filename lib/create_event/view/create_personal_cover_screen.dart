@@ -8,18 +8,18 @@ import '../../utils/consts/color_const.dart';
 import '../../utils/consts/images_const.dart';
 import '../../utils/util_functions/app_pickers.dart';
 import '../../utils/util_functions/decoration_functions.dart';
-import '../controller/create_personal_wishes_controller.dart';
+import '../controller/create_personal_cover_controller.dart';
 
-class CreatePersonalWishesScreen extends StatelessWidget {
-  final controller = Get.find<CreatePersonalWishesController>();
+class CreatePersonalCoverScreen extends StatelessWidget {
+  final controller = Get.find<CreatePersonalCoverController>();
 
-  CreatePersonalWishesScreen({super.key});
+  CreatePersonalCoverScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
     return PopScope(
         canPop: false,
-        child: GetBuilder<CreatePersonalWishesController>(
+        child: GetBuilder<CreatePersonalCoverController>(
           builder: (controller) {
             return Scaffold(
               body: Container(

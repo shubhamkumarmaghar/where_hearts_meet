@@ -57,7 +57,7 @@ class GuestReceiveService {
   }
 
   Future<TimeLineModel>getTimeline({required String eventId}) async {
-    String url = AppUrls.eventTimelineUrl;
+    String url = AppUrls.personalDecorationsUrl;
 
     final response = await _apiService.getApiCall(
       url: url,

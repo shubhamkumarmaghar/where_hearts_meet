@@ -15,6 +15,7 @@ import 'package:where_hearts_meet/utils/widgets/util_widgets/app_widgets.dart';
 
 import '../../utils/consts/api_urls.dart';
 import '../../utils/services/api_service.dart';
+import '../model/personal_decorations_model.dart';
 import '../model/personal_memories_model.dart';
 import '../model/personal_messages_model.dart';
 import '../model/timeline_model.dart';
@@ -38,6 +39,18 @@ class CreateEventService {
     final response = await _apiService.formDataPostApiCall(url: AppUrls.uploadVideoUrl, data: {'file': video});
 
     return response['data'] != null ? ImageResponseModel.fromJson(response['data']) : null;
+  }
+
+  Future<bool> deleteFileApi({required String fileUrl,bool showMsg=true}) async {
+    final response = await _apiService.deleteApiCall(url: AppUrls.deleteFileUrl, queryParams: {'file_url': fileUrl});
+
+    if (response['message'].toString().toLowerCase().contains('deleted successfully')) {
+      if(showMsg){
+        AppWidgets.getToast(message: response['message'], color: greenTextColor);
+      }
+      return true;
+    }
+    return false;
   }
 
   Future<EventResponseModel?> createEventApi({required EventModel eventModel}) async {
@@ -73,16 +86,15 @@ class CreateEventService {
     return null;
   }
 
-  Future<TimelineModel?> addTimelineStoriesEventApi(
-      {required String eventId, required List<String> imagesList, required List<String> videosList}) async {
-    String url = AppUrls.eventTimelineUrl;
+  Future<TimelineModel?> addPersonalDecorationsEventApi({required PersonalDecorationsModel model}) async {
+    String url = AppUrls.personalDecorationsUrl;
     final response = await _apiService.postApiCall(
       url: url,
-      data: {"event_id": eventId, "images": imagesList, "videos": videosList},
+      data: model.toJson(),
     );
     final data = response;
 
-    if (data['message'].toString().toLowerCase().contains('timeline created')) {
+    if (data['message'].toString().toLowerCase().contains('created successfully')) {
       AppWidgets.getToast(message: data['message'], color: greenTextColor);
       return TimelineModel.fromJson(data['data']);
     }

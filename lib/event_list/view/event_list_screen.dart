@@ -49,9 +49,6 @@ class EventListScreen extends StatelessWidget {
                     const Spacer(),
                   ],
                 ),
-                SizedBox(
-                  height: screenHeight * 0.02,
-                ),
                 controller.eventsList == null
                     ? const EventListShimmer()
                     : controller.eventsList != null && controller.eventsList!.isEmpty
@@ -74,12 +71,13 @@ class EventListScreen extends StatelessWidget {
   }
 
   Widget _eventInfoCardsWidget({required List<EventResponseModel> eventsList}) {
-    return SizedBox(
-      height: screenHeight * 0.85,
-      width: screenWidth,
+    return Expanded(
       child: ListView.separated(
         shrinkWrap: true,
-        padding: EdgeInsets.zero,
+        padding: EdgeInsets.only(
+          top: screenHeight * 0.02,
+          bottom: screenHeight * 0.03
+        ),
         itemBuilder: (context, index) {
           var data = eventsList[index];
           return InkWell(
