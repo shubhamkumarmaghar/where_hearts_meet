@@ -1,7 +1,6 @@
 import 'dart:convert';
 import 'dart:developer';
 import 'dart:io';
-
 import 'package:clay_containers/widgets/clay_container.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -16,7 +15,6 @@ import 'package:video_thumbnail/video_thumbnail.dart';
 import 'package:where_hearts_meet/create_event/model/event_response_model.dart';
 import 'package:where_hearts_meet/utils/widgets/cached_image.dart';
 import 'package:where_hearts_meet/utils/widgets/util_widgets/app_widgets.dart';
-
 import '../../routes/routes_const.dart';
 import '../consts/app_screen_size.dart';
 import '../consts/color_const.dart';
