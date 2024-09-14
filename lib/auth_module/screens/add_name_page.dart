@@ -1,11 +1,10 @@
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:where_hearts_meet/auth_module/controller/profile_setup_controller.dart';
-import 'package:where_hearts_meet/utils/consts/color_const.dart';
-
+import '../../utils/consts/color_const.dart';
 import '../../utils/util_functions/app_pickers.dart';
 import '../../utils/widgets/custom_text_field.dart';
+import '../controller/profile_setup_controller.dart';
 
 class AddNamePage extends StatelessWidget {
   final ProfileSetupController controller;

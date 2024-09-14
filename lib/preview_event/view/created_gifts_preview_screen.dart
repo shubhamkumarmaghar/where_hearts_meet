@@ -1,18 +1,18 @@
 import 'package:get/get.dart';
 import 'package:scratcher/widgets.dart';
-import 'package:where_hearts_meet/preview_event/widgets/photos_list_screen.dart';
-import 'package:where_hearts_meet/utils/consts/color_const.dart';
-import 'package:where_hearts_meet/utils/widgets/cached_image.dart';
 import 'package:flutter/material.dart';
 import '../../create_event/model/gift_model.dart';
 import '../../utils/consts/app_screen_size.dart';
+import '../../utils/consts/color_const.dart';
 import '../../utils/consts/confetti_shape_enum.dart';
 import '../../utils/consts/images_const.dart';
 import '../../utils/consts/string_consts.dart';
 import '../../utils/util_functions/decoration_functions.dart';
 import '../../utils/widgets/app_bar_widget.dart';
+import '../../utils/widgets/cached_image.dart';
 import '../../utils/widgets/confetti_view.dart';
 import '../controller/created_gifts_preview_controller.dart';
+import '../widgets/photos_list_screen.dart';
 
 class CreatedGiftsPreviewScreen extends StatelessWidget {
   const CreatedGiftsPreviewScreen({super.key});

@@ -1,16 +1,16 @@
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:where_hearts_meet/create_event/controller/create_personal_memories_controller.dart';
-import 'package:where_hearts_meet/utils/consts/app_screen_size.dart';
-import 'package:where_hearts_meet/utils/consts/screen_const.dart';
-import 'package:where_hearts_meet/utils/consts/string_consts.dart';
-import 'package:where_hearts_meet/utils/widgets/base_container.dart';
-import 'package:where_hearts_meet/utils/widgets/memory_card.dart';
+import '../../utils/consts/app_screen_size.dart';
 import '../../utils/consts/color_const.dart';
+import '../../utils/consts/screen_const.dart';
+import '../../utils/consts/string_consts.dart';
 import '../../utils/util_functions/decoration_functions.dart';
+import '../../utils/widgets/base_container.dart';
 import '../../utils/widgets/gradient_button.dart';
+import '../../utils/widgets/memory_card.dart';
 import '../../utils/widgets/outlined_busy_button.dart';
+import '../controller/create_personal_memories_controller.dart';
 
 class CreatePersonalMemoriesScreen extends StatelessWidget {
   const CreatePersonalMemoriesScreen({super.key});

@@ -1,21 +1,21 @@
 {
   "project_info": {
-    "project_number": "996974929233",
-    "project_id": "where-hearts-meet",
-    "storage_bucket": "where-hearts-meet.appspot.com"
+    "project_number": "589823183104",
+    "project_id": "heart-e-homies",
+    "storage_bucket": "heart-e-homies.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:996974929233:android:785b5e2a06b465d42d1f70",
+        "mobilesdk_app_id": "1:589823183104:android:dab015732b64093271cbe5",
         "android_client_info": {
-          "package_name": "org.lbp.where_hearts_meet"
+          "package_name": "com.homies.heart_e_homies"
         }
       },
       "oauth_client": [],
       "api_key": [
         {
-          "current_key": "AIzaSyBei4ytsMrqaLE5RA36YuOZspHYok3AUio"
+          "current_key": "AIzaSyC-ruM0vJ2oJx-PgYI9lyZf4WFMZKPqz1s"
         }
       ],
       "services": {

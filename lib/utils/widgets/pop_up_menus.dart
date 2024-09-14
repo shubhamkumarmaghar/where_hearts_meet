@@ -1,7 +1,7 @@
 import 'dart:developer';
 
 import 'package:flutter/material.dart';
-import 'package:where_hearts_meet/utils/consts/app_screen_size.dart';
+import '../consts/app_screen_size.dart';
 import '../consts/color_const.dart';
 import '../consts/screen_const.dart';
 

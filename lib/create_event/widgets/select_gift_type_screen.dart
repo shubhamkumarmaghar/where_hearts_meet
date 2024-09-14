@@ -2,8 +2,6 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:where_hearts_meet/utils/widgets/app_bar_widget.dart';
-
 import '../../utils/consts/app_screen_size.dart';
 import '../../utils/consts/color_const.dart';
 import '../../utils/util_functions/decoration_functions.dart';

@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
-import 'package:where_hearts_meet/utils/consts/color_const.dart';
 import '../../consts/app_screen_size.dart';
+import '../../consts/color_const.dart';
 
 class AppWidgets {
   static void getToast({required String message, Color? color}) {

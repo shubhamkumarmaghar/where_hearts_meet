@@ -1,9 +1,8 @@
 import 'package:chewie/chewie.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:video_player/video_player.dart';
-import 'package:where_hearts_meet/utils/consts/app_screen_size.dart';
-import 'package:where_hearts_meet/utils/consts/images_const.dart';
-import 'package:where_hearts_meet/utils/controller/base_controller.dart';
+
+import '../../utils/controller/base_controller.dart';
 
 class VideoScreenController extends BaseController {
   late VideoPlayerController playerController;

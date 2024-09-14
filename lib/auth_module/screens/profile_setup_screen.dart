@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:where_hearts_meet/auth_module/controller/profile_setup_controller.dart';
-
 import '../../utils/consts/color_const.dart';
 import '../../utils/widgets/base_container.dart';
 import '../../utils/widgets/gradient_button.dart';
+import '../controller/profile_setup_controller.dart';
 import '../profile_setup_const.dart';
 
 class ProfileSetupScreen extends StatelessWidget {

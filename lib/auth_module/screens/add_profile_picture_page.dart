@@ -2,9 +2,9 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:where_hearts_meet/utils/buttons/buttons.dart';
-import 'package:where_hearts_meet/utils/util_functions/app_pickers.dart';
+import '../../utils/buttons/buttons.dart';
 import '../../utils/consts/color_const.dart';
+import '../../utils/util_functions/app_pickers.dart';
 import '../controller/profile_setup_controller.dart';
 
 class AddProfilePicturePage extends StatelessWidget {

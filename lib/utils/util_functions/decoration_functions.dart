@@ -12,14 +12,14 @@ import 'package:path_provider/path_provider.dart';
 import 'package:qr_image_generator/qr_image_generator.dart';
 import 'package:share_plus/share_plus.dart';
 import 'package:video_thumbnail/video_thumbnail.dart';
-import 'package:where_hearts_meet/create_event/model/event_response_model.dart';
-import 'package:where_hearts_meet/utils/widgets/cached_image.dart';
-import 'package:where_hearts_meet/utils/widgets/util_widgets/app_widgets.dart';
+import '../../create_event/model/event_response_model.dart';
 import '../../routes/routes_const.dart';
 import '../consts/app_screen_size.dart';
 import '../consts/color_const.dart';
 import '../consts/images_const.dart';
 import '../dialogs/pop_up_dialogs.dart';
+import '../widgets/cached_image.dart';
+import '../widgets/util_widgets/app_widgets.dart';
 
 Color getColorBasedOnIndex(int index) {
   int temp = index % 6;

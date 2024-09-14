@@ -8,14 +8,14 @@ import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:where_hearts_meet/utils/consts/app_screen_size.dart';
-import 'package:where_hearts_meet/utils/consts/images_const.dart';
-import 'package:where_hearts_meet/utils/util_functions/decoration_functions.dart';
-import 'package:where_hearts_meet/utils/widgets/custom_photo_view.dart';
-import 'package:where_hearts_meet/utils/widgets/image_stroy_widget.dart';
 
 import '../../../player/view/video_player_screen.dart';
 import '../../../utils/widgets/circular_dotted_border.dart';
+import '../../utils/consts/app_screen_size.dart';
+import '../../utils/consts/images_const.dart';
+import '../../utils/util_functions/decoration_functions.dart';
+import '../../utils/widgets/custom_photo_view.dart';
+import '../../utils/widgets/image_stroy_widget.dart';
 import '../guest_home/controller/guest_home_controller.dart';
 
 class TimelineStoriesSreen extends StatefulWidget {

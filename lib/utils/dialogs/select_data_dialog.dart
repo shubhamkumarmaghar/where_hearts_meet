@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:where_hearts_meet/utils/consts/color_const.dart';
-import 'package:where_hearts_meet/utils/util_functions/decoration_functions.dart';
 import '../consts/app_screen_size.dart';
+import '../consts/color_const.dart';
 import '../model/dropdown_model.dart';
+import '../util_functions/decoration_functions.dart';
 
 Future<DropDownModel?> selectDataDialog(
     {required BuildContext context,

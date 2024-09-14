@@ -2,20 +2,16 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
-import 'package:motion_tab_bar/MotionTabBar.dart';
-import 'package:motion_tab_bar/MotionTabBarController.dart';
-import 'package:where_hearts_meet/guest_dashboard/view/timeline_screen.dart';
-import 'package:where_hearts_meet/utils/consts/color_const.dart';
-import 'package:where_hearts_meet/utils/text_styles/custom_text_styles.dart';
-import 'package:where_hearts_meet/utils/widgets/designer_text_field.dart';
-import 'package:where_hearts_meet/utils/widgets/gradient_button.dart';
-import 'package:where_hearts_meet/utils/widgets/util_widgets/app_widgets.dart';
+
 import '../../routes/routes_const.dart';
 import '../../utils/consts/app_screen_size.dart';
+import '../../utils/consts/color_const.dart';
+import '../../utils/text_styles/custom_text_styles.dart';
+import '../../utils/widgets/designer_text_field.dart';
+import '../../utils/widgets/gradient_button.dart';
+import '../../utils/widgets/util_widgets/app_widgets.dart';
 import '../controller/guest_dashboard_controller.dart';
-import '../guest_home/controller/guest_home_controller.dart';
-import '../guest_home/view/guest_home.dart';
-import '../guest_wishlist/view/guest_wishlist.dart';
+
 
 class GuestDashboard extends StatefulWidget {
   const GuestDashboard({super.key});

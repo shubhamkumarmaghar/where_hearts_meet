@@ -1,9 +1,9 @@
 
 import 'dart:io';
 import 'package:flutter/material.dart';
-import 'package:where_hearts_meet/utils/consts/app_screen_size.dart';
-import 'package:where_hearts_meet/utils/widgets/base_container.dart';
 
+import '../../utils/consts/app_screen_size.dart';
+import '../../utils/widgets/base_container.dart';
 class SettingsScreen extends StatefulWidget {
   const SettingsScreen({super.key});
 

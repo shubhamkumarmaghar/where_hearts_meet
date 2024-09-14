@@ -2,9 +2,7 @@ import 'dart:io';
 
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:where_hearts_meet/create_event/model/personal_decorations_model.dart';
-import 'package:where_hearts_meet/routes/routes_const.dart';
-
+import '../../routes/routes_const.dart';
 import '../../utils/consts/screen_const.dart';
 import '../../utils/consts/service_const.dart';
 import '../../utils/consts/string_consts.dart';
@@ -15,6 +13,7 @@ import '../../utils/repository/created_event_repo.dart';
 import '../../utils/util_functions/app_pickers.dart';
 import '../../utils/util_functions/decoration_functions.dart';
 import '../model/event_response_model.dart';
+import '../model/personal_decorations_model.dart';
 import '../service/create_event_service.dart';
 
 class CreatePersonalDecorationsController extends BaseController {

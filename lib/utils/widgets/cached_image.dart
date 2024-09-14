@@ -3,8 +3,9 @@ import 'dart:developer';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:shimmer/shimmer.dart';
 import 'package:flutter/material.dart';
-import 'package:where_hearts_meet/utils/consts/color_const.dart';
-import 'package:where_hearts_meet/utils/consts/images_const.dart';
+
+import '../consts/color_const.dart';
+import '../consts/images_const.dart';
 
 Widget cachedImage({String? imageUrl, double height = 90, double width = 120, BoxFit? boxFit}) {
   return imageUrl == null || imageUrl.isEmpty

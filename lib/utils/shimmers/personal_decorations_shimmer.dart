@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:shimmer/shimmer.dart';
-import 'package:where_hearts_meet/utils/widgets/app_bar_widget.dart';
-import 'package:where_hearts_meet/utils/widgets/base_container.dart';
+
 import '../consts/app_screen_size.dart';
 import '../consts/color_const.dart';
 import '../consts/string_consts.dart';
 import '../util_functions/decoration_functions.dart';
+import '../widgets/app_bar_widget.dart';
+import '../widgets/base_container.dart';
 
 class PersonalDecorationsShimmer extends StatelessWidget {
   const PersonalDecorationsShimmer({super.key});

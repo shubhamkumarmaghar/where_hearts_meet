@@ -2,18 +2,18 @@ import 'dart:io';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:where_hearts_meet/utils/consts/color_const.dart';
-import 'package:where_hearts_meet/utils/widgets/base_container.dart';
-import 'package:where_hearts_meet/view_event_details/personal_wishes/controller/personal_decorations_controller.dart';
 import '../../../player/view/video_player_screen.dart';
 import '../../../utils/consts/app_screen_size.dart';
+import '../../../utils/consts/color_const.dart';
 import '../../../utils/consts/screen_const.dart';
 import '../../../utils/consts/string_consts.dart';
 import '../../../utils/shimmers/personal_decorations_shimmer.dart';
 import '../../../utils/util_functions/decoration_functions.dart';
 import '../../../utils/widgets/app_bar_widget.dart';
+import '../../../utils/widgets/base_container.dart';
 import '../../../utils/widgets/cached_image.dart';
 import '../../../utils/widgets/custom_photo_view.dart';
+import '../controller/personal_decorations_controller.dart';
 
 class PersonalDecorationsScreen extends StatelessWidget {
   const PersonalDecorationsScreen({super.key});

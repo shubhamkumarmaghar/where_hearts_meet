@@ -1,12 +1,12 @@
 import 'package:get/get.dart';
-import 'package:where_hearts_meet/create_event/model/wishes_model.dart';
-import 'package:where_hearts_meet/preview_event/service/preview_events_service.dart';
-import 'package:where_hearts_meet/utils/controller/base_controller.dart';
 
 import '../../create_event/model/event_response_model.dart';
+import '../../create_event/model/wishes_model.dart';
 import '../../utils/consts/service_const.dart';
+import '../../utils/controller/base_controller.dart';
 import '../../utils/dialogs/pop_up_dialogs.dart';
 import '../../utils/repository/created_event_repo.dart';
+import '../service/preview_events_service.dart';
 import '../widgets/videos_list_screen.dart';
 
 class CreatedWishesPreviewController extends BaseController {

@@ -1,10 +1,10 @@
 import 'package:confetti/confetti.dart';
 import 'package:get/get.dart';
-import 'package:where_hearts_meet/create_event/model/gift_model.dart';
-import 'package:where_hearts_meet/utils/controller/base_controller.dart';
-import 'package:where_hearts_meet/view_event_details/e_gifts/service/e_gifts_service.dart';
 
+import '../../../create_event/model/gift_model.dart';
 import '../../../utils/consts/screen_const.dart';
+import '../../../utils/controller/base_controller.dart';
+import '../service/e_gifts_service.dart';
 
 class EGiftsController extends BaseController {
   List<GiftModel>? giftsList;

@@ -1,18 +1,17 @@
 import 'package:get/get.dart';
 import 'package:flutter/material.dart';
-import 'package:where_hearts_meet/utils/consts/color_const.dart';
-import 'package:where_hearts_meet/utils/consts/string_consts.dart';
-import 'package:where_hearts_meet/utils/util_functions/decoration_functions.dart';
-import 'package:where_hearts_meet/utils/widgets/app_state_widget.dart';
-import 'package:where_hearts_meet/utils/widgets/cached_image.dart';
-import 'package:where_hearts_meet/utils/widgets/designer_text_field.dart';
-import 'package:where_hearts_meet/utils/widgets/no_data_screen.dart';
-import '../../routes/routes_const.dart';
 import '../../utils/consts/app_screen_size.dart';
+import '../../utils/consts/color_const.dart';
 import '../../utils/consts/screen_const.dart';
+import '../../utils/consts/string_consts.dart';
 import '../../utils/shimmers/profile_shimmer.dart';
+import '../../utils/util_functions/decoration_functions.dart';
 import '../../utils/widgets/app_bar_widget.dart';
+import '../../utils/widgets/app_state_widget.dart';
+import '../../utils/widgets/cached_image.dart';
+import '../../utils/widgets/designer_text_field.dart';
 import '../../utils/widgets/gradient_button.dart';
+import '../../utils/widgets/no_data_screen.dart';
 import '../controller/profile_controller.dart';
 import '../widgets/profile_widgets.dart';
 

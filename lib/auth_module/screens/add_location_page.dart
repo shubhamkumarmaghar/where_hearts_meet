@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:where_hearts_meet/utils/consts/color_const.dart';
+import '../../utils/consts/color_const.dart';
 import '../../utils/widgets/gradient_button.dart';
 import '../controller/profile_setup_controller.dart';
 

@@ -5,7 +5,8 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:get/get.dart';
-import 'package:where_hearts_meet/utils/controller/base_controller.dart';
+
+import '../controller/base_controller.dart';
 
 class FirebaseStorageController extends BaseController {
   final FirebaseStorage _storage = FirebaseStorage.instance;

@@ -1,5 +1,5 @@
 class AppUrls {
-  static const String prodUrl = "http://heartehomies.com/";
+  static const String prodUrl = "https://heartehomies.com/";
   static const String homeUrl = "http://192.168.1.14:8000/";
   static const String baseUrl = prodUrl;
 

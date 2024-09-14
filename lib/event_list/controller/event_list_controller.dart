@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:where_hearts_meet/create_event/model/event_response_model.dart';
-
+import '../../create_event/model/event_response_model.dart';
 import '../../utils/consts/screen_const.dart';
 import '../../utils/controller/base_controller.dart';
 import '../../utils/dialogs/confirmation_dialog.dart';

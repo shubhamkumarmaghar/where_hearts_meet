@@ -2,12 +2,12 @@ import 'package:clay_containers/widgets/clay_container.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:where_hearts_meet/utils/widgets/cached_image.dart';
 import '../../utils/consts/app_screen_size.dart';
 import '../../utils/consts/color_const.dart';
 import '../../utils/consts/images_const.dart';
 import '../../utils/util_functions/app_pickers.dart';
 import '../../utils/util_functions/decoration_functions.dart';
+import '../../utils/widgets/cached_image.dart';
 import '../controller/create_personal_cover_controller.dart';
 
 class CreatePersonalCoverScreen extends StatelessWidget {

@@ -5,9 +5,9 @@ import 'package:get/get.dart';
 import 'package:chewie/chewie.dart';
 import 'package:shimmer/shimmer.dart';
 import 'package:video_player/video_player.dart';
-import 'package:where_hearts_meet/utils/consts/app_screen_size.dart';
-import 'package:where_hearts_meet/utils/consts/color_const.dart';
 
+import '../../utils/consts/app_screen_size.dart';
+import '../../utils/consts/color_const.dart';
 import '../controller/video_player_controller.dart';
 
 class VideoPlayerScreen extends StatefulWidget {

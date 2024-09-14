@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:where_hearts_meet/utils/consts/app_screen_size.dart';
-import 'package:where_hearts_meet/utils/util_functions/decoration_functions.dart';
 
+import '../consts/app_screen_size.dart';
 import '../consts/color_const.dart';
 import '../consts/widget_styles.dart';
+import '../util_functions/decoration_functions.dart';
 
 class DesignerTextField extends StatelessWidget {
   final Function(String) onChanged;

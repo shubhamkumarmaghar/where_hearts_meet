@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
-import 'package:where_hearts_meet/utils/consts/screen_const.dart';
+
+import '../consts/screen_const.dart';
 
 class AppStateWidget extends StatelessWidget {
   final Widget loadingWidget;

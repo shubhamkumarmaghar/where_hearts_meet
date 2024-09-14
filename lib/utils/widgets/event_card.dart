@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:where_hearts_meet/create_event/model/event_response_model.dart';
-import 'package:where_hearts_meet/utils/consts/app_screen_size.dart';
-import 'package:where_hearts_meet/utils/consts/color_const.dart';
-import 'package:where_hearts_meet/utils/widgets/cached_image.dart';
-import 'package:where_hearts_meet/utils/widgets/pop_up_menus.dart';
+import 'package:heart_e_homies/utils/widgets/pop_up_menus.dart';
+import '../../create_event/model/event_response_model.dart';
+import '../consts/app_screen_size.dart';
+import '../consts/color_const.dart';
 import '../consts/screen_const.dart';
 import '../util_functions/decoration_functions.dart';
+import 'cached_image.dart';
 
 class EventCard extends StatelessWidget {
   final EventResponseModel eventResponseModel;

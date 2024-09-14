@@ -3,19 +3,20 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:where_hearts_meet/profile_module/service/profile_service.dart';
-import 'package:where_hearts_meet/routes/routes_const.dart';
-import 'package:where_hearts_meet/utils/consts/app_screen_size.dart';
-import 'package:where_hearts_meet/utils/consts/screen_const.dart';
-import 'package:where_hearts_meet/utils/consts/string_consts.dart';
-import 'package:where_hearts_meet/utils/controller/base_controller.dart';
-import 'package:where_hearts_meet/utils/dialogs/pop_up_dialogs.dart';
-import 'package:where_hearts_meet/utils/dialogs/select_data_dialog.dart';
-import 'package:where_hearts_meet/utils/repository/user_data.dart';
-import 'package:where_hearts_meet/utils/util_functions/decoration_functions.dart';
+
+import '../../routes/routes_const.dart';
+import '../../utils/consts/app_screen_size.dart';
+import '../../utils/consts/screen_const.dart';
 import '../../utils/consts/shared_pref_const.dart';
+import '../../utils/consts/string_consts.dart';
+import '../../utils/controller/base_controller.dart';
+import '../../utils/dialogs/pop_up_dialogs.dart';
+import '../../utils/dialogs/select_data_dialog.dart';
+import '../../utils/repository/user_data.dart';
 import '../../utils/util_functions/app_pickers.dart';
+import '../../utils/util_functions/decoration_functions.dart';
 import '../model/user_model.dart';
+import '../service/profile_service.dart';
 
 class ProfileController extends BaseController {
   UserModel userModel = UserModel();

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:where_hearts_meet/utils/util_functions/decoration_functions.dart';
+
+import '../util_functions/decoration_functions.dart';
 
 class BaseContainer extends StatelessWidget {
   final Widget child;

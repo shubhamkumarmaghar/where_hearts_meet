@@ -3,18 +3,18 @@ import 'package:clay_containers/widgets/clay_container.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:where_hearts_meet/create_event/controller/create_wishes_controller.dart';
-import 'package:where_hearts_meet/player/view/video_player_screen.dart';
-import 'package:where_hearts_meet/utils/consts/string_consts.dart';
-import 'package:where_hearts_meet/utils/widgets/cached_image.dart';
-import 'package:where_hearts_meet/utils/widgets/custom_photo_view.dart';
-import 'package:where_hearts_meet/utils/widgets/gradient_button.dart';
-import 'package:where_hearts_meet/utils/widgets/outlined_busy_button.dart';
+import '../../player/view/video_player_screen.dart';
 import '../../utils/consts/app_screen_size.dart';
 import '../../utils/consts/color_const.dart';
 import '../../utils/consts/screen_const.dart';
+import '../../utils/consts/string_consts.dart';
 import '../../utils/util_functions/decoration_functions.dart';
+import '../../utils/widgets/cached_image.dart';
+import '../../utils/widgets/custom_photo_view.dart';
 import '../../utils/widgets/designer_text_field.dart';
+import '../../utils/widgets/gradient_button.dart';
+import '../../utils/widgets/outlined_busy_button.dart';
+import '../controller/create_wishes_controller.dart';
 
 class CreateWishesScreen extends StatelessWidget {
   final controller = Get.find<CreateWishesController>();

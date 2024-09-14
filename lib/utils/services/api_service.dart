@@ -3,13 +3,13 @@ import 'dart:developer';
 
 import 'package:dio/dio.dart';
 import 'package:get_storage/get_storage.dart';
-import 'package:where_hearts_meet/utils/consts/color_const.dart';
-import 'package:where_hearts_meet/utils/consts/service_const.dart';
-import 'package:where_hearts_meet/utils/consts/shared_pref_const.dart';
-import 'package:where_hearts_meet/utils/dialogs/pop_up_dialogs.dart';
-import 'package:where_hearts_meet/utils/services/dio_injector.dart';
-import 'package:where_hearts_meet/utils/util_functions/decoration_functions.dart';
-import 'package:where_hearts_meet/utils/widgets/util_widgets/app_widgets.dart';
+
+import '../consts/color_const.dart';
+import '../consts/service_const.dart';
+import '../consts/shared_pref_const.dart';
+import '../util_functions/decoration_functions.dart';
+import '../widgets/util_widgets/app_widgets.dart';
+import 'dio_injector.dart';
 
 class ApiService {
   final apiClient = locator<DioInjector>();

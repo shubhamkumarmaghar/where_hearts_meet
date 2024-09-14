@@ -1,7 +1,8 @@
 import 'package:get/get.dart';
-import 'package:where_hearts_meet/create_event/model/personal_messages_model.dart';
-import 'package:where_hearts_meet/utils/consts/screen_const.dart';
-import 'package:where_hearts_meet/utils/controller/base_controller.dart';
+
+import '../../../create_event/model/personal_messages_model.dart';
+import '../../../utils/consts/screen_const.dart';
+import '../../../utils/controller/base_controller.dart';
 import '../service/personal_wises_service.dart';
 
 class PersonalMessagesController extends BaseController {

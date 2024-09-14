@@ -2,13 +2,10 @@ import 'dart:io';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:where_hearts_meet/player/view/video_player_screen.dart';
-import 'package:where_hearts_meet/utils/consts/app_screen_size.dart';
-import 'package:where_hearts_meet/utils/consts/color_const.dart';
-import 'package:where_hearts_meet/utils/widgets/cached_image.dart';
-import 'package:where_hearts_meet/utils/widgets/custom_photo_view.dart';
-
+import '../../utils/consts/app_screen_size.dart';
 import '../../utils/util_functions/decoration_functions.dart';
+import '../../utils/widgets/cached_image.dart';
+import '../../utils/widgets/custom_photo_view.dart';
 
 class PhotosListScreen extends StatelessWidget {
   final List<String> photosList;

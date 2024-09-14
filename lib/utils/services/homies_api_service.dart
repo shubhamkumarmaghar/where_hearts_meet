@@ -1,5 +1,5 @@
 
-//import 'package:where_hearts_meet/utils/model/event_info_model.dart';
+//import 'package:heart_e_homies/utils/model/event_info_model.dart';
 
 //class HomiesApiService {
 

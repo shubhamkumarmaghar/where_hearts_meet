@@ -4,13 +4,13 @@ import 'package:clay_containers/clay_containers.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:where_hearts_meet/utils/util_functions/decoration_functions.dart';
-import 'package:where_hearts_meet/utils/widgets/gradient_button.dart';
-import 'package:where_hearts_meet/utils/widgets/outlined_busy_button.dart';
 
 import '../../utils/consts/app_screen_size.dart';
 import '../../utils/consts/color_const.dart';
 import '../../utils/model/event_type_model.dart';
+import '../../utils/util_functions/decoration_functions.dart';
+import '../../utils/widgets/gradient_button.dart';
+import '../../utils/widgets/outlined_busy_button.dart';
 
 Future<String?> showTextDialog({required String dialogTitle, required String hintText}) async {
   final TextEditingController textController = TextEditingController();

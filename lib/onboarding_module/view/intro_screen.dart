@@ -2,10 +2,9 @@ import 'package:dots_indicator/dots_indicator.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:where_hearts_meet/onboarding_module/repository/onboarding_repository.dart';
-import 'package:where_hearts_meet/utils/consts/app_screen_size.dart';
-
+import '../../utils/consts/app_screen_size.dart';
 import '../../utils/consts/color_const.dart';
+import '../repository/onboarding_repository.dart';
 import 'onboarding_view.dart';
 import '../../utils/consts/images_const.dart';
 import '../widgets/intro_widget.dart';

@@ -5,20 +5,17 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
-import 'package:where_hearts_meet/create_event/model/personal_memories_model.dart';
-import 'package:where_hearts_meet/player/view/video_player_screen.dart';
-import 'package:where_hearts_meet/preview_event/controller/created_memories_preview_controller.dart';
-import 'package:where_hearts_meet/utils/consts/app_screen_size.dart';
-import 'package:where_hearts_meet/utils/consts/screen_const.dart';
-import 'package:where_hearts_meet/utils/consts/string_consts.dart';
-import 'package:where_hearts_meet/utils/util_functions/decoration_functions.dart';
-import 'package:where_hearts_meet/utils/widgets/base_container.dart';
-import 'package:where_hearts_meet/utils/widgets/cached_image.dart';
-import 'package:where_hearts_meet/utils/widgets/line_indicator.dart';
-import 'package:where_hearts_meet/utils/widgets/memory_card.dart';
 
+
+import '../../create_event/model/personal_memories_model.dart';
+import '../../player/view/video_player_screen.dart';
+import '../../utils/consts/app_screen_size.dart';
 import '../../utils/consts/color_const.dart';
+import '../../utils/util_functions/decoration_functions.dart';
+import '../../utils/widgets/cached_image.dart';
 import '../../utils/widgets/custom_photo_view.dart';
+import '../../utils/widgets/line_indicator.dart';
+import '../controller/created_memories_preview_controller.dart';
 
 class CreatedMemoriesPreviewScreen extends StatelessWidget {
   const CreatedMemoriesPreviewScreen({super.key});

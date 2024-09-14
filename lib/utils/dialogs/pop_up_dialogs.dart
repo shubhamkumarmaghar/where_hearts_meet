@@ -3,13 +3,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_colorpicker/flutter_colorpicker.dart';
 import 'package:get/get.dart';
-import 'package:where_hearts_meet/utils/util_functions/decoration_functions.dart';
-
 import '../consts/app_screen_size.dart';
 import '../consts/color_const.dart';
 import '../consts/screen_const.dart';
 import '../consts/string_consts.dart';
 import '../model/dropdown_model.dart';
+import '../util_functions/decoration_functions.dart';
 
 void showThemeDialog() {
   Get.changeThemeMode(ThemeMode.light);

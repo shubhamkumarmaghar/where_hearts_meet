@@ -2,13 +2,14 @@
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:intl/intl.dart';
-import 'package:where_hearts_meet/dashboard_module/service/dashboard_service.dart';
-import 'package:where_hearts_meet/utils/consts/screen_const.dart';
-import 'package:where_hearts_meet/utils/consts/shared_pref_const.dart';
-import 'package:where_hearts_meet/utils/controller/base_controller.dart';
+
 import '../../create_event/model/event_response_model.dart';
+import '../../utils/consts/screen_const.dart';
+import '../../utils/consts/shared_pref_const.dart';
+import '../../utils/controller/base_controller.dart';
 import '../../utils/dialogs/pop_up_dialogs.dart';
 import '../../utils/model/week_model.dart';
+import '../service/dashboard_service.dart';
 
 class DashboardController extends BaseController {
   List<WeekModel> currentWeekDates = [];

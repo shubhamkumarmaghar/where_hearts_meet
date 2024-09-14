@@ -3,13 +3,13 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get/utils.dart';
-import 'package:where_hearts_meet/utils/consts/app_screen_size.dart';
-import 'package:where_hearts_meet/utils/widgets/cached_image.dart';
-import 'package:where_hearts_meet/utils/widgets/custom_photo_view.dart';
 
 import '../../../preview_event/widgets/videos_list_screen.dart';
+import '../../consts/app_screen_size.dart';
 import '../../consts/color_const.dart';
 import '../../util_functions/decoration_functions.dart';
+import '../cached_image.dart';
+import '../custom_photo_view.dart';
 
 class PostWidget extends StatelessWidget {
   final String profileImageUrl;

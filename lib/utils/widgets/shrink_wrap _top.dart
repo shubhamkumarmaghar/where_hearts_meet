@@ -2,8 +2,8 @@
 // import 'package:flutter/material.dart';
 // import 'package:get/get.dart';
 // import 'package:get/get_core/src/get_main.dart';
-// import 'package:where_hearts_meet/utils/consts/color_const.dart';
-// import 'package:where_hearts_meet/utils/consts/images_const.dart';
+// import 'package:heart_e_homies/utils/consts/color_const.dart';
+// import 'package:heart_e_homies/utils/consts/images_const.dart';
 //
 // const itemSize = 150.0;
 //

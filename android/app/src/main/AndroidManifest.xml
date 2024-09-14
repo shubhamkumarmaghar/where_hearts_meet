@@ -1,5 +1,5 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="org.lbp.where_hearts_meet">
+    package="com.homies.heart_e_homies">
 
     <uses-feature
         android:name="android.hardware.camera"

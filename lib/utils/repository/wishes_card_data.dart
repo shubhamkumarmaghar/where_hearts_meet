@@ -1,5 +1,5 @@
-import 'package:where_hearts_meet/utils/consts/images_const.dart';
 
+import '../consts/images_const.dart';
 import '../model/dropdown_model.dart';
 
 List<DropDownModel> getWishesCardsDataList() {

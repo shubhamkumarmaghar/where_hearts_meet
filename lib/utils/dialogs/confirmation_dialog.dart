@@ -3,10 +3,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
-import 'package:where_hearts_meet/utils/widgets/gradient_button.dart';
 
 import '../consts/app_screen_size.dart';
 import '../consts/color_const.dart';
+import '../widgets/gradient_button.dart';
 import '../widgets/outlined_busy_button.dart';
 
 void showConfirmationBottomSheet(

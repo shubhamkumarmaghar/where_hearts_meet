@@ -1,8 +1,8 @@
 import 'package:confetti/confetti.dart';
 import 'package:get/get.dart';
-import 'package:where_hearts_meet/utils/controller/base_controller.dart';
 
 import '../../create_event/model/gift_model.dart';
+import '../../utils/controller/base_controller.dart';
 
 class CreatedGiftsPreviewController extends BaseController{
  late List<GiftModel> giftsList;

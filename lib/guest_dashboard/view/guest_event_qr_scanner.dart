@@ -4,11 +4,11 @@ import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:mobile_scanner/mobile_scanner.dart';
-import 'package:where_hearts_meet/utils/consts/color_const.dart';
-import 'package:where_hearts_meet/utils/widgets/util_widgets/app_widgets.dart';
 
 import '../../routes/routes_const.dart';
 import '../../utils/consts/app_screen_size.dart';
+import '../../utils/consts/color_const.dart';
+import '../../utils/widgets/util_widgets/app_widgets.dart';
 import '../controller/guest_dashboard_controller.dart';
 
 class EventQrScannerScreen extends StatefulWidget {

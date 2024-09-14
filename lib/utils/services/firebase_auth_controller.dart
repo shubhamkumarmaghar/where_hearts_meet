@@ -2,8 +2,9 @@ import 'dart:developer';
 
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:get/get.dart';
-import 'package:where_hearts_meet/utils/controller/base_controller.dart';
-import 'package:where_hearts_meet/utils/dialogs/pop_up_dialogs.dart';
+
+import '../controller/base_controller.dart';
+import '../dialogs/pop_up_dialogs.dart';
 
 class FirebaseAuthController extends BaseController {
   FirebaseAuth auth = FirebaseAuth.instance;

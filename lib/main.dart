@@ -7,16 +7,15 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get/get_navigation/src/root/get_material_app.dart';
 import 'package:get_storage/get_storage.dart';
-import 'package:where_hearts_meet/routes/app_routes.dart';
-import 'package:where_hearts_meet/routes/routes_const.dart';
-import 'package:where_hearts_meet/splash_module/screens/splash_screen.dart';
-import 'package:where_hearts_meet/utils/consts/color_const.dart';
-import 'package:where_hearts_meet/utils/consts/service_const.dart';
-import 'package:where_hearts_meet/utils/repository/created_event_repo.dart';
+import 'package:heart_e_homies/routes/app_routes.dart';
+import 'package:heart_e_homies/splash_module/screens/splash_screen.dart';
+import 'package:heart_e_homies/utils/consts/color_const.dart';
+import 'package:heart_e_homies/utils/consts/service_const.dart';
+import 'package:heart_e_homies/utils/repository/created_event_repo.dart';
+import 'package:heart_e_homies/utils/services/dio_injector.dart';
+import 'package:heart_e_homies/utils/services/firebase_auth_controller.dart';
+import 'package:heart_e_homies/utils/services/firebase_storage_controller.dart';
 
-import 'package:where_hearts_meet/utils/services/dio_injector.dart';
-import 'package:where_hearts_meet/utils/services/firebase_auth_controller.dart';
-import 'package:where_hearts_meet/utils/services/firebase_storage_controller.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -27,13 +26,13 @@ void main() async {
     try {
       await Firebase.initializeApp(
         options: const FirebaseOptions(
-            apiKey: "AIzaSyDVQiOZ2uSbDTF8UzZXNEtsCBW-Ro25gt0",
-            authDomain: "where-hearts-meet.firebaseapp.com",
-            projectId: "where-hearts-meet",
-            storageBucket: "where-hearts-meet.appspot.com",
-            messagingSenderId: "996974929233",
-            appId: "1:996974929233:web:079825a07c1530872d1f70",
-            measurementId: "G-Q89KKB6P6B"),
+            apiKey: "AIzaSyA4tMpqUygCwEl41p0JLr27GwJy57WcDtc",
+            authDomain: "heart-e-homies.firebaseapp.com",
+            projectId: "heart-e-homies",
+            storageBucket: "heart-e-homies.appspot.com",
+            messagingSenderId: "589823183104",
+            appId: "1:589823183104:web:744cc20ccfeea89a71cbe5",
+            measurementId: "G-4EJR4H765S"),
       );
     } catch (e) {
       log('Error initializing Firebase: $e');

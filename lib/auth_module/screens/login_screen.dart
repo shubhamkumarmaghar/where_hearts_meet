@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:where_hearts_meet/auth_module/controller/login_controller.dart';
-import 'package:where_hearts_meet/utils/consts/app_screen_size.dart';
-import 'package:where_hearts_meet/utils/util_functions/decoration_functions.dart';
-import 'package:where_hearts_meet/utils/widgets/util_widgets/app_widgets.dart';
+import '../../utils/consts/app_screen_size.dart';
 import '../../utils/consts/color_const.dart';
 import '../../utils/consts/images_const.dart';
 import '../../utils/consts/widget_styles.dart';
+import '../../utils/util_functions/decoration_functions.dart';
+import '../../utils/widgets/util_widgets/app_widgets.dart';
+import '../controller/login_controller.dart';
 
 class LoginScreen extends StatelessWidget {
   final controller = Get.find<LoginController>();

@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:where_hearts_meet/utils/consts/app_screen_size.dart';
-import 'package:where_hearts_meet/utils/util_functions/decoration_functions.dart';
-import 'package:where_hearts_meet/utils/widgets/app_bar_widget.dart';
+
+import '../consts/app_screen_size.dart';
+import '../util_functions/decoration_functions.dart';
+import 'app_bar_widget.dart';
 
 class NoDataScreen extends StatelessWidget {
   final String? message;

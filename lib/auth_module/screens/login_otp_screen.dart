@@ -2,11 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:pinput/pinput.dart';
 
-import 'package:where_hearts_meet/auth_module/controller/login_controller.dart';
-import 'package:where_hearts_meet/utils/consts/app_screen_size.dart';
-import 'package:where_hearts_meet/utils/util_functions/decoration_functions.dart';
+import '../../utils/consts/app_screen_size.dart';
 import '../../utils/consts/color_const.dart';
+import '../../utils/util_functions/decoration_functions.dart';
 import '../../utils/widgets/gradient_button.dart';
+import '../controller/login_controller.dart';
 
 class LoginOtpScreen extends StatelessWidget {
   final controller = Get.find<LoginController>();

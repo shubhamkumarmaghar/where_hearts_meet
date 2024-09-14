@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:where_hearts_meet/utils/consts/color_const.dart';
+
+import '../../utils/consts/color_const.dart';
 
 class AnimatedHearts extends StatefulWidget {
   final Offset beginOffset;

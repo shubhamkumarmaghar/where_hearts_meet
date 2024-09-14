@@ -2,9 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:story_view/controller/story_controller.dart';
 import 'package:story_view/widgets/story_view.dart';
-import 'package:where_hearts_meet/utils/consts/app_screen_size.dart';
-import 'package:where_hearts_meet/utils/consts/color_const.dart';
-import 'package:where_hearts_meet/utils/widgets/custom_photo_view.dart';
+import '../consts/app_screen_size.dart';
+import '../consts/color_const.dart';
+import 'custom_photo_view.dart';
 
 class ImageStoryWidget extends StatelessWidget {
   final StoryController controller = StoryController();
@@ -34,7 +34,7 @@ class ImageStoryWidget extends StatelessWidget {
         child: Stack(
           children: [
             StoryView(
-              onStoryShow: (value) {
+              onStoryShow: (value,index) {
                 String key = value.view.key.toString();
                 final keyIndex = key.substring(key.indexOf("'") + 1, key.lastIndexOf("'"));
                 currentIndex = int.parse(keyIndex);

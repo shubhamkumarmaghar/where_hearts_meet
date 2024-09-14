@@ -1,19 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:where_hearts_meet/event_list/controller/event_list_controller.dart';
-import 'package:where_hearts_meet/utils/consts/string_consts.dart';
-import 'package:where_hearts_meet/utils/extensions/methods_extension.dart';
-import 'package:where_hearts_meet/utils/shimmers/event_list_shimmer.dart';
-import 'package:where_hearts_meet/utils/widgets/app_bar_widget.dart';
-import 'package:where_hearts_meet/utils/widgets/cached_image.dart';
+import 'package:heart_e_homies/utils/extensions/methods_extension.dart';
 import '../../create_event/model/event_response_model.dart';
 import '../../routes/routes_const.dart';
 import '../../utils/consts/app_screen_size.dart';
 import '../../utils/consts/screen_const.dart';
+import '../../utils/consts/string_consts.dart';
+import '../../utils/shimmers/event_list_shimmer.dart';
 import '../../utils/util_functions/decoration_functions.dart';
+import '../../utils/widgets/app_bar_widget.dart';
+import '../../utils/widgets/cached_image.dart';
 import '../../utils/widgets/custom_photo_view.dart';
 import '../../utils/widgets/no_data_screen.dart';
 import '../../utils/widgets/pop_up_menus.dart';
+import '../controller/event_list_controller.dart';
 
 class EventListScreen extends StatelessWidget {
   final controller = Get.find<EventListController>();
@@ -146,7 +146,7 @@ class EventListScreen extends StatelessWidget {
                       alignment: Alignment.centerLeft,
                       width: screenWidth * 0.6,
                       child: Text(
-                        data.eventName.isNotNullOrEmpty ? data.eventName!.capitalizeFirst.toString() : '',
+                        data.eventName!.isNotNullOrEmpty ? data.eventName!.capitalizeFirst.toString() : '',
                         style: textStyleDangrek(fontSize: screenWidth * 0.055),
                         textAlign: TextAlign.center,
                         maxLines: 1,

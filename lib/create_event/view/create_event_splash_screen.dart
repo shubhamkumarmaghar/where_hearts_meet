@@ -1,10 +1,10 @@
 import 'package:blur/blur.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:where_hearts_meet/utils/consts/app_screen_size.dart';
-import 'package:where_hearts_meet/utils/consts/color_const.dart';
-import 'package:where_hearts_meet/utils/util_functions/decoration_functions.dart';
-import 'package:where_hearts_meet/utils/widgets/cached_image.dart';
+import '../../utils/consts/app_screen_size.dart';
+import '../../utils/consts/color_const.dart';
+import '../../utils/util_functions/decoration_functions.dart';
+import '../../utils/widgets/cached_image.dart';
 import '../../utils/widgets/custom_photo_view.dart';
 import '../controller/create_event_controller.dart';
 import '../widgets/create_event_widgets.dart';

@@ -2,23 +2,23 @@ import 'dart:io';
 import 'package:dio/dio.dart' as dio;
 import 'package:get_storage/get_storage.dart';
 import 'package:http_parser/http_parser.dart';
-import 'package:where_hearts_meet/create_event/model/event_model.dart';
-import 'package:where_hearts_meet/create_event/model/event_response_model.dart';
-import 'package:where_hearts_meet/create_event/model/gift_model.dart';
-import 'package:where_hearts_meet/create_event/model/gifts_data_model.dart';
-import 'package:where_hearts_meet/create_event/model/personal_wishes_model.dart';
-import 'package:where_hearts_meet/create_event/model/wishes_model.dart';
-import 'package:where_hearts_meet/utils/consts/color_const.dart';
-import 'package:where_hearts_meet/utils/consts/shared_pref_const.dart';
-import 'package:where_hearts_meet/utils/model/image_response_model.dart';
-import 'package:where_hearts_meet/utils/widgets/util_widgets/app_widgets.dart';
 
 import '../../utils/consts/api_urls.dart';
+import '../../utils/consts/color_const.dart';
+import '../../utils/consts/shared_pref_const.dart';
+import '../../utils/model/image_response_model.dart';
 import '../../utils/services/api_service.dart';
+import '../../utils/widgets/util_widgets/app_widgets.dart';
+import '../model/event_model.dart';
+import '../model/event_response_model.dart';
+import '../model/gift_model.dart';
+import '../model/gifts_data_model.dart';
 import '../model/personal_decorations_model.dart';
 import '../model/personal_memories_model.dart';
 import '../model/personal_messages_model.dart';
+import '../model/personal_wishes_model.dart';
 import '../model/timeline_model.dart';
+import '../model/wishes_model.dart';
 
 class CreateEventService {
   final ApiService _apiService = ApiService();

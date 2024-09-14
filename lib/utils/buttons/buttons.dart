@@ -1,8 +1,8 @@
 import 'package:clay_containers/widgets/clay_container.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:where_hearts_meet/utils/consts/color_const.dart';
 
+import '../consts/color_const.dart';
 import '../util_functions/decoration_functions.dart';
 
 Widget getElevatedButton(

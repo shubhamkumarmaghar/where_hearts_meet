@@ -1,14 +1,14 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:where_hearts_meet/preview_event/controller/created_wishes_preview_controller.dart';
-import 'package:where_hearts_meet/utils/consts/color_const.dart';
-import 'package:where_hearts_meet/utils/widgets/cached_image.dart';
 
 import '../../utils/consts/app_screen_size.dart';
+import '../../utils/consts/color_const.dart';
 import '../../utils/util_functions/decoration_functions.dart';
+import '../../utils/widgets/cached_image.dart';
 import '../../utils/widgets/custom_photo_view.dart';
 import '../../utils/widgets/pop_up_menus.dart';
+import '../controller/created_wishes_preview_controller.dart';
 
 class CreatedWishesPreviewScreen extends StatelessWidget {
   final controller = Get.find<CreatedWishesPreviewController>();

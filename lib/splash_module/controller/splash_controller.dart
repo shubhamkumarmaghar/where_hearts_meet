@@ -1,10 +1,10 @@
 
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
-import 'package:where_hearts_meet/utils/consts/shared_pref_const.dart';
 import '../../onboarding_module/view/intro_screen.dart';
 import '../../onboarding_module/view/onboarding_view.dart';
 import '../../routes/routes_const.dart';
+import '../../utils/consts/shared_pref_const.dart';
 
 
 class SplashController extends GetxController {

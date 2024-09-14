@@ -1,5 +1,6 @@
-import 'package:where_hearts_meet/create_event/model/gift_model.dart';
 
+
+import '../../../create_event/model/gift_model.dart';
 import '../../../utils/consts/api_urls.dart';
 import '../../../utils/services/api_service.dart';
 

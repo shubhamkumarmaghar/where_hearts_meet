@@ -1,15 +1,13 @@
-import 'dart:developer';
 import 'dart:io';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:where_hearts_meet/create_event/controller/create_personal_memories_controller.dart';
-import 'package:where_hearts_meet/player/view/video_player_screen.dart';
-import 'package:where_hearts_meet/utils/consts/screen_const.dart';
-
+import '../../create_event/controller/create_personal_memories_controller.dart';
+import '../../player/view/video_player_screen.dart';
 import '../consts/app_screen_size.dart';
 import '../consts/color_const.dart';
+import '../consts/screen_const.dart';
 import '../consts/string_consts.dart';
 import '../util_functions/decoration_functions.dart';
 import 'cached_image.dart';

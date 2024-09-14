@@ -1,9 +1,9 @@
 import 'dart:io';
 
-import 'package:clay_containers/clay_containers.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:where_hearts_meet/utils/consts/color_const.dart';
+
+import '../consts/color_const.dart';
 
 PreferredSizeWidget appBarWidget(
     {required String title, Function()? onBack, Function()? onRefresh, Color? backgroundColor}) {

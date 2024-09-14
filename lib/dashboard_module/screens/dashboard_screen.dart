@@ -4,19 +4,20 @@ import 'package:clay_containers/clay_containers.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:where_hearts_meet/dashboard_module/controller/dashboard_controller.dart';
-import 'package:where_hearts_meet/routes/routes_const.dart';
-import 'package:where_hearts_meet/utils/consts/color_const.dart';
-import 'package:where_hearts_meet/utils/consts/images_const.dart';
-import 'package:where_hearts_meet/utils/consts/screen_const.dart';
-import 'package:where_hearts_meet/utils/repository/wishes_card_data.dart';
-import 'package:where_hearts_meet/utils/widgets/cached_image.dart';
-import 'package:where_hearts_meet/utils/widgets/custom_photo_view.dart';
+
 import '../../create_event/model/event_response_model.dart';
+import '../../routes/routes_const.dart';
 import '../../utils/consts/app_screen_size.dart';
+import '../../utils/consts/color_const.dart';
+import '../../utils/consts/images_const.dart';
+import '../../utils/consts/screen_const.dart';
+import '../../utils/repository/wishes_card_data.dart';
 import '../../utils/shimmers/event_card_shimmer.dart';
 import '../../utils/util_functions/decoration_functions.dart';
+import '../../utils/widgets/cached_image.dart';
+import '../../utils/widgets/custom_photo_view.dart';
 import '../../utils/widgets/event_card.dart';
+import '../controller/dashboard_controller.dart';
 import '../widgets/dashboard_widgets.dart';
 import 'dashboard_drawer_screen.dart';
 

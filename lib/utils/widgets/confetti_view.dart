@@ -2,8 +2,8 @@ import 'dart:math';
 
 import 'package:confetti/confetti.dart';
 import 'package:flutter/material.dart';
-import 'package:where_hearts_meet/utils/consts/confetti_shape_enum.dart';
 
+import '../consts/confetti_shape_enum.dart';
 class ConfettiView extends StatelessWidget {
   final ConfettiController controller;
   final List<Color>? patternColorList;

@@ -5,12 +5,11 @@ import 'package:confetti/confetti.dart';
 
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
-import 'package:where_hearts_meet/main.dart';
-import 'package:where_hearts_meet/utils/dialogs/pop_up_dialogs.dart';
 import '../../../../show_event_module/model/event_details_model.dart';
 import '../../../../utils/controller/base_controller.dart';
 import '../../../create_event/model/wishes_model.dart';
 import '../../../utils/consts/shared_pref_const.dart';
+import '../../../utils/dialogs/pop_up_dialogs.dart';
 import '../../model/timeline_model.dart';
 import '../service/guest_receive_event.dart';
 
@@ -21,13 +20,13 @@ class GuestHomeController extends BaseController {
 
   String videoUrl = 'https://hehbucket.s3.ap-south-1.amazonaws.com/112233344412.mp4';
 
-   DateTime birthday = DateTime.now() ; // Set your birthday date here
+  DateTime birthday = DateTime.now() ; // Set your birthday date here
   Duration countdownDuration = Duration();
   Timer? countdownTimer;
   GuestReceiveService guestReceiveService = GuestReceiveService();
   late ConfettiController homeConfettiController;
   EventDetailsModel? eventDetails;
-  List<WishesModel> guestwishesModel = [];
+  List<WishesModel> guestWishesModel = [];
   Rx<TimeLineModel> timeLineModel = TimeLineModel().obs;
   RxBool isLoading = true.obs;
   RxString infoText = RxString('');
@@ -95,8 +94,8 @@ class GuestHomeController extends BaseController {
   Future<void> getEventWishes(String eventId) async {
    // setBusy(true);
     var res = await guestReceiveService.getWishesList(eventId: eventId);
-    guestwishesModel = res;
-    log('Data ${guestwishesModel.length}');
+    guestWishesModel = res;
+    log('Data ${guestWishesModel.length}');
    // setBusy(false);
     update();
   }

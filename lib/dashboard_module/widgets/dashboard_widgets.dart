@@ -2,13 +2,10 @@ import 'package:clay_containers/widgets/clay_container.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:where_hearts_meet/create_event/model/gift_model.dart';
-import 'package:where_hearts_meet/preview_event/widgets/videos_list_screen.dart';
-import 'package:where_hearts_meet/routes/routes_const.dart';
-import 'package:where_hearts_meet/utils/consts/color_const.dart';
-
 import '../../create_event/model/event_response_model.dart';
+import '../../routes/routes_const.dart';
 import '../../utils/consts/app_screen_size.dart';
+import '../../utils/consts/color_const.dart';
 import '../../utils/consts/images_const.dart';
 import '../../utils/consts/screen_const.dart';
 import '../../utils/model/dropdown_model.dart';

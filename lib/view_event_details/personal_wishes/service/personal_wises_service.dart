@@ -1,7 +1,7 @@
-import 'package:where_hearts_meet/create_event/model/personal_decorations_model.dart';
-import 'package:where_hearts_meet/create_event/model/personal_messages_model.dart';
 
+import '../../../create_event/model/personal_decorations_model.dart';
 import '../../../create_event/model/personal_memories_model.dart';
+import '../../../create_event/model/personal_messages_model.dart';
 import '../../../utils/consts/api_urls.dart';
 import '../../../utils/services/api_service.dart';
 import '../model/personal_wishes_model.dart';

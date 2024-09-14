@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:where_hearts_meet/create_event/model/personal_messages_model.dart';
-import 'package:where_hearts_meet/utils/consts/screen_const.dart';
-import 'package:where_hearts_meet/utils/shimmers/personal_messages_shimmer.dart';
+
+import '../../../create_event/model/personal_messages_model.dart';
 import '../../../utils/consts/app_screen_size.dart';
 import '../../../utils/consts/color_const.dart';
+import '../../../utils/consts/screen_const.dart';
 import '../../../utils/consts/string_consts.dart';
+import '../../../utils/shimmers/personal_messages_shimmer.dart';
 import '../../../utils/util_functions/decoration_functions.dart';
 import '../../../utils/widgets/app_bar_widget.dart';
 import '../controller/personal_messages_controller.dart';

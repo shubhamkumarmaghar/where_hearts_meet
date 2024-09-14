@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:where_hearts_meet/utils/consts/color_const.dart';
+
+import 'color_const.dart';
 
 class TextStyles {
   TextStyles();

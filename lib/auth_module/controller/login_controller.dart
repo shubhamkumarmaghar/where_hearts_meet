@@ -3,16 +3,16 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
-import 'package:where_hearts_meet/auth_module/screens/login_otp_screen.dart';
-import 'package:where_hearts_meet/routes/routes_const.dart';
-import 'package:where_hearts_meet/utils/consts/color_const.dart';
-import 'package:where_hearts_meet/utils/consts/shared_pref_const.dart';
-import 'package:where_hearts_meet/utils/controller/base_controller.dart';
-import 'package:where_hearts_meet/utils/dialogs/pop_up_dialogs.dart';
+import '../../routes/routes_const.dart';
+import '../../utils/consts/color_const.dart';
 import '../../utils/consts/screen_const.dart';
+import '../../utils/consts/shared_pref_const.dart';
+import '../../utils/controller/base_controller.dart';
+import '../../utils/dialogs/pop_up_dialogs.dart';
 import '../../utils/widgets/util_widgets/app_widgets.dart';
 import '../auth_model/login_response_model.dart';
 import '../auth_services/Auth_api_service.dart';
+import '../screens/login_otp_screen.dart';
 
 class LoginController extends BaseController {
   final AuthApiService _authApiService = AuthApiService();

@@ -3,8 +3,8 @@ import 'dart:math';
 import 'package:dotted_border/dotted_border.dart';
 
 import 'package:flutter/material.dart';
-import 'package:where_hearts_meet/utils/consts/color_const.dart';
 
+import '../consts/color_const.dart';
 class DottedCircularBorder extends StatelessWidget {
   final int totalNumber;
   final Widget widget;

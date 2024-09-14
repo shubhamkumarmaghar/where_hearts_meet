@@ -4,7 +4,7 @@ import 'package:clay_containers/widgets/clay_container.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:where_hearts_meet/utils/consts/app_screen_size.dart';
+import '../../utils/consts/app_screen_size.dart';
 import '../../utils/consts/color_const.dart';
 import '../../utils/consts/screen_const.dart';
 import '../../utils/consts/string_consts.dart';

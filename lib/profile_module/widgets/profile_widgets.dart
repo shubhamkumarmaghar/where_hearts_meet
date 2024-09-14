@@ -1,8 +1,9 @@
 
 import 'package:flutter/material.dart';
-import 'package:where_hearts_meet/utils/consts/app_screen_size.dart';
-import 'package:where_hearts_meet/utils/consts/color_const.dart';
-import 'package:where_hearts_meet/utils/util_functions/decoration_functions.dart';
+
+import '../../utils/consts/app_screen_size.dart';
+import '../../utils/consts/color_const.dart';
+import '../../utils/util_functions/decoration_functions.dart';
 
 Widget showProfileCompletionPercentage({required int completed}) {
   final percentage = (completed / 100);

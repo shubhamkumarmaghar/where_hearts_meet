@@ -3,15 +3,15 @@ import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_card_swiper/flutter_card_swiper.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
-import 'package:where_hearts_meet/onboarding_module/controller/onboarding_controller.dart';
-import 'package:where_hearts_meet/onboarding_module/repository/onboarding_repository.dart';
-import 'package:where_hearts_meet/routes/routes_const.dart';
-import 'package:where_hearts_meet/utils/buttons/buttons.dart';
-import 'package:where_hearts_meet/utils/consts/app_screen_size.dart';
-import 'package:where_hearts_meet/utils/consts/color_const.dart';
+import '../../routes/routes_const.dart';
+import '../../utils/buttons/buttons.dart';
+import '../../utils/consts/app_screen_size.dart';
+import '../../utils/consts/color_const.dart';
 import '../../utils/consts/images_const.dart';
 import '../../utils/consts/shared_pref_const.dart';
 import '../../utils/widgets/gradient_button.dart';
+import '../controller/onboarding_controller.dart';
+import '../repository/onboarding_repository.dart';
 
 class OnboardingScreen extends StatelessWidget {
   final onboardingController = Get.put(OnboardingController());
