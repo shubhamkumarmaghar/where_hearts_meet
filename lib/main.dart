@@ -23,20 +23,20 @@ void main() async {
 
   await GetStorage.init();
   if (kIsWeb) {
-    try {
-      await Firebase.initializeApp(
-        options: const FirebaseOptions(
-            apiKey: "AIzaSyA4tMpqUygCwEl41p0JLr27GwJy57WcDtc",
-            authDomain: "heart-e-homies.firebaseapp.com",
-            projectId: "heart-e-homies",
-            storageBucket: "heart-e-homies.appspot.com",
-            messagingSenderId: "589823183104",
-            appId: "1:589823183104:web:744cc20ccfeea89a71cbe5",
-            measurementId: "G-4EJR4H765S"),
-      );
-    } catch (e) {
-      log('Error initializing Firebase: $e');
-    }
+    // try {
+    //   await Firebase.initializeApp(
+    //     options: const FirebaseOptions(
+    //         apiKey: "AIzaSyA4tMpqUygCwEl41p0JLr27GwJy57WcDtc",
+    //         authDomain: "heart-e-homies.firebaseapp.com",
+    //         projectId: "heart-e-homies",
+    //         storageBucket: "heart-e-homies.appspot.com",
+    //         messagingSenderId: "589823183104",
+    //         appId: "1:589823183104:web:744cc20ccfeea89a71cbe5",
+    //         measurementId: "G-4EJR4H765S"),
+    //   );
+    // } catch (e) {
+    //   log('Error initializing Firebase: $e');
+    // }
   } else {
     await Firebase.initializeApp();
   }
