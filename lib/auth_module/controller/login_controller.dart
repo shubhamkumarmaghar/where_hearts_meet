@@ -25,6 +25,9 @@ class LoginController extends BaseController {
   RxBool isLoading = false.obs;
   LoginResponseModel loginResponseModel = LoginResponseModel();
 
+
+
+
   void onPhoneNumberChanged(String mobile) {
     if (mobile.length == 10) {
       errorPhoneNumberText.value = null;
