@@ -18,8 +18,6 @@ class GuestHomeController extends BaseController {
   bool muted = false;
   bool isPlayerReady = false;
 
-  String videoUrl = 'https://hehbucket.s3.ap-south-1.amazonaws.com/112233344412.mp4';
-
   DateTime birthday = DateTime.now() ; // Set your birthday date here
   Duration countdownDuration = Duration();
   Timer? countdownTimer;

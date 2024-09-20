@@ -1,7 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import '../model/onboarding_model.dart';
-import '../view/onboarding_view.dart';
 
 class OnboardingCardImageWidget extends StatelessWidget {
   final OnboardingModel onboardingModel;

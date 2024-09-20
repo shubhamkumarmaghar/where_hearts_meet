@@ -5,7 +5,6 @@ import 'package:get/get.dart';
 import '../../utils/consts/app_screen_size.dart';
 import '../../utils/consts/color_const.dart';
 import '../repository/onboarding_repository.dart';
-import 'onboarding_view.dart';
 import '../../utils/consts/images_const.dart';
 import '../widgets/intro_widget.dart';
 
@@ -31,19 +30,19 @@ class _IntroScreenState extends State<IntroScreen> {
           child: Column(
             children: [
               SizedBox(
-                height: screenHeight*0.04,
+                height: screenHeight*0.07,
               ),
               Container(
                 height: screenHeight*0.15,
                 width: screenWidth*0.35,
                 child: Image.asset(
                   logo,
-                  fit: BoxFit.cover,
+                  fit: BoxFit.scaleDown,
 
                 ),
               ),
               Container(
-                height: Get.height * 0.78,
+                height: Get.height * 0.75,
                 child: PageView.builder(
                   itemCount: getOnboardingData().length,
                   itemBuilder: (BuildContext context, index) {

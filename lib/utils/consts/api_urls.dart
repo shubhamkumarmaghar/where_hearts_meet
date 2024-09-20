@@ -3,7 +3,9 @@ class AppUrls {
   static const String homeUrl = "http://192.168.1.14:8000/";
   static const String baseUrl = prodUrl;
 
-  static const String registerUrl = "userPolls/register_user/";
+  static const String termsAndConditionsUrl = '${prodUrl}termsandconditions/';
+  static const String privacyPolicyUrl = '${prodUrl}privacy/';
+
   static const String loginUrl = 'userPolls/login/';
   static const String signUpUrl = 'userPolls/signup/';
   static const String userAccountUrl = 'userPolls/get_user/';

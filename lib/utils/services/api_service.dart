@@ -152,7 +152,7 @@ class ApiService {
 
   Map<String, dynamic> _getErrorResponse(decode) {
     final error = decode as Map<String, dynamic>;
-    AppWidgets.getToast(message: error['error'], color: primaryColor);
+    AppWidgets.getToast(message: error['error'], color: errorColor);
     return {'message': 'failure ${error['message']}'};
   }
 }

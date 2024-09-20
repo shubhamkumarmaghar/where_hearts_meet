@@ -36,3 +36,11 @@ const String worldBackgroundImage = 'asset/images/world_backgroundpng.png';
 
 //lotties json
 const String giftbox = 'asset/icons/Animation - 1720867208224.json';
+
+
+const String contactUsIcon = 'asset/icons/contact_us_icon.png';
+const String deleteIcon = 'asset/icons/delete_icon.png';
+const String logoutIcon = 'asset/icons/logout_icon.png';
+const String notificationIcon = 'asset/icons/notification_icon.png';
+const String privacyIcon = 'asset/icons/privacy_icon.png';
+const String termsAndConditionsIcon = 'asset/icons/terms_conditions_icon.png';

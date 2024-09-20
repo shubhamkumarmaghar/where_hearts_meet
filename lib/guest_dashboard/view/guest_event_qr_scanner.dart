@@ -73,7 +73,6 @@ class _EventQrScannerScreenState extends State<EventQrScannerScreen> {
 
                     isScanCompleted = true;
                     var list = jsonDecode(qrList[0]);
-                    log('message sk  ${list[0]}');
                     if (list[0].toString().contains('heh')) {
                       if (list[1].toString() == (dashboardController.mobileNo)) {
                         Get.offAllNamed(RoutesConst.guestCoverScreen,
@@ -86,20 +85,6 @@ class _EventQrScannerScreenState extends State<EventQrScannerScreen> {
                       AppWidgets.getToast(message: ' This qr is not valid for Heart-e-Homies ', color: primaryColor);
                       Get.back();
                     }
-                    /*  if (qrList[0].toString().contains(API.getPartyBookingHistory)) {
-                      if (list[2].toString() == dashboardController.organisationID.value) {
-                        var pj = list[1].toString().split('&');
-                       // Get.off(JoinPartyDetails(), arguments: pj[0]);
-                      } else {
-
-                      }
-                    }
-                    else {
-                      AppWidgets.getToast(message: ' Invalid QR, please scan qr for party people ',color: primaryColor,
-                      );
-                      Get.back();
-                    }*/
-                    //  Get.off(QrResultScreen(resultQr: qrList,));
                   }
                 },
               )),

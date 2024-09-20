@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'dart:developer';
 import 'dart:io';
 import 'package:clay_containers/widgets/clay_container.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -155,9 +156,10 @@ String getYearTime(String? date) {
   return formattedDate;
 }
 
-void logoutFunction() async {
+Future<void> logoutFunction() async {
   showLoaderDialog(context: Get.context!);
   await GetStorage().erase();
+  await FirebaseAuth.instance.signOut();
   cancelDialog();
   Get.offAllNamed(RoutesConst.loginScreen);
 }
@@ -311,7 +313,6 @@ Future<File?> _generateQRImage({required EventResponseModel model}) async {
     return file;
   }
 }
-
 
 Color convertIntToColor(String? color) {
   if (color == null || color.isEmpty) {

@@ -2,6 +2,7 @@ import 'dart:developer';
 
 import 'package:clay_containers/clay_containers.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 
@@ -33,6 +34,13 @@ class DashboardScreen extends StatelessWidget {
       builder: (controller) {
         return Scaffold(
           key: _scaffoldKey,
+          extendBody: true,
+          extendBodyBehindAppBar: true,
+          appBar: AppBar(
+            toolbarHeight: 0,
+            systemOverlayStyle:
+                const SystemUiOverlayStyle(statusBarColor: primaryColor, statusBarIconBrightness: Brightness.light),
+          ),
           endDrawer: DashboardDrawerScreen(
             dashboardController: controller,
             onDrawerClose: () {
@@ -186,7 +194,6 @@ class DashboardScreen extends StatelessWidget {
                         SizedBox(
                           height: screenHeight * 0.02,
                         ),
-
                         appFeaturesView(),
                         SizedBox(
                           height: screenHeight * 0.04,

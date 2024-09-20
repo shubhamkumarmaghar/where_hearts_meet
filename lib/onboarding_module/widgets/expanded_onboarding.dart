@@ -2,7 +2,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import '../../utils/consts/color_const.dart';
 import '../model/onboarding_model.dart';
-import '../view/onboarding_view.dart';
 
 class ExpandedContentWidget extends StatelessWidget {
   final OnboardingModel onboardingModel;

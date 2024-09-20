@@ -2,6 +2,7 @@ class RoutesConst {
   static String dashboardScreen = '/dashboardScreen';
   static String profileScreen = '/profileScreen';
   static String loginScreen = '/loginScreen';
+  static String otpScreen = '/otpScreen';
   static String guestLogin = '/guestLogin';
   static String signUpScreen = '/signUpScreen';
   static String profileSetUpScreen = '/profileSetUpScreen';

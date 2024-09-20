@@ -1,3 +1,4 @@
+import 'package:clay_containers/clay_containers.dart';
 import 'package:clay_containers/widgets/clay_container.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -23,8 +24,8 @@ Widget getDrawerContentWidget({required IconData icon, required String heading, 
       child: Row(
         children: [
           Container(
-            height: Get.height * 0.04,
-            width: Get.width * 0.09,
+            height: 35,
+            width: 35,
             decoration: BoxDecoration(color: appColor1.withOpacity(0.1), borderRadius: BorderRadius.circular(5)),
             padding: const EdgeInsets.all(2),
             child: ClayContainer(
@@ -42,7 +43,50 @@ Widget getDrawerContentWidget({required IconData icon, required String heading, 
           ),
           Text(
             heading,
-            style: textStyleDangrek(fontSize: 18),
+            style: textStyleDangrek(fontSize: 16),
+          ),
+          const Spacer(),
+          const Icon(
+            Icons.arrow_forward_ios,
+            color: Colors.white,
+            size: 12,
+          ),
+          SizedBox(
+            width: Get.width * 0.025,
+          ),
+        ],
+      ),
+    ),
+  );
+}
+
+Widget getDrawerContentWidgetPng({required String icon, required String heading, required Function onTap}) {
+  return InkWell(
+    onTap: () => onTap(),
+    child: SizedBox(
+      height: Get.height * 0.05,
+      child: Row(
+        children: [
+          ClayContainer(
+            color: appColor1,
+            borderRadius: 10,
+            child: Container(
+              height: 32,
+              width: 32,
+              decoration: BoxDecoration(color: appColor1.withOpacity(0.1), borderRadius: BorderRadius.circular(5)),
+              padding: const EdgeInsets.all(8),
+              child: Image.asset(
+                icon,
+                color: Colors.white,
+              ),
+            ),
+          ),
+          SizedBox(
+            width: Get.width * 0.04,
+          ),
+          Text(
+            heading,
+            style: textStyleDangrek(fontSize: 16),
           ),
           const Spacer(),
           const Icon(
