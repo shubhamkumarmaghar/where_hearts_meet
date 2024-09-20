@@ -29,6 +29,8 @@ const Color darkBlueColor = Color(0xff1C2D3A);
 Color hintColor = const Color(0XFFCDCDCD);
 Color lightBgColor = const Color(0XFFEFEFF4);
 const Color contrastColor = Color(0xffFFD700);
+const Color lightGreyColor = Color.fromRGBO(161, 161, 161, 1);
+const Color darkGreyColor = Color(0XFF0F0F0F);
 
 List<Color> get backgroundGradientColors => const [
       Color(0xff9467ff),

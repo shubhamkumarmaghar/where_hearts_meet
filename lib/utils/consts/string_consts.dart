@@ -72,4 +72,10 @@ class StringConsts {
   static const personalDecorations = 'Personal Decorations';
   static const noImagesFound = 'No any images found!';
   static const noVideosFound = 'No any videos found!';
+  static const registeredUser = 'Registered User';
+  static const guestUser = 'Guest User';
+  static const willSendOTP = 'We will send you one time password  (OTP)';
+  static const byClicking = 'By clicking here you agree to our ';
+  static const termsAndConditions = 'Terms and Conditions';
+  static const privacyPolicy = 'Privacy Policy';
 }

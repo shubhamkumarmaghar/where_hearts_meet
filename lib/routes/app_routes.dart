@@ -1,4 +1,6 @@
 import 'package:get/get.dart';
+import 'package:heart_e_homies/auth_module/binding/otp_screen_binding.dart';
+import 'package:heart_e_homies/auth_module/screens/otp_screen.dart';
 import 'package:heart_e_homies/routes/routes_const.dart';
 import '../../auth_module/binding/login_binding.dart';
 import '../../auth_module/screens/login_screen.dart';
@@ -14,8 +16,6 @@ import '../../preview_event/view/created_wishes_preview_screen.dart';
 import '../../profile_module/binding/profile_binding.dart';
 
 import '../../profile_module/screens/profile_screen.dart';
-import '../auth_module/binding/profile_setup_binding.dart';
-import '../auth_module/screens/profile_setup_screen.dart';
 import '../create_event/binding/create_event_binding.dart';
 import '../create_event/binding/create_gifts_binding.dart';
 import '../create_event/binding/create_personal_decorations_binding.dart';
@@ -64,11 +64,6 @@ class AppRoutes {
         page: () => LoginScreen(),
       ),
       GetPage(
-        name: RoutesConst.profileSetUpScreen,
-        binding: ProfileSetupBinding(),
-        page: () => ProfileSetupScreen(),
-      ),
-      GetPage(
         name: RoutesConst.guestHomeScreen,
         binding: GuestHomeBinding(),
         page: () => const GuestHome(),
@@ -112,6 +107,11 @@ class AppRoutes {
         name: RoutesConst.createEventScreen,
         binding: CreateEventBinding(),
         page: () => CreateEventScreen(),
+      ),
+      GetPage(
+        name: RoutesConst.otpScreen,
+        binding: OtpScreenBinding(),
+        page: () => OtpScreen(),
       ),
       GetPage(
         name: RoutesConst.createEventSplashScreen,

@@ -2,12 +2,11 @@ import 'dart:developer';
 
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
-import 'package:get/get_core/src/get_main.dart';
 import 'package:get_storage/get_storage.dart';
+import 'package:heart_e_homies/routes/routes_const.dart';
 import '../../utils/consts/shared_pref_const.dart';
 import '../model/onboarding_model.dart';
 import 'onboarding_image_widget.dart';
-import '../view/onboarding_view.dart';
 import '../../utils/consts/color_const.dart';
 import 'expanded_onboarding.dart';
 
@@ -22,6 +21,14 @@ class IntroWidget extends StatefulWidget {
 
 class _IntroWidgetState extends State<IntroWidget> {
   bool isExpanded = false;
+
+  @override
+  void initState() {
+    super.initState();
+    WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
+      onShow();
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -41,19 +48,19 @@ class _IntroWidgetState extends State<IntroWidget> {
           Visibility(
             visible: widget.onboardingModel.text.contains('click away'),
             child: AnimatedPositioned(
-              duration: Duration(milliseconds: 500),
+              duration: const Duration(milliseconds: 500),
               bottom: isExpanded ? 40 : 100,
               width: isExpanded ? size.width * 0.9 : size.width * 0.7,
               height: isExpanded ? size.height * 0.66 : size.height * 0.5,
               child: GestureDetector(
                 onTap: () {
                   GetStorage().write(onboarding, true);
-                  Get.offAll( OnboardingScreen());
+                  Get.offAllNamed(RoutesConst.loginScreen);
                 },
                 child: Container(
-                    margin: EdgeInsets.only(right: 10, bottom: 10),
+                    margin: const EdgeInsets.only(right: 10, bottom: 10),
                     alignment: Alignment.bottomRight,
-                    child: Icon(
+                    child: const Icon(
                       CupertinoIcons.arrow_right_circle_fill,
                       size: 50,
                       color: primaryColor,
@@ -62,11 +69,10 @@ class _IntroWidgetState extends State<IntroWidget> {
             ),
           ),
           AnimatedPositioned(
-            duration: Duration(milliseconds: 500),
+            duration: const Duration(milliseconds: 500),
             bottom: isExpanded ? 150 : 100,
             child: GestureDetector(
               onPanUpdate: onPanUpdate,
-              onTap: () {},
               child: OnboardingCardImageWidget(
                 onboardingModel: widget.onboardingModel,
               ),
@@ -78,7 +84,6 @@ class _IntroWidgetState extends State<IntroWidget> {
   }
 
   void onPanUpdate(DragUpdateDetails details) {
-
     if (details.delta.dy < 0) {
       setState(() {
         isExpanded = true;
@@ -88,5 +93,12 @@ class _IntroWidgetState extends State<IntroWidget> {
         isExpanded = false;
       });
     }
+  }
+
+  void onShow() async {
+    await Future.delayed(const Duration(milliseconds: 500));
+    setState(() {
+      isExpanded = true;
+    });
   }
 }

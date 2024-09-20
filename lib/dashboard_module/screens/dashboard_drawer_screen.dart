@@ -2,11 +2,15 @@ import 'package:clay_containers/widgets/clay_container.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
+import 'package:heart_e_homies/utils/consts/api_urls.dart';
+import 'package:heart_e_homies/utils/widgets/util_widgets/app_webview.dart';
 
 import '../../routes/routes_const.dart';
 import '../../utils/consts/app_screen_size.dart';
 import '../../utils/consts/color_const.dart';
+import '../../utils/consts/images_const.dart';
 import '../../utils/consts/screen_const.dart';
+import '../../utils/consts/string_consts.dart';
 import '../../utils/dialogs/pop_up_dialogs.dart';
 import '../../utils/services/firebase_auth_controller.dart';
 import '../../utils/util_functions/decoration_functions.dart';
@@ -82,7 +86,7 @@ class DashboardDrawerScreen extends StatelessWidget {
               Text(
                   dashboardController.userName != null && dashboardController.userName!.isNotEmpty
                       ? dashboardController.userName!
-                      : "User",
+                      : "",
                   style: textStyleDangrek(fontSize: 20)),
               Text(
                   dashboardController.userPhone != null && dashboardController.userPhone!.isNotEmpty
@@ -121,12 +125,32 @@ class DashboardDrawerScreen extends StatelessWidget {
               SizedBox(
                 height: screenHeight * 0.01,
               ),
-              getDrawerContentWidget(icon: Icons.help_outline, heading: "Help & Support", onTap: () async {}),
+              getDrawerContentWidgetPng(
+                  icon: privacyIcon,
+                  heading: StringConsts.privacyPolicy,
+                  onTap: () {
+                    Get.to(() => AppWebView(title: StringConsts.privacyPolicy, url: AppUrls.privacyPolicyUrl));
+                  }),
               SizedBox(
                 height: screenHeight * 0.01,
               ),
-              getDrawerContentWidget(
-                  icon: Icons.logout,
+              getDrawerContentWidgetPng(
+                  icon: termsAndConditionsIcon,
+                  heading: StringConsts.termsAndConditions,
+                  onTap: () {
+                    Get.to(
+                      () => AppWebView(title: StringConsts.termsAndConditions, url: AppUrls.termsAndConditionsUrl),
+                    );
+                  }),
+              SizedBox(
+                height: screenHeight * 0.01,
+              ),
+              getDrawerContentWidgetPng(icon: contactUsIcon, heading: "Contact Us", onTap: () async {}),
+              SizedBox(
+                height: screenHeight * 0.01,
+              ),
+              getDrawerContentWidgetPng(
+                  icon: logoutIcon,
                   heading: "Logout",
                   onTap: () async {
                     showLogoutAlertDialog(

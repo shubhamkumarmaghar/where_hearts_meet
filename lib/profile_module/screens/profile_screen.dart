@@ -64,7 +64,7 @@ class ProfileScreen extends StatelessWidget {
                               enabled: controller.isDataChanged.value,
                               titleTextStyle: textStyleDangrek(color: primaryColor, fontSize: 16),
                               buttonColor: Colors.white,
-                              width: screenWidth * 0.2,
+                              width: 80,
                               onPressed: () {
                                 FocusScope.of(context).requestFocus(FocusNode());
                                 controller.updateUserDetails();

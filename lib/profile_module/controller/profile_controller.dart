@@ -106,6 +106,25 @@ class ProfileController extends BaseController {
       ),
     );
   }
+  void onSelectDOB() async {
+    final date = await dateOfBirthPicker(context: Get.context!, initialDate: _initialDateTime);
+
+    if (date != null) {
+      isDataChanged.value = true;
+      userModel.dateOfBirth = getYearTime(date.toString());
+      update();
+    }
+  }
+
+  void _parseDOB() {
+    if (userModel.dateOfBirth != null && userModel.dateOfBirth!.isNotEmpty) {
+      try {
+        _initialDateTime = DateTime.parse(userModel.dateOfBirth!);
+      } catch (e) {
+        log(e.toString());
+      }
+    }
+  }
 
   void _onCaptureMediaClick({required ImageSource source}) async {
     final ImagePicker picker = ImagePicker();
@@ -155,26 +174,6 @@ class ProfileController extends BaseController {
       Get.offAllNamed(RoutesConst.dashboardScreen);
     } else {
       cancelDialog();
-    }
-  }
-
-  void onSelectDOB() async {
-    final date = await dateOfBirthPicker(context: Get.context!, initialDate: _initialDateTime);
-
-    if (date != null) {
-      isDataChanged.value = true;
-      userModel.dateOfBirth = getYearTime(date.toString());
-      update();
-    }
-  }
-
-  void _parseDOB() {
-    if (userModel.dateOfBirth != null && userModel.dateOfBirth!.isNotEmpty) {
-      try {
-        _initialDateTime = DateTime.parse(userModel.dateOfBirth!);
-      } catch (e) {
-        log(e.toString());
-      }
     }
   }
 

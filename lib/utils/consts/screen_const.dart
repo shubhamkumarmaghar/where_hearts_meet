@@ -18,3 +18,7 @@ enum MediaType{
   image,
   video
 }
+enum UserType{
+  registered,
+  guest
+}

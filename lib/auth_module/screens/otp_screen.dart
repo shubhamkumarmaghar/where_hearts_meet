@@ -6,16 +6,26 @@ import '../../utils/consts/app_screen_size.dart';
 import '../../utils/consts/color_const.dart';
 import '../../utils/util_functions/decoration_functions.dart';
 import '../../utils/widgets/gradient_button.dart';
-import '../controller/login_controller.dart';
+import '../controller/otp_screen_controller.dart';
 
-class LoginOtpScreen extends StatelessWidget {
-  final controller = Get.find<LoginController>();
+class OtpScreen extends StatelessWidget {
+  final controller = Get.find<OtpScreenController>();
 
-  LoginOtpScreen({super.key});
+  OtpScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      bottomNavigationBar: Container(
+        padding: EdgeInsets.only(left: screenWidth * 0.1, right: screenWidth * 0.1, bottom: 30),
+        color: appColor3,
+        child: GradientButton(
+          title: 'Submit',
+          height: screenHeight * 0.06,
+          width: screenWidth * 0.8,
+          onPressed: controller.signInWithPhoneNumber,
+        ),
+      ),
       body: Container(
         height: screenHeight,
         width: screenWidth,
@@ -79,24 +89,24 @@ class LoginOtpScreen extends StatelessWidget {
                       ),
                     ],
                   ),
-                  textHeightBehavior: TextHeightBehavior(applyHeightToFirstAscent: false),
+                  textHeightBehavior: const TextHeightBehavior(applyHeightToFirstAscent: false),
                   textAlign: TextAlign.center,
                 ),
               ),
               SizedBox(
                 height: screenHeight * 0.35,
               ),
-              Align(
-                alignment: Alignment.bottomCenter,
-                child: Center(
-                  child: GradientButton(
-                    title: 'Submit',
-                    height: screenHeight * 0.06,
-                    width: screenWidth * 0.8,
-                    onPressed: controller.signInWithPhoneNumber,
-                  ),
-                ),
-              ),
+              // Align(
+              //   alignment: Alignment.bottomCenter,
+              //   child: Center(
+              //     child: GradientButton(
+              //       title: 'Submit',
+              //       height: screenHeight * 0.06,
+              //       width: screenWidth * 0.8,
+              //       onPressed: controller.signInWithPhoneNumber,
+              //     ),
+              //   ),
+              // ),
             ],
           ),
         ),
@@ -108,7 +118,7 @@ class LoginOtpScreen extends StatelessWidget {
     final defaultPinTheme = PinTheme(
       width: screenHeight * 0.06,
       height: screenHeight * 0.06,
-      textStyle: const TextStyle(fontSize: 20, color:Colors.black54, fontWeight: FontWeight.w600),
+      textStyle: const TextStyle(fontSize: 20, color: Colors.black54, fontWeight: FontWeight.w600),
       decoration: BoxDecoration(
         border: Border.all(color: primaryColor, width: 0.5),
         borderRadius: BorderRadius.circular(15),
@@ -121,10 +131,9 @@ class LoginOtpScreen extends StatelessWidget {
     );
 
     final submittedPinTheme = defaultPinTheme.copyWith(
-      textStyle: TextStyle(fontSize: 20, color: primaryColor, fontWeight: FontWeight.w600),
+      textStyle: const TextStyle(fontSize: 20, color: primaryColor, fontWeight: FontWeight.w600),
       decoration: defaultPinTheme.decoration?.copyWith(
         color: Colors.white,
-
       ),
     );
 
