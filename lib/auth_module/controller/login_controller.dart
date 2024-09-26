@@ -20,6 +20,9 @@ class LoginController extends BaseController {
   RxBool conditionsAccepted = false.obs;
   RxBool showSubmitButton = false.obs;
 
+
+
+
   void onPhoneNumberChanged(String mobile) {
     if (mobile.length == 10) {
       errorPhoneNumberText.value = null;
