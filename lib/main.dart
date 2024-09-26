@@ -47,7 +47,6 @@ void main() async {
 
 Future<void> setUp() async {
   Get.put(FirebaseAuthController());
-  Get.put(FirebaseStorageController());
   locator.registerSingleton<DioInjector>(DioInjector());
   locator.registerSingleton<CreatedEventRepo>(CreatedEventRepo());
 }

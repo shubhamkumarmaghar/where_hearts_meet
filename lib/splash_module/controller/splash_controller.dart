@@ -20,7 +20,7 @@ class SplashController extends GetxController {
     if (isOnboarded) {
       if (login) {
         if (guest) {
-          Get.offAllNamed(RoutesConst.guestDashboard);
+          Get.offAllNamed(RoutesConst.guestViewScreen);
         } else {
           Get.offAllNamed(RoutesConst.dashboardScreen);
         }

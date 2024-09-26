@@ -41,6 +41,25 @@ class AppWidgets {
       ),
     );
   }
+  static void getErrorSnackbar(String body) {
+    Get.snackbar(
+      'Error !',
+      body,
+      snackPosition: SnackPosition.BOTTOM,
+      colorText: Colors.white,
+      backgroundColor: errorColor,
+      padding: EdgeInsets.symmetric(horizontal: 5, vertical: 1),
+      margin: EdgeInsets.symmetric(
+        horizontal: 3,
+        vertical: 1,
+      ),
+      icon: Icon(
+        Icons.error,
+        size: 4,
+        color: Colors.white,
+      ),
+    );
+  }
 
   void showProgressLoader(BuildContext context) {
     showAdaptiveDialog(

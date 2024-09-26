@@ -1,3 +1,4 @@
+import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:flutter/material.dart';
 import '../../utils/consts/app_screen_size.dart';
@@ -27,8 +28,14 @@ class ProfileScreen extends StatelessWidget {
         canPop:fromDashboard,
         child: GetBuilder<ProfileController>(
           builder: (controller) {
-            //  controller.userModel.profilePic = 'https://www.economist.com/sites/default/files/20181006_BLP501.jpg';
             return Scaffold(
+              appBar: AppBar(
+                toolbarHeight: 0,
+                systemOverlayStyle:
+                const SystemUiOverlayStyle(statusBarColor: appColor1, statusBarIconBrightness: Brightness.light),
+              ),
+              extendBodyBehindAppBar: true,
+              extendBody: true,
               body: Container(
                 height: screenHeight,
                 width: screenWidth,

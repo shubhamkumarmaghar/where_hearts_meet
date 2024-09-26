@@ -34,6 +34,7 @@ class CreatePersonalMemoriesController extends BaseController {
   @override
   void onInit() {
     super.onInit();
+
     var createdEvent = locator<CreatedEventRepo>();
     eventResponseModel = createdEvent.getCurrentEvent ?? EventResponseModel();
   }

@@ -1,14 +1,16 @@
-
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:intl/intl.dart';
 
 import '../../create_event/model/event_response_model.dart';
+import '../../routes/routes_const.dart';
 import '../../utils/consts/screen_const.dart';
+import '../../utils/consts/service_const.dart';
 import '../../utils/consts/shared_pref_const.dart';
 import '../../utils/controller/base_controller.dart';
 import '../../utils/dialogs/pop_up_dialogs.dart';
 import '../../utils/model/week_model.dart';
+import '../../utils/repository/created_event_repo.dart';
 import '../service/dashboard_service.dart';
 
 class DashboardController extends BaseController {
@@ -40,9 +42,14 @@ class DashboardController extends BaseController {
     return day == currentDay;
   }
 
-  void deleteEvent({required String eventId, required EventsCreated eventsCreated}) async {
+  void deleteEvent(
+      {required String eventId,
+      required EventsCreated eventsCreated,
+      bool? deleteForMe,
+      bool? deleteForEveryone}) async {
     showLoaderDialog(context: Get.context!);
-    final res = await service.deleteEventApi(eventId: eventId);
+    final res =
+        await service.deleteEventApi(eventId: eventId, deleteForMe: deleteForMe, deleteForEveryone: deleteForEveryone);
     cancelDialog();
     if (res != null) {
       if (eventsCreated == EventsCreated.byUser) {
@@ -52,6 +59,15 @@ class DashboardController extends BaseController {
       }
     }
     update();
+  }
+
+  void navigateToEventDetails({required EventResponseModel eventResponseModel, required EventsCreated eventsCreated}) {
+    final repo = locator<CreatedEventRepo>();
+    repo.setEvent(eventResponseModel);
+    repo.setEventCreated(eventsCreated);
+    repo.setUserType(UserType.registered);
+
+    Get.toNamed(RoutesConst.eventCoverScreen);
   }
 
   Future<void> getEventsCreatedByUser() async {

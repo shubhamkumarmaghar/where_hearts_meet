@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:heart_e_homies/utils/consts/service_const.dart';
+import 'package:heart_e_homies/utils/repository/created_event_repo.dart';
 import '../../create_event/model/event_response_model.dart';
+import '../../routes/routes_const.dart';
 import '../../utils/consts/screen_const.dart';
 import '../../utils/controller/base_controller.dart';
 import '../../utils/dialogs/confirmation_dialog.dart';
@@ -29,6 +32,15 @@ class EventListController extends BaseController {
     }
   }
 
+  void navigateToEventDetails(EventResponseModel eventResponseModel) {
+    final repo = locator<CreatedEventRepo>();
+    repo.setEvent(eventResponseModel);
+    repo.setEventCreated(eventsCreated);
+    repo.setUserType(UserType.registered);
+
+    Get.toNamed(RoutesConst.eventCoverScreen);
+  }
+
   Future<void> eventsListCreatedByUser() async {
     final response = await _eventListService.eventsListCreatedByUserApi();
     if (response != null && response.isNotEmpty) {
@@ -38,6 +50,8 @@ class EventListController extends BaseController {
     }
     update();
   }
+
+  void onPopUpMenuClicked() {}
 
   Future<void> eventsListCreatedForUser() async {
     final response = await _eventListService.eventsListCreatedForUserApi();
@@ -49,21 +63,18 @@ class EventListController extends BaseController {
     update();
   }
 
-  void deleteEvent({required String eventId}) async {
-    showConfirmationBottomSheet(
-        context: Get.context!,
-        onTapYes: () async {
-          Get.back();
-          showLoaderDialog(context: Get.context!);
-          final res = await _eventListService.deleteEventApi(eventId: eventId);
-          cancelDialog();
-          if (res != null) {
-            eventsList?.removeWhere((element) => element.eventid == eventId);
-          }
-          update();
-        },
-        text: 'Delete Event?',
-        description: 'Are you sure to delete this event?',
-        iconData: Icons.delete);
+  void deleteEvent(
+      {required String eventId,
+      required EventsCreated eventsCreated,
+      bool? deleteForMe,
+      bool? deleteForEveryone}) async {
+    showLoaderDialog(context: Get.context!);
+    final res = await _eventListService.deleteEventApi(
+        eventId: eventId, deleteForMe: deleteForMe, deleteForEveryone: deleteForEveryone);
+    cancelDialog();
+    if (res != null) {
+      eventsList?.removeWhere((element) => element.eventid == eventId);
+    }
+    update();
   }
 }

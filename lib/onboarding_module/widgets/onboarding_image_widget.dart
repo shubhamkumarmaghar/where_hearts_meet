@@ -14,7 +14,7 @@ class OnboardingCardImageWidget extends StatelessWidget {
     return Container(
       /// space from white container
       padding: EdgeInsets.symmetric(horizontal: 16),
-      height: size.height * 0.6,
+      height: size.height * 0.55,
       width: size.width * 0.9,
       child: Container(
         decoration: BoxDecoration(

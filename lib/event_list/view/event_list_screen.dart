@@ -6,6 +6,7 @@ import '../../routes/routes_const.dart';
 import '../../utils/consts/app_screen_size.dart';
 import '../../utils/consts/screen_const.dart';
 import '../../utils/consts/string_consts.dart';
+import '../../utils/dialogs/pop_up_dialogs.dart';
 import '../../utils/shimmers/event_list_shimmer.dart';
 import '../../utils/util_functions/decoration_functions.dart';
 import '../../utils/widgets/app_bar_widget.dart';
@@ -74,17 +75,11 @@ class EventListScreen extends StatelessWidget {
     return Expanded(
       child: ListView.separated(
         shrinkWrap: true,
-        padding: EdgeInsets.only(
-          top: screenHeight * 0.02,
-          bottom: screenHeight * 0.03
-        ),
+        padding: EdgeInsets.only(top: screenHeight * 0.02, bottom: screenHeight * 0.03),
         itemBuilder: (context, index) {
           var data = eventsList[index];
           return InkWell(
-            onTap: () {
-              Get.toNamed(RoutesConst.guestCoverScreen,
-                  arguments: data.eventid, parameters: {'type': controller.forSelf == true ? 'For You' : 'By You'});
-            },
+            onTap: () => controller.navigateToEventDetails(data),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
@@ -105,11 +100,37 @@ class EventListScreen extends StatelessWidget {
                         top: 10,
                         child: controller.eventsCreated == EventsCreated.byUser
                             ? moreViewPopUpMenu(onDelete: () {
-                                controller.deleteEvent(eventId: data.eventid ?? "");
+                                showCupertinoActionSheetOptions(
+                                    button1Text: 'Delete for me',
+                                    button2Text: 'Delete for everyone',
+                                    onTapButton1: () {
+                                      controller.deleteEvent(
+                                          eventId: data.eventid ?? "",
+                                          eventsCreated: controller.eventsCreated,
+                                          deleteForMe: true);
+                                    },
+                                    onTapButton2: () {
+                                      controller.deleteEvent(
+                                        eventId: data.eventid ?? '',
+                                        eventsCreated: controller.eventsCreated,
+                                        deleteForMe: true,
+                                        deleteForEveryone: true,
+                                      );
+                                    });
                               }, onShare: () {
                                 shareEvent(eventModel: data, context: context);
                               })
-                            : const SizedBox.shrink(),
+                            : moreViewPopUpMenu(onDelete: () {
+                                showCupertinoActionSheetOptions(
+                                  button1Text: 'Delete for me',
+                                  onTapButton1: () {
+                                    controller.deleteEvent(
+                                        eventId: data.eventid ?? '',
+                                        eventsCreated: controller.eventsCreated,
+                                        deleteForEveryone: true);
+                                  },
+                                );
+                              }),
                       ),
                       Positioned(
                         right: screenWidth * 0.03,
@@ -147,7 +168,7 @@ class EventListScreen extends StatelessWidget {
                       width: screenWidth * 0.6,
                       child: Text(
                         data.eventName!.isNotNullOrEmpty ? data.eventName!.capitalizeFirst.toString() : '',
-                        style: textStyleDangrek(fontSize: screenWidth * 0.055),
+                        style: textStyleDangrek(fontSize: 16),
                         textAlign: TextAlign.center,
                         maxLines: 1,
                         overflow: TextOverflow.ellipsis,
@@ -159,7 +180,7 @@ class EventListScreen extends StatelessWidget {
                       width: screenWidth * 0.25,
                       child: Text(
                         data.eventType ?? '',
-                        style: textStyleDangrek(fontSize: 16),
+                        style: textStyleAleo(fontSize: 14),
                         textAlign: TextAlign.center,
                         maxLines: 1,
                         overflow: TextOverflow.ellipsis,
@@ -174,7 +195,7 @@ class EventListScreen extends StatelessWidget {
                       alignment: Alignment.centerLeft,
                       child: Text(
                         "Lucky one : ${controller.forSelf ? 'You' : '${data.receiverName}'}",
-                        style: textStyleDangrek(fontSize: 18),
+                        style: textStyleAleo(fontSize: 16),
                         textAlign: TextAlign.center,
                         maxLines: 1,
                         overflow: TextOverflow.ellipsis,
@@ -183,7 +204,7 @@ class EventListScreen extends StatelessWidget {
                     const Spacer(),
                     Text(
                       getYearTime(data.eventHostDay ?? ''),
-                      style: textStyleDangrek(fontSize: 18),
+                      style: textStyleAleo(fontSize: 16),
                       textAlign: TextAlign.center,
                       maxLines: 1,
                       overflow: TextOverflow.ellipsis,
@@ -195,7 +216,7 @@ class EventListScreen extends StatelessWidget {
                   width: screenWidth * 0.8,
                   child: Text(
                     "From : ${!controller.forSelf ? 'You' : '${data.hostName}'}",
-                    style: textStyleDangrek(fontSize: 16),
+                    style: textStyleAleo(fontSize: 14),
                     textAlign: TextAlign.center,
                     maxLines: 1,
                     overflow: TextOverflow.ellipsis,

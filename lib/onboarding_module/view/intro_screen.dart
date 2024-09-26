@@ -30,7 +30,7 @@ class _IntroScreenState extends State<IntroScreen> {
           child: Column(
             children: [
               SizedBox(
-                height: screenHeight*0.07,
+                height: screenHeight*0.08,
               ),
               Container(
                 height: screenHeight*0.15,
@@ -42,7 +42,7 @@ class _IntroScreenState extends State<IntroScreen> {
                 ),
               ),
               Container(
-                height: Get.height * 0.75,
+                height: Get.height * 0.73,
                 child: PageView.builder(
                   itemCount: getOnboardingData().length,
                   itemBuilder: (BuildContext context, index) {

@@ -42,7 +42,7 @@ class _IntroWidgetState extends State<IntroWidget> {
             duration: Duration(milliseconds: 500),
             bottom: isExpanded ? 40 : 100,
             width: isExpanded ? size.width * 0.9 : size.width * 0.7,
-            height: isExpanded ? size.height * 0.66 : size.height * 0.5,
+            height: isExpanded ? size.height * 0.6 : size.height * 0.45,
             child: ExpandedContentWidget(onboardingModel: widget.onboardingModel),
           ),
           Visibility(
@@ -51,7 +51,7 @@ class _IntroWidgetState extends State<IntroWidget> {
               duration: const Duration(milliseconds: 500),
               bottom: isExpanded ? 40 : 100,
               width: isExpanded ? size.width * 0.9 : size.width * 0.7,
-              height: isExpanded ? size.height * 0.66 : size.height * 0.5,
+              height: isExpanded ? size.height * 0.6 : size.height * 0.45,
               child: GestureDetector(
                 onTap: () {
                   GetStorage().write(onboarding, true);

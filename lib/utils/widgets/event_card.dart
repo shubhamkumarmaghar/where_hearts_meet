@@ -43,16 +43,16 @@ class EventCard extends StatelessWidget {
         child: Column(
           children: [
             SizedBox(
-              height: screenHeight * 0.25,
+              //height: screenHeight * 0.25,
               width: screenWidth * 0.6,
               child: ClipRRect(
                 borderRadius: BorderRadius.circular(200),
                 child: cachedImage(
-                    imageUrl: eventResponseModel.coverImage, height: screenHeight * 0.25, width: screenWidth * 0.6),
+                    imageUrl: eventResponseModel.coverImage, height: 190, width: 190),
               ),
             ),
-            SizedBox(
-              height: screenHeight * 0.005,
+            const SizedBox(
+              height: 5,
             ),
             Container(
               alignment: Alignment.centerLeft,
@@ -76,15 +76,15 @@ class EventCard extends StatelessWidget {
                 overflow: TextOverflow.ellipsis,
               ),
             ),
-            SizedBox(
-              height: screenHeight * 0.01,
+            const SizedBox(
+              height: 10,
             ),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Container(
-                  height: screenHeight * 0.06,
-                  width: screenHeight * 0.06,
+                  height: 50,
+                  width: 50,
                   margin: EdgeInsets.symmetric(horizontal: screenWidth * 0.02),
                   decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(50), border: Border.all(color: Colors.white, width: 3)),
@@ -95,16 +95,7 @@ class EventCard extends StatelessWidget {
                 ),
                 eventsCreated == EventsCreated.byUser
                     ? moreViewPopUpMenu(onDelete: onDelete, onShare: onShare, showBackground: false)
-                    : GestureDetector(
-                        onTap: () {
-                          onCardTap();
-                        },
-                        child: const Icon(
-                          Icons.arrow_forward_outlined,
-                          color: Colors.white,
-                          size: 22,
-                        ),
-                      ),
+                    : moreViewPopUpMenu(onDelete: onDelete, showBackground: false),
               ],
             )
           ],

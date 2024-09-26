@@ -10,8 +10,10 @@ import 'package:heart_e_homies/utils/controller/base_controller.dart';
 import '../../routes/routes_const.dart';
 import '../../utils/consts/color_const.dart';
 import '../../utils/consts/screen_const.dart';
+import '../../utils/consts/service_const.dart';
 import '../../utils/consts/shared_pref_const.dart';
 import '../../utils/dialogs/pop_up_dialogs.dart';
+import '../../utils/repository/created_event_repo.dart';
 import '../../utils/widgets/util_widgets/app_widgets.dart';
 import '../auth_model/login_response_model.dart';
 import '../auth_services/Auth_api_service.dart';
@@ -87,6 +89,8 @@ class OtpScreenController extends BaseController {
     final response = await _authApiService.fetchLoginUser(phoneNumber: otpParamsModel.phoneNumber, uid: uid);
     loginResponseModel = response;
     if (loginResponseModel.message != null && loginResponseModel.data != null) {
+      var createdEvent = locator<CreatedEventRepo>();
+      createdEvent.setUserType(UserType.registered);
       await Future.wait([
         GetStorage().write(token, loginResponseModel.data?.accessToken),
         GetStorage().write(userMobile, loginResponseModel.data?.phoneNumber),
@@ -95,6 +99,7 @@ class OtpScreenController extends BaseController {
         GetStorage().write(firstName, loginResponseModel.data?.firstName),
         GetStorage().write(isLoggedIn, true),
         GetStorage().write(isGuest, false),
+
       ]);
       cancelDialog();
       AppWidgets.showSnackBar(context: Get.context!, message: '${response.message}', color: greenTextColor);
@@ -114,18 +119,18 @@ class OtpScreenController extends BaseController {
     final response =
         await _authApiService.fetchLoginUser(phoneNumber: otpParamsModel.phoneNumber, uid: uid, isGuest: true);
     if (response.message != null && response.data != null) {
-      await Future.wait([
-        GetStorage().write(token, response.data?.accessToken),
-      ]);
+
       cancelDialog();
       AppWidgets.showSnackBar(context: Get.context!, message: '${response.message}', color: greenTextColor);
       if (response.message!.toLowerCase().contains('guest')) {
+        var createdEvent = locator<CreatedEventRepo>();
+        createdEvent.setUserType(UserType.guest);
         GetStorage().write(token, response.data?.accessToken);
         GetStorage().write(userMobile, response.data?.phoneNumber);
         GetStorage().write(username, response.data?.username);
         GetStorage().write(isGuest, true);
         GetStorage().write(isLoggedIn, true);
-        Get.offAllNamed(RoutesConst.guestDashboard);
+        Get.offAllNamed(RoutesConst.guestViewScreen);
       }
     } else {
       cancelDialog();

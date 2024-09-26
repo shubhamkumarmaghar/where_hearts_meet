@@ -1,22 +1,32 @@
 import 'package:confetti/confetti.dart';
 import 'package:get/get.dart';
+import 'package:heart_e_homies/view_event_details/service/view_event_service.dart';
 
+import '../../../create_event/model/event_response_model.dart';
 import '../../../create_event/model/gift_model.dart';
 import '../../../utils/consts/screen_const.dart';
+import '../../../utils/consts/service_const.dart';
 import '../../../utils/controller/base_controller.dart';
-import '../service/e_gifts_service.dart';
+import '../../../utils/repository/created_event_repo.dart';
 
 class EGiftsController extends BaseController {
   List<GiftModel>? giftsList;
   LoadingState loadingState = LoadingState.loading;
-  final _giftsService = EGiftsService();
+  final _eventService = ViewEventService();
   ConfettiController confettiController = ConfettiController(duration: const Duration(seconds: 10));
+  late String eventId;
+  late EventsCreated eventsCreated;
+  late UserType userType;
 
   @override
   void onInit() {
     super.onInit();
-    var eventId = Get.arguments as String?;
-    if (eventId != null && eventId.isNotEmpty) {
+    final repo = locator<CreatedEventRepo>();
+    final eventDetails = repo.getCurrentEvent ?? EventResponseModel();
+    eventId = eventDetails.eventid ?? '';
+    eventsCreated = repo.getCurrentEventCreated ?? EventsCreated.byUser;
+    userType = repo.getUserType ?? UserType.registered;
+    if (eventId.isNotEmpty) {
       getEGifts(eventId: eventId);
     }
   }
@@ -34,7 +44,7 @@ class EGiftsController extends BaseController {
   Future<void> getEGifts({required String eventId}) async {
     loadingState = LoadingState.loading;
     update();
-    final response = await _giftsService.getEGiftsApi(eventId: eventId);
+    final response = await _eventService.getEGiftsApi(eventId: eventId);
     if (response != null && response.isNotEmpty) {
       giftsList = response;
       loadingState = LoadingState.hasData;

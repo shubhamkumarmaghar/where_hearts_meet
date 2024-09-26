@@ -40,10 +40,19 @@ class EventListService {
     }
   }
 
-  Future<String?> deleteEventApi({required String eventId}) async {
+  Future<String?> deleteEventApi({required String eventId, bool? deleteForMe, bool? deleteForEveryone}) async {
     String url = AppUrls.createEventUrl;
+    Map<String, dynamic> params = {
+      "eventid": eventId,
+    };
+    if (deleteForMe != null) {
+      params.addAll({'delete_for_host': deleteForMe});
+    }
+    if (deleteForEveryone != null) {
+      params.addAll({'delete_for_receiver': deleteForEveryone});
+    }
 
-    final response = await _apiService.deleteApiCall(url: url, queryParams: {"eventid": eventId});
+    final response = await _apiService.deleteApiCall(url: url, queryParams: params);
 
     if (response['message'].toLowerCase().contains('event deleted')) {
       return response['message'];

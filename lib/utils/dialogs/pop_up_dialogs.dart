@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
@@ -45,10 +47,7 @@ void showLoaderDialog({required BuildContext context, String? loadingText, Color
 }
 
 void showCupertinoActionSheetOptions(
-    {required String button1Text,
-    required String button2Text,
-    required Function onTapButton1,
-    required Function onTapButton2}) {
+    {required String button1Text, String? button2Text, required Function onTapButton1, Function? onTapButton2}) {
   showCupertinoModalPopup(
     context: Get.context!,
     builder: (BuildContext context) => CupertinoActionSheet(
@@ -63,16 +62,17 @@ void showCupertinoActionSheetOptions(
             style: const TextStyle(color: Colors.blue, fontSize: 18, fontWeight: FontWeight.w500),
           ),
         ),
-        CupertinoActionSheetAction(
-          onPressed: () {
-            Get.back();
-            onTapButton2();
-          },
-          child: Text(
-            button2Text,
-            style: const TextStyle(color: Colors.blue, fontSize: 18, fontWeight: FontWeight.w500),
+        if (button2Text != null && onTapButton2 != null)
+          CupertinoActionSheetAction(
+            onPressed: () {
+              Get.back();
+              onTapButton2();
+            },
+            child: Text(
+              button2Text,
+              style: const TextStyle(color: Colors.blue, fontSize: 18, fontWeight: FontWeight.w500),
+            ),
           ),
-        ),
       ],
       cancelButton: CupertinoActionSheetAction(
         onPressed: () {
@@ -149,10 +149,40 @@ void showAlertDialogWithYesNo({String? message, required BuildContext context, r
   );
 }
 
+void showExitDialog(BuildContext context) {
+  final CupertinoAlertDialog alert = CupertinoAlertDialog(
+    title:
+        const Center(child: Text('Are you sure to exit?', style: TextStyle(fontSize: 16, fontWeight: FontWeight.w400))),
+    actions: <Widget>[
+      CupertinoDialogAction(
+        isDefaultAction: false,
+        child: const Text('Yes', style: TextStyle(fontSize: 16, color: primaryColor)),
+        onPressed: () {
+          exit(0);
+        },
+      ),
+      CupertinoDialogAction(
+        isDefaultAction: false,
+        child: const Text('No', style: TextStyle(fontSize: 16, color: primaryColor)),
+        onPressed: () {
+          cancelDialog();
+        },
+      ),
+    ],
+  );
+  // show the dialog
+  showDialog(
+    context: context,
+    builder: (BuildContext context) {
+      return alert;
+    },
+  );
+}
+
 void showLogoutAlertDialog({String? message, required BuildContext context, required Function logOutFunction}) {
   final CupertinoAlertDialog alert = CupertinoAlertDialog(
     title: Center(
-        child: Text(message ?? 'Are you sure to exit?',
+        child: Text(message ?? 'Are you sure to logout?',
             style: const TextStyle(fontSize: 16, fontWeight: FontWeight.w400))),
     actions: <Widget>[
       CupertinoDialogAction(
