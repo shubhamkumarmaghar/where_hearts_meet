@@ -37,7 +37,6 @@ class GuestViewController extends BaseController {
       AppWidgets.getToast(message: 'Please enter valid Event Code');
       return;
     }
-    textController.text = 'MTJfSGFwcHkgaGFwcHkgYmlydGhkYXk=';
     showLoaderDialog(context: Get.context!);
     final response = await _apiService.getEventDetails(eventId: textController.text, mobileNo: mobileNo);
     cancelDialog();
