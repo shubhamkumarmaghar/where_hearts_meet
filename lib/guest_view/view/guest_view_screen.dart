@@ -66,6 +66,7 @@ class GuestViewScreen extends StatelessWidget {
                       ),
                     );
                   },
+
                   overlayBuilder: (context, constraints) {
                     return QRScannerOverlay(
                       overlayColor: Colors.black.withOpacity(0.5),
