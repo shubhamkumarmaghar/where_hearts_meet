@@ -47,6 +47,7 @@ dependencies:
   dotted_border: ^2.1.0
   image_cropper: ^4.0.1
   webview_flutter: ^4.8.0
+  slider_button: ^2.1.0
 
   google_fonts:
   blur:
@@ -66,6 +67,7 @@ dependencies:
   share_plus: ^10.0.0
   flutter_colorpicker: ^1.1.0
   scratcher: ^2.5.0
+  flutter_local_notifications: ^17.2.3
 
 
 dev_dependencies:

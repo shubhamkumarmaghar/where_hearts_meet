@@ -9,7 +9,6 @@ class EventModel {
   String? receiverName;
   bool? globalEvent;
   String? splashBackgroundImage;
-  String? splashDisplayImage;
 
   EventModel(
       {this.eventName,
@@ -22,7 +21,7 @@ class EventModel {
       this.coverImage,
       this.globalEvent,
       this.splashBackgroundImage,
-      this.splashDisplayImage});
+      });
 
   EventModel.fromJson(Map<String, dynamic> json) {
     eventName = json['event_name'];
@@ -35,7 +34,6 @@ class EventModel {
     eventDescription = json['event_description'];
     coverImage = json['cover_image'];
     splashBackgroundImage = json['splash_background_image'];
-    splashDisplayImage = json['splash_display_image'];
   }
 
   Map<String, dynamic> toJson() {
@@ -51,7 +49,6 @@ class EventModel {
     data['global_event'] = globalEvent;
     data['cover_image'] = coverImage;
     data['splash_background_image'] = splashBackgroundImage;
-    data['splash_display_image'] = splashDisplayImage;
 
     return data;
   }

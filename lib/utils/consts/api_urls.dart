@@ -1,6 +1,6 @@
 class AppUrls {
   static const String prodUrl = "https://heartehomies.com/";
-  static const String homeUrl = "http://192.168.1.14:8000/";
+  static const String homeUrl = "http://192.168.1.12/";
   static const String baseUrl = prodUrl;
 
   static const String termsAndConditionsUrl = '${prodUrl}termsandconditions/';
@@ -15,6 +15,8 @@ class AppUrls {
 
   ///created by me
   static const String eventsCreatedByUserUrl = 'eventApp/get_events_list/';
+
+  static const String pendingEventsByUserUrl = 'eventApp/pending_events/';
 
   static const String getGiftsUrl = 'eventApp/gifts_list/';
 

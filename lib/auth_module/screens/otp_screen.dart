@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:pinput/pinput.dart';
 
@@ -30,7 +31,7 @@ class OtpScreen extends StatelessWidget {
         height: screenHeight,
         width: screenWidth,
         decoration: BoxDecoration(gradient: backgroundGradient),
-        padding: EdgeInsets.only(left: 16, right: 16, top: screenHeight * 0.08),
+        padding: EdgeInsets.only(left: 16, right: 16, top: screenHeight * 0.06),
         child: SingleChildScrollView(
           child: Column(
             children: [

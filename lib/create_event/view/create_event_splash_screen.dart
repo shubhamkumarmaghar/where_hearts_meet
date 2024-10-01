@@ -1,6 +1,8 @@
 import 'package:blur/blur.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:get/get.dart';
+import 'package:slider_button/slider_button.dart';
 import '../../utils/consts/app_screen_size.dart';
 import '../../utils/consts/color_const.dart';
 import '../../utils/util_functions/decoration_functions.dart';
@@ -19,20 +21,31 @@ class CreateEventSplashScreen extends StatelessWidget {
     return GetBuilder<CreateEventController>(
       builder: (controller) {
         return Scaffold(
-          floatingActionButton: GestureDetector(
-            onTap: () {
-              if (controller.createButtonEnabled.value) {
-                controller.createEvent();
-              }
-            },
-            child: CircleAvatar(
-                radius: 30,
-                backgroundColor: controller.createButtonEnabled.value ? primaryColor : Colors.grey.shade400,
-                child: const Icon(
-                  Icons.arrow_forward,
-                  color: Colors.white,
-                  size: 30,
-                )),
+          floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
+          floatingActionButton: controller.createButtonEnabled.value
+              ? SliderButton(
+                  action: () async {
+                    await controller.createEvent();
+                    return false;
+                  },
+                  baseColor: primaryColor,
+                  width: screenWidth * 0.8,
+                  alignLabel: Alignment.center,
+                  height: 60,
+                  label: Text(
+                    "Slide to create Event",
+                    style: textStyleAleo(fontSize: 18, color: Colors.white),
+                  ),
+                  icon: const Icon(
+                    Icons.create,
+                    color: primaryColor,
+                  ),
+                )
+              : const SizedBox.shrink(),
+          appBar: AppBar(
+            toolbarHeight: 0.0,
+            systemOverlayStyle: const SystemUiOverlayStyle(
+                statusBarColor: Colors.transparent, statusBarIconBrightness: Brightness.light),
           ),
           body: Stack(
             children: [
@@ -100,7 +113,7 @@ class CreateEventSplashScreen extends StatelessWidget {
                                 decoration: BoxDecoration(
                                   border: Border.all(width: 3, color: Colors.white),
                                   color: appColor2,
-                                  borderRadius: BorderRadius.circular(20),
+                                  borderRadius: BorderRadius.circular(25),
                                 ),
                                 child: ClipRRect(
                                     borderRadius: BorderRadius.circular(20),
@@ -198,7 +211,7 @@ class CreateEventSplashScreen extends StatelessWidget {
                                   ),
                                 ),
                               ),
-                            )
+                            ),
                           ],
                         ),
                       ),

@@ -48,7 +48,7 @@ class LoginController extends BaseController {
     await _auth.verifyPhoneNumber(
       phoneNumber: "+91${phoneNumberController.text}",
       verificationCompleted: (PhoneAuthCredential credential) async {
-        await _auth.signInWithCredential(credential);
+        //await _auth.signInWithCredential(credential);
       },
       verificationFailed: (FirebaseAuthException e) {
         log('otp verification failed :: ${e.message}');
@@ -71,6 +71,8 @@ class LoginController extends BaseController {
       timeout: const Duration(seconds: 60),
       codeAutoRetrievalTimeout: (String verificationId) {
         _verificationId = verificationId;
+        log('Timeout for OTP');
+
       },
     );
   }

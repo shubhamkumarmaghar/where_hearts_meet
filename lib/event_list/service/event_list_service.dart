@@ -40,6 +40,22 @@ class EventListService {
     }
   }
 
+  Future<List<EventResponseModel>?> fetchPendingEventsApi() async {
+    String url = AppUrls.pendingEventsByUserUrl;
+    final response = await _apiService.getApiCall(
+      url: url,
+    );
+    final data = response;
+
+    if (data['message'].toString().toLowerCase().contains('events found') && data['data'] != null) {
+      Iterable iterable = data['data'];
+      final list = iterable.map((event) => EventResponseModel.fromJson(event)).toList();
+      return list;
+    } else {
+      return null;
+    }
+  }
+
   Future<String?> deleteEventApi({required String eventId, bool? deleteForMe, bool? deleteForEveryone}) async {
     String url = AppUrls.createEventUrl;
     Map<String, dynamic> params = {

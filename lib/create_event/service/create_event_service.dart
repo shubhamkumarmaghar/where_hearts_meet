@@ -41,11 +41,11 @@ class CreateEventService {
     return response['data'] != null ? ImageResponseModel.fromJson(response['data']) : null;
   }
 
-  Future<bool> deleteFileApi({required String fileUrl,bool showMsg=true}) async {
+  Future<bool> deleteFileApi({required String fileUrl, bool showMsg = true}) async {
     final response = await _apiService.deleteApiCall(url: AppUrls.deleteFileUrl, queryParams: {'file_url': fileUrl});
 
     if (response['message'].toString().toLowerCase().contains('deleted successfully')) {
-      if(showMsg){
+      if (showMsg) {
         AppWidgets.getToast(message: response['message'], color: greenTextColor);
       }
       return true;

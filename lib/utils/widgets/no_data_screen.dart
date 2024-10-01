@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 
 import '../consts/app_screen_size.dart';
@@ -12,6 +14,7 @@ class NoDataScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    log('this');
     return showBackIcon
         ? SizedBox(
             height: screenHeight,

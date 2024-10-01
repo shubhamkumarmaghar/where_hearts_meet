@@ -358,3 +358,37 @@ Future<AppActions?> showMessageActionDialog(BuildContext context) {
     },
   );
 }
+
+Future<String?> showAlertDialogWithTextField({
+  required BuildContext context,
+}) {
+  var text = '';
+  return showDialog<String>(
+    context: context,
+    builder: (context) {
+      return AlertDialog(
+        title: Text('Change server ip'),
+        content: TextField(
+          onChanged: (value) {
+            text = value;
+          },
+          decoration: InputDecoration(hintText: "Type ip here"),
+        ),
+        actions: [
+          TextButton(
+            onPressed: () {
+              Get.back();
+            },
+            child: Text('Cancel'),
+          ),
+          TextButton(
+            onPressed: () {
+              Get.back(result: text); // Close the dialog
+            },
+            child: Text('OK'),
+          ),
+        ],
+      );
+    },
+  );
+}

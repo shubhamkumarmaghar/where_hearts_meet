@@ -1,10 +1,8 @@
 import 'package:clay_containers/widgets/clay_container.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:get_storage/get_storage.dart';
 import 'package:heart_e_homies/utils/consts/api_urls.dart';
 import 'package:heart_e_homies/utils/widgets/util_widgets/app_webview.dart';
-
 import '../../routes/routes_const.dart';
 import '../../utils/consts/app_screen_size.dart';
 import '../../utils/consts/color_const.dart';
@@ -12,7 +10,6 @@ import '../../utils/consts/images_const.dart';
 import '../../utils/consts/screen_const.dart';
 import '../../utils/consts/string_consts.dart';
 import '../../utils/dialogs/pop_up_dialogs.dart';
-import '../../utils/services/firebase_auth_controller.dart';
 import '../../utils/util_functions/decoration_functions.dart';
 import '../../utils/widgets/cached_image.dart';
 import '../../utils/widgets/custom_photo_view.dart';
@@ -20,12 +17,11 @@ import '../controller/dashboard_controller.dart';
 import '../widgets/dashboard_widgets.dart';
 
 class DashboardDrawerScreen extends StatelessWidget {
-  final firebaseAuthController = Get.find<FirebaseAuthController>();
   final Function onDrawerClose;
 
   final DashboardController dashboardController;
 
-  DashboardDrawerScreen({Key? key, required this.dashboardController, required this.onDrawerClose}) : super(key: key);
+  const DashboardDrawerScreen({Key? key, required this.dashboardController, required this.onDrawerClose}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -111,6 +107,16 @@ class DashboardDrawerScreen extends StatelessWidget {
                   heading: "Received Events",
                   onTap: () {
                     Get.toNamed(RoutesConst.eventListScreen, arguments: EventsCreated.forUser);
+                    onDrawerClose();
+                  }),
+              SizedBox(
+                height: screenHeight * 0.01,
+              ),
+              getDrawerContentWidget(
+                  icon: Icons.wallet_giftcard,
+                  heading: "Pending Events",
+                  onTap: () {
+                    Get.toNamed(RoutesConst.eventListScreen, arguments: EventsCreated.pending);
                     onDrawerClose();
                   }),
               SizedBox(

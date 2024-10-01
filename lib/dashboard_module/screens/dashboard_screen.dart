@@ -243,7 +243,7 @@ class DashboardScreen extends StatelessWidget {
                               : controller.eventListCreatedByUser != null && controller.eventListCreatedByUser!.isEmpty
                                   ? const SizedBox.shrink()
                                   : SizedBox(
-                                      height: 320,
+                                      height: 340,
                                       width: screenWidth,
                                       child: getEventCard(
                                           context: context,
@@ -292,7 +292,7 @@ class DashboardScreen extends StatelessWidget {
                                       controller.eventListCreatedForUser!.isEmpty
                                   ? const SizedBox.shrink()
                                   : SizedBox(
-                                      height: 320,
+                                      height: 340,
                                       width: screenWidth,
                                       child: getEventCard(
                                           context: context,

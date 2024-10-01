@@ -9,9 +9,7 @@ class EventListShimmer extends StatelessWidget {
   Widget build(BuildContext context) {
     return Expanded(
       child: ListView.separated(
-        padding:  EdgeInsets.only(
-          bottom: screenHeight*0.03
-        ),
+        padding: EdgeInsets.only(bottom: screenHeight * 0.03, top: screenHeight * 0.02),
         itemBuilder: (context, index) {
           return Column(
             crossAxisAlignment: CrossAxisAlignment.start,

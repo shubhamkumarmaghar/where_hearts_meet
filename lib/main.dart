@@ -1,9 +1,9 @@
-import 'dart:developer';
 import 'dart:io';
-
+import 'package:firebase_messaging/firebase_messaging.dart';
+import 'dart:async';
 import 'package:firebase_core/firebase_core.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:get/get_navigation/src/root/get_material_app.dart';
 import 'package:get_storage/get_storage.dart';
@@ -13,40 +13,55 @@ import 'package:heart_e_homies/utils/consts/color_const.dart';
 import 'package:heart_e_homies/utils/consts/service_const.dart';
 import 'package:heart_e_homies/utils/repository/created_event_repo.dart';
 import 'package:heart_e_homies/utils/services/dio_injector.dart';
-import 'package:heart_e_homies/utils/services/firebase_auth_controller.dart';
-import 'package:heart_e_homies/utils/services/firebase_storage_controller.dart';
+import 'package:heart_e_homies/utils/services/firebase_messaging_service.dart';
 
+@pragma('vm:entry-point')
+Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message) async {
+  await Firebase.initializeApp();
+}
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  await SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
   HttpOverrides.global = MyHttpOverrides();
-
+  // if (kIsWeb) {
+  //   try {
+  //     await Firebase.initializeApp(
+  //       options: const FirebaseOptions(
+  //           apiKey: "AIzaSyA4tMpqUygCwEl41p0JLr27GwJy57WcDtc",
+  //           authDomain: "heart-e-homies.firebaseapp.com",
+  //           projectId: "heart-e-homies",
+  //           storageBucket: "heart-e-homies.appspot.com",
+  //           messagingSenderId: "589823183104",
+  //           appId: "1:589823183104:web:744cc20ccfeea89a71cbe5",
+  //           measurementId: "G-4EJR4H765S"),
+  //     );
+  //   } catch (e) {
+  //     log('Error initializing Firebase: $e');
+  //   }
+  // } else {
+  //   await Firebase.initializeApp();
+  // }
   await GetStorage.init();
-  if (kIsWeb) {
-    // try {
-    //   await Firebase.initializeApp(
-    //     options: const FirebaseOptions(
-    //         apiKey: "AIzaSyA4tMpqUygCwEl41p0JLr27GwJy57WcDtc",
-    //         authDomain: "heart-e-homies.firebaseapp.com",
-    //         projectId: "heart-e-homies",
-    //         storageBucket: "heart-e-homies.appspot.com",
-    //         messagingSenderId: "589823183104",
-    //         appId: "1:589823183104:web:744cc20ccfeea89a71cbe5",
-    //         measurementId: "G-4EJR4H765S"),
-    //   );
-    // } catch (e) {
-    //   log('Error initializing Firebase: $e');
-    // }
-  } else {
-    await Firebase.initializeApp();
-  }
+  await Firebase.initializeApp();
+  await FirebaseMessagingService.init();
+  FirebaseMessaging.onMessage.listen((RemoteMessage message) async {
+    FirebaseMessagingService.onMessage(message: message);
+  });
+
+  FirebaseMessaging.onBackgroundMessage(_firebaseMessagingBackgroundHandler);
+  FirebaseMessaging.onMessageOpenedApp.listen((event) {
+    FirebaseMessagingService.onOpenedNotification(message: event);
+  });
+  FirebaseMessaging.instance.getInitialMessage().then((value) {
+    FirebaseMessagingService.onInitialNotification(message: value);
+  });
 
   await setUp();
   runApp(const MyApp());
 }
 
 Future<void> setUp() async {
-  Get.put(FirebaseAuthController());
   locator.registerSingleton<DioInjector>(DioInjector());
   locator.registerSingleton<CreatedEventRepo>(CreatedEventRepo());
 }
