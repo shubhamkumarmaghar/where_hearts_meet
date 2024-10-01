@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:heart_e_homies/utils/consts/string_consts.dart';
 import 'package:heart_e_homies/utils/util_functions/decoration_functions.dart';
-import 'package:heart_e_homies/utils/widgets/designer_text_field.dart';
 import 'package:heart_e_homies/utils/widgets/gradient_button.dart';
 import '../../utils/consts/api_urls.dart';
 import '../../utils/consts/app_screen_size.dart';
@@ -31,10 +30,12 @@ class LoginScreen extends StatelessWidget {
                   height: screenHeight * 0.35,
                   width: screenWidth,
                   padding: const EdgeInsets.all(60),
-                  decoration: const BoxDecoration(color: primaryColor,borderRadius: BorderRadius.only(
-                    bottomLeft: Radius.circular(50),
-                    bottomRight: Radius.circular(50),
-                  )),
+                  decoration: const BoxDecoration(
+                      color: primaryColor,
+                      borderRadius: BorderRadius.only(
+                        bottomLeft: Radius.circular(50),
+                        bottomRight: Radius.circular(50),
+                      )),
                   child: Image.asset(
                     logo,
                     //color: Colors.white,
@@ -191,4 +192,3 @@ class LoginScreen extends StatelessWidget {
     );
   }
 }
-

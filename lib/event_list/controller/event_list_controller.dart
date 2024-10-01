@@ -25,9 +25,13 @@ class EventListController extends BaseController {
       pageTitle = 'Received Events';
       eventsListCreatedForUser();
       forSelf = true;
-    } else {
+    } else if (eventsCreated == EventsCreated.byUser) {
       pageTitle = 'Created Events';
       eventsListCreatedByUser();
+      forSelf = false;
+    } else {
+      pageTitle = 'Pending Events';
+      pendingEventsCreatedByUser();
       forSelf = false;
     }
   }
@@ -51,7 +55,15 @@ class EventListController extends BaseController {
     update();
   }
 
-  void onPopUpMenuClicked() {}
+  Future<void> pendingEventsCreatedByUser() async {
+    final response = await _eventListService.fetchPendingEventsApi();
+    if (response != null && response.isNotEmpty) {
+      eventsList = response;
+    } else {
+      eventsList = [];
+    }
+    update();
+  }
 
   Future<void> eventsListCreatedForUser() async {
     final response = await _eventListService.eventsListCreatedForUserApi();

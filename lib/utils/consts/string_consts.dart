@@ -1,6 +1,7 @@
 class StringConsts {
   static const noEventsCreatedByYou = 'You have not created any events yet!.';
   static const noEventsCreatedForYou = 'No any events found for you!.';
+  static const noPendingEvents = 'No any pending events.';
   static const save = 'Save';
   static const profile = 'Profile';
   static const selectGender = 'Select Gender';
@@ -78,4 +79,9 @@ class StringConsts {
   static const byClicking = 'By clicking here you agree to our ';
   static const termsAndConditions = 'Terms and Conditions';
   static const privacyPolicy = 'Privacy Policy';
+  static const luckyOne = 'Lucky one';
+  static const you = 'You';
+  static const deleteForMe = 'Delete for me';
+  static const deleteForEveryone = 'Delete for everyone';
+  static const deleteThisEvent = 'Delete this event';
 }

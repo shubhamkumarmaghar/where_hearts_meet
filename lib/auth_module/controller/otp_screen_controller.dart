@@ -39,7 +39,7 @@ class OtpScreenController extends BaseController {
     await _auth.verifyPhoneNumber(
       phoneNumber: "+91${otpParamsModel.phoneNumber}",
       verificationCompleted: (PhoneAuthCredential credential) async {
-        await _auth.signInWithCredential(credential);
+        //await _auth.signInWithCredential(credential);
       },
       verificationFailed: (FirebaseAuthException e) {
         AppWidgets.showSnackBar(context: Get.context!, message: '${e.message?.toString()}');
@@ -50,7 +50,7 @@ class OtpScreenController extends BaseController {
         cancelDialog();
         AppWidgets.getToast(message: 'OTP sent', color: greenTextColor);
       },
-      timeout: const Duration(seconds: 30),
+      timeout: const Duration(seconds: 60),
       codeAutoRetrievalTimeout: (String verificationId) {
         _verificationId = verificationId;
       },

@@ -48,7 +48,7 @@ class EventCard extends StatelessWidget {
               child: ClipRRect(
                 borderRadius: BorderRadius.circular(200),
                 child: cachedImage(
-                    imageUrl: eventResponseModel.coverImage, height: 190, width: 190),
+                    imageUrl: eventResponseModel.coverImage, height: 210, width: 190),
               ),
             ),
             const SizedBox(

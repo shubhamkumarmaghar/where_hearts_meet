@@ -36,7 +36,7 @@ class EventListScreen extends StatelessWidget {
             child: Column(
               children: [
                 SizedBox(
-                  height: screenHeight * 0.07,
+                  height: screenHeight * 0.06,
                 ),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.start,
@@ -57,7 +57,9 @@ class EventListScreen extends StatelessWidget {
                             child: NoDataScreen(
                               message: controller.eventsCreated == EventsCreated.byUser
                                   ? StringConsts.noEventsCreatedByYou
-                                  : StringConsts.noEventsCreatedForYou,
+                                  : controller.eventsCreated == EventsCreated.forUser
+                                      ? StringConsts.noEventsCreatedForYou
+                                      : StringConsts.noPendingEvents,
                             ),
                           )
                         : _eventInfoCardsWidget(
@@ -83,80 +85,89 @@ class EventListScreen extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                GestureDetector(
-                  onTap: () {
-                    Get.to(() => CustomPhotoView(
-                          imageUrl: data.coverImage,
-                        ));
-                  },
-                  child: Stack(
-                    children: [
-                      ClipRRect(
-                          borderRadius:
-                              const BorderRadius.only(topRight: Radius.circular(20), topLeft: Radius.circular(20)),
-                          child: cachedImage(height: 200, width: screenWidth, imageUrl: data.coverImage ?? "")),
-                      Positioned(
-                        right: 10,
-                        top: 10,
-                        child: controller.eventsCreated == EventsCreated.byUser
-                            ? moreViewPopUpMenu(onDelete: () {
-                                showCupertinoActionSheetOptions(
-                                    button1Text: 'Delete for me',
-                                    button2Text: 'Delete for everyone',
-                                    onTapButton1: () {
-                                      controller.deleteEvent(
-                                          eventId: data.eventid ?? "",
-                                          eventsCreated: controller.eventsCreated,
-                                          deleteForMe: true);
-                                    },
-                                    onTapButton2: () {
-                                      controller.deleteEvent(
-                                        eventId: data.eventid ?? '',
-                                        eventsCreated: controller.eventsCreated,
-                                        deleteForMe: true,
-                                        deleteForEveryone: true,
-                                      );
-                                    });
-                              }, onShare: () {
-                                shareEvent(eventModel: data, context: context);
-                              })
-                            : moreViewPopUpMenu(onDelete: () {
-                                showCupertinoActionSheetOptions(
-                                  button1Text: 'Delete for me',
+                Stack(
+                  children: [
+                    ClipRRect(
+                        borderRadius:
+                            const BorderRadius.only(topRight: Radius.circular(20), topLeft: Radius.circular(20)),
+                        child: cachedImage(height: 200, width: screenWidth, imageUrl: data.coverImage ?? "")),
+                    Positioned(
+                      right: 10,
+                      top: 10,
+                      child: controller.eventsCreated == EventsCreated.byUser
+                          ? moreViewPopUpMenu(onDelete: () {
+                              showCupertinoActionSheetOptions(
+                                  button1Text: StringConsts.deleteForMe,
+                                  button2Text: StringConsts.deleteForEveryone,
                                   onTapButton1: () {
                                     controller.deleteEvent(
-                                        eventId: data.eventid ?? '',
+                                        eventId: data.eventid ?? "",
                                         eventsCreated: controller.eventsCreated,
-                                        deleteForEveryone: true);
+                                        deleteForMe: true);
                                   },
-                                );
-                              }),
-                      ),
-                      Positioned(
-                        right: screenWidth * 0.03,
-                        bottom: screenHeight * 0.01,
-                        child: GestureDetector(
-                          onTap: () {
-                            Get.to(() => CustomPhotoView(
-                                  imageUrl: data.splashBackgroundImage,
-                                ));
-                          },
-                          child: Container(
-                            height: screenHeight * 0.06,
-                            width: screenHeight * 0.06,
-                            decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(50),
-                                border: Border.all(color: Colors.white, width: 2)),
-                            //padding: EdgeInsets.all(5),
-                            child: ClipRRect(
+                                  onTapButton2: () {
+                                    controller.deleteEvent(
+                                      eventId: data.eventid ?? '',
+                                      eventsCreated: controller.eventsCreated,
+                                      deleteForMe: true,
+                                      deleteForEveryone: true,
+                                    );
+                                  });
+                            }, onShare: () {
+                              shareEvent(eventModel: data, context: context);
+                            })
+                          : controller.eventsCreated == EventsCreated.forUser
+                              ? moreViewPopUpMenu(onDelete: () {
+                                  showCupertinoActionSheetOptions(
+                                    button1Text: StringConsts.deleteForMe,
+                                    onTapButton1: () {
+                                      controller.deleteEvent(
+                                          eventId: data.eventid ?? '',
+                                          eventsCreated: controller.eventsCreated,
+                                          deleteForEveryone: true);
+                                    },
+                                  );
+                                })
+                              : moreViewPopUpMenu(
+                                  onDelete: () {
+                                    showCupertinoActionSheetOptions(
+                                      button1Text: StringConsts.deleteThisEvent,
+                                      onTapButton1: () {
+                                        controller.deleteEvent(
+                                          eventId: data.eventid ?? '',
+                                          eventsCreated: controller.eventsCreated,
+                                          deleteForMe: true,
+                                          deleteForEveryone: true,
+                                        );
+                                      },
+                                    );
+                                  },
+                                ),
+                    ),
+                    Positioned(
+                      right: screenWidth * 0.03,
+                      bottom: screenHeight * 0.01,
+                      child: GestureDetector(
+                        onTap: () {
+                          Get.to(() => CustomPhotoView(
+                                imageUrl: data.splashBackgroundImage,
+                              ));
+                        },
+                        child: Container(
+                          height: screenHeight * 0.06,
+                          width: screenHeight * 0.06,
+                          decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(50),
-                              child: cachedImage(imageUrl: data.splashBackgroundImage),
-                            ),
+                              border: Border.all(color: Colors.white, width: 2)),
+                          //padding: EdgeInsets.all(5),
+                          child: ClipRRect(
+                            borderRadius: BorderRadius.circular(50),
+                            child: cachedImage(imageUrl: data.splashBackgroundImage),
                           ),
                         ),
                       ),
-                    ],
-                  ),
+                    ),
+                  ],
                 ),
                 SizedBox(
                   height: screenHeight * 0.01,
@@ -194,7 +205,7 @@ class EventListScreen extends StatelessWidget {
                       width: screenWidth * 0.55,
                       alignment: Alignment.centerLeft,
                       child: Text(
-                        "Lucky one : ${controller.forSelf ? 'You' : '${data.receiverName}'}",
+                        "${StringConsts.luckyOne} : ${controller.forSelf ? StringConsts.you : '${data.receiverName}'}",
                         style: textStyleAleo(fontSize: 16),
                         textAlign: TextAlign.center,
                         maxLines: 1,
@@ -215,7 +226,7 @@ class EventListScreen extends StatelessWidget {
                   alignment: Alignment.centerLeft,
                   width: screenWidth * 0.8,
                   child: Text(
-                    "From : ${!controller.forSelf ? 'You' : '${data.hostName}'}",
+                    "${StringConsts.from} : ${!controller.forSelf ? StringConsts.you : '${data.hostName}'}",
                     style: textStyleAleo(fontSize: 14),
                     textAlign: TextAlign.center,
                     maxLines: 1,

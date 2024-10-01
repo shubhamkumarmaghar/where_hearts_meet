@@ -12,11 +12,10 @@ class SplashController extends GetxController {
   }
 
   void updateSplashView() async {
-    await Future.delayed(const Duration(milliseconds: 1500));
     final bool login = GetStorage().read(isLoggedIn) ?? false;
     final bool guest = GetStorage().read(isGuest) ?? false;
     final bool isOnboarded = GetStorage().read(onboarding) ?? false;
-
+    await Future.delayed(const Duration(milliseconds: 1500));
     if (isOnboarded) {
       if (login) {
         if (guest) {

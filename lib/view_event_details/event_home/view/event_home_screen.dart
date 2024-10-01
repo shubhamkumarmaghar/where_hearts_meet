@@ -140,8 +140,8 @@ class _EventHomeScreenState extends State<EventHomeScreen> with TickerProviderSt
       child: Scaffold(
         appBar: AppBar(
           toolbarHeight: 0.0,
-          systemOverlayStyle:
-              const SystemUiOverlayStyle(statusBarColor: Colors.transparent, statusBarIconBrightness: Brightness.light),
+          elevation: 0,
+          backgroundColor: Colors.transparent,
         ),
         extendBody: true,
         extendBodyBehindAppBar: true,
