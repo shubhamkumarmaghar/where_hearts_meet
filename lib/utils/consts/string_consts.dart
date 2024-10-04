@@ -23,6 +23,7 @@ class StringConsts {
   static const description = "Description";
   static const saySomethingAboutEvent = "Say something about event";
   static const selectEventType = "Select Event Type";
+  static const eventType = "Event Type";
   static const selectEvent = "Select event";
   static const uploadCoverImage = "Upload Cover Image";
   static const submit = "Submit";

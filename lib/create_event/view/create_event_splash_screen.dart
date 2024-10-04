@@ -26,7 +26,7 @@ class CreateEventSplashScreen extends StatelessWidget {
               ? SliderButton(
                   action: () async {
                     await controller.createEvent();
-                    return false;
+                    return true;
                   },
                   baseColor: primaryColor,
                   width: screenWidth * 0.8,

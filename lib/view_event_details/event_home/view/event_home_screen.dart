@@ -141,7 +141,7 @@ class _EventHomeScreenState extends State<EventHomeScreen> with TickerProviderSt
         appBar: AppBar(
           toolbarHeight: 0.0,
           elevation: 0,
-          backgroundColor: Colors.transparent,
+          backgroundColor: Colors.white,
         ),
         extendBody: true,
         extendBodyBehindAppBar: true,

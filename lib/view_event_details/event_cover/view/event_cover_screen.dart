@@ -82,36 +82,36 @@ class EventCoverScreen extends StatelessWidget {
                 children: [
                   heightSpace(screenHeight * 0.05),
                   FittedBox(
-                    child: SizedBox(
+                    child: Container(
                       width: screenWidth,
-                      height: screenHeight * 0.13,
+                      padding: const EdgeInsets.symmetric(horizontal: 20),
                       child: Text(
-                        ' ${controller.textTitle} ',
-                        style: GoogleFonts.dancingScript(
-                          decoration: TextDecoration.none,
+                        controller.textTitle,
+                        style: textStyleDancingScript(
                           color: Colors.black,
                           fontWeight: FontWeight.w500,
                           fontSize: screenHeight * 0.06,
                         ),
-                        maxLines: 2,
+                        maxLines: 3,
                         textAlign: TextAlign.center,
                       ),
                     ),
                   ),
-                  Text(
-                    controller.nameText,
-                    style: GoogleFonts.moonDance(
-                      decoration: TextDecoration.none,
-                      color: Colors.pinkAccent.shade200,
-                      fontWeight: FontWeight.w800,
-                      height: 0.8,
-                      fontSize: screenHeight * 0.1,
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 20),
+                    child: Text(
+                      controller.nameText,
+                      style: textStyleDancingScript(
+                        color: Colors.pinkAccent.shade200,
+                        fontWeight: FontWeight.w700,
+                        fontSize: screenHeight * 0.08,
+                      ),
+                      maxLines: 2,
+                      overflow: TextOverflow.ellipsis,
+                      textAlign: TextAlign.center,
                     ),
-                    textAlign: TextAlign.start,
                   ),
-                  heightSpace(
-                    screenHeight * 0.28,
-                  ),
+                  const Spacer(),
                   Container(
                     alignment: Alignment.center,
                     height: screenHeight * 0.2,
@@ -133,18 +133,14 @@ class EventCoverScreen extends StatelessWidget {
                           color: Colors.white,
                           fontWeight: FontWeight.w500,
                           fontSize: 30)),
-                  Container(
-                    // height: MediaQuery.of(context).size.height * 0.5,
-                    // color: Colors.black.withOpacity(0.5),
-                    child: Center(
-                      child: Text(
-                        '${controller.countdownDuration.inDays}d ${controller.countdownDuration.inHours % 24}h ${controller.countdownDuration.inMinutes % 60}m ${controller.countdownDuration.inSeconds % 60}s',
-                        style: GoogleFonts.montserrat(
-                            decoration: TextDecoration.none,
-                            color: Colors.white,
-                            fontWeight: FontWeight.w500,
-                            fontSize: 30),
-                      ),
+                  Center(
+                    child: Text(
+                      '${controller.countdownDuration.inDays}d ${controller.countdownDuration.inHours % 24}h ${controller.countdownDuration.inMinutes % 60}m ${controller.countdownDuration.inSeconds % 60}s',
+                      style: GoogleFonts.montserrat(
+                          decoration: TextDecoration.none,
+                          color: Colors.white,
+                          fontWeight: FontWeight.w500,
+                          fontSize: 30),
                     ),
                   ),
                   Text('Created by: ${controller.eventDetails.hostName}',
@@ -153,6 +149,7 @@ class EventCoverScreen extends StatelessWidget {
                           color: Colors.black,
                           fontWeight: FontWeight.w700,
                           fontSize: 14)),
+                  const Spacer(),
                 ],
               ),
             ),

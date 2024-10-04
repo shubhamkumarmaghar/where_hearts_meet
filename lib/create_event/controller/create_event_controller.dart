@@ -46,7 +46,7 @@ class CreateEventController extends BaseController {
   final descriptionController = TextEditingController();
 
   EventTypeModel selectedEventType =
-      EventTypeModel(eventName: StringConsts.eventName, eventTypeId: '0', eventIcon: Icons.select_all);
+      EventTypeModel(eventName: StringConsts.eventType, eventTypeId: '0', eventIcon: Icons.select_all);
 
   @override
   void onInit() {
@@ -220,6 +220,8 @@ class CreateEventController extends BaseController {
     eventModel.receiverPhoneNumber = personMobileController.text;
     eventModel.eventType = eventTypeController.text;
     eventModel.eventDescription = descriptionController.text;
+    var createdEvent = locator<CreatedEventRepo>();
+    createdEvent.clearRepo();
 
     Get.toNamed(RoutesConst.createEventSplashScreen);
   }

@@ -64,45 +64,6 @@ class CreateEventScreen extends StatelessWidget {
                           SizedBox(
                             height: screenHeight * 0.02,
                           ),
-                          DesignerTextField(
-                              title: '${StringConsts.personName}* (Max 30 words)',
-                              hint: StringConsts.enterName,
-                              onChanged: (text) {},
-                              maxLength: 30,
-                              controller: controller.nameController),
-                          SizedBox(
-                            height: screenHeight * 0.02,
-                          ),
-                          DesignerTextField(
-                              title: '${StringConsts.eventName}* (Max 30 words)',
-                              hint: StringConsts.enterEventName,
-                              onChanged: (text) {},
-                              maxLength: 30,
-                              controller: controller.eventNameController),
-                          SizedBox(
-                            height: screenHeight * 0.02,
-                          ),
-                          DesignerTextField(
-                              title: '${StringConsts.personMobileNumber}*',
-                              hint: StringConsts.enterMobileNumber,
-                              inputType: TextInputType.phone,
-                              maxLength: 10,
-                              onChanged: (text) {},
-                              controller: controller.personMobileController),
-                          SizedBox(
-                            height: screenHeight * 0.02,
-                          ),
-                          DesignerTextField(
-                              title: StringConsts.description,
-                              hint: StringConsts.saySomethingAboutEvent,
-                              maxLines: 5,
-                              cornerRadius: 15,
-                              inputType: TextInputType.text,
-                              onChanged: (text) {},
-                              controller: controller.descriptionController),
-                          SizedBox(
-                            height: screenHeight * 0.02,
-                          ),
                           Align(
                             alignment: Alignment.centerLeft,
                             child: Text(
@@ -131,7 +92,7 @@ class CreateEventScreen extends StatelessWidget {
                                   Text(
                                     controller.selectedEventType.eventName ?? '',
                                     style: TextStyle(
-                                        color: controller.selectedEventType.eventName == StringConsts.eventName
+                                        color: controller.selectedEventType.eventName == StringConsts.eventType
                                             ? Colors.grey.shade400
                                             : blackColor,
                                         fontSize: 14.0,
@@ -146,6 +107,46 @@ class CreateEventScreen extends StatelessWidget {
                               ),
                             ),
                           ),
+                          SizedBox(
+                            height: screenHeight * 0.02,
+                          ),
+                          DesignerTextField(
+                              title: '${StringConsts.eventName}* (Max 30 words)',
+                              hint: StringConsts.enterEventName,
+                              onChanged: (text) {},
+                              maxLength: 30,
+                              controller: controller.eventNameController),
+                          SizedBox(
+                            height: screenHeight * 0.02,
+                          ),
+                          DesignerTextField(
+                              title: '${StringConsts.personName}* (Max 30 words)',
+                              hint: StringConsts.enterName,
+                              onChanged: (text) {},
+                              maxLength: 30,
+                              controller: controller.nameController),
+                          SizedBox(
+                            height: screenHeight * 0.02,
+                          ),
+
+                          DesignerTextField(
+                              title: '${StringConsts.personMobileNumber}*',
+                              hint: StringConsts.enterMobileNumber,
+                              inputType: TextInputType.phone,
+                              maxLength: 10,
+                              onChanged: (text) {},
+                              controller: controller.personMobileController),
+                          SizedBox(
+                            height: screenHeight * 0.02,
+                          ),
+                          DesignerTextField(
+                              title: StringConsts.description,
+                              hint: StringConsts.saySomethingAboutEvent,
+                              maxLines: 5,
+                              cornerRadius: 15,
+                              inputType: TextInputType.text,
+                              onChanged: (text) {},
+                              controller: controller.descriptionController),
                           SizedBox(
                             height: screenHeight * 0.02,
                           ),

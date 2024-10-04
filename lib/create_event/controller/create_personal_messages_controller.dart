@@ -29,12 +29,14 @@ class CreatePersonalMessagesController extends BaseController {
   FocusNode focusNode = FocusNode();
   RxBool isEditingMessage = false.obs;
   RxInt currentEditingIndex = 0.obs;
+  late bool forEdit;
 
   @override
   void onInit() {
     super.onInit();
     var createdEvent = locator<CreatedEventRepo>();
     eventResponseModel = createdEvent.getCurrentEvent ?? EventResponseModel();
+    forEdit = createdEvent.actions == AppActions.edit;
   }
 
   void saveMessage() {
@@ -174,7 +176,11 @@ class CreatePersonalMessagesController extends BaseController {
   }
 
   void navigateToPersonalDecorationsScreen() {
-    Get.toNamed(RoutesConst.createPersonalDecorationsScreen);
+    if (forEdit) {
+      Get.offNamed(RoutesConst.createPersonalDecorationsScreen);
+    } else {
+      Get.offAllNamed(RoutesConst.createPersonalDecorationsScreen);
+    }
   }
 
   @override

@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 
 import '../../routes/routes_const.dart';
+import '../../utils/consts/screen_const.dart';
 import '../../utils/consts/service_const.dart';
 import '../../utils/consts/string_consts.dart';
 import '../../utils/controller/base_controller.dart';
@@ -31,6 +32,7 @@ class CreateGiftsController extends BaseController {
   final giftCardPinController = TextEditingController();
   String selectGiftText = '${StringConsts.selectGift}*';
   bool canTitleChange = true;
+  late bool forEdit;
 
   List<ImageResponseModel> imagesList = [];
   final createEventService = CreateEventService();
@@ -40,6 +42,7 @@ class CreateGiftsController extends BaseController {
     super.onInit();
     var createdEvent = locator<CreatedEventRepo>();
     eventResponseModel = createdEvent.getCurrentEvent ?? EventResponseModel();
+    forEdit = createdEvent.actions == AppActions.edit;
     getGifts();
   }
 

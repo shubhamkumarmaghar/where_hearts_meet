@@ -29,6 +29,7 @@ class CreateWishesController extends BaseController {
   List<ImageResponseModel> imagesList = [];
   List<ImageResponseModel> videosList = [];
   ImageResponseModel? profileImage;
+  late bool forEdit;
 
   final createEventService = CreateEventService();
 
@@ -37,6 +38,7 @@ class CreateWishesController extends BaseController {
     super.onInit();
     var createdEvent = locator<CreatedEventRepo>();
     eventResponseModel = createdEvent.getCurrentEvent ?? EventResponseModel();
+    forEdit = createdEvent.actions == AppActions.edit;
   }
 
   void uploadSenderImage() {
@@ -212,9 +214,15 @@ class CreateWishesController extends BaseController {
 
   void navigateToPersonalWishesScreen() {
     if (wishesList.isNotEmpty) {
-      Get.offAllNamed(
-        RoutesConst.createPersonalCoverScreen,
-      );
+      if (forEdit) {
+        Get.offNamed(
+          RoutesConst.createPersonalCoverScreen,
+        );
+      } else {
+        Get.offAllNamed(
+          RoutesConst.createPersonalCoverScreen,
+        );
+      }
     } else {
       AppWidgets.getToast(message: 'Please add at least 1 wish', color: redColor);
     }
