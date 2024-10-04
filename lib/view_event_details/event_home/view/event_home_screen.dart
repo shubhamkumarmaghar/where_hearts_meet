@@ -138,13 +138,12 @@ class _EventHomeScreenState extends State<EventHomeScreen> with TickerProviderSt
         }
       },
       child: Scaffold(
+        extendBodyBehindAppBar: true,
+        extendBody: true,
         appBar: AppBar(
           toolbarHeight: 0.0,
-          elevation: 0,
-          backgroundColor: Colors.white,
+          backgroundColor: Colors.transparent,
         ),
-        extendBody: true,
-        extendBodyBehindAppBar: true,
         floatingActionButton: Row(
           mainAxisAlignment: MainAxisAlignment.end,
           children: [

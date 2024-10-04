@@ -16,9 +16,10 @@ class EventCoverScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return GetBuilder<EventCoverController>(builder: (controller) {
       return Scaffold(
+        extendBodyBehindAppBar: true,
+        extendBody: true,
         appBar: AppBar(
           toolbarHeight: 0.0,
-          elevation: 0,
           backgroundColor: Colors.transparent,
         ),
         floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
@@ -53,8 +54,6 @@ class EventCoverScreen extends StatelessWidget {
             ),
           ),
         ),
-        extendBody: true,
-        extendBodyBehindAppBar: true,
         body: Stack(
           children: [
             Blur(

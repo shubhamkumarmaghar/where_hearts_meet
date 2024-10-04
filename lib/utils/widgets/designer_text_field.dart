@@ -95,7 +95,8 @@ class DesignerTextField extends StatelessWidget {
                   ? BorderStyles.auctionTextFieldBorderStyle
                   : BorderStyles.auctionTextFieldBorderStyleCustom(
                       cornerRadius: cornerRadius ?? 50, color: borderColor),
-              disabledBorder: BorderStyles.auctionTextFieldBorderStyle,
+              disabledBorder: BorderStyles.auctionTextFieldBorderStyleCustom(
+                  cornerRadius: cornerRadius ?? 50, color: borderColor),
               focusedBorder: BorderStyles.auctionTextFieldBorderStyleCustom(cornerRadius: cornerRadius ?? 50),
               errorText: error,
               errorMaxLines: 3,

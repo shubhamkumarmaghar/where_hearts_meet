@@ -50,9 +50,9 @@ class CreateEventScreen extends StatelessWidget {
               child: Column(
                 children: [
                   SizedBox(
-                    height: screenHeight * 0.05,
+                    height: screenHeight * 0.07,
                   ),
-                  appHeader,
+                  // appHeader,
                   Text(
                     StringConsts.scheduleEvent,
                     style: textStyleDangrek(fontSize: 24),
@@ -128,7 +128,6 @@ class CreateEventScreen extends StatelessWidget {
                           SizedBox(
                             height: screenHeight * 0.02,
                           ),
-
                           DesignerTextField(
                               title: '${StringConsts.personMobileNumber}*',
                               hint: StringConsts.enterMobileNumber,
