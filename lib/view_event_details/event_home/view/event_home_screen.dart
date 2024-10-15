@@ -2,7 +2,6 @@ import 'dart:async';
 
 import 'package:blur/blur.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_card_swiper/flutter_card_swiper.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -18,7 +17,6 @@ import '../../../utils/util_functions/decoration_functions.dart';
 import '../../../utils/widgets/cached_image.dart';
 import '../../../utils/widgets/confetti_view.dart';
 import '../../../utils/widgets/util_widgets/instagram_post_screen.dart';
-import '../../personal_wishes/view/personal_wishes_cover_screen.dart';
 
 class EventHomeScreen extends StatefulWidget {
   const EventHomeScreen({super.key});
@@ -41,6 +39,7 @@ class _EventHomeScreenState extends State<EventHomeScreen> with TickerProviderSt
 
   late AnimationController fourthController;
   late Animation<double> fourthAnimation;
+
 
   @override
   void initState() {
@@ -123,7 +122,7 @@ class _EventHomeScreenState extends State<EventHomeScreen> with TickerProviderSt
     secondController.dispose();
     thirdController.dispose();
     fourthController.dispose();
-    controller.countdownTimer?.cancel();
+    //controller.countdownTimer?.cancel();
     super.dispose();
   }
 
@@ -206,7 +205,7 @@ class _EventHomeScreenState extends State<EventHomeScreen> with TickerProviderSt
                                   // color: Colors.black.withOpacity(0.5),
                                   child: Center(
                                     child: Text(
-                                      '${controller.countdownDuration.inDays}d ${controller.countdownDuration.inHours % 24}h ${controller.countdownDuration.inMinutes % 60}m ${controller.countdownDuration.inSeconds % 60}s',
+                                      '${controller.eventCoverController.countdownDuration.inDays}d ${controller.eventCoverController.countdownDuration.inHours % 24}h ${controller.eventCoverController.countdownDuration.inMinutes % 60}m ${controller.eventCoverController.countdownDuration.inSeconds % 60}s',
                                       style: TextStyle(
                                         fontSize: 30,
                                         color: Colors.white,
@@ -258,9 +257,10 @@ class _EventHomeScreenState extends State<EventHomeScreen> with TickerProviderSt
                                         child: Column(
                                           children: [
                                             Text(
-                                              controller.birthday.isAfter(DateTime.now())
-                                                  ? 'Time Left'
-                                                  : 'Celebrating Now',
+                                              controller.eventCoverController.birthdayDate.isAfter(DateTime.now())
+                                                  ? 'Time Left' :
+                                              controller.eventCoverController.birthdayDate.isAtSameMomentAs(controller.eventCoverController.today) || controller.eventCoverController.birthdayDate.isAtSameMomentAs(controller.eventCoverController.today.subtract(Duration(days: 1)))
+                                                  ? 'Celebrating Now':'Celebrated',
                                               style: GoogleFonts.dancingScript(
                                                 decoration: TextDecoration.none,
                                                 color: Colors.white,
@@ -268,15 +268,16 @@ class _EventHomeScreenState extends State<EventHomeScreen> with TickerProviderSt
                                                 fontSize: Get.height * 0.03,
                                               ),
                                             ),
+                                            controller.eventCoverController.birthday.isAfter(DateTime.now())?
                                             Text(
-                                              '${controller.countdownDuration.inDays}d ${controller.countdownDuration.inHours % 24}h ${controller.countdownDuration.inMinutes % 60}m ${controller.countdownDuration.inSeconds % 60}s',
+                                              '${controller.eventCoverController.countdownDuration.inDays}d ${controller.eventCoverController.countdownDuration.inHours % 24}h ${controller.eventCoverController.countdownDuration.inMinutes % 60}m ${controller.eventCoverController.countdownDuration.inSeconds % 60}s',
                                               style: GoogleFonts.dancingScript(
                                                 decoration: TextDecoration.none,
                                                 color: Colors.white,
                                                 fontWeight: FontWeight.w500,
                                                 fontSize: Get.height * 0.03,
                                               ),
-                                            ),
+                                            ):const SizedBox(),
                                           ],
                                         ),
                                       )),

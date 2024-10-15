@@ -2,6 +2,7 @@ import 'dart:async';
 import 'dart:developer';
 
 import 'package:confetti/confetti.dart';
+import 'package:get/get.dart';
 import 'package:get/get_rx/src/rx_types/rx_types.dart';
 import 'package:heart_e_homies/utils/controller/base_controller.dart';
 
@@ -10,12 +11,15 @@ import '../../../create_event/model/wishes_model.dart';
 import '../../../utils/consts/screen_const.dart';
 import '../../../utils/consts/service_const.dart';
 import '../../../utils/repository/created_event_repo.dart';
+import '../../event_cover/controller/event_cover_controller.dart';
 import '../../service/view_event_service.dart';
 
 class EventHomeController extends BaseController {
-  DateTime birthday = DateTime.now(); // Set your birthday date here
-  Duration countdownDuration = Duration();
-  Timer? countdownTimer;
+ // DateTime birthday = DateTime.now(); // Set your birthday date here
+
+  EventCoverController eventCoverController = Get.find();
+ //Duration countdownDuration = Duration();
+ // Timer? countdownTimer;
   final _eventService = ViewEventService();
   late ConfettiController homeConfettiController;
   late EventResponseModel eventDetails;
@@ -25,9 +29,11 @@ class EventHomeController extends BaseController {
   List<WishesModel> wishesList = [];
   late UserType userType;
 
+
   @override
   void onInit() {
     super.onInit();
+
     homeConfettiController = ConfettiController(duration: const Duration(minutes: 1));
     homeConfettiController.play();
     final repo = locator<CreatedEventRepo>();
@@ -35,12 +41,13 @@ class EventHomeController extends BaseController {
     eventId = eventDetails.eventid ?? '';
     eventsCreated = repo.getCurrentEventCreated ?? EventsCreated.byUser;
     userType = repo.getUserType ?? UserType.registered;
+
     getData();
     log('Event Details :: ${eventDetails.toJson()}  -- UserType :: $userType  -- Event Created :: $eventsCreated');
   }
 
   Future<void> getData() async {
-    startCountdown();
+  //  startCountdown();
     getEventWishes(eventId);
     update();
   }
@@ -64,15 +71,16 @@ class EventHomeController extends BaseController {
     }
   }
 
-  Future<void> startCountdown() async {
-    if (birthday.isAfter(DateTime.now())) {
-      countdownDuration = birthday.difference(DateTime.now());
-      countdownTimer = Timer.periodic(const Duration(seconds: 1), (_) {
-        countdownDuration = birthday.difference(DateTime.now());
-      });
-    } else {
-      countdownDuration = birthday.difference(birthday);
-    }
-    update();
-  }
+  // Future<void> startCountdown() async {
+  //   if ( birthday.isAfter(DateTime.now())) {
+  //     countdownDuration = birthday.difference(DateTime.now());
+  //     countdownTimer = Timer.periodic(const Duration(seconds: 1), (_) {
+  //       countdownDuration = birthday.difference(DateTime.now());
+  //     });
+  //   } else {
+  //     countdownDuration = birthday.difference(birthday);
+  //   }
+  //   update();
+  // }
+
 }
