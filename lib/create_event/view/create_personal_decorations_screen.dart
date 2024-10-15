@@ -22,106 +22,107 @@ class CreatePersonalDecorationsScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return PopScope(
-        canPop: false,
-        child: GetBuilder<CreatePersonalDecorationsController>(
-          builder: (controller) {
-            return Scaffold(
-              bottomNavigationBar: Container(
-                color: appColor3,
-                padding: EdgeInsets.only(
-                  bottom: 14,
-                  left: screenWidth * 0.06,
-                  right: screenWidth * 0.06,
-                ),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    GradientButton(
-                      title: StringConsts.submit,
-                      width: screenWidth * 0.4,
-                      onPressed: controller.addPersonalDecoration,
-                      buttonColor: appColor1,
-                      enabled: controller.imagesList.isNotEmpty || controller.videosList.isNotEmpty,
-                      titleTextStyle: textStyleDangrek(fontSize: 22),
-                    ),
-                    OutlinedBusyButton(
-                      title: StringConsts.skip,
-                      width: screenWidth * 0.4,
-                      titleTextStyle: textStyleDangrek(fontSize: 22, color: primaryColor),
-                      onPressed: controller.navigateToCreateGiftScreen,
-                    ),
-                  ],
-                ),
+    return GetBuilder<CreatePersonalDecorationsController>(
+      builder: (controller) {
+        return PopScope(
+          canPop: controller.forEdit,
+          child: Scaffold(
+            bottomNavigationBar: Container(
+              color: appColor3,
+              padding: EdgeInsets.only(
+                bottom: 14,
+                left: screenWidth * 0.06,
+                right: screenWidth * 0.06,
               ),
-              body: Container(
-                height: screenHeight,
-                width: screenWidth,
-                decoration: BoxDecoration(gradient: backgroundGradient),
-                padding: const EdgeInsets.symmetric(
-                  horizontal: 20,
-                ),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    SizedBox(
-                      height: screenHeight * 0.06,
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  GradientButton(
+                    title: StringConsts.submit,
+                    width: screenWidth * 0.4,
+                    onPressed: controller.addPersonalDecoration,
+                    buttonColor: appColor1,
+                    enabled: controller.imagesList.isNotEmpty || controller.videosList.isNotEmpty,
+                    titleTextStyle: textStyleDangrek(fontSize: 22),
+                  ),
+                  OutlinedBusyButton(
+                    title: StringConsts.skip,
+                    width: screenWidth * 0.4,
+                    titleTextStyle: textStyleDangrek(fontSize: 22, color: primaryColor),
+                    onPressed: controller.navigateToCreateGiftScreen,
+                  ),
+                ],
+              ),
+            ),
+            body: Container(
+              height: screenHeight,
+              width: screenWidth,
+              decoration: BoxDecoration(gradient: backgroundGradient),
+              padding: const EdgeInsets.symmetric(
+                horizontal: 20,
+              ),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  SizedBox(
+                    height: screenHeight * 0.06,
+                  ),
+                  eventHeaderView(
+                      text: controller.eventResponseModel.eventName ?? '',
+                      image: controller.eventResponseModel.coverImage),
+                  SizedBox(
+                    height: screenHeight * 0.02,
+                  ),
+                  Center(
+                    child: Text(
+                      'Images/Videos For ${controller.eventResponseModel.receiverName ?? ''}',
+                      textAlign: TextAlign.center,
+                      style: textStyleDangrek(fontSize: 24),
                     ),
-                    eventHeaderView(
-                        text: controller.eventResponseModel.eventName ?? '',
-                        image: controller.eventResponseModel.coverImage),
-                    SizedBox(
-                      height: screenHeight * 0.02,
-                    ),
-                    Center(
-                      child: Text(
-                        'Images/Videos For ${controller.eventResponseModel.receiverName ?? ''}',
-                        textAlign: TextAlign.center,
-                        style: textStyleDangrek(fontSize: 24),
+                  ),
+                  Expanded(
+                    child: SingleChildScrollView(
+                      child: Column(
+                        children: [
+                          SizedBox(
+                            height: screenHeight * 0.03,
+                          ),
+                          Align(
+                            alignment: Alignment.centerLeft,
+                            child: Text(
+                              'Upload images*',
+                              style: textStyleDangrek(fontSize: 18),
+                            ),
+                          ),
+                          SizedBox(
+                            height: screenHeight * 0.02,
+                          ),
+                          _getImagesListWidget(),
+                          SizedBox(
+                            height: screenHeight * 0.03,
+                          ),
+                          Align(
+                            alignment: Alignment.centerLeft,
+                            child: Text(
+                              'Upload videos*',
+                              style: textStyleDangrek(fontSize: 18),
+                            ),
+                          ),
+                          SizedBox(
+                            height: screenHeight * 0.02,
+                          ),
+                          _getVideosListWidget(),
+                        ],
                       ),
                     ),
-                    Expanded(
-                      child: SingleChildScrollView(
-                        child: Column(
-                          children: [
-                            SizedBox(
-                              height: screenHeight * 0.03,
-                            ),
-                            Align(
-                              alignment: Alignment.centerLeft,
-                              child: Text(
-                                'Upload images*',
-                                style: textStyleDangrek(fontSize: 18),
-                              ),
-                            ),
-                            SizedBox(
-                              height: screenHeight * 0.02,
-                            ),
-                            _getImagesListWidget(),
-                            SizedBox(
-                              height: screenHeight * 0.03,
-                            ),
-                            Align(
-                              alignment: Alignment.centerLeft,
-                              child: Text(
-                                'Upload videos*',
-                                style: textStyleDangrek(fontSize: 18),
-                              ),
-                            ),
-                            SizedBox(
-                              height: screenHeight * 0.02,
-                            ),
-                            _getVideosListWidget(),
-                          ],
-                        ),
-                      ),
-                    )
-                  ],
-                ),
+                  )
+                ],
               ),
-            );
-          },
-        ));
+            ),
+          ),
+        );
+      },
+    );
   }
 
   Widget _getImagesListWidget() {
@@ -242,6 +243,7 @@ class CreatePersonalDecorationsScreen extends StatelessWidget {
                             children: [
                               Container(
                                 height: screenHeight * 0.14,
+                                width: screenWidth,
                                 decoration: const BoxDecoration(
                                   borderRadius: BorderRadius.all(Radius.circular(20)),
                                 ),

@@ -83,7 +83,7 @@ Widget eventHeaderView({required String text, String? image}) {
     color: primaryColor,
     borderRadius: 30,
     child: Container(
-        height: 60,
+        height: 55,
         decoration: BoxDecoration(
           color: primaryColor,
           borderRadius: BorderRadius.circular(30),
@@ -94,8 +94,8 @@ Widget eventHeaderView({required String text, String? image}) {
               width: screenWidth * 0.02,
             ),
             Container(
-                height: screenHeight * 0.055,
-                width: screenHeight * 0.055,
+                height: 40,
+                width:40,
                 decoration: BoxDecoration(borderRadius: BorderRadius.circular(50)),
                 child: ClipRRect(borderRadius: BorderRadius.circular(50), child: cachedImage(imageUrl: image))),
             SizedBox(
@@ -206,11 +206,12 @@ TextStyle textStyleAclonica({double? fontSize, Color? color, FontWeight? fontWei
 }
 
 TextStyle textStyleDancingScript(
-    {double? fontSize, Color? color, FontWeight? fontWeight, TextDecoration? textDecoration}) {
+    {double? fontSize, Color? color, FontWeight? fontWeight, TextDecoration? textDecoration,double? height}) {
   return GoogleFonts.dancingScript(
       color: color ?? Colors.white,
       fontWeight: fontWeight ?? FontWeight.w500,
       fontSize: fontSize ?? 22,
+      height: height,
       decoration: textDecoration,
       decorationColor: color ?? Colors.white);
 }

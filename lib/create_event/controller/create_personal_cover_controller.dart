@@ -1,8 +1,13 @@
+import 'dart:developer';
+import 'dart:io';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:heart_e_homies/utils/consts/color_const.dart';
 import 'package:image_picker/image_picker.dart';
 import '../../routes/routes_const.dart';
+import '../../utils/consts/screen_const.dart';
 import '../../utils/consts/service_const.dart';
 import '../../utils/controller/base_controller.dart';
 import '../../utils/dialogs/pop_up_dialogs.dart';
@@ -17,14 +22,16 @@ import '../widgets/create_event_widgets.dart';
 
 class CreatePersonalCoverController extends BaseController {
   late EventResponseModel eventResponseModel;
-  ImageResponseModel? backgroundImage;
+  File? imageFile;
   final createEventService = CreateEventService();
   final titleController = TextEditingController();
+  late bool forEdit;
 
   @override
   void onInit() {
     super.onInit();
     var createdEvent = locator<CreatedEventRepo>();
+    forEdit = createdEvent.actions == AppActions.edit;
     if (createdEvent.getCurrentEvent != null) {
       eventResponseModel = createdEvent.getCurrentEvent ?? EventResponseModel();
     }
@@ -40,13 +47,8 @@ class CreatePersonalCoverController extends BaseController {
         filePath: image.path,
       );
       if (croppedImage != null) {
-        showLoaderDialog(context: Get.context!);
-        final imageResponse = await createEventService.uploadImageApi(imageFile: croppedImage);
-        cancelDialog();
-        if (imageResponse != null) {
-          backgroundImage = imageResponse;
-          update();
-        }
+        imageFile = File(croppedImage.path);
+        update();
       }
     }
   }
@@ -60,25 +62,12 @@ class CreatePersonalCoverController extends BaseController {
   }
 
   void addPersonalWishesCover() async {
-    if(backgroundImage == null ){
-      AppWidgets.getToast(message: 'Add cover image');
+    if (imageFile == null) {
+      AppWidgets.getToast(message: 'Add cover image', color: errorColor);
       return;
     }
-
-    showLoaderDialog(context: Get.context!);
-    final model = PersonalWishesModel(
-        eventId: eventResponseModel.eventid, message: titleController.text, coverImage: backgroundImage?.fileId);
-    final response = await createEventService.addPersonalWishesApi(model: model);
-    cancelDialog();
-    if (response != null) {
-      navigateToCreatePersonalMemoriesScreen();
-    }
-  }
-
-  void navigateToCreatePersonalMemoriesScreen() {
-    Get.offAllNamed(
-      RoutesConst.createPersonalMemoriesScreen,
-    );
+    Map<String, dynamic> data = {'text': titleController.text, 'image': imageFile};
+    Get.toNamed(RoutesConst.createPersonalMemoriesScreen, arguments: data);
   }
 
   @override

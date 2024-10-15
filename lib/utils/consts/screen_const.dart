@@ -1,29 +1,11 @@
 enum Screens { fromDashboard, fromSignup }
 
-enum EventType {
-  birthday,
-}
+enum EventDecorations { wishes, personalWishes, eGifts,none }
 
 enum EventsCreated {
   forUser,
   byUser,
   pending;
-
-  String get title {
-    switch (this) {
-      case EventsCreated.forUser:
-        return 'Received';
-
-      case EventsCreated.byUser:
-        return 'Created';
-
-      case EventsCreated.pending:
-        return 'Pending';
-
-      default:
-        return '';
-    }
-  }
 }
 
 enum LoadingState { loading, hasData, noData, error }

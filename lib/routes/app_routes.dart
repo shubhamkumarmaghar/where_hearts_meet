@@ -1,6 +1,7 @@
 import 'package:get/get.dart';
 import 'package:heart_e_homies/auth_module/binding/otp_screen_binding.dart';
 import 'package:heart_e_homies/auth_module/screens/otp_screen.dart';
+import 'package:heart_e_homies/preview_event/binding/created_event_binding.dart';
 import 'package:heart_e_homies/routes/routes_const.dart';
 import 'package:heart_e_homies/view_event_details/event_cover/binding/event_cover_binding.dart';
 import 'package:heart_e_homies/view_event_details/event_cover/view/event_cover_screen.dart';
@@ -42,6 +43,7 @@ import '../guest_view/binding/guest_view_binding.dart';
 import '../guest_view/view/guest_view_screen.dart';
 import '../preview_event/binding/created_gifts_preview_binding.dart';
 import '../preview_event/binding/created_memories_preview_binding.dart';
+import '../preview_event/view/created_event_preview_screen.dart';
 import '../preview_event/view/created_gifts_preview_screen.dart';
 import '../preview_event/view/created_memories_preview_screen.dart';
 import '../view_event_details/e_gifts/binding/e_gifts_binding.dart';
@@ -175,6 +177,10 @@ class AppRoutes {
           name: RoutesConst.createdMemoriesPreviewScreen,
           binding: CreatedMemoriesPreviewBinding(),
           page: () => const CreatedMemoriesPreviewScreen()),
+      GetPage(
+          name: RoutesConst.createdEventPreviewScreen,
+          binding: CreatedEventPreviewBinding(),
+          page: () => const CreatedEventPreviewScreen()),
       GetPage(
         name: RoutesConst.eventListScreen,
         binding: EventListBinding(),

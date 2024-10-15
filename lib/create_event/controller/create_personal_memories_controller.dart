@@ -1,3 +1,4 @@
+import 'dart:developer';
 import 'dart:io';
 
 import 'package:flutter/cupertino.dart';
@@ -19,6 +20,7 @@ import '../../utils/util_functions/decoration_functions.dart';
 import '../../utils/widgets/util_widgets/app_widgets.dart';
 import '../model/event_response_model.dart';
 import '../model/personal_memories_model.dart';
+import '../model/personal_wishes_model.dart';
 import '../service/create_event_service.dart';
 
 class CreatePersonalMemoriesController extends BaseController {
@@ -30,13 +32,18 @@ class CreatePersonalMemoriesController extends BaseController {
   ImageResponseModel? memoryImage;
   ImageResponseModel? memoryVideo;
   final memoryText = TextEditingController();
+  late Future<PersonalWishesModel?> Function() createPersonalCover;
+  late bool forEdit;
+  late Map<String, dynamic>? coverScreenData;
 
   @override
   void onInit() {
     super.onInit();
-
+    final arg = Get.arguments as Map<String, dynamic>;
+    coverScreenData = arg;
     var createdEvent = locator<CreatedEventRepo>();
     eventResponseModel = createdEvent.getCurrentEvent ?? EventResponseModel();
+    forEdit = createdEvent.actions == AppActions.edit;
   }
 
   void _selectDestination(MediaType mediaType) {
@@ -154,11 +161,38 @@ class CreatePersonalMemoriesController extends BaseController {
   }
 
   void onNext() {
-    Get.offAllNamed(RoutesConst.createPersonalMessagesScreen);
+    if (memoriesList.isNotEmpty) {
+      if (forEdit) {
+        Get.offNamed(RoutesConst.createPersonalMessagesScreen);
+      } else {
+        Get.offAllNamed(RoutesConst.createPersonalMessagesScreen);
+      }
+    } else {
+      AppWidgets.getToast(message: 'Please add at least 1 memory', color: redColor);
+    }
   }
 
   void viewMemories() {
     Get.toNamed(RoutesConst.createdMemoriesPreviewScreen, arguments: memoriesList);
+  }
+
+  Future<bool?> addPersonalCover() async {
+    if (coverScreenData != null) {
+      final text = coverScreenData!['text'];
+      final image = coverScreenData!['image'] as File;
+
+      final imageResponse = await createEventService.uploadImageApi(imageFile: image);
+      if (imageResponse != null) {
+        final model =
+            PersonalWishesModel(eventId: eventResponseModel.eventid, message: text, coverImage: imageResponse.fileId);
+        final coverResponse = await createEventService.addPersonalWishesApi(model: model);
+        return coverResponse != null;
+      } else {
+        return false;
+      }
+    } else {
+      return false;
+    }
   }
 
   void submitMemories() async {
@@ -177,16 +211,36 @@ class CreatePersonalMemoriesController extends BaseController {
       model.file = memoryVideo?.fileId;
       model.fileType = 'video';
     }
-    showLoaderDialog(context: Get.context!);
-    final response = await createEventService.addPersonalMemoriesApi(model: model);
-    cancelDialog();
-    if (response != null) {
-      memoriesList.add(response);
-      memoryImage = null;
-      memoryVideo = null;
-      memoryText.clear();
-      nextButtonTitle = StringConsts.next.obs;
-      update();
+
+    if (memoriesList.isEmpty) {
+      showLoaderDialog(context: Get.context!);
+      final coverResponse = await addPersonalCover();
+      if (coverResponse != null && coverResponse) {
+        final response = await createEventService.addPersonalMemoriesApi(model: model);
+        cancelDialog();
+        if (response != null) {
+          memoriesList.add(response);
+          memoryImage = null;
+          memoryVideo = null;
+          memoryText.clear();
+          nextButtonTitle = StringConsts.next.obs;
+          update();
+        }
+      } else {
+        cancelDialog();
+      }
+    } else {
+      showLoaderDialog(context: Get.context!);
+      final response = await createEventService.addPersonalMemoriesApi(model: model);
+      cancelDialog();
+      if (response != null) {
+        memoriesList.add(response);
+        memoryImage = null;
+        memoryVideo = null;
+        memoryText.clear();
+        nextButtonTitle = StringConsts.next.obs;
+        update();
+      }
     }
   }
 

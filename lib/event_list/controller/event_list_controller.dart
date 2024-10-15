@@ -45,6 +45,31 @@ class EventListController extends BaseController {
     Get.toNamed(RoutesConst.eventCoverScreen);
   }
 
+  void navigateToEventDecorations(
+      {required EventResponseModel eventResponseModel, required EventDecorations eventDecorations}) async {
+    final repo = locator<CreatedEventRepo>();
+    repo.setEvent(eventResponseModel);
+    repo.setEventCreated(eventsCreated);
+    repo.setUserType(UserType.registered);
+    repo.setAppActions(AppActions.edit);
+
+    bool? changed = false;
+    if (eventDecorations == EventDecorations.wishes) {
+      changed = await Get.toNamed(RoutesConst.createWishesScreen);
+    } else if (eventDecorations == EventDecorations.personalWishes) {
+      changed = await Get.toNamed(RoutesConst.createPersonalCoverScreen);
+    } else if (eventDecorations == EventDecorations.eGifts) {
+      changed = await Get.toNamed(RoutesConst.createGiftsScreen);
+    } else if (eventDecorations == EventDecorations.none) {
+      if (eventResponseModel.hasWishes != null && eventResponseModel.hasWishes == false) {
+        changed = await Get.toNamed(RoutesConst.createWishesScreen);
+      } else if (eventResponseModel.hasPersonalWishes != null && eventResponseModel.hasPersonalWishes == false) {
+        changed = await Get.toNamed(RoutesConst.createPersonalCoverScreen);
+      }
+    }
+    pendingEventsCreatedByUser();
+  }
+
   Future<void> eventsListCreatedByUser() async {
     final response = await _eventListService.eventsListCreatedByUserApi();
     if (response != null && response.isNotEmpty) {

@@ -23,8 +23,12 @@ class StringConsts {
   static const description = "Description";
   static const saySomethingAboutEvent = "Say something about event";
   static const selectEventType = "Select Event Type";
+  static const eventType = "Event Type";
+  static const eventDay = "Event Day";
   static const selectEvent = "Select event";
   static const uploadCoverImage = "Upload Cover Image";
+  static const coverImage = "Cover Image";
+  static const backgroundImage = "Background Image";
   static const submit = "Submit";
   static const personalWishesDisclaimer =
       "This section is personal/secret messages.\nYou can add Special messages i.e Text Messages, Images/Videos, Memories/ Your life journey or Some decorations you specially made for this special person.";

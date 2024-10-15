@@ -22,12 +22,14 @@ class CreatePersonalDecorationsController extends BaseController {
   List<ImageResponseModel> videosList = [];
 
   final createEventService = CreateEventService();
+  late bool forEdit;
 
   @override
   void onInit() {
     super.onInit();
     var createdEvent = locator<CreatedEventRepo>();
     eventResponseModel = createdEvent.getCurrentEvent ?? EventResponseModel();
+    forEdit = createdEvent.actions == AppActions.edit;
   }
 
   void uploadMedia(MediaType mediaType) {
@@ -122,6 +124,10 @@ class CreatePersonalDecorationsController extends BaseController {
   }
 
   void navigateToCreateGiftScreen() {
-    Get.offAllNamed(RoutesConst.createGiftsScreen);
+    if (forEdit) {
+      Get.offNamed(RoutesConst.createGiftsScreen);
+    } else {
+      Get.offAllNamed(RoutesConst.createGiftsScreen);
+    }
   }
 }

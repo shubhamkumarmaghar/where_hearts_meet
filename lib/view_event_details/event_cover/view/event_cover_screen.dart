@@ -16,9 +16,10 @@ class EventCoverScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return GetBuilder<EventCoverController>(builder: (controller) {
       return Scaffold(
+        extendBodyBehindAppBar: true,
+        extendBody: true,
         appBar: AppBar(
           toolbarHeight: 0.0,
-          elevation: 0,
           backgroundColor: Colors.transparent,
         ),
         floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
@@ -53,8 +54,6 @@ class EventCoverScreen extends StatelessWidget {
             ),
           ),
         ),
-        extendBody: true,
-        extendBodyBehindAppBar: true,
         body: Stack(
           children: [
             Blur(
@@ -82,36 +81,36 @@ class EventCoverScreen extends StatelessWidget {
                 children: [
                   heightSpace(screenHeight * 0.05),
                   FittedBox(
-                    child: SizedBox(
+                    child: Container(
                       width: screenWidth,
-                      height: screenHeight * 0.13,
+                      padding: const EdgeInsets.symmetric(horizontal: 20),
                       child: Text(
-                        ' ${controller.textTitle} ',
-                        style: GoogleFonts.dancingScript(
-                          decoration: TextDecoration.none,
+                        controller.textTitle,
+                        style: textStyleDancingScript(
                           color: Colors.black,
                           fontWeight: FontWeight.w500,
                           fontSize: screenHeight * 0.06,
                         ),
-                        maxLines: 2,
+                        maxLines: 3,
                         textAlign: TextAlign.center,
                       ),
                     ),
                   ),
-                  Text(
-                    controller.nameText,
-                    style: GoogleFonts.moonDance(
-                      decoration: TextDecoration.none,
-                      color: Colors.pinkAccent.shade200,
-                      fontWeight: FontWeight.w800,
-                      height: 0.8,
-                      fontSize: screenHeight * 0.1,
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 20),
+                    child: Text(
+                      controller.nameText,
+                      style: textStyleDancingScript(
+                        color: Colors.pinkAccent.shade200,
+                        fontWeight: FontWeight.w700,
+                        fontSize: screenHeight * 0.08,
+                      ),
+                      maxLines: 2,
+                      overflow: TextOverflow.ellipsis,
+                      textAlign: TextAlign.center,
                     ),
-                    textAlign: TextAlign.start,
                   ),
-                  heightSpace(
-                    screenHeight * 0.28,
-                  ),
+                  const Spacer(),
                   Container(
                     alignment: Alignment.center,
                     height: screenHeight * 0.2,
@@ -155,6 +154,7 @@ class EventCoverScreen extends StatelessWidget {
                           color: Colors.black,
                           fontWeight: FontWeight.w700,
                           fontSize: 14)),
+                  const Spacer(),
                 ],
               ),
             ),

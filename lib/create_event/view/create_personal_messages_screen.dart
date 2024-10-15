@@ -12,12 +12,11 @@ class CreatePersonalMessagesScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return PopScope(
-      canPop: true,
-      child: GetBuilder<CreatePersonalMessagesController>(
-        builder: (controller) {
-
-          return Scaffold(
+    return GetBuilder<CreatePersonalMessagesController>(
+      builder: (controller) {
+        return PopScope(
+          canPop: controller.forEdit,
+          child: Scaffold(
             body: Opacity(
               opacity: 0.9,
               child: Container(
@@ -133,9 +132,9 @@ class CreatePersonalMessagesScreen extends StatelessWidget {
                 ),
               ),
             ),
-          );
-        },
-      ),
+          ),
+        );
+      },
     );
   }
 

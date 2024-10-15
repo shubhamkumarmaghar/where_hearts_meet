@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import '../../utils/consts/app_screen_size.dart';
@@ -17,48 +16,49 @@ class CreatePersonalMemoriesScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return PopScope(
-        canPop: false,
-        child: GetBuilder<CreatePersonalMemoriesController>(
-          builder: (controller) {
-            return Scaffold(
-              bottomNavigationBar: Container(
-                color: appColor3,
-                padding: EdgeInsets.only(
-                  bottom: 14,
-                  left: screenWidth * 0.06,
-                  right: screenWidth * 0.06,
-                ),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Obx(() {
-                      return GradientButton(
-                        title: StringConsts.submit,
-                        width: screenWidth * 0.4,
-                        onPressed: controller.submitMemories,
-                        buttonColor: appColor1,
-                        enabled: controller.submitButtonEnabled.value,
-                        titleTextStyle: textStyleDangrek(fontSize: 22),
-                      );
-                    }),
-                    Obx(() {
-                      return OutlinedBusyButton(
-                        title: controller.nextButtonTitle.value,
-                        width: screenWidth * 0.4,
-                        titleTextStyle: textStyleDangrek(fontSize: 22, color: primaryColor),
-                        onPressed: controller.onNext,
-                        enabled: controller.memoriesList.isNotEmpty,
-                      );
-                    }),
-                  ],
-                ),
+    return GetBuilder<CreatePersonalMemoriesController>(
+      builder: (controller) {
+        return PopScope(
+         canPop: controller.forEdit,
+          child: Scaffold(
+            bottomNavigationBar: Container(
+              color: appColor3,
+              padding: EdgeInsets.only(
+                bottom: 14,
+                left: screenWidth * 0.06,
+                right: screenWidth * 0.06,
               ),
-              body: BaseContainer(
-                child: Container(
-                  height: screenHeight,
-                  width: screenWidth,
-                  padding: const EdgeInsets.symmetric(horizontal: 20),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Obx(() {
+                    return GradientButton(
+                      title: StringConsts.submit,
+                      width: screenWidth * 0.4,
+                      onPressed: controller.submitMemories,
+                      buttonColor: appColor1,
+                      enabled: controller.submitButtonEnabled.value,
+                      titleTextStyle: textStyleDangrek(fontSize: 22),
+                    );
+                  }),
+                  Obx(() {
+                    return OutlinedBusyButton(
+                      title: controller.nextButtonTitle.value,
+                      width: screenWidth * 0.4,
+                      titleTextStyle: textStyleDangrek(fontSize: 22, color: primaryColor),
+                      onPressed: controller.onNext,
+                      enabled: controller.memoriesList.isNotEmpty,
+                    );
+                  }),
+                ],
+              ),
+            ),
+            body: BaseContainer(
+              child: Container(
+                height: screenHeight,
+                width: screenWidth,
+                padding: const EdgeInsets.symmetric(horizontal: 20),
+                child: SingleChildScrollView(
                   child: Column(
                     children: [
                       SizedBox(
@@ -111,8 +111,10 @@ class CreatePersonalMemoriesScreen extends StatelessWidget {
                   ),
                 ),
               ),
-            );
-          },
-        ));
+            ),
+          ),
+        );
+      },
+    );
   }
 }
