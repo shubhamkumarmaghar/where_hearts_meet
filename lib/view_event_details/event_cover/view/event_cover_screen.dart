@@ -126,22 +126,28 @@ class EventCoverScreen extends StatelessWidget {
                   heightSpace(
                     screenHeight * 0.015,
                   ),
-                  Text('Time left',
-                      style: GoogleFonts.montserrat(
-                          decoration: TextDecoration.none,
-                          color: Colors.white,
-                          fontWeight: FontWeight.w500,
-                          fontSize: 30)),
-                  Center(
-                    child: Text(
-                      '${controller.countdownDuration.inDays}d ${controller.countdownDuration.inHours % 24}h ${controller.countdownDuration.inMinutes % 60}m ${controller.countdownDuration.inSeconds % 60}s',
-                      style: GoogleFonts.montserrat(
-                          decoration: TextDecoration.none,
-                          color: Colors.white,
-                          fontWeight: FontWeight.w500,
-                          fontSize: 30),
+                  Text(
+                    controller.birthdayDate.isAfter(DateTime.now())
+                        ? 'Time Left' :
+                    controller.birthdayDate.isAtSameMomentAs(controller.today) || controller.birthdayDate.isAtSameMomentAs(controller.today.subtract(Duration(days: 1)))
+                        ? 'Celebrating Now':'Celebrated',
+                    style: GoogleFonts.dancingScript(
+                      decoration: TextDecoration.none,
+                      color: Colors.white,
+                      fontWeight: FontWeight.w500,
+                      fontSize: Get.height * 0.04,
                     ),
                   ),
+                  controller.birthdayDate.isAfter(DateTime.now())?
+                  Text(
+                    '${controller.countdownDuration.inDays}d ${controller.countdownDuration.inHours % 24}h ${controller.countdownDuration.inMinutes % 60}m ${controller.countdownDuration.inSeconds % 60}s',
+                    style: GoogleFonts.dancingScript(
+                      decoration: TextDecoration.none,
+                      color: Colors.white,
+                      fontWeight: FontWeight.w500,
+                      fontSize: Get.height * 0.03,
+                    ),
+                  ):const SizedBox(),
                   Text('Created by: ${controller.eventDetails.hostName}',
                       style: GoogleFonts.dancingScript(
                           decoration: TextDecoration.none,

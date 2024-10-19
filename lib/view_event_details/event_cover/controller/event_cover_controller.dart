@@ -23,6 +23,10 @@ class EventCoverController extends BaseController {
   String eventId = '';
   late EventsCreated eventsCreated;
   late UserType userType;
+  final now = DateTime.now();
+  DateTime today = DateTime.now();
+  DateTime birthdayDate =DateTime.now();
+
 
   @override
   void onInit() {
@@ -31,6 +35,10 @@ class EventCoverController extends BaseController {
     eventDetails = repo.getCurrentEvent ?? EventResponseModel();
     eventsCreated = repo.getCurrentEventCreated ?? EventsCreated.byUser;
     userType = repo.getUserType ?? UserType.registered;
+    birthday = DateTime.parse(eventDetails.eventHostDay ?? DateTime.now().toString());
+    birthdayDate = DateTime(birthday.year, birthday.month, birthday.day);
+    today= DateTime(now.year, now.month, now.day);
+    DateTime(birthday.year, birthday.month, birthday.day);
     getData();
     log('Event Details :: ${eventDetails.toJson()}  -- UserType :: $userType  -- Event Created :: $eventsCreated');
   }
