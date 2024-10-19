@@ -1,6 +1,4 @@
 import 'dart:ui';
-
-import 'package:easy_stepper/easy_stepper.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:heart_e_homies/event_list/controller/event_list_controller.dart';
@@ -17,9 +15,8 @@ import '../../utils/widgets/cached_image.dart';
 
 class PendingEventsWidget extends StatelessWidget {
   final List<EventResponseModel> eventsList;
-  int activeStep = 0;
 
-  PendingEventsWidget({super.key, required this.eventsList});
+  const PendingEventsWidget({super.key, required this.eventsList});
 
   @override
   Widget build(BuildContext context) {
@@ -66,7 +63,7 @@ class PendingEventsWidget extends StatelessWidget {
                                       padding: EdgeInsets.symmetric(horizontal: 10, vertical: 2),
                                       alignment: Alignment.center,
                                       decoration: BoxDecoration(
-                                          color: primaryColor.withOpacity(0.7), borderRadius: BorderRadius.circular(5)),
+                                          color: darkGreyColor.withOpacity(0.8), borderRadius: BorderRadius.circular(5)),
                                       child: Text(
                                         data.eventName ?? '',
                                         style: textStyleAleo(
@@ -116,7 +113,7 @@ class PendingEventsWidget extends StatelessWidget {
                               },
                               child: CircleAvatar(
                                 radius: 12,
-                                backgroundColor: data.hasWishes != null && data.hasWishes! ? primaryColor : Colors.grey,
+                                backgroundColor: data.hasWishes != null && data.hasWishes! ? greenTextColor : Colors.grey,
                                 child: const Icon(
                                   Icons.check,
                                   size: 15,
@@ -130,7 +127,7 @@ class PendingEventsWidget extends StatelessWidget {
                             Text(
                               'Wishes',
                               style: textStyleDangrek(
-                                  color: data.hasWishes != null && data.hasWishes! ? primaryColor : Colors.grey,
+                                  color: data.hasWishes != null && data.hasWishes! ? greenTextColor : Colors.grey,
                                   fontSize: 16),
                             ),
                           ],
@@ -147,7 +144,7 @@ class PendingEventsWidget extends StatelessWidget {
                               child: CircleAvatar(
                                 radius: 12,
                                 backgroundColor: data.hasPersonalWishes != null && data.hasPersonalWishes!
-                                    ? primaryColor
+                                    ? greenTextColor
                                     : Colors.grey,
                                 child: const Icon(
                                   Icons.check,
@@ -162,7 +159,7 @@ class PendingEventsWidget extends StatelessWidget {
                             Text(
                               'Personal Wishes',
                               style: textStyleDangrek(
-                                  color: data.hasWishes != null && data.hasWishes! ? primaryColor : Colors.grey,
+                                  color: data.hasPersonalWishes != null && data.hasPersonalWishes! ? greenTextColor : Colors.grey,
                                   fontSize: 16),
                             ),
                           ],
@@ -179,7 +176,7 @@ class PendingEventsWidget extends StatelessWidget {
                               child: CircleAvatar(
                                 radius: 12,
                                 backgroundColor:
-                                data.hasGifts != null && data.hasGifts! ? primaryColor : Colors.grey,
+                                data.hasGifts != null && data.hasGifts! ? greenTextColor : Colors.grey,
                                 child: const Icon(
                                   Icons.check,
                                   size: 15,
@@ -193,7 +190,7 @@ class PendingEventsWidget extends StatelessWidget {
                             Text(
                               'Gifts',
                               style: textStyleDangrek(
-                                  color: data.hasWishes != null && data.hasWishes! ? primaryColor : Colors.grey,
+                                  color: data.hasGifts != null && data.hasGifts! ? greenTextColor : Colors.grey,
                                   fontSize: 16),
                             ),
                           ],

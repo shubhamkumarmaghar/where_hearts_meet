@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
@@ -42,7 +44,7 @@ class CreateGiftsController extends BaseController {
     super.onInit();
     var createdEvent = locator<CreatedEventRepo>();
     eventResponseModel = createdEvent.getCurrentEvent ?? EventResponseModel();
-    forEdit = createdEvent.actions == AppActions.edit;
+    forEdit = createdEvent.actions == AppActions.edit || createdEvent.actions == AppActions.update;
     getGifts();
   }
 
@@ -176,10 +178,12 @@ class CreateGiftsController extends BaseController {
 
   void navigateToEventCompletedScreen() async {
     var createdEvent = locator<CreatedEventRepo>();
-    if (createdEvent.getCurrentEvent != null) {
-      createdEvent.setEvent(null);
+    if (createdEvent.actions == AppActions.update) {
+      Get.back(result: submittedGiftsList.isNotEmpty);
+    } else {
+      createdEvent.clearRepo();
+      Get.offAllNamed(RoutesConst.dashboardScreen);
     }
-    Get.offAllNamed(RoutesConst.dashboardScreen);
   }
 
   @override

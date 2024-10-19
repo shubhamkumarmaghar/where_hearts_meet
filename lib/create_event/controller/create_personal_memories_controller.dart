@@ -182,6 +182,7 @@ class CreatePersonalMemoriesController extends BaseController {
       final image = coverScreenData!['image'] as File;
 
       final imageResponse = await createEventService.uploadImageApi(imageFile: image);
+
       if (imageResponse != null) {
         final model =
             PersonalWishesModel(eventId: eventResponseModel.eventid, message: text, coverImage: imageResponse.fileId);

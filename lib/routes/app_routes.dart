@@ -96,7 +96,7 @@ class AppRoutes {
       GetPage(
         name: RoutesConst.eGiftsScreen,
         binding: EGiftsBinding(),
-        page: () => const EGiftsScreen(),
+        page: () =>  EGiftsScreen(),
       ),
       GetPage(
         name: RoutesConst.wishesScreen,

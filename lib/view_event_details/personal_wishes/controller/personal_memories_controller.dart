@@ -28,18 +28,13 @@ class PersonalMemoriesController extends BaseController {
     userType = repo.getUserType ?? UserType.registered;
     if (eventId.isNotEmpty) {
       personalWishesCoverScreen(eventId: eventId);
-      personalWishesMemories(eventId: eventId);
     }
   }
 
   Future<void> personalWishesCoverScreen({required String eventId}) async {
     setBusy(true);
     final response = await _eventService.personalWishesApi(eventId: eventId);
-    if (response != null) {
-      personalWishesCoverModel = response;
-    } else {
-      personalWishesCoverModel = PersonalWishesCoverModel();
-    }
+    personalWishesCoverModel = response ?? PersonalWishesCoverModel();
     setBusy(false);
     update();
   }
@@ -47,11 +42,7 @@ class PersonalMemoriesController extends BaseController {
   Future<void> personalWishesMemories({required String eventId}) async {
     setBusy(true);
     final response = await _eventService.getPersonalMemoriesApi(eventId: eventId);
-    if (response != null) {
-      memoriesList = response;
-    } else {
-      memoriesList = [];
-    }
+    memoriesList = response ?? [];
     setBusy(false);
     update();
   }

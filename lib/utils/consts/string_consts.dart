@@ -88,4 +88,6 @@ class StringConsts {
   static const deleteForMe = 'Delete for me';
   static const deleteForEveryone = 'Delete for everyone';
   static const deleteThisEvent = 'Delete this event';
+  static const deleteThisGift = 'Delete this gift';
+  static const deleteThisWish = 'Delete this wish';
 }

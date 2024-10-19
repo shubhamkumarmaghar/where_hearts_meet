@@ -1,9 +1,13 @@
+import 'dart:developer';
+
 import 'package:confetti/confetti.dart';
 import 'package:get/get.dart';
+import 'package:heart_e_homies/utils/dialogs/pop_up_dialogs.dart';
 import 'package:heart_e_homies/view_event_details/service/view_event_service.dart';
 
 import '../../../create_event/model/event_response_model.dart';
 import '../../../create_event/model/gift_model.dart';
+import '../../../routes/routes_const.dart';
 import '../../../utils/consts/screen_const.dart';
 import '../../../utils/consts/service_const.dart';
 import '../../../utils/controller/base_controller.dart';
@@ -17,6 +21,7 @@ class EGiftsController extends BaseController {
   late String eventId;
   late EventsCreated eventsCreated;
   late UserType userType;
+  bool canUpdateGift = false;
 
   @override
   void onInit() {
@@ -28,6 +33,9 @@ class EGiftsController extends BaseController {
     userType = repo.getUserType ?? UserType.registered;
     if (eventId.isNotEmpty) {
       getEGifts(eventId: eventId);
+      if (eventsCreated == EventsCreated.byUser) {
+        canUpdateGift = true;
+      }
     }
   }
 
@@ -53,6 +61,28 @@ class EGiftsController extends BaseController {
       loadingState = LoadingState.noData;
     }
     update();
+  }
+
+  void deleteGift(GiftModel giftModel) async {
+    showLoaderDialog(context: Get.context!);
+    final res = await _eventService.deleteEGiftsApi(giftId: giftModel.id ?? -1);
+    cancelDialog();
+    if (res) {
+      giftsList?.removeWhere((element) => element.id == giftModel.id);
+      update();
+    }
+  }
+
+  void navigateToAddGifts() async {
+    final repo = locator<CreatedEventRepo>();
+    repo.setAppActions(AppActions.update);
+    final res = await Get.toNamed(RoutesConst.createGiftsScreen);
+    if (res != null && res as bool == true) {
+      showLoaderDialog(context: Get.context!);
+      getEGifts(eventId: eventId);
+      repo.setAppActions(AppActions.view);
+      cancelDialog();
+    }
   }
 
   @override

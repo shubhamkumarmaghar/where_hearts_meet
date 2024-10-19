@@ -13,22 +13,10 @@ class GiftShimmer extends StatelessWidget {
         return Container(
           width: screenWidth,
           padding: EdgeInsets.all(screenWidth * 0.04),
-          decoration: const BoxDecoration(
-              border: Border(
-                left: BorderSide(width: 0.5, color: Colors.white),
-                right: BorderSide(width: 0.5, color: Colors.white),
-                top: BorderSide(width: 0.5, color: Colors.white),
-                bottom: BorderSide(color: Colors.white, width: 5),
-              ),
-              borderRadius: BorderRadius.only(
-                topRight: Radius.circular(40),
-                topLeft: Radius.circular(40),
-                bottomLeft: Radius.circular(40),
-                bottomRight: Radius.circular(40),
-              )),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
+
               Row(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [

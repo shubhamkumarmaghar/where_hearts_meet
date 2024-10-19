@@ -30,7 +30,6 @@ class CreateWishesController extends BaseController {
   List<ImageResponseModel> videosList = [];
   ImageResponseModel? profileImage;
   late bool forEdit;
-
   final createEventService = CreateEventService();
 
   @override
@@ -38,7 +37,7 @@ class CreateWishesController extends BaseController {
     super.onInit();
     var createdEvent = locator<CreatedEventRepo>();
     eventResponseModel = createdEvent.getCurrentEvent ?? EventResponseModel();
-    forEdit = createdEvent.actions == AppActions.edit;
+    forEdit = createdEvent.actions == AppActions.edit || createdEvent.actions == AppActions.update;
   }
 
   void uploadSenderImage() {
@@ -214,7 +213,10 @@ class CreateWishesController extends BaseController {
 
   void navigateToPersonalWishesScreen() {
     if (wishesList.isNotEmpty) {
-      if (forEdit) {
+      var createdEvent = locator<CreatedEventRepo>();
+      if (createdEvent.actions == AppActions.update) {
+        Get.back(result: wishesList.isNotEmpty);
+      } else if (createdEvent.actions == AppActions.edit) {
         Get.offNamed(
           RoutesConst.createPersonalCoverScreen,
         );

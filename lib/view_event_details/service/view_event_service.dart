@@ -46,6 +46,14 @@ class ViewEventService {
     return null;
   }
 
+  Future<bool> deleteEGiftsApi({required int giftId}) async {
+    String url = AppUrls.giftsUrl;
+
+    final response = await _apiService.deleteApiCall(url: url, queryParams: {'gift_id': giftId});
+
+    return response['message'].toString().toLowerCase().contains('gift deleted');
+  }
+
   Future<List<WishesModel>?> fetchWishesList({required String eventId}) async {
     String url = AppUrls.eventWishesUrl;
 
@@ -112,5 +120,17 @@ class ViewEventService {
       return PersonalDecorationsModel.fromJson(data['data']);
     }
     return null;
+  }
+
+  Future<String?> deleteWishApi({required int wishId}) async {
+    String url = AppUrls.eventWishesUrl;
+
+    final response = await _apiService.deleteApiCall(url: url, queryParams: {"wish_id": wishId});
+
+    if (response['message'].toLowerCase().contains('wish deleted')) {
+      return response['message'];
+    } else {
+      return null;
+    }
   }
 }

@@ -66,7 +66,7 @@ class EventCoverScreen extends StatelessWidget {
                 decoration: BoxDecoration(
                   gradient: backgroundGradient,
                   image: DecorationImage(
-                    image: NetworkImage(controller.eventDetails.splashBackgroundImage ??
+                    image: NetworkImage(controller.eventDetails.coverImage ??
                         'https://firebasestorage.googleapis.com/v0/b/where-hearts-meet.appspot.com/o/Black%20Minimalist%20Happy%20Birthday%20Poster%20(1).png?alt=media&token=13bada89-8df2-4c06-b98e-962a08ba929e'),
                     fit: BoxFit.cover,
                   ),
@@ -117,7 +117,7 @@ class EventCoverScreen extends StatelessWidget {
                     width: screenHeight * 0.2,
                     decoration: BoxDecoration(
                         image: DecorationImage(
-                            image: NetworkImage(controller.eventDetails.splashBackgroundImage ??
+                            image: NetworkImage(controller.eventDetails.coverImage ??
                                 'https://firebasestorage.googleapis.com/v0/b/where-hearts-meet.appspot.com/o/Black%20Minimalist%20Happy%20Birthday%20Poster%20(1).png?alt=media&token=13bada89-8df2-4c06-b98e-962a08ba929e'),
                             fit: BoxFit.cover),
                         border: Border.all(width: 5, color: Colors.white),

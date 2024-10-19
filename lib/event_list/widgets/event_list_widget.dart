@@ -93,6 +93,19 @@ class EventsListWidget extends StatelessWidget {
                                     ),
                         ),
                         Positioned(
+                          left: 10,
+                          top: 10,
+                          child: GestureDetector(
+                            onTap: () {
+                              controller.wishlistEvent(data.eventid ??'');
+                            },
+                            child: Icon(
+                              Icons.favorite_border_outlined,
+                              color: Colors.white,
+                            ),
+                          ),
+                        ),
+                        Positioned(
                           right: screenWidth * 0.03,
                           bottom: screenHeight * 0.01,
                           child: GestureDetector(

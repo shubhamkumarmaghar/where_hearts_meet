@@ -34,4 +34,7 @@ class AppUrls {
   static const String personaMessagesUrl = 'wishesApp/personal_messages/';
   static const String personalDecorationsUrl = 'wishesApp/decorations/';
   static const String giftsUrl = 'eventApp/gifts/';
+
+  ///wishlist
+static const String wishlistUrl = '/wishlist/';
 }

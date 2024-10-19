@@ -29,6 +29,10 @@ class EventListController extends BaseController {
       pageTitle = 'Created Events';
       eventsListCreatedByUser();
       forSelf = false;
+    } else if (eventsCreated == EventsCreated.wishlist) {
+      pageTitle = 'Wishlist';
+      getWishListedEvents();
+      forSelf = false;
     } else {
       pageTitle = 'Pending Events';
       pendingEventsCreatedByUser();
@@ -53,25 +57,34 @@ class EventListController extends BaseController {
     repo.setUserType(UserType.registered);
     repo.setAppActions(AppActions.edit);
 
-    bool? changed = false;
     if (eventDecorations == EventDecorations.wishes) {
-      changed = await Get.toNamed(RoutesConst.createWishesScreen);
+      await Get.toNamed(RoutesConst.createWishesScreen);
     } else if (eventDecorations == EventDecorations.personalWishes) {
-      changed = await Get.toNamed(RoutesConst.createPersonalCoverScreen);
+      await Get.toNamed(RoutesConst.createPersonalCoverScreen);
     } else if (eventDecorations == EventDecorations.eGifts) {
-      changed = await Get.toNamed(RoutesConst.createGiftsScreen);
+      await Get.toNamed(RoutesConst.createGiftsScreen);
     } else if (eventDecorations == EventDecorations.none) {
       if (eventResponseModel.hasWishes != null && eventResponseModel.hasWishes == false) {
-        changed = await Get.toNamed(RoutesConst.createWishesScreen);
+        await Get.toNamed(RoutesConst.createWishesScreen);
       } else if (eventResponseModel.hasPersonalWishes != null && eventResponseModel.hasPersonalWishes == false) {
-        changed = await Get.toNamed(RoutesConst.createPersonalCoverScreen);
+        await Get.toNamed(RoutesConst.createPersonalCoverScreen);
       }
     }
     pendingEventsCreatedByUser();
   }
 
   Future<void> eventsListCreatedByUser() async {
-    final response = await _eventListService.eventsListCreatedByUserApi();
+    final response = await _eventListService.fetchEventsList(EventsCreated.byUser);
+    if (response != null && response.isNotEmpty) {
+      eventsList = response;
+    } else {
+      eventsList = [];
+    }
+    update();
+  }
+
+  Future<void> getWishListedEvents() async {
+    final response = await _eventListService.fetchEventsList(EventsCreated.wishlist);
     if (response != null && response.isNotEmpty) {
       eventsList = response;
     } else {
@@ -81,7 +94,7 @@ class EventListController extends BaseController {
   }
 
   Future<void> pendingEventsCreatedByUser() async {
-    final response = await _eventListService.fetchPendingEventsApi();
+    final response = await _eventListService.fetchEventsList(EventsCreated.pending);
     if (response != null && response.isNotEmpty) {
       eventsList = response;
     } else {
@@ -91,13 +104,19 @@ class EventListController extends BaseController {
   }
 
   Future<void> eventsListCreatedForUser() async {
-    final response = await _eventListService.eventsListCreatedForUserApi();
+    final response = await _eventListService.fetchEventsList(EventsCreated.forUser);
     if (response != null && response.isNotEmpty) {
       eventsList = response;
     } else {
       eventsList = [];
     }
     update();
+  }
+
+  Future<void> wishlistEvent(String eventId) async {
+    showLoaderDialog(context: Get.context!);
+    final response = await _eventListService.wishListEvent(eventId);
+    cancelDialog();
   }
 
   void deleteEvent(

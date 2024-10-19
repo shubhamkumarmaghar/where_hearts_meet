@@ -90,6 +90,7 @@ class VideosListScreen extends StatelessWidget {
                                 children: [
                                   SizedBox(
                                     width: screenWidth,
+                                    height: screenHeight,
                                     child: Image.file(
                                       File(snapshot.data!),
                                       fit: BoxFit.cover,

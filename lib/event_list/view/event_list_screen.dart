@@ -69,4 +69,25 @@ class EventListScreen extends StatelessWidget {
       },
     );
   }
+
+  Widget getView(EventsCreated eventsCreated) {
+    switch (eventsCreated) {
+      case EventsCreated.pending:
+        return PendingEventsWidget(eventsList: controller.eventsList ?? []);
+
+      case EventsCreated.forUser:
+        return EventsListWidget(
+          eventsList: controller.eventsList ?? [],
+        );
+      case EventsCreated.byUser:
+        return EventsListWidget(
+          eventsList: controller.eventsList ?? [],
+        );
+
+      case EventsCreated.wishlist:
+        return EventsListWidget(
+          eventsList: controller.eventsList ?? [],
+        );
+    }
+  }
 }

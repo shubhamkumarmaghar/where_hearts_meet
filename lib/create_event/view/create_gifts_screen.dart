@@ -96,7 +96,7 @@ class CreateGiftsScreen extends StatelessWidget {
                             Align(
                               alignment: Alignment.centerLeft,
                               child: Text(
-                                StringConsts.selectGiftType,
+                                '${StringConsts.selectGiftType}*',
                                 style: textStyleDangrek(fontSize: 18),
                               ),
                             ),
@@ -120,7 +120,7 @@ class CreateGiftsScreen extends StatelessWidget {
                               height: screenHeight * 0.02,
                             ),
                             DesignerTextField(
-                                title: StringConsts.senderName,
+                                title:'${StringConsts.senderName}*' ,
                                 hint: StringConsts.enterSenderName,
                                 onChanged: (text) {},
                                 controller: controller.nameTextController),

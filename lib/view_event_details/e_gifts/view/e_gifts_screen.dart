@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:scratcher/scratcher.dart';
@@ -10,6 +11,7 @@ import '../../../utils/consts/confetti_shape_enum.dart';
 import '../../../utils/consts/images_const.dart';
 import '../../../utils/consts/screen_const.dart';
 import '../../../utils/consts/string_consts.dart';
+import '../../../utils/dialogs/pop_up_dialogs.dart';
 import '../../../utils/shimmers/gift_shimmer.dart';
 import '../../../utils/util_functions/decoration_functions.dart';
 import '../../../utils/widgets/app_bar_widget.dart';
@@ -19,7 +21,9 @@ import '../../../utils/widgets/no_data_screen.dart';
 import '../controller/e_gifts_controller.dart';
 
 class EGiftsScreen extends StatelessWidget {
-  const EGiftsScreen({super.key});
+  final controller = Get.find<EGiftsController>();
+
+  EGiftsScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -38,7 +42,7 @@ class EGiftsScreen extends StatelessWidget {
                 Column(
                   children: [
                     SizedBox(
-                      height: screenHeight * 0.07,
+                      height: screenHeight * 0.06,
                     ),
                     Row(
                       children: [
@@ -49,24 +53,38 @@ class EGiftsScreen extends StatelessWidget {
                           style: textStyleDangrek(fontSize: 24),
                         ),
                         const Spacer(),
+                        controller.canUpdateGift
+                            ? GestureDetector(
+                                onTap: controller.navigateToAddGifts,
+                                child: Container(
+                                  padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 2),
+                                  decoration: const BoxDecoration(color: Colors.white, shape: BoxShape.circle),
+                                  child: const Icon(
+                                    Icons.add,
+                                    color: primaryColor,
+                                    size: 20,
+                                  ),
+                                ),
+                              )
+                            : const SizedBox.shrink()
                       ],
                     ),
                     SizedBox(
                       height: screenHeight * 0.01,
                     ),
-                    controller.loadingState == LoadingState.hasData
-                        ? Text(
-                            StringConsts.scratchToOpen,
-                            style: textStyleMontserrat(fontSize: 16),
-                          )
-                        : const SizedBox.shrink(),
+                    // controller.loadingState == LoadingState.hasData
+                    //     ? Text(
+                    //         StringConsts.scratchToOpen,
+                    //         style: textStyleMontserrat(fontSize: 16),
+                    //       )
+                    //     : const SizedBox.shrink(),
                     Expanded(
                         child: controller.loadingState == LoadingState.loading
                             ? const GiftShimmer()
                             : controller.loadingState == LoadingState.noData
                                 ? const NoDataScreen(
                                     showBackIcon: false,
-                                    message: 'You have not received any gifts',
+                                    message: 'No any gifts found.',
                                   )
                                 : scratchGiftsWidget(controller)),
                   ],
@@ -159,6 +177,7 @@ class EGiftsScreen extends StatelessWidget {
                     width: screenWidth * 0.54,
                     child: Text(
                       '${StringConsts.from} - ${data.senderName}',
+                      maxLines: 2,
                       style: textStyleAleo(fontSize: 16),
                     ),
                   ),
@@ -218,20 +237,46 @@ class EGiftsScreen extends StatelessWidget {
           SizedBox(
             height: screenHeight * 0.02,
           ),
-          Visibility(
-            visible: data.cardId != null && data.cardId!.isNotEmpty,
-            child: Text(
-              '${StringConsts.giftCardNo} - ${data.cardId}',
-              style: textStyleAleo(fontSize: 16),
-            ),
-          ),
-          Visibility(
-            visible: data.cardPin != null && data.cardPin!.isNotEmpty,
-            child: Text(
-              '${StringConsts.giftPin} - ${data.cardPin}',
-              style: textStyleAleo(fontSize: 16),
-            ),
-          ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Visibility(
+                    visible: data.cardId != null && data.cardId!.isNotEmpty,
+                    child: Text(
+                      '${StringConsts.giftCardNo} - ${data.cardId}',
+                      style: textStyleAleo(fontSize: 16),
+                    ),
+                  ),
+                  Visibility(
+                    visible: data.cardPin != null && data.cardPin!.isNotEmpty,
+                    child: Text(
+                      '${StringConsts.giftPin} - ${data.cardPin}',
+                      style: textStyleAleo(fontSize: 16),
+                    ),
+                  ),
+                ],
+              ),
+              controller.canUpdateGift
+                  ? GestureDetector(
+                      onTap: () {
+                        showCupertinoActionSheetOptions(
+                          button1Text: StringConsts.deleteThisGift,
+                          onTapButton1: () {
+                            controller.deleteGift(data);
+                          },
+                        );
+                      },
+                      child: const Icon(
+                        Icons.delete,
+                        color: errorColor,
+                      ),
+                    )
+                  : const SizedBox.shrink()
+            ],
+          )
         ],
       ),
     );

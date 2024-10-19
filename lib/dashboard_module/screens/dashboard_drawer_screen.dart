@@ -123,6 +123,16 @@ class DashboardDrawerScreen extends StatelessWidget {
                 height: screenHeight * 0.01,
               ),
               getDrawerContentWidget(
+                  icon: Icons.wallet_giftcard,
+                  heading: "Wishlist",
+                  onTap: () {
+                    Get.toNamed(RoutesConst.eventListScreen, arguments: EventsCreated.wishlist);
+                    onDrawerClose();
+                  }),
+              SizedBox(
+                height: screenHeight * 0.01,
+              ),
+              getDrawerContentWidget(
                   icon: Icons.settings,
                   heading: "Settings",
                   onTap: () {

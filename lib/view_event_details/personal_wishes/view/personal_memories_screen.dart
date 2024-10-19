@@ -35,13 +35,12 @@ class _PersonalMemoriesScreenState extends State<PersonalMemoriesScreen> {
                       children: [
                         heightSpace(screenHeight * 0.08),
                         CircleAvatar(
-                            backgroundImage: NetworkImage(controller.eventDetails.coverImage ?? ""),
-                            radius: 40),
+                            backgroundImage: NetworkImage(controller.eventDetails.coverImage ?? ""), radius: 40),
                         heightSpace(screenHeight * 0.01),
-                        getPrimaryText(text: controller.eventDetails.receiverName??'', fontSize: 20),
+                        getPrimaryText(text: controller.eventDetails.receiverName ?? '', fontSize: 20),
                         getPrimaryText(
                             text: formatDateTime(
-                                dateTime: controller.eventDetails.eventHostDay ??'', format: 'dd-MMM-yyyy')),
+                                dateTime: controller.eventDetails.eventHostDay ?? '', format: 'dd-MMM-yyyy')),
                         heightSpace(screenHeight * 0.01),
                         Container(
                           margin: const EdgeInsets.symmetric(horizontal: 20),
@@ -170,8 +169,9 @@ class _PersonalMemoriesScreenState extends State<PersonalMemoriesScreen> {
                             //autoPlay: true,
                             //aspectRatio: 16 / 9,
                             autoPlayCurve: Curves.fastOutSlowIn,
-                            // enableInfiniteScroll: true,
+                            enableInfiniteScroll: false,
                             disableCenter: true,
+
                             autoPlayAnimationDuration: Duration(milliseconds: 800),
                             viewportFraction: 0.65,
                             //  clipBehavior: Clip.none,

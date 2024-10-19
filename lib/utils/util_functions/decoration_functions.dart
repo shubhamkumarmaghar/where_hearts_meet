@@ -205,6 +205,24 @@ TextStyle textStyleAclonica({double? fontSize, Color? color, FontWeight? fontWei
       decorationColor: color ?? Colors.white);
 }
 
+TextStyle textStyleBasic({double? fontSize, Color? color, FontWeight? fontWeight, TextDecoration? textDecoration}) {
+  return GoogleFonts.basic(
+      color: color ?? Colors.white,
+      fontWeight: fontWeight ?? FontWeight.w500,
+      fontSize: fontSize ?? 22,
+      decoration: textDecoration,
+      decorationColor: color ?? Colors.white);
+
+}
+TextStyle textStyleAbhayaLibre({double? fontSize, Color? color, FontWeight? fontWeight, TextDecoration? textDecoration}) {
+  return GoogleFonts.abhayaLibre(
+      color: color ?? Colors.white,
+      fontWeight: fontWeight ?? FontWeight.w500,
+      fontSize: fontSize ?? 22,
+      decoration: textDecoration,
+      decorationColor: color ?? Colors.white);
+}
+
 TextStyle textStyleDancingScript(
     {double? fontSize, Color? color, FontWeight? fontWeight, TextDecoration? textDecoration,double? height}) {
   return GoogleFonts.dancingScript(

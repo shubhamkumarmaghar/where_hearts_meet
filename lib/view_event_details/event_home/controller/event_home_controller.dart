@@ -2,21 +2,20 @@ import 'dart:async';
 import 'dart:developer';
 
 import 'package:confetti/confetti.dart';
+import 'package:get/get.dart';
 import 'package:get/get_rx/src/rx_types/rx_types.dart';
+import 'package:heart_e_homies/utils/consts/string_consts.dart';
 import 'package:heart_e_homies/utils/controller/base_controller.dart';
 
 import '../../../create_event/model/event_response_model.dart';
 import '../../../create_event/model/wishes_model.dart';
+import '../../../routes/routes_const.dart';
 import '../../../utils/consts/screen_const.dart';
 import '../../../utils/consts/service_const.dart';
 import '../../../utils/repository/created_event_repo.dart';
 import '../../service/view_event_service.dart';
 
 class EventHomeController extends BaseController {
-  DateTime birthday = DateTime.now(); // Set your birthday date here
-  Duration countdownDuration = Duration();
-  Timer? countdownTimer;
-  final _eventService = ViewEventService();
   late ConfettiController homeConfettiController;
   late EventResponseModel eventDetails;
   RxString infoText = RxString('');
@@ -24,6 +23,8 @@ class EventHomeController extends BaseController {
   late EventsCreated eventsCreated;
   List<WishesModel> wishesList = [];
   late UserType userType;
+  RxBool descriptionVisible = false.obs;
+  RxBool canUpdateGifts = false.obs;
 
   @override
   void onInit() {
@@ -35,27 +36,18 @@ class EventHomeController extends BaseController {
     eventId = eventDetails.eventid ?? '';
     eventsCreated = repo.getCurrentEventCreated ?? EventsCreated.byUser;
     userType = repo.getUserType ?? UserType.registered;
-    getData();
     log('Event Details :: ${eventDetails.toJson()}  -- UserType :: $userType  -- Event Created :: $eventsCreated');
-  }
-
-  Future<void> getData() async {
-    startCountdown();
-    getEventWishes(eventId);
-    update();
-  }
-
-  Future<void> getEventWishes(String eventId) async {
-    var response = await _eventService.fetchWishesList(eventId: eventId);
-    if (response != null) {
-      wishesList = response;
+    if (eventsCreated == EventsCreated.byUser) {
+      canUpdateGifts.value = true;
     }
-    update();
+    if (eventDetails.eventDescription != null && eventDetails.eventDescription!.trim().isNotEmpty) {
+      descriptionVisible.value = true;
+      showDescription(eventDetails.eventDescription!);
+    }
   }
 
-  void showDescription() async {
-    final info = eventDetails.eventDescription ?? '';
-    final List<String> list = info.split('');
+  void showDescription(String description) async {
+    final List<String> list = description.split('');
     String showInfo = '';
     for (var data in list) {
       showInfo = '$showInfo$data';
@@ -64,15 +56,9 @@ class EventHomeController extends BaseController {
     }
   }
 
-  Future<void> startCountdown() async {
-    if (birthday.isAfter(DateTime.now())) {
-      countdownDuration = birthday.difference(DateTime.now());
-      countdownTimer = Timer.periodic(const Duration(seconds: 1), (_) {
-        countdownDuration = birthday.difference(DateTime.now());
-      });
-    } else {
-      countdownDuration = birthday.difference(birthday);
-    }
-    update();
+  @override
+  void onClose() {
+    homeConfettiController.dispose();
+    super.onClose();
   }
 }
