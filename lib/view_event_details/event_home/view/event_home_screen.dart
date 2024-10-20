@@ -1,14 +1,10 @@
-import 'dart:developer';
 
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:flutter_card_swiper/flutter_card_swiper.dart';
 import 'package:get/get.dart';
 import 'package:heart_e_homies/utils/consts/string_consts.dart';
 import 'package:heart_e_homies/view_event_details/event_home/controller/event_home_controller.dart';
 import 'package:lottie/lottie.dart';
-
 import '../../../routes/routes_const.dart';
 import '../../../utils/consts/app_screen_size.dart';
 import '../../../utils/consts/color_const.dart';
@@ -16,7 +12,6 @@ import '../../../utils/consts/confetti_shape_enum.dart';
 import '../../../utils/util_functions/decoration_functions.dart';
 import '../../../utils/widgets/cached_image.dart';
 import '../../../utils/widgets/confetti_view.dart';
-import '../../../utils/widgets/util_widgets/instagram_post_screen.dart';
 
 class EventHomeScreen extends StatefulWidget {
   const EventHomeScreen({super.key});
