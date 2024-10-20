@@ -2,6 +2,7 @@ import 'package:get_storage/get_storage.dart';
 import 'package:heart_e_homies/utils/consts/screen_const.dart';
 
 import '../../create_event/model/event_response_model.dart';
+import '../../create_event/model/wishes_model.dart';
 import '../../utils/consts/api_urls.dart';
 import '../../utils/consts/shared_pref_const.dart';
 import '../../utils/services/api_service.dart';
@@ -61,6 +62,23 @@ class EventListService {
 
     if (response['message'].toLowerCase().contains('event deleted')) {
       return response['message'];
+    } else {
+      return null;
+    }
+  }
+  Future<List<WishesModel>?> fetchWishesList({required String eventId}) async {
+    String url = AppUrls.eventWishesUrl;
+
+    final response = await _apiService.getApiCall(
+      url: url,
+      queryParams: {
+        'event_id': eventId,
+      },
+    );
+    final data = response;
+    if (data['message'].toString().toLowerCase().contains('wishes found') && data['data'] != null) {
+      Iterable iterable = data['data'];
+      return iterable.map((element) => WishesModel.fromJson(element)).toList();
     } else {
       return null;
     }

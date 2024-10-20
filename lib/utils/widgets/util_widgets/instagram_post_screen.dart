@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_carousel_widget/flutter_carousel_widget.dart';
 import 'package:get/get.dart';
@@ -199,7 +200,7 @@ class PostWidget extends StatelessWidget {
                   Visibility(
                     visible: postImageUrl!.isNotEmpty,
                     child: ClipRRect(
-                      borderRadius: BorderRadius.only(topLeft: Radius.circular(20), topRight: Radius.circular(20)),
+                      borderRadius: BorderRadius.only(topLeft: Radius.circular(10), topRight: Radius.circular(10)),
                       child: FlutterCarousel(
                         items: postImageUrl
                             ?.map(
@@ -249,6 +250,7 @@ class PostWidget extends StatelessWidget {
                     //     darkGreyColor.withOpacity(0.2),
                     //   ]),),
                     child: Row(
+
                       children: [
                         GestureDetector(
                           onTap: () {
@@ -265,15 +267,21 @@ class PostWidget extends StatelessWidget {
                                   child: cachedImage(imageUrl: profileImageUrl))),
                         ),
                         const SizedBox(width: 10),
-                        Text(
-                          username.capitalizeFirst.toString(),
-                          style: textStyleAbhayaLibre(color: Colors.white, fontSize: 20),
+                        Container(
+                          // padding: EdgeInsets.symmetric(horizontal: 10),
+                          // decoration: BoxDecoration(
+                          //   borderRadius: BorderRadius.circular(5),
+                          //   color:  Colors.black.withOpacity(0.5),
+                          //  ),
+                          child: Text(
+                            username.capitalizeFirst.toString(),
+                            style: textStyleAbhayaLibre(color: Colors.white, fontSize: 20, fontWeight: FontWeight.w700,),
+                          ),
                         ),
                         const Spacer(),
                         canDelete
                             ? CircleAvatar(
                                 backgroundColor: Colors.white,
-
                                 child: GestureDetector(
                                   onTap: () => onDelete(),
                                   child: const Icon(
@@ -289,8 +297,12 @@ class PostWidget extends StatelessWidget {
                   ),
                 ],
               ),
-            Padding(
+            Container(
               padding: const EdgeInsets.symmetric(vertical: 15, horizontal: 10),
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.only(bottomLeft: Radius.circular(10), bottomRight: Radius.circular(10)),
+                color: Colors.white,
+              ),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [

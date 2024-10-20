@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:heart_e_homies/utils/consts/service_const.dart';
@@ -17,10 +19,12 @@ class EventListController extends BaseController {
   late String pageTitle;
   late bool forSelf;
 
+
   @override
   void onInit() {
     super.onInit();
     eventsCreated = Get.arguments as EventsCreated;
+    log('zzzzz $eventsCreated');
     if (eventsCreated == EventsCreated.forUser) {
       pageTitle = 'Received Events';
       eventsListCreatedForUser();
@@ -118,7 +122,6 @@ class EventListController extends BaseController {
     final response = await _eventListService.wishListEvent(eventId);
     cancelDialog();
   }
-
   void deleteEvent(
       {required String eventId,
       required EventsCreated eventsCreated,

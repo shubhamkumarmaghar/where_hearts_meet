@@ -76,21 +76,7 @@ class EventsListWidget extends StatelessWidget {
                                         },
                                       );
                                     })
-                                  : moreViewPopUpMenu(
-                                      onDelete: () {
-                                        showCupertinoActionSheetOptions(
-                                          button1Text: StringConsts.deleteThisEvent,
-                                          onTapButton1: () {
-                                            controller.deleteEvent(
-                                              eventId: data.eventid ?? '',
-                                              eventsCreated: controller.eventsCreated,
-                                              deleteForMe: true,
-                                              deleteForEveryone: true,
-                                            );
-                                          },
-                                        );
-                                      },
-                                    ),
+                                  : const SizedBox.shrink(),
                         ),
                         Positioned(
                           left: 10,
@@ -166,7 +152,8 @@ class EventsListWidget extends StatelessWidget {
                           width: screenWidth * 0.55,
                           alignment: Alignment.centerLeft,
                           child: Text(
-                            "${StringConsts.luckyOne} : ${controller.forSelf ? StringConsts.you : '${data.receiverName}'}",
+                          //  "${StringConsts.luckyOne} : ${controller.forSelf ? StringConsts.you : '${data.receiverName}'}",
+                            "${StringConsts.luckyOne} : ${data.receiverName}",
                             style: textStyleAleo(fontSize: 16),
                             textAlign: TextAlign.center,
                             maxLines: 1,
@@ -187,7 +174,8 @@ class EventsListWidget extends StatelessWidget {
                       alignment: Alignment.centerLeft,
                       width: screenWidth * 0.8,
                       child: Text(
-                        "${StringConsts.from} : ${!controller.forSelf ? StringConsts.you : '${data.hostName}'}",
+                       // "${StringConsts.from} : ${!controller.forSelf ? StringConsts.you : '${data.hostName}'}",
+                      "${StringConsts.from} : ${data.hostName}",
                         style: textStyleAleo(fontSize: 14),
                         textAlign: TextAlign.center,
                         maxLines: 1,

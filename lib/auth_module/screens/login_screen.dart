@@ -20,6 +20,10 @@ class LoginScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        toolbarHeight: 0.0,
+        backgroundColor: Colors.transparent,
+      ),
       body: SizedBox(
         height: screenHeight,
         width: screenWidth,

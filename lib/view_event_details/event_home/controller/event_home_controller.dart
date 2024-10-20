@@ -19,12 +19,14 @@ class EventHomeController extends BaseController {
   late ConfettiController homeConfettiController;
   late EventResponseModel eventDetails;
   RxString infoText = RxString('');
+  final _eventService = ViewEventService();
   late String eventId;
   late EventsCreated eventsCreated;
-  List<WishesModel> wishesList = [];
+  List<WishesModel>? wishesList;
   late UserType userType;
   RxBool descriptionVisible = false.obs;
   RxBool canUpdateGifts = false.obs;
+  RxBool canShowWishes = false.obs;
 
   @override
   void onInit() {
@@ -44,6 +46,7 @@ class EventHomeController extends BaseController {
       descriptionVisible.value = true;
       showDescription(eventDetails.eventDescription!);
     }
+    getEventWishes(eventId);
   }
 
   void showDescription(String description) async {
@@ -54,6 +57,12 @@ class EventHomeController extends BaseController {
       await Future.delayed(const Duration(milliseconds: 60));
       infoText.value = showInfo;
     }
+  }
+
+  Future<void> getEventWishes(String eventId) async {
+    var res = await _eventService.fetchWishesList(eventId: eventId);
+    wishesList = res ?? [];
+    update();
   }
 
   @override
